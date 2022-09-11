@@ -1,6 +1,5 @@
 package source;
 
-import com.github.alperkurtul.firebaseuserauthentication.service.UserAuthenticationServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.SpringApplication;
@@ -15,11 +14,6 @@ public class LearnEApplication {
     public static void main(String[] args) {
         SpringApplication.run(LearnEApplication.class, args);
     }
-
-    @Bean
-    public UserAuthenticationServiceImpl userAuthenticationServiceImpl() {
-        return new UserAuthenticationServiceImpl();
-    };
 
     @Bean
     public ModelMapper modelMapper() {

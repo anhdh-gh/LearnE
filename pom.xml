@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.1.RELEASE</version>
+        <version>2.7.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>main</groupId>
@@ -52,11 +52,6 @@
             <groupId>com.google.firebase</groupId>
             <artifactId>firebase-admin</artifactId>
             <version>9.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.alperkurtul</groupId>
-            <artifactId>spring-boot-starter-firebase-user-authentication</artifactId>
-            <version>1.0.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>

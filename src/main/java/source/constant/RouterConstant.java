@@ -10,5 +10,6 @@ public class RouterConstant {
 
     public final static String GET_USER_BY_ID = "/user/{id}";
 
+
     private RouterConstant() {}
 }

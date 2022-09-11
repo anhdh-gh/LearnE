@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import source.exception.BusinessError;
 import source.exception.BusinessException;
 
@@ -31,16 +30,6 @@ public class BaseResponse<T> {
         response.data = data;
         response.meta.code = OK_CODE;
         response.meta.message = "OK";
-        return response;
-    }
-
-    public static <T> BaseResponse<List<T>> ofSucceeded(Page<T> data) {
-        BaseResponse<List<T>> response = new BaseResponse<>();
-        response.data = data.getContent();
-        response.meta.code = OK_CODE;
-        response.meta.page = data.getPageable().getPageNumber();
-        response.meta.size = data.getPageable().getPageSize();
-        response.meta.total = data.getTotalElements();
         return response;
     }
 

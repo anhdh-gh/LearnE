@@ -1,0 +1,1 @@
+firebase-web-api-key : AIzaSyDIeSr_V2SNfeql7kdj6m3boQKNVffrXvc

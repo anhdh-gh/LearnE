@@ -1,0 +1,24 @@
+package source.controller;
+
+import com.github.alperkurtul.firebaseuserauthentication.service.UserAuthenticationServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import source.constant.RouterConstant;
+import source.dto.request.UserSignupDto;
+import source.dto.response.BaseResponse;
+import source.service.user_service.UserService;
+
+@RestController
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping(RouterConstant.SIGN_UP)
+    public BaseResponse signup(@RequestBody UserSignupDto userSignupDto) throws Exception {
+        return userService.signUp(userSignupDto);
+    }
+}

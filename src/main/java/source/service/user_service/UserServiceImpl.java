@@ -2,7 +2,6 @@ package source.service.user_service;
 
 import com.github.alperkurtul.firebaseuserauthentication.bean.FirebaseSignInSignUpResponseBean;
 import com.github.alperkurtul.firebaseuserauthentication.exception.HttpBadRequestException;
-import com.github.alperkurtul.firebaseuserauthentication.service.UserAuthenticationServiceImpl;
 import com.google.common.base.CaseFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserAuthenticationServiceImpl userAuthenticationServiceImpl;
+    private UserAuthenticationServiceImplCustom userAuthenticationServiceImplCustom;
 
     @Autowired
     private Environment environment;
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public BaseResponse signUp(UserSignupDto userSignupDto) throws Exception {
         try {
             FirebaseSignInSignUpResponseBean firebaseSignInSignUpResponseBean =
-                userAuthenticationServiceImpl.signUpWithEmailAndPassword(userSignupDto.getEmail(), userSignupDto.getPassword());
+                userAuthenticationServiceImplCustom.signUpWithEmailAndPassword(userSignupDto.getEmail(), userSignupDto.getPassword());
             return BaseResponse.ofSucceeded(firebaseSignInSignUpResponseBean);
         } catch (HttpBadRequestException e) {
             FirebaseAuthException firebaseAuthError = JsonUtil.convertJsonStrToObject(e.getMessage(), FirebaseAuthException.class);

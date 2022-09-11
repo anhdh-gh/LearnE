@@ -16,6 +16,7 @@ import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.exception.BusinessError;
 import source.exception.BusinessErrors;
+import source.exception.BusinessException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,9 +31,14 @@ import java.util.stream.Collectors;
 public class CommonExceptionHandler {
 
     private ObjectMapper objectMapper;
-
     @Autowired
     private Environment environment;
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<BaseResponse<Void>> handleBusinessException(BusinessException exception) {
+        BaseResponse<Void> data = BaseResponse.ofFailed(exception);
+        return new ResponseEntity<>(data, exception.getError().getHttpStatus());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BaseResponse<Void>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
         List<FieldViolation> errors = exception.getBindingResult().getFieldErrors().stream()

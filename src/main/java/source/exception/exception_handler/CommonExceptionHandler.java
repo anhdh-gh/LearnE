@@ -4,6 +4,8 @@ package source.exception.exception_handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,10 +31,12 @@ public class CommonExceptionHandler {
 
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private Environment environment;
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BaseResponse<Void>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, HttpServletRequest request) {
         List<FieldViolation> errors = exception.getBindingResult().getFieldErrors().stream()
-            .map(e -> new FieldViolation(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, e.getField()), e.getDefaultMessage()))
+            .map(e -> new FieldViolation(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, e.getField()), e.getDefaultMessage(), environment.getProperty(e.getDefaultMessage())))
             .collect(Collectors.toList());
         BusinessError error = BusinessErrors.INVALID_PARAMETERS;
         BaseResponse<Void> data = BaseResponse.ofFailed(error, "Invalid parameters of object: " + exception.getBindingResult().getObjectName(), errors);

@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 public class FieldViolation {
     private String field;
+    private String code;
     private String description;
 }
 

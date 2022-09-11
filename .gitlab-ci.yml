@@ -1,0 +1,4 @@
+include:
+  - project: 'hack2hire2022/gitlab-ci-templates'
+    ref: main
+    file: "/projects/java/.gitlab-ci.yml"

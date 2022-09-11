@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/booking?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: "123456789"
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092

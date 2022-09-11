@@ -43,7 +43,7 @@ public class CommonExceptionHandler {
         HttpStatus status = error.getHttpStatus();
         return new ResponseEntity<>(data, status);
     }
-// code = message, message = ev(code), status
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<BaseResponse<Void>> handleException(Exception exception, HttpServletRequest request) {
         BusinessError error = BusinessErrors.INTERNAL_SERVER_ERROR;

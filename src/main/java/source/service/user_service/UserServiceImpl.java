@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         try {
             FirebaseSignInSignUpResponseBean firebaseSignInSignUpResponseBean =
                 userAuthenticationServiceImpl.signUpWithEmailAndPassword(userSignupDto.getEmail(), userSignupDto.getPassword());
-            return BaseResponse.ofSucceeded(firebaseSignInSignUpResponseBean);
+            return BaseResponse.ofSucceeded(userSignupDto.getRequestId(), firebaseSignInSignUpResponseBean);
         } catch (HttpBadRequestException e) {
             FirebaseAuthException firebaseAuthError = JsonUtil.convertJsonStrToObject(e.getMessage(), FirebaseAuthException.class);
             String type = firebaseAuthError.getError().getMessage().split(" : ")[0];
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
                     return BaseResponse.ofFailed(BusinessErrors.INVALID_PARAMETERS);
             }
 
-            return BaseResponse.ofFailed(BusinessErrors.INVALID_PARAMETERS, "Invalid parameters of object: " + userSignupDto.getClass(), errors);
+            return BaseResponse.ofFailed(userSignupDto.getRequestId(), BusinessErrors.INVALID_PARAMETERS, "Invalid parameters of object: " + userSignupDto.getClass(), errors);
         }
     }
 }

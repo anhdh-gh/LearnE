@@ -1,31 +1,39 @@
 package source.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.FieldNameConstants;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
-/**
- * Audit columns (create_time, update_time) for Jpa Model
- */
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
-@Data
-@FieldNameConstants
-public abstract class BaseEntity implements Serializable {
+@MappedSuperclass // Class cha không phải là entity. https://techmaster.vn/posts/36499/hibernate-inheritance-mapping
+@Data  // All together now: A shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, @Setter on all non-final fields, and @RequiredArgsConstructor!
+@AllArgsConstructor
+@NoArgsConstructor
+public class BaseEntity {
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time", nullable = false, updatable = false)
-    @CreatedDate
-    private Date createTime;
+    @Id
+    @Column(name = "Id")
+    protected String id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_time", nullable = false)
-    @LastModifiedDate
-    private Date updateTime;
+    @Column(name = "CreateTime")
+    protected Date createTime;
+
+    @Column(name = "UpdateTime")
+    protected Date updateTime;
+
+    @PrePersist // Thực thi trước khi entity được persist (được lưu vào database) bởi method persist()
+    protected void init() {
+        this.id = UUID.randomUUID().toString();
+        this.createTime = new Date();
+    }
+
+    @PreUpdate // Thực thi trước khi entity được update
+    protected void updateTime() {
+        this.updateTime = new Date();
+    }
 }

@@ -54,6 +54,7 @@ public class CorsFilter implements Filter {
         requestId = UUID.randomUUID().toString();
       }
       dataRequest.put("request_id", requestId);
+      request.setAttribute("request_id", requestId);
       dataRequest.put("uri", request.getRequestURI());
       requestWrapper.setBody(dataRequest.toString());
       chain.doFilter(requestWrapper, res);

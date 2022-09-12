@@ -2,9 +2,9 @@ package source.service;
 
 
 import source.dto.request.UserCreateRequestDto;
-import source.entity.User;
+import source.dto.response.BaseResponse;
 
 public interface UserService {
 
-    public User createUser(UserCreateRequestDto request) throws Exception;
+    public BaseResponse<Void> createUser(UserCreateRequestDto request) throws Exception;
 }

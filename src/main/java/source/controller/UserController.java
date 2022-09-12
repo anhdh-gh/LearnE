@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(RouterConstant.CREATE_USER)
-    public BaseResponse<Object> createUser(@RequestBody UserCreateRequestDto userCreateRequestDto) throws Exception {
-        return BaseResponse.ofSucceeded(userCreateRequestDto.getRequestId(), userService.createUser(userCreateRequestDto));
+    public BaseResponse createUser(@RequestBody UserCreateRequestDto userCreateRequestDto) throws Exception {
+        return userService.createUser(userCreateRequestDto);
     }
 }

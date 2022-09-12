@@ -30,8 +30,7 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
                 httpEntity,
                 new ParameterizedTypeReference<BaseResponse>() {});
 
-        BaseResponse baseResponse = CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
-        return baseResponse;
+        return CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
 
     @Override
@@ -43,8 +42,7 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
                 httpEntity,
                 new ParameterizedTypeReference<BaseResponse>() {});
 
-        BaseResponse baseResponse = CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
-        return baseResponse;
+        return CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
 
     private HttpHeaders prepareHeaders() {

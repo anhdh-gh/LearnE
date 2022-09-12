@@ -2,10 +2,12 @@ package source.dto.response;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import source.dto.request.BasicRequest;
 import source.exception.BusinessError;
 import source.exception.BusinessException;
 
@@ -21,6 +23,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Slf4j
 @NoArgsConstructor
+@AllArgsConstructor
 public class BaseResponse<T> {
 
     public static final Integer OK_CODE = 200;
@@ -61,7 +64,45 @@ public class BaseResponse<T> {
         return ofFailed(exception.getError(), exception.getMessage());
     }
 
+    public static <T> BaseResponse<T> ofSucceeded(String requestId, T data) {
+        BaseResponse<T> response = ofSucceeded(data);
+        response.meta.requestId = requestId;
+        return response;
+    }
+
+    public static <T> BaseResponse<T> ofSucceeded(String requestId) {
+        BaseResponse<T> response = ofSucceeded();
+        response.meta.requestId = requestId;
+        return response;
+    }
+
+    public static BaseResponse<Void> ofFailed(String requestId, BusinessError error) {
+        BaseResponse<Void> response = ofFailed(error);
+        response.meta.requestId = requestId;
+        return response;
+    }
+
+    public static BaseResponse<Void> ofFailed(String requestId, BusinessError error, String message) {
+        BaseResponse<Void> response = ofFailed(error, message);
+        response.meta.requestId = requestId;
+        return response;
+    }
+
+    public static BaseResponse<Void> ofFailed(String requestId, BusinessError error, String message, List<FieldViolation> errors) {
+        BaseResponse<Void> response = ofFailed(error, message, errors);
+        response.meta.requestId = requestId;
+        return response;
+    }
+
+    public static BaseResponse<Void> ofFailed(String requestId, BusinessException exception) {
+        BaseResponse<Void> response = ofFailed(exception);
+        response.meta.requestId = requestId;
+        return response;
+    }
+
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Metadata {
         private Integer code;

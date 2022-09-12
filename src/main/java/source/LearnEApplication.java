@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @PropertySource(value = "classpath:error.properties", encoding = "UTF-8")
@@ -20,5 +21,10 @@ public class LearnEApplication {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper;
+    }
+
+    @Bean
+    RestTemplate getRestTemplate(){
+        return new RestTemplate();
     }
 }

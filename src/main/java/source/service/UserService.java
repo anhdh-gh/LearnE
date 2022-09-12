@@ -6,5 +6,5 @@ import source.dto.response.BaseResponse;
 
 public interface UserService {
 
-    public BaseResponse<Void> createUser(UserCreateRequestDto request) throws Exception;
+    public BaseResponse createUser(UserCreateRequestDto request) throws Exception;
 }

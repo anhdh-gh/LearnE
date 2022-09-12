@@ -3,20 +3,18 @@ package source.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import source.constant.ErrorCodeConstant;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UserSignInRequestDto extends BasicRequest{
 
-    @NotNull(message = "400001")
-    @Email(message = "400002")
-    @Size(min = 6, max = 100, message = "400003")
+    @NotNull(message = ErrorCodeConstant.EMAIL_IS_NOT_NULL_400001)
+    @Email(message = ErrorCodeConstant.EMAIL_IS_NOT_VALID_400002)
+    @Size(min = 6, max = 100, message = ErrorCodeConstant.EMAIL_MUST_HAVE_AT_LEAST_6_CHARACTERS_AND_NO_MORE_THAN_100_CHARACTERS_400003)
     private String email;
 
     /*** The password policy is:
@@ -26,9 +24,9 @@ public class UserSignInRequestDto extends BasicRequest{
         Contains at least one char within a set of special chars (@#%$^ etc.)
         Does not contain space, tab, etc.
     * */
-    @NotNull(message = "400004")
-    @Size(min = 6, max = 500, message = "400005")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "400006")
+    @NotNull(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
+    @NotEmpty(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
+    @NotBlank(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
     private String password;
 
 }

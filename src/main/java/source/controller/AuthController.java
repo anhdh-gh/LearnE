@@ -16,15 +16,15 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private AuthService userService;
+    private AuthService authService;
 
     @PostMapping(RouterConstant.SIGN_UP)
     public BaseResponse signUp(@Valid @RequestBody UserSignUpRequestDto request) throws Exception{
-        return userService.signUp(request);
+        return authService.signUp(request);
     }
 
     @PostMapping(RouterConstant.SIGN_IN)
     public BaseResponse signIn(@Valid @RequestBody UserSignInRequestDto request) throws Exception{
-        return userService.signIn(request);
+        return authService.signIn(request);
     }
 }

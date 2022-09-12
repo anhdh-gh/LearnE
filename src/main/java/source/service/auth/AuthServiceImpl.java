@@ -10,15 +10,15 @@ import source.third_party.auth.service.AuthServiceThirdParty;
 @Service
 public class AuthServiceImpl implements AuthService {
     @Autowired
-    private AuthServiceThirdParty userServiceThirdParty;
+    private AuthServiceThirdParty authServiceThirdParty;
 
     @Override
     public BaseResponse signIn(UserSignInRequestDto request) throws Exception {
-        return userServiceThirdParty.signIn(request);
+        return authServiceThirdParty.signIn(request);
     }
 
     @Override
     public BaseResponse signUp(UserSignUpRequestDto request) throws Exception {
-        return userServiceThirdParty.signUp(request);
+        return authServiceThirdParty.signUp(request);
     }
 }

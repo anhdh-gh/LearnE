@@ -14,4 +14,3 @@ public class FieldViolation {
     private String code;
     private String description;
 }
-

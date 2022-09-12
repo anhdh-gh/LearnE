@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost/learne-service-user
+    url: jdbc:mysql://localhost:3306/learne-service-user
     username: root
-    password: root
+    password: hunghung123
 
   #  sql:
   #    init:

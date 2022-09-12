@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource(value = "classpath:error.properties", encoding = "UTF-8")

@@ -14,4 +14,5 @@ public class ErrorCodeConstant {
     public static final String USERNAME_MUST_NO_MORE_THAN_100_CHARACTERS_400008 = "400008";
     public static final String EMAIL_ALREADY_EXISTS_400009 = "400009";
     public static final String USERNAME_ALREADY_EXISTS_400010 = "400010";
+    public static final String USERNAME_IS_NOT_EXISTS_400011 = "400011";
 }

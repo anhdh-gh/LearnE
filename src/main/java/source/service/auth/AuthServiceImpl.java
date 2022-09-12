@@ -1,17 +1,16 @@
-package source.service.user_service;
+package source.service.auth;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.UserSignInRequestDto;
 import source.dto.request.UserSignUpRequestDto;
 import source.dto.response.BaseResponse;
-import source.third_party.user_service.service.UserServiceThirdParty;
+import source.third_party.auth.service.AuthServiceThirdParty;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class AuthServiceImpl implements AuthService {
     @Autowired
-    private UserServiceThirdParty userServiceThirdParty;
+    private AuthServiceThirdParty userServiceThirdParty;
 
     @Override
     public BaseResponse signIn(UserSignInRequestDto request) throws Exception {

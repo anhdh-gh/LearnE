@@ -15,4 +15,6 @@ public interface UserService {
     public BaseResponse getAllUser(UserGetAllRequestDto userGetAllRequestDto) throws Exception;
 
     public BaseResponse updateUser(UserUpdateRequestDto userGetAllRequestDto) throws Exception;
+
+    public BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
 }

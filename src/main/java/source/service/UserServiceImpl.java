@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService{
             .build()
         );
 
-        return BaseResponse.ofSucceeded(request.getRequestId(), userSave);
+        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userSave));
     }
 
     @Override
@@ -160,9 +160,29 @@ public class UserServiceImpl implements UserService{
             user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
             user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());
         }
-
-        return BaseResponse.ofSucceeded(request.getRequestId(), userRepository.save(user));
+        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userRepository.save(user)));
     }
 
+    @Override
+    public BaseResponse     deleteUser(UserDeleteRequestDto request) throws Exception {
+        User user = checkUserIsExist(request.getId());
+        if(user == null){
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
+            return BaseResponse.ofFailed(request.getRequestId(),
+                    new BusinessError(
+                            errorCode,
+                            environment.getProperty(String.valueOf(errorCode)),
+                            HttpStatus.BAD_REQUEST));
+        } else{
+            userRepository.delete(user);
+            return BaseResponse.ofSucceeded(request.getRequestId(), user);
+        }
+    }
+
+    private User maskPassword(User user){
+        if(Objects.nonNull(user))
+            user.getAccount().setPassword(null);
+        return user;
+    }
 
 }

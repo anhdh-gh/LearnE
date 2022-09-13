@@ -10,7 +10,7 @@ import source.dto.request.UserSignInRequestDto;
 import source.dto.request.UserSignUpRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.constant.RouterAuthServiceConstant;
-import source.util.CommonUtil;
+import source.util.JsonUtil;
 
 import java.nio.charset.StandardCharsets;
 
@@ -31,7 +31,7 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             httpEntity,
             new ParameterizedTypeReference<BaseResponse>() {});
 
-        return CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             httpEntity,
             new ParameterizedTypeReference<BaseResponse>() {});
 
-        return CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
 
     private HttpHeaders prepareHeaders() {

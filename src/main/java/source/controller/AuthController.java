@@ -1,10 +1,12 @@
 package source.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.constant.RouterConstant;
+import source.dto.request.UserGetAllRequestDto;
 import source.dto.request.UserSignInRequestDto;
 import source.dto.request.UserSignUpRequestDto;
 import source.dto.response.BaseResponse;
@@ -26,5 +28,10 @@ public class AuthController {
     @PostMapping(RouterConstant.SIGN_IN)
     public BaseResponse signIn(@Valid @RequestBody UserSignInRequestDto request) throws Exception{
         return authService.signIn(request);
+    }
+
+    @GetMapping(RouterConstant.GET_ALL_USER)
+    public BaseResponse getAllUsers(@Valid @RequestBody UserGetAllRequestDto request) throws Exception{
+        return authService.getAllUser(request);
     }
 }

@@ -31,7 +31,7 @@ public class UserController {
         return userService.getUserById(userGetByIdRequestDto);
     }
 
-    @GetMapping(value = RouterConstant.GET_ALL_USER)
+    @PostMapping(value = RouterConstant.GET_ALL_USER)
     public BaseResponse getAllUsers(@RequestBody UserGetAllRequestDto userGetAllRequestDto) throws Exception{
         return userService.getAllUser(userGetAllRequestDto);
     }

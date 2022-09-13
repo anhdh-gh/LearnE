@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.dto.request.UserSignupRequestDto;
+import source.dto.request.UserSignUpRequestDto;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSignupThirdPartyRequestDto extends UserSignupRequestDto {
+public class UserSignUpThirdPartyRequestDto extends UserSignUpRequestDto {
 
     private String email;
     private String password;

@@ -6,10 +6,9 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import source.dto.request.UserSignupRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.user_service.constant.RouterUserServiceConstant;
-import source.third_party.user_service.dto.request.UserSignupThirdPartyRequestDto;
+import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
 import source.util.JsonUtil;
 
 import java.nio.charset.StandardCharsets;
@@ -24,7 +23,7 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
     private RestTemplate restTemplate;
 
     @Override
-    public BaseResponse createUser(UserSignupThirdPartyRequestDto request) throws Exception {
+    public BaseResponse createUser(UserSignUpThirdPartyRequestDto request) throws Exception {
         HttpEntity<Object> httpEntity = new HttpEntity<>(request, prepareHeaders());
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterUserServiceConstant.USER_CREATE),

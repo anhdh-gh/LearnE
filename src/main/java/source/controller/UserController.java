@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import source.constant.RouterConstant;
 import source.dto.request.UserComparePasswordRequestDto;
 import source.dto.request.UserCreateRequestDto;
-import source.dto.request.UserGetRoleByUserIdRequestDto;
+import source.dto.request.UserGetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.UserService;
 
@@ -25,8 +25,8 @@ public class UserController {
         return userService.comparePassword(userComparePasswordRequestDto);
     }
 
-    @PostMapping(RouterConstant.GET_ROLE_BY_USER_ID)
-    public BaseResponse getRoleByUserId(@RequestBody UserGetRoleByUserIdRequestDto userGetRoleByUserIdRequestDto) throws Exception {
-        return userService.getRoleByUserId(userGetRoleByUserIdRequestDto);
+    @PostMapping(RouterConstant.GET_USER_BY_ID)
+    public BaseResponse getUserById(@RequestBody UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
+        return userService.getUserById(userGetByIdRequestDto);
     }
 }

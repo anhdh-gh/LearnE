@@ -10,16 +10,15 @@ import source.constant.ErrorCodeConstant;
 import source.constant.Role;
 import source.dto.request.UserComparePasswordRequestDto;
 import source.dto.request.UserCreateRequestDto;
-import source.dto.request.UserGetRoleByUserIdRequestDto;
+import source.dto.request.UserGetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.UserComparePasswordResponseDto;
-import source.dto.response.UserGetRoleByUserIdResponseDto;
+import source.dto.response.UserGetByIdResponseDto;
 import source.entity.Account;
 import source.entity.User;
 import source.exception.BusinessError;
 import source.exception.BusinessErrors;
-import source.exception.BusinessException;
 import source.repository.AccountRepository;
 import source.repository.UserRepository;
 
@@ -95,11 +94,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public BaseResponse getRoleByUserId(UserGetRoleByUserIdRequestDto userGetRoleByUserIdRequestDto) throws Exception {
-        Optional<User> userOptional = userRepository.findById(userGetRoleByUserIdRequestDto.getIdUser());
+    public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
+            Optional<User> userOptional = userRepository.findById(userGetByIdRequestDto.getIdUser());
         if(!userOptional.isPresent()) {
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
-            return BaseResponse.ofFailed(userGetRoleByUserIdRequestDto.getRequestId(),
+            return BaseResponse.ofFailed(userGetByIdRequestDto.getRequestId(),
                 new BusinessError(
                     errorCode,
                     environment.getProperty(String.valueOf(errorCode)),
@@ -107,6 +106,13 @@ public class UserServiceImpl implements UserService{
             ));
         }
 
-        return BaseResponse.ofSucceeded(userGetRoleByUserIdRequestDto.getRequestId(), UserGetRoleByUserIdResponseDto.builder().role(userOptional.get().getRole().getValue()).build());
+        User userResponse = userOptional.get();
+        return BaseResponse.ofSucceeded(userGetByIdRequestDto.getRequestId(),
+            UserGetByIdResponseDto.builder()
+                .role(userResponse.getRole().getValue())
+                .email(userResponse.getAccount().getEmail())
+                .password(userResponse.getAccount().getPassword())
+                .id(userResponse.getId())
+                .build());
     }
 }

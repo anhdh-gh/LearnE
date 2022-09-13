@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserGetRoleByUserIdRequestDto extends BasicRequest {
+public class UserGetByIdRequestDto extends BasicRequest {
 
     private String idUser;
 }

@@ -19,6 +19,8 @@ import java.util.Date;
 @Builder
 public class UserGetAllResponseDto {
 
+    private String id;
+
     private Role role;
 
     private Gender gender;

@@ -125,10 +125,11 @@ public class UserServiceImpl implements UserService{
                 allUsers.getContent().stream().
                     map(user -> UserGetAllResponseDto
                         .builder()
+                            .id(user.getId())
                             .userName(user.getUserName())
+                            .role(user.getRole())
                             .email(user.getAccount().getEmail())
                             .avatar(user.getAvatar())
-                            .gender(user.getGender())
                             .gender(user.getGender())
                             .dateOfBirth(user.getDateOfBirth())
                             .address(user.getAddress())

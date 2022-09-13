@@ -28,7 +28,9 @@ public class BaseEntity {
 
     @PrePersist // Thực thi trước khi entity được persist (được lưu vào database) bởi method persist()
     protected void init() {
-        this.id = UUID.randomUUID().toString();
+        if(this.id == null) {
+            this.id = UUID.randomUUID().toString();
+        }
         this.createTime = new Date();
     }
 

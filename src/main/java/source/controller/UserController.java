@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import source.constant.RouterConstant;
 import source.dto.request.UserComparePasswordRequestDto;
 import source.dto.request.UserCreateRequestDto;
+import source.dto.request.UserGetAllRequestDto;
 import source.dto.request.UserGetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.UserService;
@@ -28,5 +29,10 @@ public class UserController {
     @PostMapping(RouterConstant.GET_USER_BY_ID)
     public BaseResponse getUserById(@RequestBody UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
         return userService.getUserById(userGetByIdRequestDto);
+    }
+
+    @GetMapping(value = RouterConstant.GET_ALL_USER)
+    public BaseResponse getAllUsers(@RequestBody UserGetAllRequestDto userGetAllRequestDto) throws Exception{
+        return userService.getAllUser(userGetAllRequestDto);
     }
 }

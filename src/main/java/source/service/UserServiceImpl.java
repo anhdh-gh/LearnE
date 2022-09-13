@@ -3,18 +3,15 @@ package source.service;
 import com.google.common.base.CaseFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.constant.Role;
-import source.dto.request.UserComparePasswordRequestDto;
-import source.dto.request.UserCreateRequestDto;
-import source.dto.request.UserGetByIdRequestDto;
-import source.dto.response.BaseResponse;
-import source.dto.response.FieldViolation;
-import source.dto.response.UserComparePasswordResponseDto;
-import source.dto.response.UserGetByIdResponseDto;
+import source.dto.request.*;
+import source.dto.response.*;
 import source.entity.Account;
 import source.entity.User;
 import source.exception.BusinessError;
@@ -24,6 +21,7 @@ import source.repository.UserRepository;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -114,5 +112,29 @@ public class UserServiceImpl implements UserService{
                 .password(userResponse.getAccount().getPassword())
                 .id(userResponse.getId())
                 .build());
+    }
+
+    @Override
+    public BaseResponse getAllUser(UserGetAllRequestDto dataRequest) throws Exception {
+        PageRequest pageRequest = PageRequest.of(dataRequest.getPage(), dataRequest.getSize());
+
+        Page<User> allUsers = userRepository.findAll(pageRequest);
+        
+        return BaseResponse.ofSucceeded(
+                dataRequest.getRequestId(),
+                allUsers.getContent().stream().
+                    map(user -> UserGetAllResponseDto
+                        .builder()
+                            .userName(user.getUserName())
+                            .email(user.getAccount().getEmail())
+                            .avatar(user.getAvatar())
+                            .gender(user.getGender())
+                            .gender(user.getGender())
+                            .dateOfBirth(user.getDateOfBirth())
+                            .address(user.getAddress())
+                            .phoneNumber(user.getPhoneNumber())
+                            .fullName(user.getFullName())
+                            .build())
+                        .collect(Collectors.toList()));
     }
 }

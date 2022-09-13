@@ -8,5 +8,7 @@ public class RouterConstant {
 
     public final static String COMPARE_PASSWORD = "user/compare-password";
 
+    public static final String GET_ALL_USER = "user/get-all";
+
     private RouterConstant() {}
 }

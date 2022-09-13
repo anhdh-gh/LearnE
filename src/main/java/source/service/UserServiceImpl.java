@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService{
 
         // Save user
         User userSave = userRepository.save(User.builder()
+            .id(request.getId())
             .userName(request.getUserName())
             .role(Role.USER)
             .account(Account.builder()

@@ -14,7 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
-@Builder
 public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
@@ -49,6 +48,7 @@ public class User extends BaseEntity {
     @JoinColumn(name = "FullNameID")
     private FullName fullName;
 
+    @Builder
     public User(String id, Date createTime, Date updateTime, Role role, String userName, Date dateOfBirth, String phoneNumber, String avatar, Account account, Address address, FullName fullName) {
         super(id, createTime, updateTime);
         this.role = role;

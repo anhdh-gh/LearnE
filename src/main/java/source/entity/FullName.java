@@ -12,7 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
 @Table(name = "fullname")
 public class FullName extends BaseEntity {
 
@@ -25,6 +24,7 @@ public class FullName extends BaseEntity {
     @Column(name = "LastName")
     private String lastName;
 
+    @Builder
     public FullName(String id, Date createTime, Date updateTime, String firstName, String midName, String lastName) {
         super(id, createTime, updateTime);
         this.firstName = firstName;

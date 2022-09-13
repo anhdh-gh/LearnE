@@ -33,6 +33,7 @@ public class Address extends BaseEntity {
     @Column(name = "NumberHouse")
     private String numberHouse;
 
+    @Builder
     public Address(String id, Date createTime, Date updateTime, String nation, String city, String province, String district, String street, String numberHouse) {
         super(id, createTime, updateTime);
         this.nation = nation;

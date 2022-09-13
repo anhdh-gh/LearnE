@@ -9,7 +9,6 @@ import lombok.*;
 import java.util.Date;
 
 @Data
-@Builder
 @EqualsAndHashCode(callSuper=false)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +22,7 @@ public class Account extends BaseEntity {
     @Column(name = "Password")
     private String password;
 
+    @Builder
     public Account(String id, Date createTime, Date updateTime, String email, String password) {
         super(id, createTime, updateTime);
         this.email = email;

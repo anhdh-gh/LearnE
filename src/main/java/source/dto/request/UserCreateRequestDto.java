@@ -16,4 +16,6 @@ public class UserCreateRequestDto extends BasicRequest {
     private String password;
 
     private String email;
+
+    private String id;
 }

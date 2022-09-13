@@ -25,8 +25,8 @@ public class UserSignInRequestDto extends BasicRequest{
         Does not contain space, tab, etc.
     * */
     @NotNull(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
-    @NotEmpty(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
-    @NotBlank(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
+    @NotEmpty(message = ErrorCodeConstant.PASSWORD_IS_NOT_EMPTY_40012)
+    @NotBlank(message = ErrorCodeConstant.PASSWORD_IS_NOT_EMPTY_40012)
     private String password;
 
 }

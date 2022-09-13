@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     @Value("${service.auth.baseurl}")
     private String baseUrl;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -25,10 +26,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse signIn(UserSignInRequestDto request) throws Exception {
         HttpEntity<Object> httpEntity = new HttpEntity<>(request, prepareHeaders());
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.SIGN_IN),
-                HttpMethod.POST,
-                httpEntity,
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.SIGN_IN),
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<BaseResponse>() {});
 
         return CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
@@ -37,10 +38,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse signUp(UserSignUpRequestDto request) throws Exception{
         HttpEntity<Object> httpEntity = new HttpEntity<>(request, prepareHeaders());
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.SIGN_UP),
-                HttpMethod.POST,
-                httpEntity,
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.SIGN_UP),
+            HttpMethod.POST,
+            httpEntity,
+            new ParameterizedTypeReference<BaseResponse>() {});
 
         return CommonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }

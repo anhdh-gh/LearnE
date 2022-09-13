@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public BaseResponse     deleteUser(UserDeleteRequestDto request) throws Exception {
+    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
         User user = checkUserIsExist(request.getId());
         if(user == null){
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);

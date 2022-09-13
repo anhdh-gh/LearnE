@@ -51,7 +51,7 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
                 String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_ALL_USER),
-                HttpMethod.GET,
+                HttpMethod.POST,
                 getHeader(request),
                 new ParameterizedTypeReference<BaseResponse>() {});
 

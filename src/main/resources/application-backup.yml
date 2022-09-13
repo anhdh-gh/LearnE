@@ -1,3 +1,14 @@
 service:
   user:
     baseurl: https://learne-service-user.herokuapp.com
+
+learne:
+  app:
+    jwtSecret: LearnE
+    jwtExpirationMs: 60000
+    jwtRefreshExpirationMs: 120000
+
+# Database Firebase
+firebase:
+  service-account-filename: classpath:firebase-service-accounts.json
+  realtime-database-url: https://learne-bfb9c-default-rtdb.asia-southeast1.firebasedatabase.app

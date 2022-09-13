@@ -7,4 +7,10 @@ public class ErrorFirebaseConstant {
     public final static String EMAIL_EXISTS = "EMAIL_EXISTS";
 
     public final static String WEAK_PASSWORD = "WEAK_PASSWORD";
+
+    public final static String MISSING_PASSWORD = "MISSING_PASSWORD";
+
+    public final static String MISSING_EMAIL = "MISSING_EMAIL";
+
+    public final static String INVALID_PASSWORD = "INVALID_PASSWORD";
 }

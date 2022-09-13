@@ -35,6 +35,7 @@ public class CommonExceptionHandler {
     private ObjectMapper objectMapper;
     @Autowired
     private Environment environment;
+
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<BaseResponse<Void>> handleBusinessException(BusinessException exception, HttpServletRequest request) {
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), exception);

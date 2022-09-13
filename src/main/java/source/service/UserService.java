@@ -3,7 +3,7 @@ package source.service;
 
 import source.dto.request.UserComparePasswordRequestDto;
 import source.dto.request.UserCreateRequestDto;
-import source.dto.request.UserGetRoleByUserIdRequestDto;
+import source.dto.request.UserGetByIdRequestDto;
 import source.dto.response.BaseResponse;
 
 public interface UserService {
@@ -12,5 +12,5 @@ public interface UserService {
     
     public BaseResponse comparePassword(UserComparePasswordRequestDto userComparePasswordRequestDto);
 
-    public BaseResponse getRoleByUserId(UserGetRoleByUserIdRequestDto userGetRoleByUserIdRequestDto) throws Exception;
+    public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception;
 }

@@ -1,10 +1,7 @@
 package source.service;
 
 
-import source.dto.request.UserComparePasswordRequestDto;
-import source.dto.request.UserCreateRequestDto;
-import source.dto.request.UserGetAllRequestDto;
-import source.dto.request.UserGetByIdRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 
 public interface UserService {
@@ -16,4 +13,6 @@ public interface UserService {
     public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception;
 
     public BaseResponse getAllUser(UserGetAllRequestDto userGetAllRequestDto) throws Exception;
+
+    public BaseResponse updateUser(UserUpdateRequestDto userGetAllRequestDto) throws Exception;
 }

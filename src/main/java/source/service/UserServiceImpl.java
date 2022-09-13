@@ -20,6 +20,7 @@ import source.repository.AccountRepository;
 import source.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -91,10 +92,14 @@ public class UserServiceImpl implements UserService{
         return BaseResponse.ofSucceeded(request.getRequestId(), new UserComparePasswordResponseDto(isCorrect));
     }
 
+    private User checkUserIsExist(String id){
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElse(null);
+    }
     @Override
     public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
-            Optional<User> userOptional = userRepository.findById(userGetByIdRequestDto.getIdUser());
-        if(!userOptional.isPresent()) {
+        User userResponse = checkUserIsExist(userGetByIdRequestDto.getIdUser());
+        if(userResponse == null){
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(userGetByIdRequestDto.getRequestId(),
                 new BusinessError(
@@ -103,8 +108,6 @@ public class UserServiceImpl implements UserService{
                     HttpStatus.BAD_REQUEST
             ));
         }
-
-        User userResponse = userOptional.get();
         return BaseResponse.ofSucceeded(userGetByIdRequestDto.getRequestId(),
             UserGetByIdResponseDto.builder()
                 .role(userResponse.getRole().getValue())
@@ -138,4 +141,28 @@ public class UserServiceImpl implements UserService{
                             .build())
                         .collect(Collectors.toList()));
     }
+
+    @Override
+    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        User user = checkUserIsExist(request.getId());
+        if(user == null){
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
+            return BaseResponse.ofFailed(request.getRequestId(),
+                new BusinessError(
+                    errorCode,
+                    environment.getProperty(String.valueOf(errorCode)),
+                    HttpStatus.BAD_REQUEST));
+        } else {
+            user.setGender(Objects.nonNull(request.getGender()) ? request.getGender() : user.getGender());
+            user.setAddress(Objects.nonNull(request.getAddress()) ? request.getAddress() : user.getAddress());
+            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar() : user.getAvatar());
+            user.setDateOfBirth(Objects.nonNull(request.getDateOfBirth()) ? request.getDateOfBirth() : user.getDateOfBirth());
+            user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
+            user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());
+        }
+
+        return BaseResponse.ofSucceeded(request.getRequestId(), userRepository.save(user));
+    }
+
+
 }

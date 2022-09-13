@@ -10,5 +10,7 @@ public class RouterConstant {
 
     public static final String GET_ALL_USER = "user/all";
 
+    public static final String UPDATE_USER = "user/update";
+
     private RouterConstant() {}
 }

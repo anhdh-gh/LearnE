@@ -10,9 +10,11 @@ import source.constant.ErrorCodeConstant;
 import source.constant.Role;
 import source.dto.request.UserComparePasswordRequestDto;
 import source.dto.request.UserCreateRequestDto;
+import source.dto.request.UserGetRoleByUserIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.UserComparePasswordResponseDto;
+import source.dto.response.UserGetRoleByUserIdResponseDto;
 import source.entity.Account;
 import source.entity.User;
 import source.exception.BusinessError;
@@ -75,20 +77,36 @@ public class UserServiceImpl implements UserService{
     public BaseResponse comparePassword(UserComparePasswordRequestDto request) {
         boolean isCorrect = false;
         Optional<User> userOptional = userRepository.findById(request.getIdUser());
-        if(userOptional.isPresent()){
+        if(userOptional.isPresent()) {
             String encodedPassword = userOptional.get().getAccount().getPassword();
-            if(bCryptPasswordEncoder.matches(request.getPassword(),encodedPassword)){
+            if(bCryptPasswordEncoder.matches(request.getPassword(),encodedPassword)) {
                 isCorrect = true;
             }
-        }else {
-            int errorCode = Integer.parseInt(ErrorCodeConstant.USERNAME_IS_NOT_EXISTS_400011);
+        } else {
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(request.getRequestId(),
-                    new BusinessError(
+                new BusinessError(
+                errorCode,
+                environment.getProperty(String.valueOf(errorCode)),
+                HttpStatus.BAD_REQUEST
+            ));
+        }
+        return BaseResponse.ofSucceeded(request.getRequestId(), new UserComparePasswordResponseDto(isCorrect));
+    }
+
+    @Override
+    public BaseResponse getRoleByUserId(UserGetRoleByUserIdRequestDto userGetRoleByUserIdRequestDto) throws Exception {
+        Optional<User> userOptional = userRepository.findById(userGetRoleByUserIdRequestDto.getIdUser());
+        if(!userOptional.isPresent()) {
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
+            return BaseResponse.ofFailed(userGetRoleByUserIdRequestDto.getRequestId(),
+                new BusinessError(
                     errorCode,
                     environment.getProperty(String.valueOf(errorCode)),
                     HttpStatus.BAD_REQUEST
             ));
         }
-        return BaseResponse.ofSucceeded(request.getRequestId(), new UserComparePasswordResponseDto(isCorrect));
+
+        return BaseResponse.ofSucceeded(userGetRoleByUserIdRequestDto.getRequestId(), UserGetRoleByUserIdResponseDto.builder().role(userOptional.get().getRole().getValue()).build());
     }
 }

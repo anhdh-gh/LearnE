@@ -30,6 +30,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CommonExceptionHandler {
 
+    private CommonExceptionHandler(){}
+
     private ObjectMapper objectMapper;
     @Autowired
     private Environment environment;

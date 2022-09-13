@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
                 userAuthenticationServiceImpl.signUpWithEmailAndPassword(userRequestSignupDto.getEmail(), userRequestSignupDto.getPassword());
 
             // Sign up to service user
-            UserSignUpThirdPartyRequestDto userSignupThirdPartyRequestDto = modelMapper.map(userRequestSignupDto, UserSignupThirdPartyRequestDto.class);
+            UserSignUpThirdPartyRequestDto userSignupThirdPartyRequestDto = modelMapper.map(userRequestSignupDto, UserSignUpThirdPartyRequestDto.class);
             userSignupThirdPartyRequestDto.setId(firebaseSignInSignUpResponseBean.getLocalId());
             BaseResponse response = userServiceThirdParty.createUser(userSignupThirdPartyRequestDto);
             if(!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {

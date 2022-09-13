@@ -16,4 +16,5 @@ public class ErrorCodeConstant {
     public static final String USERNAME_ALREADY_EXISTS_400010 = "400010";
     public static final String USERID_IS_NOT_EXISTS_400011 = "400011";
     public static final String PASSWORD_IS_NOT_EMPTY_40012 = "400012";
+    public static final String PASSWORD_IS_NOT_EXISTS_40013 = "400013";
 }

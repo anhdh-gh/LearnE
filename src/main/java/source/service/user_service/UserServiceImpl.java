@@ -2,6 +2,7 @@ package source.service.user_service;
 
 import com.google.common.base.CaseFormat;
 import org.apache.http.HttpStatus;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import source.exception.firebase.auth.FirebaseAuthException;
 import source.third_party.firebase_user_authentication.bean.FirebaseSignInSignUpResponseBean;
 import source.third_party.firebase_user_authentication.exception.HttpBadRequestException;
 import source.third_party.firebase_user_authentication.service.UserAuthenticationServiceImpl;
+import source.third_party.user_service.dto.request.UserSignupThirdPartyRequestDto;
 import source.third_party.user_service.service.UserServiceThirdParty;
 import source.util.JsonUtil;
 
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserServiceThirdParty userServiceThirdParty;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public BaseResponse signUp(UserSignupRequestDto userRequestSignupDto) throws Exception {
         try {
@@ -42,7 +47,9 @@ public class UserServiceImpl implements UserService {
                 userAuthenticationServiceImpl.signUpWithEmailAndPassword(userRequestSignupDto.getEmail(), userRequestSignupDto.getPassword());
 
             // Sign up to service user
-            BaseResponse response = userServiceThirdParty.createUser(userRequestSignupDto);
+            UserSignupThirdPartyRequestDto userSignupThirdPartyRequestDto = modelMapper.map(userRequestSignupDto, UserSignupThirdPartyRequestDto.class);
+            userSignupThirdPartyRequestDto.setId(firebaseSignInSignUpResponseBean.getLocalId());
+            BaseResponse response = userServiceThirdParty.createUser(userSignupThirdPartyRequestDto);
             if(!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
                 userAuthenticationServiceImpl.deleteUserAccount(firebaseSignInSignUpResponseBean.getIdToken());
             }

@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.constant.RouterConstant;
-import source.dto.request.UserGetAllRequestDto;
-import source.dto.request.UserSignInRequestDto;
-import source.dto.request.UserSignUpRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
 
@@ -30,8 +28,18 @@ public class AuthController {
         return authService.signIn(request);
     }
 
-    @GetMapping(RouterConstant.GET_ALL_USER)
+    @PostMapping(RouterConstant.GET_ALL_USER)
     public BaseResponse getAllUsers(@Valid @RequestBody UserGetAllRequestDto request) throws Exception{
         return authService.getAllUser(request);
+    }
+
+    @PostMapping(RouterConstant.UPDATE_USER)
+    public BaseResponse updateUser(@Valid @RequestBody UserUpdateRequestDto request) throws Exception{
+        return authService.updateUser(request);
+    }
+
+    @PostMapping(RouterConstant.DELETE_USER)
+    public BaseResponse deleteUser(@Valid @RequestBody UserDeleteRequestDto request) throws Exception{
+        return authService.deleteUser(request);
     }
 }

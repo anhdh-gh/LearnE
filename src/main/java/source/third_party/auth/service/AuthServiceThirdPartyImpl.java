@@ -6,10 +6,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import source.dto.request.BasicRequest;
-import source.dto.request.UserGetAllRequestDto;
-import source.dto.request.UserSignInRequestDto;
-import source.dto.request.UserSignUpRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.constant.RouterAuthServiceConstant;
 import source.util.JsonUtil;
@@ -51,6 +48,28 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
                 String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_ALL_USER),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {});
+
+        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterAuthServiceConstant.UPDATE_USER),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {});
+
+        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterAuthServiceConstant.DELETE_USER),
                 HttpMethod.POST,
                 getHeader(request),
                 new ParameterizedTypeReference<BaseResponse>() {});

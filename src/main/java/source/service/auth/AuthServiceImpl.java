@@ -2,9 +2,7 @@ package source.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import source.dto.request.UserGetAllRequestDto;
-import source.dto.request.UserSignInRequestDto;
-import source.dto.request.UserSignUpRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.service.AuthServiceThirdParty;
 
@@ -26,5 +24,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
         return authServiceThirdParty.getAllUser(request);
+    }
+
+    @Override
+    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        return authServiceThirdParty.updateUser(request);
+    }
+
+    @Override
+    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
+        return authServiceThirdParty.deleteUser(request);
     }
 }

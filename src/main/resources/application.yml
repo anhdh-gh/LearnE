@@ -3,7 +3,7 @@ service:
     baseurl: https://learne-service-user.herokuapp.com
   gateway:
     baseurl: https://learne-service-gateway.herokuapp.com
-    
+
 learne:
   app:
     jwtSecret: LearnE

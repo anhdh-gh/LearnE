@@ -3,9 +3,9 @@ package source.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.constant.Gender;
 import source.entity.Address;
 import source.entity.FullName;
+import source.entity.enumeration.Gender;
 
 import java.util.Date;
 @Data

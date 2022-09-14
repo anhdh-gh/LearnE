@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.constant.Gender;
-import source.constant.Role;
-import source.entity.Account;
 import source.entity.Address;
 import source.entity.FullName;
+import source.entity.enumeration.Gender;
+import source.entity.enumeration.Role;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -7,20 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import source.constant.ErrorCodeConstant;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UserSignUpRequestDto extends BasicRequest{
 
-
     @NotNull(message = ErrorCodeConstant.EMAIL_IS_NOT_NULL_400001)
     @Email(message = ErrorCodeConstant.EMAIL_IS_NOT_VALID_400002)
     @Size(min = 6, max = 100, message = ErrorCodeConstant.EMAIL_MUST_HAVE_AT_LEAST_6_CHARACTERS_AND_NO_MORE_THAN_100_CHARACTERS_400003)
+    @NotEmpty(message = ErrorCodeConstant.EMAIL_IS_NOT_EMPTY_400023)
+    @NotBlank(message = ErrorCodeConstant.EMAIL_IS_NOT_EMPTY_400023)
     private String email;
 
     @NotNull(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)

@@ -25,4 +25,5 @@ public class ErrorCodeConstant {
     public static final String IMAGE_URL_IS_NOT_VALID_400019 = "400019";
     public static final String IMAGE_URL_IS_NOT_MORE_THAN_500_CHARACTERS_400020 = "400020";
     public static final String ADDRESS_INFORMATION_IS_NOT_EMPTY_400021 = "400021";
+    public static final String DATE_OF_BIRTH_IS_NOT_EMPTY_400022 = "400022";
 }

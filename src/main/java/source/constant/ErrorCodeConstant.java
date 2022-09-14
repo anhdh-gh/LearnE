@@ -2,6 +2,8 @@ package source.constant;
 
 public class ErrorCodeConstant {
 
+
+
     private ErrorCodeConstant() {}
 
     public static final String EMAIL_IS_NOT_NULL_400001 = "400001";
@@ -30,4 +32,8 @@ public class ErrorCodeConstant {
     public static final String USER_ID_IS_NOT_EMPTY_400024 = "400024";
     public static final String USER_ID_IS_NOT_NULL_400025 = "400025";
     public static final String USER_ID_IS_NOT_MORE_THAN_100_CHARACTERS_400026 = "400026";
+
+    public static final String REFRESH_TOKEN_IS_NOT_NULL_400027 = "400027";
+
+    public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400028 = "400028";
 }

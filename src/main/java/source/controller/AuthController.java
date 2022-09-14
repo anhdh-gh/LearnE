@@ -1,7 +1,6 @@
 package source.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +40,10 @@ public class AuthController {
     @PostMapping(RouterConstant.DELETE_USER)
     public BaseResponse deleteUser(@Valid @RequestBody UserDeleteRequestDto request) throws Exception{
         return authService.deleteUser(request);
+    }
+
+    @PostMapping(RouterConstant.REFRESH_TOKEN)
+    public BaseResponse refreshToken(@Valid @RequestBody UserRefreshToken request) throws Exception{
+        return authService.refreshToken(request);
     }
 }

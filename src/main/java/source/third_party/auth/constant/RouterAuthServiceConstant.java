@@ -17,4 +17,6 @@ public class RouterAuthServiceConstant {
 
     public static final String DELETE_USER = "/user/delete";
 
+    public static final String REFRESH_TOKEN = "/user/refreshtoken";
+
 }

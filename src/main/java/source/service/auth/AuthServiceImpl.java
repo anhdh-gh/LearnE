@@ -35,4 +35,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
         return authServiceThirdParty.deleteUser(request);
     }
+
+    @Override
+    public BaseResponse refreshToken(UserRefreshToken request) throws Exception {
+        return authServiceThirdParty.refreshToken(request);
+    }
 }

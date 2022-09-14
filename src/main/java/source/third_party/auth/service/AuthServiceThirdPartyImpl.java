@@ -47,10 +47,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     @Override
     public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_ALL_USER),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_ALL_USER),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
 
         return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
@@ -58,10 +58,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     @Override
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.UPDATE_USER),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.UPDATE_USER),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
 
         return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
@@ -69,10 +69,21 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     @Override
     public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.DELETE_USER),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.DELETE_USER),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
+
+        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse refreshToken(UserRefreshToken request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.REFRESH_TOKEN),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
 
         return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }

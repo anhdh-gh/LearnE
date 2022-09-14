@@ -14,4 +14,6 @@ public interface AuthService {
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception;
 
     public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception;
+
+    public BaseResponse refreshToken(UserRefreshToken request) throws Exception;
 }

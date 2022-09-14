@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
-import source.constant.Role;
+import source.entity.enumeration.Role;
 import source.dto.request.UserComparePasswordRequestDto;
 import source.dto.request.UserCreateRequestDto;
 import source.dto.request.UserGetByIdRequestDto;

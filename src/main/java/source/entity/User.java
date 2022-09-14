@@ -3,8 +3,8 @@ package source.entity;
 import javax.persistence.*;
 
 import lombok.*;
-import source.constant.Gender;
-import source.constant.Role;
+import source.entity.enumeration.Gender;
+import source.entity.enumeration.Role;
 
 import java.util.Date;
 

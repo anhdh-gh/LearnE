@@ -1,12 +1,12 @@
-package source.constant;
+package source.entity.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum Role {
-    ADMIN("ADMIN"),
-    USER("USER");
+public enum Gender {
+    MALE("MALE"),
+    FEMALE("FEMALE");
     private final String value;
 }

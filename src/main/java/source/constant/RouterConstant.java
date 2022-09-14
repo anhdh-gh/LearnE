@@ -8,5 +8,7 @@ public class RouterConstant {
 
     public static final String USER_REFRESH_TOKEN = "/user/refreshtoken";
 
+    public static final String USER_GET_ALL = "/user/get/all";
+
     private RouterConstant() {}
 }

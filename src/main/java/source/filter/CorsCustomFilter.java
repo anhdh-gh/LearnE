@@ -17,10 +17,10 @@ import java.util.UUID;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsFilter implements Filter {
+public class CorsCustomFilter implements Filter {
 
   /** The logger. */
-  private Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+  private Logger logger = LoggerFactory.getLogger(CorsCustomFilter.class);
 
   /*
    * (non-Javadoc)
@@ -70,5 +70,4 @@ public class CorsFilter implements Filter {
    */
   @Override
   public void destroy() {}
-
 }

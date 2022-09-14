@@ -6,6 +6,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import source.constant.RequestKeyConstant;
 import source.dto.request.BasicRequest;
 import source.dto.response.BaseResponse;
 import source.third_party.user_service.constant.RouterUserServiceConstant;
@@ -50,8 +51,8 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
     private HttpEntity<BasicRequest> getHeader(BasicRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("X-Request-ID", request.getRequestId());
-        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        headers.set(RequestKeyConstant.X_REQUEST_ID, request.getRequestId());
+        headers.set(RequestKeyConstant.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.add(HttpHeaders.ACCEPT_CHARSET, StandardCharsets.UTF_8.name());
         headers.setContentType(MediaType.APPLICATION_JSON);

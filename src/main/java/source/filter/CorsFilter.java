@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.json.simple.parser.JSONParser;
+import source.constant.RequestKeyConstant;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +19,10 @@ import java.util.UUID;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsCustomFilter implements Filter {
+public class CorsFilter implements Filter {
 
   /** The logger. */
-  private Logger logger = LoggerFactory.getLogger(CorsCustomFilter.class);
+  private Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
   /*
    * (non-Javadoc)
@@ -46,15 +48,15 @@ public class CorsCustomFilter implements Filter {
       ApiKeyVerifyRequestWrapper requestWrapper = new ApiKeyVerifyRequestWrapper(request);
 
       JSONParser parser = new JSONParser();
-      JSONObject dataRequest = StringUtils.isEmpty(requestWrapper.getBody()) ? new JSONObject()
+      JSONObject dataRequest = ObjectUtils.isEmpty(requestWrapper.getBody()) ? new JSONObject()
         : (JSONObject) parser.parse(requestWrapper.getBody());
-      String requestId = requestWrapper.getHeader("X-Request-ID");
+      String requestId = requestWrapper.getHeader(RequestKeyConstant.X_REQUEST_ID);
       if (requestId == null || requestId.isEmpty()) {
         requestId = UUID.randomUUID().toString();
       }
-      dataRequest.put("request_id", requestId);
-      request.setAttribute("request_id", requestId);
-      dataRequest.put("uri", request.getRequestURI());
+      dataRequest.put(RequestKeyConstant.REQUEST_ID, requestId);
+      request.setAttribute(RequestKeyConstant.REQUEST_ID, requestId);
+      dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
       requestWrapper.setBody(dataRequest.toString());
       chain.doFilter(requestWrapper, res);
     } catch (Exception e) {

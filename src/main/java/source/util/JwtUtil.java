@@ -16,11 +16,9 @@ import source.entity.enumeration.Role;
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
-    @Value("${learne.app.jwtSecret}")
-    private String jwtSecret;
+    private String jwtSecret = "LearnE";
 
-    @Value("${learne.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    private static int jwtExpirationMs = 3600000;
 
     public String generateJwtToken(User user) {
         return generateTokenFromUserInfo(user);
@@ -34,9 +32,13 @@ public class JwtUtil {
     }
 
     public User getUserFromJwtToken(String token) {
-        String data = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-        String value[] = data.split(" ");
-        return User.builder().id(value[0]).role(Role.valueOf(value[1])).build();
+        try {
+            String data = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+            String value[] = data.split(" ");
+            return User.builder().id(value[0]).role(Role.valueOf(value[1])).build();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean validateJwtToken(String authToken) {

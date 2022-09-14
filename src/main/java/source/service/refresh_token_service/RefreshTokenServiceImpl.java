@@ -25,8 +25,7 @@ import java.util.UUID;
 @Service
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
-    @Value("${learne.app.jwtRefreshExpirationMs}")
-    private Long refreshTokenDurationMs;
+    private Long refreshTokenDurationMs = 86400000L;
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;

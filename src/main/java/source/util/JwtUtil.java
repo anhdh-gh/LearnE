@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
+import source.entity.User;
+import source.entity.enumeration.Role;
 
 // https://www.bezkoder.com/spring-boot-refresh-token-jwt/
 @Component
@@ -20,19 +22,21 @@ public class JwtUtil {
     @Value("${learne.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(String userId) {
-        return generateTokenFromUserId(userId);
+    public String generateJwtToken(User user) {
+        return generateTokenFromUserInfo(user);
     }
 
-    public String generateTokenFromUserId(String userId) {
-        return Jwts.builder().setSubject(userId).setIssuedAt(new Date())
+    public String generateTokenFromUserInfo(User user) {
+        return Jwts.builder().setSubject(user.getId() + " " + user.getRole().getValue()).setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
             .signWith(SignatureAlgorithm.HS512, jwtSecret)
             .compact();
     }
 
-    public String getUserIdFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    public User getUserFromJwtToken(String token) {
+        String data = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        String value[] = data.split(" ");
+        return User.builder().id(value[0]).role(Role.valueOf(value[1])).build();
     }
 
     public boolean validateJwtToken(String authToken) {

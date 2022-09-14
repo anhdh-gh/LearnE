@@ -10,9 +10,11 @@ import source.dto.request.TokenRefreshRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.TokenResponseDto;
 import source.entity.RefreshToken;
+import source.entity.User;
 import source.exception.BusinessErrors;
 import source.exception.BusinessException;
 import source.repository.RefreshTokenRepository;
+import source.repository.UserRepository;
 import source.util.JwtUtil;
 
 import java.time.Instant;
@@ -32,6 +34,9 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findAll().stream()
@@ -40,11 +45,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public RefreshToken createRefreshToken(String userId) {
+    public RefreshToken createRefreshToken(User user) {
         RefreshToken refreshToken = RefreshToken.builder()
-            .token(jwtUtil.generateTokenFromUserId(userId))
+            .token(jwtUtil.generateJwtToken(user))
             .expiryDate(new Date(new Date().getTime() + refreshTokenDurationMs))
-            .userId(userId)
+            .userId(user.getId())
             .build();
 
         refreshToken = refreshTokenRepository.set(refreshToken);
@@ -73,7 +78,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             .map(this::verifyExpiration)
             .map(RefreshToken::getUserId)
             .map(userId -> {
-                String token = jwtUtil.generateTokenFromUserId(userId);
+                User user = userRepository.get(userId);
+                String token = jwtUtil.generateJwtToken(user);
                 return BaseResponse.ofSucceeded(request.getRequestId(),
                     TokenResponseDto.builder().accessToken(token).refreshToken(requestRefreshToken).tokenType(JwtTokenTypeConstant.BEARER).build());
             })

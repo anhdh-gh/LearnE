@@ -13,9 +13,12 @@ import source.dto.request.UserSignUpRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;
+import source.entity.User;
+import source.entity.enumeration.Role;
 import source.exception.BusinessErrors;
 import source.exception.firebase.auth.FirebaseAuthException;
 import source.entity.RefreshToken;
+import source.repository.UserRepository;
 import source.service.refresh_token_service.RefreshTokenService;
 import source.third_party.firebase_user_authentication.bean.FirebaseSignInSignUpResponseBean;
 import source.third_party.firebase_user_authentication.exception.HttpBadRequestException;
@@ -50,6 +53,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RefreshTokenService refreshTokenService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public BaseResponse signUp(UserSignUpRequestDto userSignUpRequestDto) throws Exception {
         try {
@@ -63,6 +69,9 @@ public class UserServiceImpl implements UserService {
             BaseResponse response = userServiceThirdParty.createUser(userSignUpThirdPartyRequestDto);
             if(!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
                 userAuthenticationServiceImpl.deleteUserAccount(firebaseSignInSignUpResponseBean.getIdToken());
+            } else {
+                User user = JsonUtil.getGenericObject(response.getData(), User.class);
+                user = userRepository.set(user);
             }
 
             return response;
@@ -83,6 +92,8 @@ public class UserServiceImpl implements UserService {
             }
 
             return BaseResponse.ofFailed(userSignUpRequestDto.getRequestId(), BusinessErrors.INVALID_PARAMETERS, "Invalid parameters of object: " + userSignUpRequestDto.getClass(), errors);
+        } catch (Exception e) {
+            return BaseResponse.ofFailed(userSignUpRequestDto.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, BusinessErrors.INTERNAL_SERVER_ERROR.getMessage());
         }
     }
 
@@ -93,12 +104,17 @@ public class UserServiceImpl implements UserService {
             FirebaseSignInSignUpResponseBean firebaseSignInSignUpResponseBean =
                 userAuthenticationServiceImpl.signInWithEmailAndPassword(userSignInRequestDto.getEmail(), userSignInRequestDto.getPassword());
 
-            // Get id of user
+            // Get user id
             String idUser = firebaseSignInSignUpResponseBean.getLocalId();
 
+            // Get Role user
+            Role role = userRepository.get(idUser).getRole();
+
+            User user = User.builder().role(role).id(idUser).build();
+
             // Create token
-            String accessToken = jwtUtil.generateJwtToken(idUser);
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(idUser);
+            String accessToken = jwtUtil.generateJwtToken(user);
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
             return BaseResponse.ofSucceeded(userSignInRequestDto.getRequestId(),
                 TokenResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).build());
@@ -116,6 +132,9 @@ public class UserServiceImpl implements UserService {
                     break;
                 case ErrorFirebaseConstant.INVALID_PASSWORD:
                     errors.add(new FieldViolation(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "Password"), ErrorCodeConstant.PASSWORD_IS_NOT_VALID_400013, environment.getProperty(ErrorCodeConstant.PASSWORD_IS_NOT_VALID_400013)));
+                    break;
+                case ErrorFirebaseConstant.EMAIL_NOT_FOUND:
+                    errors.add(new FieldViolation(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "Email"), ErrorCodeConstant.EMAIL_NOT_FOUND_400014, environment.getProperty(ErrorCodeConstant.EMAIL_NOT_FOUND_400014)));
                     break;
                 default:
                     return BaseResponse.ofFailed(BusinessErrors.INVALID_PARAMETERS);

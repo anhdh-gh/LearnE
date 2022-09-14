@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import source.dto.request.TokenRefreshRequestDto;
 import source.dto.response.BaseResponse;
 import source.entity.RefreshToken;
+import source.entity.User;
 import source.repository.RefreshTokenRepository;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public interface RefreshTokenService {
 
     public Optional<RefreshToken> findByToken(String token);
 
-    public RefreshToken createRefreshToken(String userId);
+    public RefreshToken createRefreshToken(User user);
 
     public RefreshToken verifyExpiration(RefreshToken token);
 

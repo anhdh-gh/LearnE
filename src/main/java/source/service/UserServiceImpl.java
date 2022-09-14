@@ -3,6 +3,8 @@ package source.service;
 import com.google.common.base.CaseFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.UserComparePasswordResponseDto;
 import source.dto.response.UserGetByIdResponseDto;
+import source.dto.request.*;
+import source.dto.response.*;
 import source.entity.Account;
 import source.entity.User;
 import source.exception.BusinessError;
@@ -23,7 +27,9 @@ import source.repository.AccountRepository;
 import source.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -69,7 +75,7 @@ public class UserServiceImpl implements UserService{
             .build()
         );
 
-        return BaseResponse.ofSucceeded(request.getRequestId(), userSave);
+        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userSave));
     }
 
     @Override
@@ -93,10 +99,14 @@ public class UserServiceImpl implements UserService{
         return BaseResponse.ofSucceeded(request.getRequestId(), new UserComparePasswordResponseDto(isCorrect));
     }
 
+    private User checkUserIsExist(String id){
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElse(null);
+    }
     @Override
     public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
-            Optional<User> userOptional = userRepository.findById(userGetByIdRequestDto.getIdUser());
-        if(!userOptional.isPresent()) {
+        User userResponse = checkUserIsExist(userGetByIdRequestDto.getIdUser());
+        if(userResponse == null){
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(userGetByIdRequestDto.getRequestId(),
                 new BusinessError(
@@ -105,8 +115,6 @@ public class UserServiceImpl implements UserService{
                     HttpStatus.BAD_REQUEST
             ));
         }
-
-        User userResponse = userOptional.get();
         return BaseResponse.ofSucceeded(userGetByIdRequestDto.getRequestId(),
             UserGetByIdResponseDto.builder()
                 .role(userResponse.getRole().getValue())
@@ -115,4 +123,73 @@ public class UserServiceImpl implements UserService{
                 .id(userResponse.getId())
                 .build());
     }
+
+    @Override
+    public BaseResponse getAllUser(UserGetAllRequestDto dataRequest) throws Exception {
+        PageRequest pageRequest = PageRequest.of(dataRequest.getPage(), dataRequest.getSize());
+
+        Page<User> allUsers = userRepository.findAll(pageRequest);
+        
+        return BaseResponse.ofSucceeded(
+                dataRequest.getRequestId(),
+                allUsers.getContent().stream().
+                    map(user -> UserGetAllResponseDto
+                        .builder()
+                            .id(user.getId())
+                            .userName(user.getUserName())
+                            .role(user.getRole())
+                            .email(user.getAccount().getEmail())
+                            .avatar(user.getAvatar())
+                            .gender(user.getGender())
+                            .dateOfBirth(user.getDateOfBirth())
+                            .address(user.getAddress())
+                            .phoneNumber(user.getPhoneNumber())
+                            .fullName(user.getFullName())
+                            .build())
+                        .collect(Collectors.toList()));
+    }
+
+    @Override
+    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        User user = checkUserIsExist(request.getId());
+        if(user == null){
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
+            return BaseResponse.ofFailed(request.getRequestId(),
+                new BusinessError(
+                    errorCode,
+                    environment.getProperty(String.valueOf(errorCode)),
+                    HttpStatus.BAD_REQUEST));
+        } else {
+            user.setGender(Objects.nonNull(request.getGender()) ? request.getGender() : user.getGender());
+            user.setAddress(Objects.nonNull(request.getAddress()) ? request.getAddress() : user.getAddress());
+            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar() : user.getAvatar());
+            user.setDateOfBirth(Objects.nonNull(request.getDateOfBirth()) ? request.getDateOfBirth() : user.getDateOfBirth());
+            user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
+            user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());
+        }
+        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userRepository.save(user)));
+    }
+
+    @Override
+    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
+        User user = checkUserIsExist(request.getId());
+        if(user == null){
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
+            return BaseResponse.ofFailed(request.getRequestId(),
+                    new BusinessError(
+                            errorCode,
+                            environment.getProperty(String.valueOf(errorCode)),
+                            HttpStatus.BAD_REQUEST));
+        } else{
+            userRepository.delete(user);
+            return BaseResponse.ofSucceeded(request.getRequestId(), user);
+        }
+    }
+
+    private User maskPassword(User user){
+        if(Objects.nonNull(user))
+            user.getAccount().setPassword(null);
+        return user;
+    }
+
 }

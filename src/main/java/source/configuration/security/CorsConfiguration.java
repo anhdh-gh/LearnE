@@ -1,5 +1,6 @@
 package source.configuration.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -7,6 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfiguration {
+
+    @Value("${service.gateway.baseurl}")
+    private String allowedOrigin;
 
     @Bean
     public WebMvcConfigurer corsConfigurer()
@@ -16,8 +20,8 @@ public class CorsConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                     .addMapping("/**") // Cho phép mọi nguồn
-                    .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-                //.allowedOrigins("http://127.0.0.1:5500");
+                    .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+                    .allowedOrigins(allowedOrigin);
             }
         };
     }

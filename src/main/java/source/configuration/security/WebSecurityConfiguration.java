@@ -28,7 +28,8 @@ public class WebSecurityConfiguration {
             // Cho phép mọi người truy cập vào các đường dẫn này
             .antMatchers(
                 RouterConstant.SIGN_IN,
-                RouterConstant.SIGN_UP
+                RouterConstant.SIGN_UP,
+                RouterConstant.USER_REFRESH_TOKEN
             ).permitAll()
 
             // Cho phép Admin truy cập đường dẫn này

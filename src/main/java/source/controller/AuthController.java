@@ -52,4 +52,9 @@ public class AuthController {
     public BaseResponse getUserInformation(@Valid @RequestBody UserGetUserInformationRequestDto request) throws Exception{
         return authService.getUserInformation(request);
     }
+
+    @PostMapping(RouterConstant.USER_GET_BY_ID)
+    public BaseResponse getUserById(@Valid @RequestBody UserGetUserByIdRequestDto request) throws Exception{
+        return authService.getUserById(request);
+    }
 }

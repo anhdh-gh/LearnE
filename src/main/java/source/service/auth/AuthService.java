@@ -18,4 +18,6 @@ public interface AuthService {
     public BaseResponse refreshToken(UserRefreshToken request) throws Exception;
 
     public BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception;
+
+    public BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception;
 }

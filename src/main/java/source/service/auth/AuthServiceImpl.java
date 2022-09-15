@@ -45,4 +45,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception {
         return authServiceThirdParty.getUserInformation(request);
     }
+
+    @Override
+    public BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getUserById(request);
+    }
 }

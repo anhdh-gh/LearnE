@@ -1,2 +1,2 @@
 # Learn Everything
-https://learn-everything.herokuapp.com
+https://learnefrontend.herokuapp.com

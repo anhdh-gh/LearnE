@@ -1,6 +1,6 @@
 server:
-  port: 6001
+  port: 6008
 
 service:
   auth:
-    baseurl: https://learne-service-auth.herokuapp.com
+    baseurl: http://localhost:6007

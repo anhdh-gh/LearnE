@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.constant.RouterConstant;
+import source.dto.request.UserGetUserInformationRequestDto;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
@@ -47,8 +48,8 @@ public class AuthController {
         return authService.refreshToken(request);
     }
 
-    @PostMapping(RouterConstant.GET_USER_BY_ID)
-    public BaseResponse getUserById(@Valid @RequestBody UserGetByIdR request) throws Exception{
-        return authService.getAllUser(request);
+    @PostMapping(RouterConstant.USER_GET_INFO)
+    public BaseResponse getUserInformation(@Valid @RequestBody UserGetUserInformationRequestDto request) throws Exception{
+        return authService.getUserInformation(request);
     }
 }

@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
-import source.exception.BusinessException;
 import source.third_party.auth.constant.RouterAuthServiceConstant;
 import source.util.JsonUtil;
 
@@ -90,6 +88,16 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
         return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
 
+    @Override
+    public BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_USER_BY_ID),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
+
+        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+    }
 
 
     private HttpEntity<BasicRequest> getHeader(BasicRequest request) {

@@ -40,4 +40,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse refreshToken(UserRefreshToken request) throws Exception {
         return authServiceThirdParty.refreshToken(request);
     }
+
+    @Override
+    public BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception {
+        return authServiceThirdParty.getUserInformation(request);
+    }
 }

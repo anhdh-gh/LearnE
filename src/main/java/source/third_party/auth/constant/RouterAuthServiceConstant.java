@@ -19,4 +19,6 @@ public class RouterAuthServiceConstant {
 
     public static final String REFRESH_TOKEN = "/user/refreshtoken";
 
+    public static final String GET_USER_BY_ID = "/user/";
+
 }

@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserGetByIdRequestDto extends BasicRequest {
 
-    private String idUser;
+    private String id;
 }

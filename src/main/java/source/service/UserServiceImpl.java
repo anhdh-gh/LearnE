@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
-        User userResponse = checkUserIsExist(userGetByIdRequestDto.getIdUser());
+        User userResponse = checkUserIsExist(userGetByIdRequestDto.getId());
         if(userResponse == null){
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(userGetByIdRequestDto.getRequestId(),

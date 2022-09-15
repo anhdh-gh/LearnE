@@ -2,7 +2,7 @@ service:
   user:
     baseurl: https://learne-service-user.herokuapp.com
   gateway:
-    baseurl: https://learne-service-gateway.herokuapp.com
+    baseurl: https://learneservicegateway.herokuapp.com
 
 # Database Firebase
 firebase:
@@ -13,4 +13,4 @@ management:
   endpoints:
     web:
       cors:
-        allowed-origins: https://learne-service-gateway.herokuapp.com
+        allowed-origins: https://learneservicegateway.herokuapp.com

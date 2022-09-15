@@ -12,11 +12,12 @@ public class AuthenticationConfiguration {
     public FilterRegistrationBean<AuthenticationFilter> authenticationFilter() {
         FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AuthenticationFilter());
-        registrationBean.addUrlPatterns(RouterConstant.USER_GET_ALL,
-                                            RouterConstant.USER_DELETE,
-                                            RouterConstant.USER_UPDATE,
-                                            RouterConstant.USER_GET_INFO,
-                                            RouterConstant.USER_GET_INFO);
+        registrationBean.addUrlPatterns(
+            RouterConstant.USER_GET_ALL,
+            RouterConstant.USER_DELETE,
+            RouterConstant.USER_UPDATE,
+            RouterConstant.USER_GET_INFO
+        );
         registrationBean.setOrder(1);
         return registrationBean;
     }

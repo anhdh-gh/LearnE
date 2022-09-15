@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.json.simple.parser.JSONParser;
 
@@ -47,7 +48,7 @@ public class CorsFilter implements Filter {
       ApiKeyVerifyRequestWrapper requestWrapper = new ApiKeyVerifyRequestWrapper(request);
 
       JSONParser parser = new JSONParser();
-      JSONObject dataRequest = StringUtils.isEmpty(requestWrapper.getBody()) ? new JSONObject()
+      JSONObject dataRequest = ObjectUtils.isEmpty(requestWrapper.getBody()) ? new JSONObject()
         : (JSONObject) parser.parse(requestWrapper.getBody());
       String requestId = requestWrapper.getHeader("X-Request-ID");
       if (requestId == null || requestId.isEmpty()) {
@@ -56,6 +57,7 @@ public class CorsFilter implements Filter {
       dataRequest.put("request_id", requestId);
       request.setAttribute("request_id", requestId);
       dataRequest.put("uri", request.getRequestURI());
+      dataRequest.put("authorization", requestWrapper.getHeader("Authorization"));
       requestWrapper.setBody(dataRequest.toString());
       chain.doFilter(requestWrapper, res);
     } catch (Exception e) {

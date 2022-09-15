@@ -24,4 +24,6 @@ public class BasicRequest implements Serializable {
 
   @JsonProperty("uri")
   private String uri;
+
+  private String authorization;
 }

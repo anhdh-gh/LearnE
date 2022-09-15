@@ -16,12 +16,6 @@ import javax.validation.constraints.*;
 @Data
 public class UserUpdateRequestDto extends BasicRequest{
 
-    @Size(max = 100, message = ErrorCodeConstant.USER_ID_IS_NOT_MORE_THAN_100_CHARACTERS_400026)
-    @NotNull(message = ErrorCodeConstant.USER_ID_IS_NOT_NULL_400025)
-    @NotBlank(message = ErrorCodeConstant.USER_ID_IS_NOT_EMPTY_400024)
-    @NotEmpty(message = ErrorCodeConstant.USER_ID_IS_NOT_EMPTY_400024)
-    private String id;
-
     private Gender gender;
 
     @NullOrNotBlank()

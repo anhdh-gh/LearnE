@@ -46,4 +46,9 @@ public class AuthController {
     public BaseResponse refreshToken(@Valid @RequestBody UserRefreshToken request) throws Exception{
         return authService.refreshToken(request);
     }
+
+    @PostMapping(RouterConstant.GET_USER_BY_ID)
+    public BaseResponse getUserById(@Valid @RequestBody UserGetByIdR request) throws Exception{
+        return authService.getAllUser(request);
+    }
 }

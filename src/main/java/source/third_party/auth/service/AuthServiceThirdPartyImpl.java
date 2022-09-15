@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
+import source.exception.BusinessException;
 import source.third_party.auth.constant.RouterAuthServiceConstant;
 import source.util.JsonUtil;
 
@@ -88,6 +90,8 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
         return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
     }
 
+
+
     private HttpEntity<BasicRequest> getHeader(BasicRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -96,6 +100,7 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
         headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.add(HttpHeaders.ACCEPT_CHARSET, StandardCharsets.UTF_8.name());
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", request.getAuthorization());
         return new HttpEntity<>(request, headers);
     }
 }

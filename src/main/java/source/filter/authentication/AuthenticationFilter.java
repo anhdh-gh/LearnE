@@ -58,7 +58,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void handlerError(HttpServletRequest request, HttpServletResponse response) throws IOException {
-            response.setHeader(RequestKeyConstant.CONTENT_TYPE, "application/json");
+        response.setHeader(RequestKeyConstant.CONTENT_TYPE, "application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter writer = response.getWriter();
         writer.write(mapper.writeValueAsString(BaseResponse.ofFailed((String) request.getAttribute(RequestKeyConstant.REQUEST_ID), BusinessErrors.UNAUTHORIZED)));

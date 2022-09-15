@@ -89,6 +89,13 @@ public class CommonExceptionHandler {
             return new ResponseEntity<>(data, status);
         }
 
+        if(statusCode.value() == HttpStatus.NOT_FOUND.value()) {
+            BusinessError error = BusinessErrors.NOT_FOUND;
+            BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.NOT_FOUND.getMessage());
+            HttpStatus status = error.getHttpStatus();
+            return new ResponseEntity<>(data, status);
+        }
+
         return handleException(exception, request);
     }
 }

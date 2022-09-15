@@ -24,6 +24,11 @@ public class BusinessErrors {
     public static final BusinessError FORBIDDEN_ERROR = new BusinessError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN);
 
     /**
+     * 404
+     */
+    public static final BusinessError NOT_FOUND = new BusinessError(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), HttpStatus.NOT_FOUND);
+
+    /**
      * 500
      */
     public static final BusinessError INTERNAL_SERVER_ERROR = new BusinessError(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), HttpStatus.INTERNAL_SERVER_ERROR);

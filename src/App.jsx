@@ -2,23 +2,28 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import "react-toastify/dist/ReactToastify.css"
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import { Toast, Loader } from "./components"
-import { useState, useEffect } from 'react'
 import AppNavigator from './navigation/AppNavigator'
+// import { useDispatch } from 'react-redux'
+// import { showLoader, hideLoader } from './redux/actions'
+// import { useEffect } from 'react'
 
 const App = () => {
 
-  const [loading, setLoading] = useState(true)
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 500)
-  }, [])
+  // useEffect(() => {
+  //   dispatch(showLoader())
+  //   setTimeout(() => {
+  //     dispatch(hideLoader())
+  //   }, 500)
+  // }, [dispatch])
 
-  return loading ? <Loader /> : <div className="App">
-    <Toast />
-    <AppNavigator />
-  </div>
+  return <Loader>
+    <div className="App">
+      <Toast />
+      <AppNavigator />
+    </div>    
+  </Loader>
 }
 
 export default App

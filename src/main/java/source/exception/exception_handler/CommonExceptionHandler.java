@@ -96,6 +96,13 @@ public class CommonExceptionHandler {
             return new ResponseEntity<>(data, status);
         }
 
+        if(statusCode.value() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            BusinessError error = BusinessErrors.INTERNAL_SERVER_ERROR;
+            BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.INTERNAL_SERVER_ERROR.getMessage());
+            HttpStatus status = error.getHttpStatus();
+            return new ResponseEntity<>(data, status);
+        }
+
         return handleException(exception, request);
     }
 }

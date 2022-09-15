@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.exception.BusinessError;
@@ -69,6 +70,26 @@ public class CommonExceptionHandler {
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, exception.getMessage());
         HttpStatus status = error.getHttpStatus();
         return new ResponseEntity<>(data, status);
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<BaseResponse<Void>> handleHttpClientErrorException(HttpClientErrorException exception, HttpServletRequest request) {
+        HttpStatus statusCode = exception.getStatusCode();
+        if(statusCode.value() == HttpStatus.UNAUTHORIZED.value()) {
+            BusinessError error = BusinessErrors.UNAUTHORIZED;
+            BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.UNAUTHORIZED.getMessage());
+            HttpStatus status = error.getHttpStatus();
+            return new ResponseEntity<>(data, status);
+        }
+
+        if(statusCode.value() == HttpStatus.FORBIDDEN.value()) {
+            BusinessError error = BusinessErrors.FORBIDDEN_ERROR;
+            BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.FORBIDDEN_ERROR.getMessage());
+            HttpStatus status = error.getHttpStatus();
+            return new ResponseEntity<>(data, status);
+        }
+
+        return handleException(exception, request);
     }
 }
 

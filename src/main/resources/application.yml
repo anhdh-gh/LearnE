@@ -1,3 +1,3 @@
 service:
   auth:
-    baseurl: https://learne-service-auth.herokuapp.com
+    baseurl: https://learneserviceauth.herokuapp.com

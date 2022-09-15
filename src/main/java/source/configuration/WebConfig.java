@@ -12,9 +12,6 @@ import source.constant.RouterConstant;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-    @Value("${service.gateway.baseurl}")
-    private String allowedOrigin;
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -23,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
                 registry
                     .addMapping(RouterConstant.SIGN_IN) 
                     .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-                    .allowedOrigins(allowedOrigin);
+                    .allowedOrigins("https://learneservicegateway.herokuapp.com");
             }
         };
     }

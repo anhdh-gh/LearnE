@@ -1,6 +1,6 @@
 service:
   user:
-    baseurl: https://learne-service-user.herokuapp.com
+    baseurl: https://learneserviceuser.herokuapp.com
   gateway:
     baseurl: https://learneservicegateway.herokuapp.com
 

@@ -7,7 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import source.constant.RequestKeyConstant;
-import source.dto.request.BasicRequest;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.third_party.user_service.constant.RouterUserServiceConstant;
 import source.third_party.user_service.dto.request.UserGetByIdThirdPartyRequestDto;
@@ -36,15 +36,47 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
-
+    
     @Override
-    public BaseResponse getUserById(UserGetByIdThirdPartyRequestDto request) throws Exception {
+    public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_USER_BY_ID),
+            String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_ALL_USER),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {});
 
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterUserServiceConstant.UPDATE_USER),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {});
+
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterUserServiceConstant.DELETE_USER),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {});
+
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_USER_BY_ID),
+                HttpMethod.POST,
+                getHeader(userGetInfoRequestDto),
+                new ParameterizedTypeReference<BaseResponse>() {});
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 

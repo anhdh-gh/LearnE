@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.constant.ErrorFirebaseConstant;
 import source.constant.JwtTokenTypeConstant;
-import source.dto.request.UserSignInRequestDto;
-import source.dto.request.UserSignUpRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;
@@ -141,5 +140,25 @@ public class UserServiceImpl implements UserService {
             }
             return BaseResponse.ofFailed(userSignInRequestDto.getRequestId(), BusinessErrors.INVALID_PARAMETERS, "Invalid parameters of object: " + userSignInRequestDto.getClass(), errors);
         }
+    }
+
+    @Override
+    public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
+        return userServiceThirdParty.getAllUser(request);
+    }
+
+    @Override
+    public BaseResponse updateUser(UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+        return userServiceThirdParty.updateUser(userUpdateRequestDto);
+    }
+
+    @Override
+    public BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception {
+        return userServiceThirdParty.deleteUser(userDeleteRequestDto);
+    }
+
+    @Override
+    public BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception {
+        return userServiceThirdParty.getUserInfo(userGetInfoRequestDto);
     }
 }

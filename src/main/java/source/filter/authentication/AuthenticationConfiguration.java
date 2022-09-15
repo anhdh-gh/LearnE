@@ -16,7 +16,8 @@ public class AuthenticationConfiguration {
             RouterConstant.USER_GET_ALL,
             RouterConstant.USER_DELETE,
             RouterConstant.USER_UPDATE,
-            RouterConstant.USER_GET_INFO
+            RouterConstant.USER_GET_INFO,
+            RouterConstant.USER_GET_BY_ID
         );
         registrationBean.setOrder(1);
         return registrationBean;

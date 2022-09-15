@@ -12,7 +12,9 @@ public class AuthorizationConfiguration {
     public FilterRegistrationBean<AuthorizationFilter> authorizationFilter() {
         FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AuthorizationFilter());
-        registrationBean.addUrlPatterns(RouterConstant.USER_GET_ALL, RouterConstant.USER_DELETE);
+        registrationBean.addUrlPatterns(RouterConstant.USER_GET_ALL,
+                RouterConstant.USER_DELETE,
+                RouterConstant.USER_GET_BY_ID);
         registrationBean.setOrder(2);
         return registrationBean;
     }

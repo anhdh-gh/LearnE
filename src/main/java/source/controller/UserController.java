@@ -9,6 +9,7 @@ import source.dto.response.BaseResponse;
 import source.entity.User;
 import source.service.refresh_token_service.RefreshTokenService;
 import source.service.user_service.UserService;
+import source.third_party.user_service.dto.request.UserGetByIdThirdPartyRequestDto;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,6 +57,10 @@ public class UserController {
     @PostMapping(RouterConstant.USER_GET_INFO)
     public BaseResponse getUserInformation(@RequestBody UserGetInfoRequestDto userGetInfoRequestDto, HttpServletRequest request) throws Exception {
         userGetInfoRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER)).getId());
+        return userService.getUserInfo(userGetInfoRequestDto);
+    }
+    @PostMapping(RouterConstant.USER_GET_BY_ID)
+    public BaseResponse getUserById(@RequestBody UserGetInfoRequestDto userGetInfoRequestDto, HttpServletRequest request) throws Exception {
         return userService.getUserInfo(userGetInfoRequestDto);
     }
 }

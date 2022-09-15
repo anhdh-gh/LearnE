@@ -5,6 +5,8 @@ const ROUTE_PATH = {
 
     // Public routers
     HOME: "/",
+    SIGN_IN: "/signin",
+    SIGN_UP: "/signup",
 
     // Not found
     NOT_FOUND: '*'

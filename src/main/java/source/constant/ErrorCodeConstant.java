@@ -34,4 +34,7 @@ public class ErrorCodeConstant {
     public static final String USER_ID_IS_NOT_MORE_THAN_100_CHARACTERS_400026 = "400026";
     public static final String REFRESH_TOKEN_IS_NOT_NULL_400027 = "400027";
     public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400028 = "400028";
+    public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400029 = "400029";
+    public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400030= "400030";
+
 }

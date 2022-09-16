@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.exception.BusinessError;
@@ -39,7 +39,7 @@ public class CommonExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<BaseResponse<Void>> handleBusinessException(BusinessException exception, HttpServletRequest request) {
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), exception);
-        return new ResponseEntity<>(data, exception.getError().getHttpStatus());
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -49,55 +49,54 @@ public class CommonExceptionHandler {
             .collect(Collectors.toList());
         BusinessError error = BusinessErrors.INVALID_PARAMETERS;
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, "Invalid parameters of object: " + exception.getBindingResult().getObjectName(), errors);
-        HttpStatus status = error.getHttpStatus();
-        return new ResponseEntity<>(data, status);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<BaseResponse<Void>> handleException(Exception exception, HttpServletRequest request) {
         BusinessError error = BusinessErrors.INTERNAL_SERVER_ERROR;
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, exception.getMessage());
-        HttpStatus status = error.getHttpStatus();
-        return new ResponseEntity<>(data, status);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<BaseResponse<Void>> handleIllegalArgumentException(IllegalArgumentException exception, HttpServletRequest request) {
         BusinessError error = BusinessErrors.INVALID_PARAMETERS;
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, exception.getMessage());
-        HttpStatus status = error.getHttpStatus();
-        return new ResponseEntity<>(data, status);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
-    
-    @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<BaseResponse<Void>> handleHttpClientErrorException(HttpClientErrorException exception, HttpServletRequest request) {
+
+    @ExceptionHandler(HttpStatusCodeException.class)
+    public ResponseEntity<BaseResponse<Void>> handleHttpStatusCodeException(HttpStatusCodeException exception, HttpServletRequest request) {
         HttpStatus statusCode = exception.getStatusCode();
+        if(statusCode.value() == HttpStatus.BAD_REQUEST.value()) {
+            BusinessError error = BusinessErrors.INVALID_PARAMETERS;
+            BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.INVALID_PARAMETERS.getMessage());
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+
         if(statusCode.value() == HttpStatus.UNAUTHORIZED.value()) {
             BusinessError error = BusinessErrors.UNAUTHORIZED;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.UNAUTHORIZED.getMessage());
-            HttpStatus status = error.getHttpStatus();
-            return new ResponseEntity<>(data, status);
+            return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
         if(statusCode.value() == HttpStatus.FORBIDDEN.value()) {
             BusinessError error = BusinessErrors.FORBIDDEN_ERROR;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.FORBIDDEN_ERROR.getMessage());
-            HttpStatus status = error.getHttpStatus();
-            return new ResponseEntity<>(data, status);
+            return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
         if(statusCode.value() == HttpStatus.NOT_FOUND.value()) {
             BusinessError error = BusinessErrors.NOT_FOUND;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.NOT_FOUND.getMessage());
-            HttpStatus status = error.getHttpStatus();
-            return new ResponseEntity<>(data, status);
+            return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
         if(statusCode.value() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
             BusinessError error = BusinessErrors.INTERNAL_SERVER_ERROR;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.INTERNAL_SERVER_ERROR.getMessage());
-            HttpStatus status = error.getHttpStatus();
-            return new ResponseEntity<>(data, status);
+            return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
         return handleException(exception, request);

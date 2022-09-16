@@ -20,4 +20,6 @@ public interface AuthService {
     public BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception;
 
     public BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception;
+
+    public BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception;
 }

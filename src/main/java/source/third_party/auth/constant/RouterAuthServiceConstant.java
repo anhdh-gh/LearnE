@@ -2,6 +2,8 @@ package source.third_party.auth.constant;
 
 public class RouterAuthServiceConstant {
 
+
+
     private RouterAuthServiceConstant() {};
 
     public final static String SIGN_IN = "/user/signin";
@@ -19,4 +21,6 @@ public class RouterAuthServiceConstant {
     public static final String GET_USER_INFORMATION = "/user/information";
 
     public static final String GET_USER_BY_ID = "/user/get-user-by-id";
+
+    public static final Object DELETE_USER_BY_ID = "/user/delete-user-by-id";
 }

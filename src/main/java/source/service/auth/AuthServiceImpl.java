@@ -50,4 +50,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception {
         return authServiceThirdParty.getUserById(request);
     }
+
+    @Override
+    public BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception {
+        return authServiceThirdParty.deleteUserById(request);
+    }
 }

@@ -57,4 +57,9 @@ public class AuthController {
     public BaseResponse getUserById(@Valid @RequestBody UserGetUserByIdRequestDto request) throws Exception{
         return authService.getUserById(request);
     }
+
+    @PostMapping(RouterConstant.ADMIN_DELETE_USER)
+    public BaseResponse deleteUserById(@Valid @RequestBody UserDeleteByIdRequestDto request) throws Exception{
+        return authService.deleteUserById(request);
+    }
 }

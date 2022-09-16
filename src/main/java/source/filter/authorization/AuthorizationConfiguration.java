@@ -13,7 +13,7 @@ public class AuthorizationConfiguration {
         FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AuthorizationFilter());
         registrationBean.addUrlPatterns(RouterConstant.USER_GET_ALL,
-                RouterConstant.USER_DELETE,
+                RouterConstant.ADMIN_DELETE_USER,
                 RouterConstant.USER_GET_BY_ID);
         registrationBean.setOrder(2);
         return registrationBean;

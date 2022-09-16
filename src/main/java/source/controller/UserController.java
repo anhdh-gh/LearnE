@@ -63,4 +63,9 @@ public class UserController {
     public BaseResponse getUserById(@RequestBody UserGetInfoRequestDto userGetInfoRequestDto, HttpServletRequest request) throws Exception {
         return userService.getUserInfo(userGetInfoRequestDto);
     }
+
+    @PostMapping(RouterConstant.ADMIN_DELETE_USER)
+    public BaseResponse deleteUserById(@RequestBody UserDeleteRequestDto userDeleteRequestDto) throws Exception {
+      return userService.deleteUser(userDeleteRequestDto);
+    }
 }

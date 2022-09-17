@@ -1,0 +1,127 @@
+import '../assets/css/Auth.css'
+import bgLeft from '../assets/img/bg_auth_left.png'
+import bgRight from '../assets/img/bg_auth_right.png'
+import { useState } from 'react'
+import { useNavigate } from "react-router-dom"
+import { ROUTE_PATH } from '../constants'
+
+const Auth = (props) => {
+
+    const navigate = useNavigate()
+
+    const [isSignIn, setIsSignIn] = useState(props.isSignIn)
+
+    const [isSignUp, setIsSignUp] = useState(props.isSignUp)
+
+    return <div className="wrapper-auth relative">
+
+        <div className="absolute left-0 bottom-0 w-4/12">
+            <img className="w-full" src={bgLeft} alt="bg_left"/>
+        </div>
+        <div className="absolute right-0 bottom-0 w-4/12">
+            <img className="w-full" src={bgRight} alt="bg_right"/>
+        </div>
+
+        <div className={`container md:block hidden ${isSignUp && !isSignIn && 'right-panel-active'}`} id="container">
+            <div className="form-container sign-up-container">
+                <form action="/#" onSubmit={ev => ev.preventDefault()}>
+                    <h1>Create Account</h1>
+                    <div className="social-container">
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-900 hover:text-white border-solid border-2 border-blue-900 text-blue-900"><i className="fab fa-facebook-f"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-red-900 hover:text-white border-solid border-2 border-red-900 text-red-900"><i className="fab fa-google-plus-g"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <input type="text" placeholder="Username" name='username' />
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button>Sign Up</button>
+                </form>
+            </div>
+            <div className="form-container sign-in-container">
+                <form action="/#" onSubmit={ev => ev.preventDefault()}>
+                    <h1>Sign in</h1>
+                    <div className="social-container">
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-900 hover:text-white border-solid border-2 border-blue-900 text-blue-900"><i className="fab fa-facebook-f"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-red-900 hover:text-white border-solid border-2 border-red-900 text-red-900"><i className="fab fa-google-plus-g"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your account</span>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <label className='w-full flex justify-start items-center cursor-pointer'>
+                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="remember"/>
+                        <div className='ms-2'>Remember me</div>
+                    </label>
+                    <button>Sign In</button>
+                    <a href="/#" className='mt-4' onClick={ev => ev.preventDefault()}>Forgot your password?</a>
+                    <div className='flex mt-2 w-full justify-between'>
+                        <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
+                        <a href={ROUTE_PATH.SIGN_UP} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_UP); setIsSignIn(false); setIsSignUp(true)}}>Sign up</a>
+                    </div>
+                </form>
+            </div>
+            <div className="overlay-container d-md-block">
+                <div className="overlay">
+                    <div className="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button className="ghost" id="signIn" onClick={() => { setIsSignUp(false); setIsSignIn(true); navigate(ROUTE_PATH.SIGN_IN, { replace: true }) }}>Sign In</button>
+                    </div>
+                    <div className="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button className="ghost" id="signUp" onClick={() => { setIsSignUp(true); setIsSignIn(false); navigate(ROUTE_PATH.SIGN_UP, { replace: true }) }}>Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="container max-w-xs md:hidden" id="container">
+            <div className={`form-container w-100 sign-up-container ${!isSignUp && 'd-none'} ${isSignUp && 'opacity-100'}`}>
+                <form action="/#" onSubmit={ev => ev.preventDefault()} className="px-4">
+                    <h1>Create Account</h1>
+                    <div className="social-container">
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-900 hover:text-white border-solid border-2 border-blue-900 text-blue-900"><i className="fab fa-facebook-f"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-red-900 hover:text-white border-solid border-2 border-red-900 text-red-900"><i className="fab fa-google-plus-g"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <input type="text" placeholder="Username" name='username'/>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button className='mt-3'>Sign Up</button>
+                    <div className='flex mt-3.5 w-full justify-between'>
+                        <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
+                        <a href={ROUTE_PATH.SIGN_IN} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_IN); setIsSignIn(true); setIsSignUp(false)}}>Sign in</a>
+                    </div>
+                </form>
+            </div>
+            <div className={`form-container w-100 sign-in-container ${!isSignIn && 'd-none'} ${isSignIn && 'opacity-100'}`}>
+                <form action="/#" onSubmit={ev => ev.preventDefault()} className="px-4">
+                    <h1 className='mt-3.5'>Sign in</h1>
+                    <div className="social-container">
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-900 hover:text-white border-solid border-2 border-blue-900 text-blue-900"><i className="fab fa-facebook-f"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-red-900 hover:text-white border-solid border-2 border-red-900 text-red-900"><i className="fab fa-google-plus-g"></i></a>
+                        <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your account</span>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <label className='w-full flex justify-start items-center cursor-pointer'>
+                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="remember"/>
+                        <div className='ms-2'>Remember me</div>
+                    </label>
+                    <button>Sign In</button>
+                    <a href="/#" className='mt-4' onClick={ev => ev.preventDefault()}>Forgot your password?</a>
+                    <div className='flex mt-2 w-full justify-between'>
+                        <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
+                        <a href={ROUTE_PATH.SIGN_UP} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_UP); setIsSignIn(false); setIsSignUp(true)}}>Sign up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+export default Auth

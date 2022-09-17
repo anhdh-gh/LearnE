@@ -1,5 +1,5 @@
 import { ROUTE_PATH } from '../constants'
-import { NotFound } from '../pages'
+import { NotFound, Auth } from '../pages'
 
 const routes = {
     privateAdminoute: [
@@ -10,9 +10,17 @@ const routes = {
 
     publicRoute: [
         {
+            path: ROUTE_PATH.SIGN_UP, 
+            element: <Auth isSignUp={true}/>
+        },   
+        {
+            path: ROUTE_PATH.SIGN_IN, 
+            element: <Auth isSignIn={true}/>
+        },   
+        {
             path: ROUTE_PATH.NOT_FOUND, // Không match với path nào ở phía trên (luôn đặt ở cuối cùng)
             element: <NotFound />
-        },    
+        }
     ]
 }
 

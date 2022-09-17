@@ -8,7 +8,7 @@ const Loader = (props) => {
     return isShowLoader ? 
         <div className="loader-container">
             <div className="main">
-                <h1 className="title">Learn E</h1>
+                <h1 className="title text-4xl">Learn E</h1>
                 <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
             </div>
         </div>

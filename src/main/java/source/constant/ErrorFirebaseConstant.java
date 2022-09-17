@@ -15,4 +15,6 @@ public class ErrorFirebaseConstant {
     public final static String INVALID_PASSWORD = "INVALID_PASSWORD";
 
     public final static String EMAIL_NOT_FOUND = "EMAIL_NOT_FOUND";
+
+    public final static String TOO_MANY_ATTEMPTS_TRY_LATER = "TOO_MANY_ATTEMPTS_TRY_LATER";
 }

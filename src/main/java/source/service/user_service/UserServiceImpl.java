@@ -120,7 +120,6 @@ public class UserServiceImpl implements UserService {
         } catch (HttpBadRequestException e) {
             FirebaseAuthException firebaseAuthError = JsonUtil.convertJsonStrToObject(e.getMessage(), FirebaseAuthException.class);
             String type = firebaseAuthError.getError().getMessage().split(" : ")[0];
-            String message = "System error";
             List<FieldViolation> errors = new ArrayList<>();
             switch (type) {
                 case ErrorFirebaseConstant.MISSING_PASSWORD:
@@ -135,8 +134,10 @@ public class UserServiceImpl implements UserService {
                 case ErrorFirebaseConstant.EMAIL_NOT_FOUND:
                     errors.add(new FieldViolation(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "Email"), ErrorCodeConstant.EMAIL_NOT_FOUND_400014, environment.getProperty(ErrorCodeConstant.EMAIL_NOT_FOUND_400014)));
                     break;
+                case ErrorFirebaseConstant.TOO_MANY_ATTEMPTS_TRY_LATER:
+                    return BaseResponse.ofFailed(BusinessErrors.BAD_REQUEST, "Access to this account has been temporarily disabled due to multiple failed login attempts. Please try again later");
                 default:
-                    return BaseResponse.ofFailed(BusinessErrors.INVALID_PARAMETERS);
+                    return BaseResponse.ofFailed(BusinessErrors.INVALID_PARAMETERS, "System error");
             }
             return BaseResponse.ofFailed(userSignInRequestDto.getRequestId(), BusinessErrors.INVALID_PARAMETERS, "Invalid parameters of object: " + userSignInRequestDto.getClass(), errors);
         }

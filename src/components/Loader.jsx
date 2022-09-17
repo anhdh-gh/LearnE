@@ -3,9 +3,9 @@ import { useSelector } from "react-redux"
 
 const Loader = (props) => {
 
-    const isShowLoader = useSelector(state =>  state.UI.isShowLoader)
+    const isShow = useSelector(state =>  state.UI.Loader.isShow)
 
-    return isShowLoader ? 
+    return isShow ? 
         <div className="loader-container">
             <div className="main">
                 <h1 className="title text-4xl">Learn E</h1>

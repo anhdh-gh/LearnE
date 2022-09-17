@@ -1,28 +1,50 @@
 import { toast } from "react-toastify"
+import store from '../redux/store'
+import { showToastModal, hideToastModal } from "../redux/actions"
 
 const Notification = {
     error: message => {
-        toast.dismiss() // All the displayed toasts will be removed
-        const id = toast.error(message)
-        return id
+        if(message.length > 50) {
+            store.dispatch(hideToastModal())
+            store.dispatch(showToastModal({message, type: "error"}))
+        } else {
+            toast.dismiss() // All the displayed toasts will be removed
+            const id = toast.error(message)
+            return id
+        }
     },
 
     warn: message => {
-        toast.dismiss()
-        const id = toast.warn(message)
-        return id
+        if(message.length > 50) {
+            store.dispatch(hideToastModal())
+            store.dispatch(showToastModal({message, type: "warn"}))
+        } else {
+            toast.dismiss()
+            const id = toast.warn(message)
+            return id
+        }
     },
 
     info: message => {
-        toast.dismiss()
-        const id = toast.info(message)
-        return id
+        if(message.length > 50) {
+            store.dispatch(hideToastModal())
+            store.dispatch(showToastModal({message, type: "info"}))
+        } else {
+            toast.dismiss()
+            const id = toast.info(message)
+            return id
+        }
     },    
 
     success: message => {
-        toast.dismiss()
-        const id = toast.success(message)
-        return id
+        if(message.length > 50) {
+            store.dispatch(hideToastModal())
+            store.dispatch(showToastModal({message, type: "success"}))
+        } else {
+            toast.dismiss()
+            const id = toast.success(message)
+            return id
+        }
     },    
 
     loading: message => {

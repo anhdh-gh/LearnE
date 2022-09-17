@@ -4,14 +4,27 @@ import bgRight from '../assets/img/bg_auth_right.png'
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { ROUTE_PATH } from '../constants'
+import { useDispatch } from 'react-redux'
+import { signIn } from '../redux/actions/userSagaAction'
+import { useSelector } from "react-redux"
 
 const Auth = (props) => {
 
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const [isSignIn, setIsSignIn] = useState(props.isSignIn)
-
     const [isSignUp, setIsSignUp] = useState(props.isSignUp)
+    const isButtonSignInSpin = useSelector(state => state.UI.Auth.signIn.isButtonSignInSpin)
+
+    const [ email, setEmail ] = useState('')
+    const [ password, setPassword ] = useState('')
+    const [ rememberMe, setRememberMe ] = useState(true)
+
+
+    const submitSignIn = (ev) => {
+        ev.preventDefault()
+        dispatch(signIn(email, password, rememberMe))
+    }
 
     return <div className="wrapper-auth relative">
 
@@ -32,14 +45,14 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Username" name='username' />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input required type="text" placeholder="Username" name='username' />
+                    <input required type="email" placeholder="Email" />
+                    <input required type="password" placeholder="Password" />
                     <button>Sign Up</button>
                 </form>
             </div>
             <div className="form-container sign-in-container">
-                <form action="/#" onSubmit={ev => ev.preventDefault()}>
+                <form action="/#" onSubmit={submitSignIn}>
                     <h1>Sign in</h1>
                     <div className="social-container">
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-900 hover:text-white border-solid border-2 border-blue-900 text-blue-900"><i className="fab fa-facebook-f"></i></a>
@@ -47,13 +60,14 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input required type="email" placeholder="Email" name="email" onChange={e => setEmail(e.target.value)}/>
+                    <input required type="password" placeholder="Password" name="password" onChange={e => setPassword(e.target.value)}/>
                     <label className='w-full flex justify-start items-center cursor-pointer'>
-                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="remember"/>
+                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="rememberMe" onChange={e => setRememberMe(e.target.checked)}/>
                         <div className='ms-2'>Remember me</div>
                     </label>
-                    <button>Sign In</button>
+                    <button disabled={isButtonSignInSpin} className={`${isButtonSignInSpin && 'opacity-50'}`}>
+                        <i className={`${!isButtonSignInSpin && 'd-none'} fa-solid fa-spinner animate-spin`}></i> Sign In</button>
                     <a href="/#" className='mt-4' onClick={ev => ev.preventDefault()}>Forgot your password?</a>
                     <div className='flex mt-2 w-full justify-between'>
                         <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
@@ -87,9 +101,9 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Username" name='username'/>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input required type="text" placeholder="Username" name='username'/>
+                    <input required type="email" placeholder="Email" />
+                    <input required type="password" placeholder="Password" />
                     <button className='mt-3'>Sign Up</button>
                     <div className='flex mt-3.5 w-full justify-between'>
                         <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
@@ -98,7 +112,7 @@ const Auth = (props) => {
                 </form>
             </div>
             <div className={`form-container w-100 sign-in-container ${!isSignIn && 'd-none'} ${isSignIn && 'opacity-100'}`}>
-                <form action="/#" onSubmit={ev => ev.preventDefault()} className="px-4">
+                <form action="/#" onSubmit={submitSignIn} className="px-4">
                     <h1 className='mt-3.5'>Sign in</h1>
                     <div className="social-container">
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-900 hover:text-white border-solid border-2 border-blue-900 text-blue-900"><i className="fab fa-facebook-f"></i></a>
@@ -106,13 +120,14 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input required type="email" placeholder="Email" name="email" onChange={e => setEmail(e.target.value)}/>
+                    <input required type="password" placeholder="Password" name="password" onChange={e => setPassword(e.target.value)}/>
                     <label className='w-full flex justify-start items-center cursor-pointer'>
-                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="remember"/>
+                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="rememberMe" onChange={e => setRememberMe(e.target.checked)}/>
                         <div className='ms-2'>Remember me</div>
                     </label>
-                    <button>Sign In</button>
+                    <button disabled={isButtonSignInSpin} className={`${isButtonSignInSpin && 'opacity-50'}`}>
+                        <i className={`${!isButtonSignInSpin && 'd-none'} fa-solid fa-spinner animate-spin`}></i> Sign In</button>
                     <a href="/#" className='mt-4' onClick={ev => ev.preventDefault()}>Forgot your password?</a>
                     <div className='flex mt-2 w-full justify-between'>
                         <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>

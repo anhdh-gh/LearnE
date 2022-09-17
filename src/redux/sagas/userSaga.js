@@ -1,6 +1,7 @@
 import { STATUS_CODES } from "../../constants"
 import ACTION_TYPE_SAGA from "../actions/ACTION_TYPE_SAGA"
-import { showLoader, hideLoader, saveUser, refreshToken, getUserInfo } from '../actions'
+import { showLoader, showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
+    hideLoader, saveUser, refreshToken, getUserInfo } from '../actions'
 import { Notification } from '../../utils'
 import { UserApi } from '../../api'
 import Cookie from 'js-cookie'
@@ -12,7 +13,7 @@ const { SUCCESS } = STATUS_CODES
 function* signInWorker({ payload }) {
     const { username, password, rememberMe } = payload
 
-    yield put(showLoader())
+    yield put(showAuthSignInIsButtonSignInSpin())
     try {
         const response = yield call(UserApi.handleSignIn(username, password)) // block
         const { data, meta } = response
@@ -25,13 +26,14 @@ function* signInWorker({ payload }) {
             }
             Notification.success("Logged in successfully")
         } else {
-            const message = meta.errors[0].description
+            const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
             Notification.error(message)
         }
     } catch (error) {
+        console.log(error)
         Notification.error("Login failed")
     }
-    yield put(hideLoader())
+    yield put(hideAuthSignInIsButtonSignInSpin())
 }
 
 function* getUserInfoWorker() {

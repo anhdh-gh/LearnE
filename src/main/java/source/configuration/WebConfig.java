@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
                     .addMapping("/**") // Cho phép mọi nguồn
                     .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
                     .allowedOrigins(
+                        "http://localhost:3000",
                         "https://learnefrontend.vercel.app",
                         "https://learnefrontend.herokuapp.com"
                     );

@@ -1,5 +1,5 @@
 import { ROUTE_PATH } from '../constants'
-import { NotFound, Auth } from '../pages'
+import { NotFound, Auth, Home } from '../pages'
 
 const routes = {
     privateAdminoute: [
@@ -9,6 +9,10 @@ const routes = {
     ],
 
     publicRoute: [
+        {
+            path: ROUTE_PATH.HOME, 
+            element: <Home/>
+        },   
         {
             path: ROUTE_PATH.SIGN_UP, 
             element: <Auth isSignUp={true}/>

@@ -49,6 +49,10 @@ const Auth = (props) => {
                     <input required type="email" placeholder="Email" />
                     <input required type="password" placeholder="Password" />
                     <button>Sign Up</button>
+                    <div className='flex mt-3.5 w-full justify-between'>
+                        <a href={ROUTE_PATH.HOME} onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.HOME)}} className='m-0'>Home</a>
+                        <a href={ROUTE_PATH.SIGN_IN} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_IN); setIsSignIn(true); setIsSignUp(false)}}>Sign in</a>
+                    </div>
                 </form>
             </div>
             <div className="form-container sign-in-container">
@@ -70,7 +74,7 @@ const Auth = (props) => {
                         <i className={`${!isButtonSignInSpin && 'd-none'} fa-solid fa-spinner animate-spin`}></i> Sign In</button>
                     <a href="/#" className='mt-4' onClick={ev => ev.preventDefault()}>Forgot your password?</a>
                     <div className='flex mt-2 w-full justify-between'>
-                        <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
+                        <a href={ROUTE_PATH.HOME} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.HOME)}}>Home</a>
                         <a href={ROUTE_PATH.SIGN_UP} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_UP); setIsSignIn(false); setIsSignUp(true)}}>Sign up</a>
                     </div>
                 </form>
@@ -106,7 +110,7 @@ const Auth = (props) => {
                     <input required type="password" placeholder="Password" />
                     <button className='mt-3'>Sign Up</button>
                     <div className='flex mt-3.5 w-full justify-between'>
-                        <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
+                        <a href={ROUTE_PATH.HOME} onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.HOME)}} className='m-0'>Home</a>
                         <a href={ROUTE_PATH.SIGN_IN} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_IN); setIsSignIn(true); setIsSignUp(false)}}>Sign in</a>
                     </div>
                 </form>
@@ -130,7 +134,7 @@ const Auth = (props) => {
                         <i className={`${!isButtonSignInSpin && 'd-none'} fa-solid fa-spinner animate-spin`}></i> Sign In</button>
                     <a href="/#" className='mt-4' onClick={ev => ev.preventDefault()}>Forgot your password?</a>
                     <div className='flex mt-2 w-full justify-between'>
-                        <a href="/#" className='m-0' onClick={ev => ev.preventDefault()}>Home</a>
+                        <a href={ROUTE_PATH.HOME} onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.HOME)}} className='m-0'>Home</a>
                         <a href={ROUTE_PATH.SIGN_UP} className='m-0' onClick={ev => {ev.preventDefault(); navigate(ROUTE_PATH.SIGN_UP); setIsSignIn(false); setIsSignUp(true)}}>Sign up</a>
                     </div>
                 </form>

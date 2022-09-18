@@ -1,0 +1,45 @@
+.header-container {
+    background-color: #4257b2;
+    box-shadow: 0 0.3125rem 1rem 0 rgb(0 0 0 / 8%);
+}
+
+.header-container a {
+    color: inherit;
+}
+
+.user-droplist .header-user-dropList > a {
+    display: flex;
+    padding: 0;
+    align-items: center;
+}
+
+.user-droplist .header-user-dropList > div {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 30%);
+    animation: slideZoom 0.5s ease;
+    transition: all .8s ease; 
+}
+
+.user-droplist .header-user-dropList > div {
+    top: 150%;
+}
+
+.user-droplist .header-user-title {
+    padding: 0;
+    display: flex;
+    align-items: center; 
+    font-weight: bold;
+}
+
+.user-droplist .header-user-title > img {
+    width: 30px;
+    border-radius: 50%;
+}
+
+@keyframes slideZoom {
+    0% {
+        transform: scale(.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,42 @@
+.user-info-container * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.user-info-container {
+    overflow: auto;
+    display: flex;
+    align-items: center;
+}
+
+.user-info-container > .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user-info-container > .text-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.user-info-container > .text-user-info > .display-name {
+    font-size: 16px;
+    color: #292929;
+    font-weight: 900;
+    margin: 0;    
+}
+
+.user-info-container > .text-user-info > .email {
+    color: #939bb4;
+    font-size: 14px;
+    letter-spacing: normal;
+    line-height: 1.5;
+    font-weight: 600;
+    font-size: 1rem;
+}

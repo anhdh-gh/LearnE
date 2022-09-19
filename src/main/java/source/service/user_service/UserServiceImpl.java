@@ -12,9 +12,7 @@ import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;
-import source.dto.response.UserSignInResponseDto;
 import source.entity.User;
-import source.entity.enumeration.Role;
 import source.exception.BusinessErrors;
 import source.exception.firebase.auth.FirebaseAuthException;
 import source.entity.RefreshToken;
@@ -115,7 +113,7 @@ public class UserServiceImpl implements UserService {
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
             return BaseResponse.ofSucceeded(userSignInRequestDto.getRequestId(),
-                UserSignInResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).user(user).build());
+                TokenResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).user(user).build());
         } catch (HttpBadRequestException e) {
             FirebaseAuthException firebaseAuthError = JsonUtil.convertJsonStrToObject(e.getMessage(), FirebaseAuthException.class);
             String type = firebaseAuthError.getError().getMessage().split(" : ")[0];

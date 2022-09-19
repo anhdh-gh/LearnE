@@ -80,7 +80,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 User user = userRepository.get(userId);
                 String token = jwtUtil.generateJwtToken(user);
                 return BaseResponse.ofSucceeded(request.getRequestId(),
-                    TokenResponseDto.builder().accessToken(token).refreshToken(requestRefreshToken).tokenType(JwtTokenTypeConstant.BEARER).build());
+                    TokenResponseDto.builder().user(user).accessToken(token).refreshToken(requestRefreshToken).tokenType(JwtTokenTypeConstant.BEARER).build());
             })
             .orElseThrow(() -> new BusinessException(BusinessErrors.FORBIDDEN_ERROR,
                 "Refresh token is not in database!")

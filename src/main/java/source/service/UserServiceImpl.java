@@ -16,7 +16,6 @@ import source.dto.request.UserGetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.UserComparePasswordResponseDto;
-import source.dto.response.UserGetByIdResponseDto;
 import source.dto.request.*;
 import source.dto.response.*;
 import source.entity.Account;
@@ -103,6 +102,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> userOptional = userRepository.findById(id);
         return userOptional.orElse(null);
     }
+
     @Override
     public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception {
         User userResponse = checkUserIsExist(userGetByIdRequestDto.getId());
@@ -115,13 +115,8 @@ public class UserServiceImpl implements UserService{
                     HttpStatus.BAD_REQUEST
             ));
         }
-        return BaseResponse.ofSucceeded(userGetByIdRequestDto.getRequestId(),
-            UserGetByIdResponseDto.builder()
-                .role(userResponse.getRole().getValue())
-                .email(userResponse.getAccount().getEmail())
-                .password(userResponse.getAccount().getPassword())
-                .id(userResponse.getId())
-                .build());
+
+        return BaseResponse.ofSucceeded(userGetByIdRequestDto.getRequestId(), userResponse);
     }
 
     @Override

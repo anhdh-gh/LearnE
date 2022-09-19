@@ -20,4 +20,20 @@ public class User {
     private String id;
 
     private Role role;
+
+    private String gender;
+
+    private String userName;
+
+    private String dateOfBirth;
+
+    private String phoneNumber;
+
+    private String avatar;
+
+    private Object account;
+
+    private Object address;
+
+    private Object fullName;
 }

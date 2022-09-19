@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import source.entity.User;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class TokenResponseDto {
-    private String accessToken;
-    private String tokenType;
-    private String refreshToken;
+public class UserSignInResponseDto extends TokenResponseDto {
+
+    private User user;
 }

@@ -12,6 +12,7 @@ import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;
+import source.dto.response.UserSignInResponseDto;
 import source.entity.User;
 import source.entity.enumeration.Role;
 import source.exception.BusinessErrors;
@@ -106,17 +107,15 @@ public class UserServiceImpl implements UserService {
             // Get user id
             String idUser = firebaseSignInSignUpResponseBean.getLocalId();
 
-            // Get Role user
-            Role role = userRepository.get(idUser).getRole();
-
-            User user = User.builder().role(role).id(idUser).build();
+            // Get user
+            User user = userRepository.get(idUser);
 
             // Create token
             String accessToken = jwtUtil.generateJwtToken(user);
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
             return BaseResponse.ofSucceeded(userSignInRequestDto.getRequestId(),
-                TokenResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).build());
+                UserSignInResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).user(user).build());
         } catch (HttpBadRequestException e) {
             FirebaseAuthException firebaseAuthError = JsonUtil.convertJsonStrToObject(e.getMessage(), FirebaseAuthException.class);
             String type = firebaseAuthError.getError().getMessage().split(" : ")[0];

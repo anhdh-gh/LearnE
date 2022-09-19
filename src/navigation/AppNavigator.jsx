@@ -3,11 +3,13 @@ import { ScrollToTop } from '../components'
 import routes from './routes'
 import PrivateRoute from './PrivateRoute'
 import PrivateAdminRoute from './PrivateAdminRoute'
+import { NavigateSetter } from '../components'
 
 const AppNavigator = (props) => {
     return <BrowserRouter>
-        {props?.children}
         <ScrollToTop/>
+        <NavigateSetter/>
+        {props?.children}
         <Routes>
             {/* Private admin routers */}
             {routes.privateAdminoute.map((route, index) => <PrivateAdminRoute key={index}

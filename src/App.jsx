@@ -2,10 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import "react-toastify/dist/ReactToastify.css"
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import { Toast, Loader, ToastModal } from "./components"
-import AppNavigator from './navigation/AppNavigator'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from './redux/actions/userSagaAction'
+import AppNavigator from './navigation/AppNavigator'
 
 const App = () => {
 

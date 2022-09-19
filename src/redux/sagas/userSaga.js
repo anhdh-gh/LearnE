@@ -1,13 +1,15 @@
-import { STATUS_CODES } from "../../constants"
+import { STATUS_CODES, KEY } from "../../constants"
 import ACTION_TYPE_SAGA from "../actions/ACTION_TYPE_SAGA"
 import { showLoader, showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
-    hideLoader, saveUser, refreshToken, getUserInfo } from '../actions'
+    hideLoader, saveUser, refreshToken, removeUser, 
+    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo } from '../actions'
 import { Notification } from '../../utils'
 import { UserApi } from '../../api'
 import Cookie from 'js-cookie'
 import { call, put, takeLatest } from 'redux-saga/effects'
+import { History } from '../../components/NavigateSetter'
 
-const { FETCH_USER_INFO, SIGN_IN, REFRESH_TOKEN } = ACTION_TYPE_SAGA
+const { FETCH_USER_INFO, SIGN_IN, REFRESH_TOKEN, SIGN_OUT } = ACTION_TYPE_SAGA
 const { SUCCESS } = STATUS_CODES
 
 function* signInWorker({ payload }) {
@@ -18,13 +20,15 @@ function* signInWorker({ payload }) {
         const response = yield call(UserApi.handleSignIn(username, password)) // block
         const { data, meta } = response
         if(meta.code === SUCCESS) {
-            const { accessToken, tokenType, refreshToken }= data
-            localStorage.setItem('accessToken', accessToken)
-            localStorage.setItem('tokenType', tokenType)
+            const { accessToken, tokenType, refreshToken, user } = data
+            localStorage.setItem(KEY.ACCESS_TOKEN, accessToken)
+            localStorage.setItem(KEY.TOKEN_TYPE, tokenType)
             if(rememberMe) {
-                Cookie.set('refreshToken', refreshToken)
+                Cookie.set(KEY.REFRESH_TOKEN, refreshToken)
             }
             Notification.success("Logged in successfully")
+            yield put(saveUser(user))
+            History.goBack()
         } else {
             const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
             Notification.error(message)
@@ -38,6 +42,7 @@ function* signInWorker({ payload }) {
 
 function* getUserInfoWorker() {
     yield put(showLoader())
+    yield put(showLoadingHeaderUserInfo())
     try {
         const response = yield call(UserApi.handleGetUserInfo()) // block
         const { data, meta } = response
@@ -49,20 +54,40 @@ function* getUserInfoWorker() {
     } catch (error) {
         console.log(error)
     }
+    yield put(hideLoadingHeaderUserInfo())
     yield put(hideLoader())
 }
 
 function* refreshTokenWorker() {
     yield put(showLoader())
+    yield put(showLoadingHeaderUserInfo())
     try {
-        const refreshToken = Cookie.get('refreshToken')
-        const response = yield call(UserApi.handleRefreshToken(refreshToken)) // block
-        const { data, meta } = response
-        if(meta.code === SUCCESS) {
-            const { refreshToken }= data
-            Cookie.set('refreshToken', refreshToken)
-            yield put(getUserInfo())
+        const refreshToken = Cookie.get(KEY.REFRESH_TOKEN)
+        if(refreshToken) {
+            const response = yield call(UserApi.handleRefreshToken(refreshToken)) // block
+            const { data, meta } = response
+            if(meta.code === SUCCESS) {
+                const { accessToken, tokenType, refreshToken, user } = data
+                Cookie.set(KEY.REFRESH_TOKEN, refreshToken)
+                localStorage.setItem(KEY.ACCESS_TOKEN, accessToken)
+                localStorage.setItem(KEY.TOKEN_TYPE, tokenType)
+                yield put(saveUser(user)) 
+            }            
         }
+    } catch (error) {
+        console.log(error)
+    }
+    yield put(hideLoadingHeaderUserInfo())
+    yield put(hideLoader())
+}
+
+function* signOutWorker() {
+    yield put(showLoader())
+    try {
+        Cookie.remove(KEY.REFRESH_TOKEN)
+        localStorage.removeItem(KEY.ACCESS_TOKEN)
+        localStorage.removeItem(KEY.TOKEN_TYPE)
+        yield put(removeUser())
     } catch (error) {
         console.log(error)
     }
@@ -73,6 +98,7 @@ function* userWatcher() {
     yield takeLatest(SIGN_IN, signInWorker)
     yield takeLatest(FETCH_USER_INFO, getUserInfoWorker)
     yield takeLatest(REFRESH_TOKEN, refreshTokenWorker)
+    yield takeLatest(SIGN_OUT, signOutWorker)
 }
 
 export default userWatcher

@@ -4,6 +4,7 @@ import ScrollToTop from './ScrollToTop'
 import ToastModal from './ToastModal'
 import Header from './Header'
 import UserInfo from './UserInfo'
+import NavigateSetter from './NavigateSetter'
 
 export {
     Toast,
@@ -12,4 +13,5 @@ export {
     ToastModal,
     Header,
     UserInfo,
+    NavigateSetter,
 }

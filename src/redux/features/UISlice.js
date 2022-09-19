@@ -17,6 +17,12 @@ const UISlice = createSlice({
             signIn: {
                 isButtonSignInSpin: false
             }
+        },
+
+        Header: {
+            userInfo: {
+                isLoading: false
+            }
         }
     },
     reducers: {
@@ -87,11 +93,38 @@ const UISlice = createSlice({
                 }
             }
         },        
+
+        showLoadingHeaderUserInfo: (state, { payload }) => {
+            return {
+                ...state,
+                Header: {
+                    ...state.Header,
+                    userInfo: {
+                        ...state.Header.isLoading,
+                        isLoading: true
+                    }
+                }
+            }
+        },
+
+        hideLoadingHeaderUserInfo: (state, { payload }) => {
+            return {
+                ...state,
+                Header: {
+                    ...state.Header,
+                    userInfo: {
+                        ...state.Header.isLoading,
+                        isLoading: false
+                    }
+                }
+            }
+        },
     }
 })
 
 export const { showLoader, hideLoader, showToastModal, hideToastModal, 
-    showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin } = UISlice.actions
+    showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
+    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo } = UISlice.actions
 
 export default UISlice.reducer
 

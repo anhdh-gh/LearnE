@@ -12,3 +12,7 @@ export const signIn = (username, password, rememberMe) => ({
     type: ACTION_TYPE_SAGA.SIGN_IN,
     payload: {username, password, rememberMe}
 })
+
+export const signOut= () => ({
+    type: ACTION_TYPE_SAGA.SIGN_OUT,
+})

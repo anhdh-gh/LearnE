@@ -1,6 +1,6 @@
 import axios from "axios"
 import queryString from "query-string"
-import { API_ENDPOINT } from "../constants"
+import { API_ENDPOINT, KEY } from "../constants"
 
 const URL = API_ENDPOINT.LEARNE_GATEWAY_API
 
@@ -11,7 +11,7 @@ const createAxios = () => {
     axiosInstant.defaults.timeout = 20000
     axiosInstant.defaults.headers = { "Content-Type": "application/json" }
     axiosInstant.defaults.headers = { "access-control-allow-origin": "*" }
-    axiosInstant.defaults.headers = localStorage.getItem("accessToken") && { Authorization: `${localStorage.getItem('tokenType')} ${localStorage.getItem("accessToken")}` }
+    axiosInstant.defaults.headers = localStorage.getItem(KEY.ACCESS_TOKEN) && { Authorization: `${localStorage.getItem(KEY.TOKEN_TYPE)} ${localStorage.getItem(KEY.ACCESS_TOKEN)}` }
     axiosInstant.interceptors.response.use(
         (response) => {
             return response

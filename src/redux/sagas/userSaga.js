@@ -8,34 +8,36 @@ import { UserApi } from '../../api'
 import Cookie from 'js-cookie'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { History } from '../../components/NavigateSetter'
+import { Validation } from "../../validation"
 
 const { FETCH_USER_INFO, SIGN_IN, REFRESH_TOKEN, SIGN_OUT } = ACTION_TYPE_SAGA
 const { SUCCESS } = STATUS_CODES
 
 function* signInWorker({ payload }) {
-    const { username, password, rememberMe } = payload
-
     yield put(showAuthSignInIsButtonSignInSpin())
-    try {
-        const response = yield call(UserApi.handleSignIn(username, password)) // block
-        const { data, meta } = response
-        if(meta.code === SUCCESS) {
-            const { accessToken, tokenType, refreshToken, user } = data
-            localStorage.setItem(KEY.ACCESS_TOKEN, accessToken)
-            localStorage.setItem(KEY.TOKEN_TYPE, tokenType)
-            if(rememberMe) {
-                Cookie.set(KEY.REFRESH_TOKEN, refreshToken)
+    const { username, password, rememberMe } = payload
+    if(Validation.signIn(username, password)) {
+        try {
+            const response = yield call(UserApi.handleSignIn(username, password)) // block
+            const { data, meta } = response
+            if(meta.code === SUCCESS) {
+                const { accessToken, tokenType, refreshToken, user } = data
+                localStorage.setItem(KEY.ACCESS_TOKEN, accessToken)
+                localStorage.setItem(KEY.TOKEN_TYPE, tokenType)
+                if(rememberMe) {
+                    Cookie.set(KEY.REFRESH_TOKEN, refreshToken)
+                }
+                Notification.success("Logged in successfully")
+                yield put(saveUser(user))
+                History.goBack()
+            } else {
+                const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
+                Notification.error(message)
             }
-            Notification.success("Logged in successfully")
-            yield put(saveUser(user))
-            History.goBack()
-        } else {
-            const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
-            Notification.error(message)
+        } catch (error) {
+            console.log(error)
+            Notification.error("Login failed")
         }
-    } catch (error) {
-        console.log(error)
-        Notification.error("Login failed")
     }
     yield put(hideAuthSignInIsButtonSignInSpin())
 }

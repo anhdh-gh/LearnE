@@ -2,15 +2,19 @@ import { Notification } from "../utils"
 
 const Validation = {
     signIn: (email, password) => {
-        return Validation.email(email)
+        return Validation.email(email) && Validation.emptyPassword(password)
     },
 
-    password: (password) => {
+    emptyPassword: (password) => {
         if(!password || !password.trim()) {
             Notification.error("Password is not empty")
             return false
         }
 
+        return true
+    },
+
+    strongPassword: (password) => {
         const validPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$/ // eslint-disable-line
         if(!password.match(validPassword)) {
             Notification.error("Password is not strong")

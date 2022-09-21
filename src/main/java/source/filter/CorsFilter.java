@@ -52,6 +52,7 @@ public class CorsFilter implements Filter {
         request.setAttribute(RequestKeyConstant.REQUEST_ID, requestId);
 
         if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
+            request.setAttribute(RequestKeyConstant.AUTHORIZATION, request.getHeader("Authorization"));
             chain.doFilter(request, response);
         } else {
             try {
@@ -64,6 +65,8 @@ public class CorsFilter implements Filter {
 
                 dataRequest.put(RequestKeyConstant.REQUEST_ID, requestId);
                 dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
+                dataRequest.put(RequestKeyConstant.AUTHORIZATION, requestWrapper.getHeader("Authorization"));
+                requestWrapper.setBody(dataRequest.toString());
                 requestWrapper.setBody(dataRequest.toString());
                 chain.doFilter(requestWrapper, res);
             } catch (Exception e) {

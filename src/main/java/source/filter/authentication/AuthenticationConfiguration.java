@@ -13,12 +13,9 @@ public class AuthenticationConfiguration {
         FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AuthenticationFilter());
         registrationBean.addUrlPatterns(
-            RouterConstant.USER_GET_ALL,
-            RouterConstant.USER_DELETE,
-            RouterConstant.USER_UPDATE,
-            RouterConstant.USER_GET_INFO,
-            RouterConstant.USER_GET_BY_ID,
-            RouterConstant.ADMIN_DELETE_USER
+            RouterConstant.USER_AVATAR_UPLOAD,
+            RouterConstant.USER_AVATAR_DOWNLOAD,
+            RouterConstant.USER_AVATAR_DELETE
         );
         registrationBean.setOrder(1);
         return registrationBean;

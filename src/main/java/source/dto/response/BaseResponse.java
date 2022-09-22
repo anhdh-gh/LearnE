@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import source.dto.request.BasicRequest;
 import source.exception.BusinessError;
 import source.exception.BusinessException;
 

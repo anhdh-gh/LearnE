@@ -2,18 +2,11 @@ package source.constant;
 
 public class RouterConstant {
 
-    public static final String SIGN_UP = "/user/signup";
-
-    public static final String SIGN_IN = "/user/signin";
-
-    public static final String USER_REFRESH_TOKEN = "/user/refreshtoken";
-
-    public static final String USER_GET_ALL = "/user/all";
-    public static final String USER_UPDATE = "/user/update";
-    public static final String USER_DELETE = "/user/delete";
-    public static final String USER_GET_INFO = "/user/information";
-    public static final String USER_GET_BY_ID = "/user/get-user-by-id";
-    public static final String ADMIN_DELETE_USER = "/user/delete-user-by-id";
-
     private RouterConstant() {}
+
+    public final static String USER_AVATAR_UPLOAD = "/user/avatar/upload";
+
+    public final static String USER_AVATAR_DELETE = "/user/avatar/delete";
+
+    public final static String USER_AVATAR_DOWNLOAD = "/user/avatar/download";
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import source.constant.ContentTypeConstant;
 import source.constant.JwtTokenTypeConstant;
 import source.constant.RequestKeyConstant;
 import source.dto.response.BaseResponse;
@@ -49,7 +50,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
+        String bearerToken = request.getHeader(RequestKeyConstant.AUTHORIZATION);
         // Kiểm tra xem header Authorization có chứa thông tin jwt không
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtTokenTypeConstant.BEARER + " ")) {
             return bearerToken.substring(7);
@@ -58,7 +59,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void handlerError(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setHeader(RequestKeyConstant.CONTENT_TYPE, "application/json");
+        response.setHeader(RequestKeyConstant.CONTENT_TYPE, ContentTypeConstant.APPLICATION_JSON);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter writer = response.getWriter();
         writer.write(mapper.writeValueAsString(BaseResponse.ofFailed((String) request.getAttribute(RequestKeyConstant.REQUEST_ID), BusinessErrors.UNAUTHORIZED)));

@@ -13,7 +13,7 @@ import source.entity.enumeration.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@FirebaseDocument(PathDatabaseFirebaseConstant.USER)
+@FirebaseDocument(PathDatabaseFirebaseConstant.INFO_USER_AVATAR)
 public class User {
 
     @FirebaseId
@@ -21,19 +21,7 @@ public class User {
 
     private Role role;
 
-    private String gender;
-
-    private String userName;
-
-    private String dateOfBirth;
-
-    private String phoneNumber;
-
     private String avatar;
 
-    private Object account;
-
-    private Object address;
-
-    private Object fullName;
+    private String extension;
 }

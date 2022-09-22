@@ -4,7 +4,5 @@ public class PathDatabaseFirebaseConstant {
 
     private PathDatabaseFirebaseConstant() {}
 
-    public final static String REFRESH_TOKEN = "/Backend-Service-Auth/RefreshToken";
-
-    public final static String USER = "/Backend-Service-Auth/User";
+    public final static String INFO_USER_AVATAR = "/Backend-Service-Multimedia/User/Avatar";
 }

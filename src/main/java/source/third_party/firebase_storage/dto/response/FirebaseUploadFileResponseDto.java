@@ -1,4 +1,4 @@
-package source.dto.request;
+package source.third_party.firebase_storage.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TokenRefreshRequestDto extends BasicRequest {
+public class FirebaseUploadFileResponseDto {
 
-    private String refreshToken;
+    private String url;
+    private String extension;
 }

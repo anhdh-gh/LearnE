@@ -7,7 +7,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import org.json.simple.parser.JSONParser;
 import source.constant.ContentTypeConstant;
 import source.constant.RequestKeyConstant;
@@ -51,6 +50,7 @@ public class CorsFilter implements Filter {
             requestId = UUID.randomUUID().toString();
         }
         request.setAttribute(RequestKeyConstant.REQUEST_ID, requestId);
+        request.setAttribute(RequestKeyConstant.AUTHORIZATION, request.getHeader(RequestKeyConstant.AUTHORIZATION));
 
         if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
             chain.doFilter(request, response);
@@ -60,9 +60,8 @@ public class CorsFilter implements Filter {
 
                 JSONParser parser = new JSONParser();
                 JSONObject dataRequest = ObjectUtils.isEmpty(requestWrapper.getBody())
-                        ? new JSONObject()
-                        : (JSONObject) parser.parse(requestWrapper.getBody());
-
+                    ? new JSONObject()
+                    : (JSONObject) parser.parse(requestWrapper.getBody());
                 dataRequest.put(RequestKeyConstant.REQUEST_ID, requestId);
                 dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
                 requestWrapper.setBody(dataRequest.toString());

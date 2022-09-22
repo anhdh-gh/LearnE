@@ -1,12 +1,10 @@
 package source.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import source.constant.RouterConstant;
 
 @Configuration
 @EnableWebMvc
@@ -20,7 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
                 registry
                     .addMapping("/**") // Cho phép mọi nguồn
                     .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-                    .allowedOrigins("https://learneservicegateway.herokuapp.com");
+                    .allowedOrigins(
+                        "http://localhost:3000",
+                        "https://learnefrontend.vercel.app",
+                        "https://learnefrontend.herokuapp.com"
+                    );
             }
         };
     }

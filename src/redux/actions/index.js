@@ -1,8 +1,12 @@
-import { showLoader, hideLoader, showToastModal, hideToastModal, 
+import { 
+    showLoader, hideLoader, showToastModal, hideToastModal, 
     showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
-    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo } from '../features/UISlice'
+    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
+    hideAuthSignUpIsButtonSignUpSpin, setUrl, showAuthSignUpIsPageSignUp,
+    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn 
+} from '../features/UISlice'
 import { saveUser, removeUser } from '../features/UserSlice'
-import { refreshToken, signIn, getUserInfo, signOut } from './userSagaAction'
+import { refreshToken, signIn, getUserInfo, signOut, signUp } from './userSagaAction'
 
 export {
     showLoader,
@@ -19,4 +23,12 @@ export {
     removeUser,
     showLoadingHeaderUserInfo,
     hideLoadingHeaderUserInfo,
+    showAuthSignUpIsButtonSignUpSpin,
+    hideAuthSignUpIsButtonSignUpSpin,
+    signUp,
+    setUrl,
+    showAuthSignUpIsPageSignUp,
+    hideAuthSignUpIsPageSignUp, 
+    showAuthSignInIsPageSignIn, 
+    hideAuthSignInIsPageSignIn,
 }

@@ -15,7 +15,13 @@ const UISlice = createSlice({
 
         Auth: {
             signIn: {
-                isButtonSignInSpin: false
+                isButtonSignInSpin: false,
+                isPageSignIn: false
+            },
+
+            signUp: {
+                isButtonSignUpSpin: false,
+                isPageSignUp: false
             }
         },
 
@@ -23,6 +29,11 @@ const UISlice = createSlice({
             userInfo: {
                 isLoading: false
             }
+        },
+
+        Url: {
+            previous: undefined,
+            current: undefined,
         }
     },
     reducers: {
@@ -119,12 +130,107 @@ const UISlice = createSlice({
                 }
             }
         },
+
+        showAuthSignUpIsButtonSignUpSpin: (state, { payload }) => {
+            return {
+                ...state,
+                Auth: {
+                    ...state.Auth,
+                    signUp: {
+                        ...state.Auth.signUp,
+                        isButtonSignUpSpin: true
+                    }
+                }
+            }
+        },
+
+        hideAuthSignUpIsButtonSignUpSpin: (state, { payload }) => {
+            return {
+                ...state,
+                Auth: {
+                    ...state.Auth,
+                    signUp: {
+                        ...state.Auth.signUp,
+                        isButtonSignUpSpin: false
+                    }
+                }
+            }
+        },  
+
+        setUrl: (state, { payload }) => {
+            if(state.Url.current !== payload) {
+                return {
+                    ...state,
+                    Url: {
+                        ...state.Url,
+                        previous: state.Url.current,
+                        current: payload
+                    }
+                }                
+            }
+        },
+
+        showAuthSignUpIsPageSignUp: (state, { payload }) => {
+            return {
+                ...state,
+                Auth: {
+                    ...state.Auth,
+                    signUp: {
+                        ...state.Auth.signUp,
+                        isPageSignUp: true
+                    }
+                }
+            }
+        },
+
+        hideAuthSignUpIsPageSignUp: (state, { payload }) => {
+            return {
+                ...state,
+                Auth: {
+                    ...state.Auth,
+                    signUp: {
+                        ...state.Auth.signUp,
+                        isPageSignUp: false
+                    }
+                }
+            }
+        },  
+
+        showAuthSignInIsPageSignIn: (state, { payload }) => {
+            return {
+                ...state,
+                Auth: {
+                    ...state.Auth,
+                    signIn: {
+                        ...state.Auth.signIn,
+                        isPageSignIn: true
+                    }
+                }
+            }
+        },
+
+        hideAuthSignInIsPageSignIn: (state, { payload }) => {
+            return {
+                ...state,
+                Auth: {
+                    ...state.Auth,
+                    signIn: {
+                        ...state.Auth.signIn,
+                        isPageSignIn: false
+                    }
+                }
+            }
+        },  
     }
 })
 
-export const { showLoader, hideLoader, showToastModal, hideToastModal, 
+export const { 
+    showLoader, hideLoader, showToastModal, hideToastModal, 
     showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
-    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo } = UISlice.actions
+    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
+    hideAuthSignUpIsButtonSignUpSpin, setUrl, showAuthSignUpIsPageSignUp,
+    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn
+} = UISlice.actions
 
 export default UISlice.reducer
 

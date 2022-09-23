@@ -1,16 +1,19 @@
 import { STATUS_CODES, KEY } from "../../constants"
 import ACTION_TYPE_SAGA from "../actions/ACTION_TYPE_SAGA"
-import { showLoader, showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
+import { 
+    showLoader, showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
     hideLoader, saveUser, refreshToken, removeUser, 
-    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo } from '../actions'
+    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
+    hideAuthSignUpIsButtonSignUpSpin, hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn
+} from '../actions'
 import { Notification } from '../../utils'
 import { UserApi } from '../../api'
 import Cookie from 'js-cookie'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import { History } from '../../components/NavigateSetter'
 import { Validation } from "../../validation"
-
-const { FETCH_USER_INFO, SIGN_IN, REFRESH_TOKEN, SIGN_OUT } = ACTION_TYPE_SAGA
+import { ROUTE_PATH } from "../../constants"
+const { FETCH_USER_INFO, SIGN_IN, REFRESH_TOKEN, SIGN_OUT, SIGN_UP } = ACTION_TYPE_SAGA
 const { SUCCESS } = STATUS_CODES
 
 function* signInWorker({ payload }) {
@@ -29,7 +32,9 @@ function* signInWorker({ payload }) {
                 }
                 Notification.success("Logged in successfully")
                 yield put(saveUser(user))
-                History.goBack()
+                const { previous } = yield select(state => state.UI.Url)
+                const acceptUrl = [ ROUTE_PATH.HOME ].some(route => route === previous)
+                History.push(acceptUrl ? previous : ROUTE_PATH.HOME)
             } else {
                 const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
                 Notification.error(message)
@@ -96,11 +101,37 @@ function* signOutWorker() {
     yield put(hideLoader())
 }
 
+function* signUpWorker({ payload }) {
+    yield put(showAuthSignUpIsButtonSignUpSpin())
+    const { email, password, username } = payload
+
+    if(Validation.signUp(email, password, username)) {
+        try {
+            const response = yield call(UserApi.handleSignUp(email, password, username))
+            const { meta } = response
+            if(meta.code === SUCCESS) {
+                Notification.success("Sign up successfully")
+                History.push(ROUTE_PATH.SIGN_IN)
+                yield put(showAuthSignInIsPageSignIn())
+                yield put(hideAuthSignUpIsPageSignUp())
+            } else {
+                const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
+                Notification.error(message)
+            }
+        } catch (error) {
+            console.log(error)
+            Notification.error("Sign up failed")
+        }
+    }
+    yield put(hideAuthSignUpIsButtonSignUpSpin())
+}
+
 function* userWatcher() {
     yield takeLatest(SIGN_IN, signInWorker)
     yield takeLatest(FETCH_USER_INFO, getUserInfoWorker)
     yield takeLatest(REFRESH_TOKEN, refreshTokenWorker)
     yield takeLatest(SIGN_OUT, signOutWorker)
+    yield takeLatest(SIGN_UP, signUpWorker)
 }
 
 export default userWatcher

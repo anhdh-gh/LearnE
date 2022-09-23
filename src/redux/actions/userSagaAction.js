@@ -16,3 +16,8 @@ export const signIn = (username, password, rememberMe) => ({
 export const signOut= () => ({
     type: ACTION_TYPE_SAGA.SIGN_OUT,
 })
+
+export const signUp = (email, password, username)  => ({
+    type: ACTION_TYPE_SAGA.SIGN_UP,
+    payload: {email, password, username}
+})

@@ -1,14 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/learne-service-user
+    url: jdbc:mysql://localhost:3306/test
     username: root
-    password: hunghung123
+    password: root
 
-server:
-  port: 6009
-  #  sql:
-  #    init:
-  #      mode: always
+#    sql:
+#      init:
+#        mode: always
 
   jpa:
     database: MYSQL

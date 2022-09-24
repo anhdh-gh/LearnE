@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import source.constant.RouterConstant;
 import source.dto.request.CreateQuestionRequestDto;
+import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.QuestionBankService;
 
@@ -16,5 +17,10 @@ public class QuestionBankController {
     @PostMapping(RouterConstant.QUESTION_CREATE)
     public BaseResponse createQuestion(@RequestBody CreateQuestionRequestDto request) throws Exception {
         return questionBankService.createQuestion(request);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
+    public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
+        return questionBankService.getQuestionByQuestionId(request);
     }
 }

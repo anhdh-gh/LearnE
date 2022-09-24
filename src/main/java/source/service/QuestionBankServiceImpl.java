@@ -1,9 +1,7 @@
 package source.service;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import source.dto.request.BasicRequest;
 import source.dto.request.CreateQuestionRequestDto;
 import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.response.BaseResponse;
@@ -13,8 +11,6 @@ import source.entity.enumeration.QuestionType;
 import source.exception.BusinessErrors;
 import source.repository.QuestionRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,16 +19,6 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Autowired
     private QuestionRepository questionRepository;
-
-    @Override
-    public BaseResponse getAllQuestions(BasicRequest request) throws Exception {
-        List<Question> questions = questionRepository.findAll();
-        if(questions == null) {
-            questions = new ArrayList<>();
-        }
-
-        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
-    }
 
     @Override
     public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {

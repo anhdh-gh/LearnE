@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.*;
 import source.entity.enumeration.QuestionType;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -30,6 +31,16 @@ public class Question extends BaseEntity {
     @OneToMany(targetEntity = Answer.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "QuestionId")
     private List<Answer> answers;
+
+    @Builder
+    public Question(String id, Date createTime, Date updateTime, QuestionType questionType, String text, String image, String audio, List<Answer> answers) {
+        super(id, createTime, updateTime);
+        this.questionType = questionType;
+        this.text = text;
+        this.image = image;
+        this.audio = audio;
+        this.answers = answers;
+    }
 }
 
 // https://hocspringboot.net/2020/10/23/onetomany-va-manytoone-trong-spring-boot/

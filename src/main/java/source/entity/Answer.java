@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Table(name = "answer")
 public class Answer extends BaseEntity {
 
+    @JsonProperty("text")
     @Column(name = "Text")
     private String text;
 

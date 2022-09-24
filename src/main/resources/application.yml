@@ -1,25 +1,11 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test
-    username: root
-    password: root
-
-server:
-  port: 6009
-  #    sql:
-  #      init:
-  #        mode: always
-
+    url: jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_14fc445f3c3f621
+    username: b75b889c5ba84c
+    password: 4b3d9536
   jpa:
-    database: MYSQL
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties:
-      hibernate:
-        format_sql: true

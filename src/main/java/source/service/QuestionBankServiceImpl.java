@@ -10,6 +10,7 @@ import source.entity.Question;
 import source.entity.enumeration.QuestionType;
 import source.exception.BusinessErrors;
 import source.repository.QuestionRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception {
         Question questionSave = questionRepository.save(Question
             .builder()

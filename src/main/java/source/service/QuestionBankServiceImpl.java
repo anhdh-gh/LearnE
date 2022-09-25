@@ -43,6 +43,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                 .map(answerRequestDto -> Answer
                     .builder()
                     .text(answerRequestDto.getText())
+                    .isCorrect(answerRequestDto.isCorrect())
                     .build()
                 )
                 .collect(Collectors.toList()))

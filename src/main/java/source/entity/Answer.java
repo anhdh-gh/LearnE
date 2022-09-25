@@ -17,13 +17,17 @@ import java.util.Date;
 @Table(name = "answer")
 public class Answer extends BaseEntity {
 
-    @JsonProperty("text")
     @Column(name = "Text")
     private String text;
 
+    @JsonProperty("isCorrect")
+    @Column(name = "IsCorrect")
+    private boolean isCorrect;
+
     @Builder
-    public Answer(String id, Date createTime, Date updateTime, String text) {
+    public Answer(String id, Date createTime, Date updateTime, String text, boolean isCorrect) {
         super(id, createTime, updateTime);
         this.text = text;
+        this.isCorrect = isCorrect;
     }
 }

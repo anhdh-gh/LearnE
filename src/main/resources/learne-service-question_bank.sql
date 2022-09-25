@@ -1,12 +1,12 @@
 CREATE
-DATABASE  IF NOT EXISTS `learne-service-question_bank` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+DATABASE  IF NOT EXISTS `heroku_14fc445f3c3f621` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE
-`learne-service-question_bank`;
+`heroku_14fc445f3c3f621`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
--- Host: localhost    Database: learne-service-question_bank
+-- Host: us-cdbr-east-06.cleardb.net    Database: heroku_14fc445f3c3f621
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version	5.6.50-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,15 +29,15 @@ DROP TABLE IF EXISTS `answer`;
 CREATE TABLE `answer`
 (
     `Id`         varchar(255) NOT NULL,
-    `QuestionId` varchar(255) DEFAULT NULL,
+    `QuestionId` varchar(255) NOT NULL,
     `IsCorrect`  bit(1)       NOT NULL,
     `Text`       varchar(255) NOT NULL,
-    `UpdateTime` date         DEFAULT NULL,
-    `CreateTime` date         DEFAULT NULL,
+    `UpdateTime` date DEFAULT NULL,
+    `CreateTime` date DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY          `FKAnswer406451` (`QuestionId`),
-    CONSTRAINT `FKAnswer406451` FOREIGN KEY (`QuestionId`) REFERENCES `question` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+    CONSTRAINT `FKAnswer406451` FOREIGN KEY (`QuestionId`) REFERENCES `question` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `question`
     `UpdateTime`   date         DEFAULT NULL,
     `CreateTime`   date         DEFAULT NULL,
     PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,4 +91,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-25 18:36:15
+-- Dump completed on 2022-09-26  2:10:54

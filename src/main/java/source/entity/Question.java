@@ -28,8 +28,8 @@ public class Question extends BaseEntity {
     @Column(name = "Audio")
     private String audio;
 
-    @OneToMany(targetEntity = Answer.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "QuestionId")
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "QuestionId", nullable = false)
     private List<Answer> answers;
 
     @Builder

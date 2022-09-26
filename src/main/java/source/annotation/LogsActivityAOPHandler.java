@@ -7,6 +7,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import static net.logstash.logback.argument.StructuredArguments.entries;
 
 @Aspect
@@ -30,6 +30,8 @@ public class LogsActivityAOPHandler {
 
     private Logger logger = LoggerFactory.getLogger(LogsActivityAOPHandler.class);
 
+    @Value("${app.name}")
+    private String appName;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -44,6 +46,7 @@ public class LogsActivityAOPHandler {
         Object objectRequest = point.getArgs()[0];
         Map<String, Object> mapCustomizeLog = new HashMap<>();
         String requestId = null;
+        mapCustomizeLog.put("service_name", appName);
         mapCustomizeLog.put("request_path", httpServletRequest.getRequestURI());
         mapCustomizeLog.put("code_file", point.getSignature().getDeclaringTypeName());
         mapCustomizeLog.put("method_name", point.getSignature().getName());
@@ -54,7 +57,7 @@ public class LogsActivityAOPHandler {
             requestId = basicRequest.getRequestId();
             mapCustomizeLog.put("request_id", requestId);
         }
-
+        logger.info(objectMapper.writeValueAsString(objectRequest),  entries(mapCustomizeLog));
         long timeStart = new Date().getTime();
 
         Object objectResponse = point.proceed();
@@ -66,7 +69,7 @@ public class LogsActivityAOPHandler {
         mapCustomizeLog.put("request_id", requestId);
         mapCustomizeLog.put("message_type", "response");
 
-        logger.info(objectMapper.writeValueAsString(objectRequest),  entries(mapCustomizeLog));
+        logger.info(objectMapper.writeValueAsString(objectRequest), entries(mapCustomizeLog));
 
         if(objectResponse instanceof ResponseEntity){
             ResponseEntity responseEntity = (ResponseEntity) objectResponse;

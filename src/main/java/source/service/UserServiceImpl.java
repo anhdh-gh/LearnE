@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService{
         } else {
             user.setGender(Objects.nonNull(request.getGender()) ? request.getGender() : user.getGender());
             user.setAddress(Objects.nonNull(request.getAddress()) ? request.getAddress() : user.getAddress());
-            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar().getOriginalFilename() : user.getAvatar());
+            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar() : user.getAvatar());
             user.setDateOfBirth(Objects.nonNull(request.getDateOfBirth()) ? request.getDateOfBirth() : user.getDateOfBirth());
             user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
             user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());

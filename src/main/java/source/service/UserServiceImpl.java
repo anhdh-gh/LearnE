@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.entity.enumeration.Role;
 import source.dto.request.UserComparePasswordRequestDto;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService{
     private Environment environment;
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse createUser(UserCreateRequestDto request) throws Exception {
         // Check username already exists
         User userByUserName = userRepository.findByUserName(request.getUserName());
@@ -145,6 +147,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
         User user = checkUserIsExist(request.getId());
         if(user == null){
@@ -157,7 +160,7 @@ public class UserServiceImpl implements UserService{
         } else {
             user.setGender(Objects.nonNull(request.getGender()) ? request.getGender() : user.getGender());
             user.setAddress(Objects.nonNull(request.getAddress()) ? request.getAddress() : user.getAddress());
-            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar() : user.getAvatar());
+            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar().getOriginalFilename() : user.getAvatar());
             user.setDateOfBirth(Objects.nonNull(request.getDateOfBirth()) ? request.getDateOfBirth() : user.getDateOfBirth());
             user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
             user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());
@@ -166,6 +169,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
         User user = checkUserIsExist(request.getId());
         if(user == null){

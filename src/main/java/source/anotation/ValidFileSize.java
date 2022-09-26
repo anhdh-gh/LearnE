@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 public @interface ValidFileSize {
     String message() default "{message.key}";
 
+    float maxSize() default 128;
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

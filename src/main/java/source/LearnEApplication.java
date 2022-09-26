@@ -1,5 +1,6 @@
 package source;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,4 +19,11 @@ public class LearnEApplication {
     public BCryptPasswordEncoder getByBCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    public ObjectMapper getObjectMapper(){
+        return new ObjectMapper();
+    }
+}
+
+
 }

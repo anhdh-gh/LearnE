@@ -26,4 +26,10 @@ public class ErrorCodeConstant {
     public static final String IMAGE_URL_IS_NOT_MORE_THAN_500_CHARACTERS_400020 = "400020";
     public static final String ADDRESS_INFORMATION_IS_NOT_EMPTY_400021 = "400021";
     public static final String DATE_OF_BIRTH_IS_NOT_EMPTY_400022 = "400022";
+    public static final String EMAIL_IS_NOT_EMPTY_400023 = "400023";
+    public static final String USER_ID_IS_NOT_EMPTY_400024 = "400024";
+    public static final String USER_ID_IS_NOT_NULL_400025 = "400025";
+    public static final String USER_ID_IS_NOT_MORE_THAN_100_CHARACTERS_400026 = "400026";
+    public static final String REFRESH_TOKEN_IS_NOT_NULL_400027 = "400027";
+    public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400028 = "400028";
 }

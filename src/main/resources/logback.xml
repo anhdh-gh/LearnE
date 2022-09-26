@@ -1,8 +1,7 @@
-@@ -0,0 +1,116 @@
-        <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+             <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <timestamp/>
                 <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
@@ -12,9 +11,9 @@
                 <pattern>
                     <pattern>
                         {
-                        "message": "#tryJson{%message}"
+                            "message": "#tryJson{%message}"
                         }
-                    </pattern>
+                </pattern>
                 </pattern>
                 <threadName/>
                 <!-- <message/> -->
@@ -31,11 +30,11 @@
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/service-user.log</file>
+        <file>logs/service-gateway.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover. Make sure the path matches the one in the file element or else
              the rollover logs are placed in the working directory. -->
-            <fileNamePattern>logs/service-user_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>logs/service-gateway_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -43,7 +42,7 @@
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
+             <providers>
                 <timestamp/>
                 <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
                 <context/> <!--Outputs entries from logback's context -->
@@ -52,9 +51,9 @@
                 <pattern>
                     <pattern>
                         {
-                        "message": "#tryJson{%message}"
+                            "message": "#tryJson{%message}"
                         }
-                    </pattern>
+                </pattern>
                 </pattern>
                 <threadName/>
                 <!-- <message/> -->
@@ -77,7 +76,7 @@
             <fileNamePattern>logs/mpw-message-trace.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
+             <providers>
                 <timestamp/>
                 <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
                 <context/> <!--Outputs entries from logback's context -->

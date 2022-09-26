@@ -4,3 +4,6 @@ server:
 service:
   auth:
     baseurl: http://localhost:6007
+
+app:
+  name: service-gateway

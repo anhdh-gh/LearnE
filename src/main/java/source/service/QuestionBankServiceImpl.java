@@ -36,7 +36,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
         if(questionOptional.isPresent()) {
             return BaseResponse.ofSucceeded(request.getRequestId(), questionOptional.get());
-        }else{
+        } else {
             int errorCode = Integer.parseInt(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031);
             throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
         }

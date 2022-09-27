@@ -39,6 +39,17 @@ CREATE TABLE `account`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `account`
+--
+
+LOCK
+TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
 -- Table structure for table `address`
 --
 
@@ -61,6 +72,17 @@ CREATE TABLE `address`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `address`
+--
+
+LOCK
+TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK
+TABLES;
+
+--
 -- Table structure for table `fullname`
 --
 
@@ -78,6 +100,17 @@ CREATE TABLE `fullname`
     PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fullname`
+--
+
+LOCK
+TABLES `fullname` WRITE;
+/*!40000 ALTER TABLE `fullname` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fullname` ENABLE KEYS */;
+UNLOCK
+TABLES;
 
 --
 -- Table structure for table `user`
@@ -107,9 +140,20 @@ CREATE TABLE `user`
     KEY           `FKUser921429` (`AccountId`),
     CONSTRAINT `FKUser568361` FOREIGN KEY (`FullNameId`) REFERENCES `fullname` (`Id`),
     CONSTRAINT `FKUser847479` FOREIGN KEY (`AddressId`) REFERENCES `address` (`Id`),
-    CONSTRAINT `FKUser921429` FOREIGN KEY (`AccountId`) REFERENCES `account` (`Id`)
+    CONSTRAINT `FKUser921429` FOREIGN KEY (`AccountId`) REFERENCES `account` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK
+TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -120,4 +164,4 @@ CREATE TABLE `user`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-27 21:18:38
+-- Dump completed on 2022-09-27 23:20:51

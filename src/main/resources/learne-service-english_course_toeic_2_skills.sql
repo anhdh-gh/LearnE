@@ -31,8 +31,8 @@ CREATE TABLE `chapter`
     `Id`         varchar(255) NOT NULL,
     `CourseId`   varchar(255) NOT NULL,
     `Name`       varchar(255) NOT NULL,
-    `CreateTime` date DEFAULT NULL,
-    `UpdateTime` date DEFAULT NULL,
+    `CreateTime` datetime DEFAULT NULL,
+    `UpdateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY          `FKChapter746961` (`CourseId`),
     CONSTRAINT `FKChapter746961` FOREIGN KEY (`CourseId`) REFERENCES `course` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -63,8 +63,8 @@ CREATE TABLE `course`
     `Name`           varchar(255) NOT NULL,
     `NumberOfPeople` bigint(20) DEFAULT NULL,
     `Description`    varchar(255) DEFAULT NULL,
-    `CreateTime`     date         DEFAULT NULL,
-    `UpdateTime`     date         DEFAULT NULL,
+    `CreateTime`     datetime     DEFAULT NULL,
+    `UpdateTime`     datetime     DEFAULT NULL,
     PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -93,8 +93,8 @@ CREATE TABLE `extradata`
     `CourseId`       varchar(255) NOT NULL,
     `ExtraDataKey`   varchar(255) NOT NULL,
     `ExtraDataValue` varchar(255) NOT NULL,
-    `CreateTime`     date DEFAULT NULL,
-    `UpdateTime`     date DEFAULT NULL,
+    `CreateTime`     datetime DEFAULT NULL,
+    `UpdateTime`     datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY              `FKExtraData240978` (`CourseId`),
     CONSTRAINT `FKExtraData240978` FOREIGN KEY (`CourseId`) REFERENCES `course` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -126,8 +126,8 @@ CREATE TABLE `lesson`
     `Name`        varchar(255) NOT NULL,
     `Description` varchar(255) DEFAULT NULL,
     `Video`       varchar(255) NOT NULL,
-    `CreateTime`  date         DEFAULT NULL,
-    `UpdateTime`  date         DEFAULT NULL,
+    `CreateTime`  datetime     DEFAULT NULL,
+    `UpdateTime`  datetime     DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY           `FKLesson123481` (`ChapterId`),
     CONSTRAINT `FKLesson123481` FOREIGN KEY (`ChapterId`) REFERENCES `chapter` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -157,8 +157,8 @@ CREATE TABLE `lessonexercise`
     `Id`         varchar(255) NOT NULL,
     `LessonId`   varchar(255) NOT NULL,
     `QuestionId` varchar(255) NOT NULL,
-    `CreateTime` date DEFAULT NULL,
-    `UpdateTime` date DEFAULT NULL,
+    `CreateTime` datetime DEFAULT NULL,
+    `UpdateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY          `FKLessonExer910564` (`LessonId`),
     CONSTRAINT `FKLessonExer910564` FOREIGN KEY (`LessonId`) REFERENCES `lesson` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -189,8 +189,8 @@ CREATE TABLE `lessonexercisestatus`
     `LessonExerciseId` varchar(255) NOT NULL,
     `UserId`           varchar(255) NOT NULL,
     `Status`           varchar(255) NOT NULL,
-    `CreateTime`       date DEFAULT NULL,
-    `UpdateTime`       date DEFAULT NULL,
+    `CreateTime`       datetime DEFAULT NULL,
+    `UpdateTime`       datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY                `FKLessonExer257807` (`LessonExerciseId`),
     CONSTRAINT `FKLessonExer257807` FOREIGN KEY (`LessonExerciseId`) REFERENCES `lessonexercise` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -221,8 +221,8 @@ CREATE TABLE `lessonstatus`
     `LessonId`   varchar(255) NOT NULL,
     `UserId`     varchar(255) NOT NULL,
     `Status`     varchar(255) NOT NULL,
-    `CreateTime` date DEFAULT NULL,
-    `UpdateTime` date DEFAULT NULL,
+    `CreateTime` datetime DEFAULT NULL,
+    `UpdateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY          `FKLessonStat434395` (`LessonId`),
     CONSTRAINT `FKLessonStat434395` FOREIGN KEY (`LessonId`) REFERENCES `lesson` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -249,4 +249,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-26  2:21:36
+-- Dump completed on 2022-09-28  0:30:53

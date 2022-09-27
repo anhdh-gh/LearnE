@@ -29,8 +29,10 @@ public class UserUpdateRequestDto extends BasicRequest{
     private String phoneNumber;
 
     @Size(max = 500, message = ErrorCodeConstant.IMAGE_URL_IS_NOT_MORE_THAN_500_CHARACTERS_400020)
-    @NullOrNotBlank(message = ErrorCodeConstant.IMAGE_URL_IS_NOT_VALID_400019)
-    @Pattern(regexp = "(http)?s?:?(\\/\\/[^\"']*\\.(?:png|jpg|jpeg|gif|png|svg))|null", message = "http")
+    @NullOrNotBlank(message = ErrorCodeConstant.IMAGE_URL_IS_NOT_EMPTY_400032)
+    @Pattern(regexp = "^https://firebasestorage.googleapis.com/v0/b/learne-bfb9c.appspot.com/o/" +
+            "Backend-Service-Multimedia%2FUser%2FAvatar%2F(?<userId>[^\"']+).(?<extension>png|jpg|" +
+            "jpeg|gif|png|svg)?alt=media$|null", message = ErrorCodeConstant.IMAGE_URL_IS_NOT_VALID_400019)
     private String avatar;
 
     @Valid

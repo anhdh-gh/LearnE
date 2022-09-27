@@ -31,8 +31,8 @@ CREATE TABLE `account`
     `Id`         varchar(255) NOT NULL,
     `Email`      varchar(255) NOT NULL,
     `Password`   varchar(255) NOT NULL,
-    `CreateTime` date DEFAULT NULL,
-    `UpdateTime` date DEFAULT NULL,
+    `CreateTime` datetime DEFAULT NULL,
+    `UpdateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     UNIQUE KEY `Email` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -65,8 +65,8 @@ CREATE TABLE `address`
     `District`    varchar(255) DEFAULT NULL,
     `Street`      varchar(255) DEFAULT NULL,
     `NumberHouse` varchar(255) DEFAULT NULL,
-    `CreateTime`  date         DEFAULT NULL,
-    `UpdateTime`  date         DEFAULT NULL,
+    `CreateTime`  datetime     DEFAULT NULL,
+    `UpdateTime`  datetime     DEFAULT NULL,
     PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,8 +95,8 @@ CREATE TABLE `fullname`
     `FirstName`  varchar(255) DEFAULT NULL,
     `MidName`    varchar(255) DEFAULT NULL,
     `LastName`   varchar(255) DEFAULT NULL,
-    `CreateTime` date         DEFAULT NULL,
-    `UpdateTime` date         DEFAULT NULL,
+    `CreateTime` datetime     DEFAULT NULL,
+    `UpdateTime` datetime     DEFAULT NULL,
     PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -128,8 +128,8 @@ CREATE TABLE `user`
     `DateOfBirth` date         DEFAULT NULL,
     `PhoneNumber` varchar(255) DEFAULT NULL,
     `Avatar`      varchar(255) DEFAULT NULL,
-    `CreateTime`  date         DEFAULT NULL,
-    `UpdateTime`  date         DEFAULT NULL,
+    `CreateTime`  datetime     DEFAULT NULL,
+    `UpdateTime`  datetime     DEFAULT NULL,
     `FullNameId`  varchar(255) DEFAULT NULL,
     `AddressId`   varchar(255) DEFAULT NULL,
     `AccountId`   varchar(255) NOT NULL,
@@ -164,4 +164,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-27 23:20:51
+-- Dump completed on 2022-09-27 23:31:05

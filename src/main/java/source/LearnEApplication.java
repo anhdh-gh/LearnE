@@ -20,7 +20,8 @@ public class LearnEApplication {
         return new BCryptPasswordEncoder();
     }
 
-    public ObjectMapper getObjectMapper(){
+    @Bean
+    public ObjectMapper objectMapper(){
         return new ObjectMapper();
     }
 }

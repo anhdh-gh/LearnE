@@ -1,5 +1,6 @@
 package source.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.CaseFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -46,6 +47,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse createUser(UserCreateRequestDto request) throws Exception {
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService{
         }
 
         // Save user
-        User userSave = userRepository.save(User.builder()
+        User userSave = User.builder()
             .id(request.getId())
             .userName(request.getUserName())
             .role(Role.USER)
@@ -73,8 +77,10 @@ public class UserServiceImpl implements UserService{
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
                 .build()
             )
-            .build()
-        );
+            .build();
+
+        userSave = userRepository.save(userSave);
+        userSave = objectMapper.readValue(objectMapper.writeValueAsString(userSave), User.class);
 
         return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userSave));
     }
@@ -165,7 +171,7 @@ public class UserServiceImpl implements UserService{
             user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
             user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());
         }
-        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userRepository.save(user)));
+        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(objectMapper.readValue(objectMapper.writeValueAsString(userRepository.save(user)), User.class)));
     }
 
     @Override
@@ -176,9 +182,9 @@ public class UserServiceImpl implements UserService{
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(request.getRequestId(),
                     new BusinessError(
-                            errorCode,
-                            environment.getProperty(String.valueOf(errorCode)),
-                            HttpStatus.BAD_REQUEST));
+                        errorCode,
+                        environment.getProperty(String.valueOf(errorCode)),
+                        HttpStatus.BAD_REQUEST));
         } else{
             userRepository.delete(user);
             return BaseResponse.ofSucceeded(request.getRequestId(), user);
@@ -190,5 +196,4 @@ public class UserServiceImpl implements UserService{
             user.getAccount().setPassword(null);
         return user;
     }
-
 }

@@ -1,5 +1,6 @@
 package source.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -15,12 +16,15 @@ import java.util.Date;
 @Table(name = "fullname")
 public class FullName extends BaseEntity {
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "FirstName")
     private String firstName;
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "MidName")
     private String midName;
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "LastName")
     private String lastName;
 

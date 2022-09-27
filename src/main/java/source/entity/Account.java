@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.Date;
@@ -16,9 +17,11 @@ import java.util.Date;
 @Table(name = "account")
 public class Account extends BaseEntity {
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "Email")
     private String email;
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "Password")
     private String password;
 

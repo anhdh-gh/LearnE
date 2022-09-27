@@ -1,5 +1,6 @@
 package source.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,11 +19,14 @@ public class BaseEntity {
 
     @Id
     @Column(name = "Id")
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     protected String id;
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "CreateTime")
     protected Date createTime;
 
+    @JsonInclude(JsonInclude.Include. NON_NULL)
     @Column(name = "UpdateTime")
     protected Date updateTime;
 

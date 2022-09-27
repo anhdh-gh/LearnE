@@ -32,8 +32,8 @@ CREATE TABLE `answer`
     `QuestionId` varchar(255) NOT NULL,
     `IsCorrect`  bit(1)       NOT NULL,
     `Text`       varchar(255) NOT NULL,
-    `UpdateTime` date DEFAULT NULL,
-    `CreateTime` date DEFAULT NULL,
+    `UpdateTime` datetime DEFAULT NULL,
+    `CreateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY          `FKAnswer406451` (`QuestionId`),
     CONSTRAINT `FKAnswer406451` FOREIGN KEY (`QuestionId`) REFERENCES `question` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -65,8 +65,8 @@ CREATE TABLE `question`
     `Text`         varchar(255) NOT NULL,
     `Image`        varchar(255) DEFAULT NULL,
     `Audio`        varchar(255) DEFAULT NULL,
-    `UpdateTime`   date         DEFAULT NULL,
-    `CreateTime`   date         DEFAULT NULL,
+    `UpdateTime`   datetime     DEFAULT NULL,
+    `CreateTime`   datetime     DEFAULT NULL,
     PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -91,4 +91,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-26  2:10:54
+-- Dump completed on 2022-09-28  0:00:04

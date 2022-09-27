@@ -1,12 +1,18 @@
 package source.exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import source.constant.ErrorCodeConstant;
+import source.util.GetMessageUtils;
 
 /**
  * Exception Dictionary
  */
 public class BusinessErrors {
 
+    @Autowired
+    public static GetMessageUtils messageUtils;
 
     /**
      * 400

@@ -55,4 +55,19 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception {
         return authServiceThirdParty.deleteUserById(request);
     }
+
+    @Override
+    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getQuestionByQuestionId(request);
+    }
+
+    @Override
+    public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception {
+        return authServiceThirdParty.createQuestion(request);
+    }
+
+    @Override
+    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
+        return authServiceThirdParty.getAllQuestion(request);
+    }
 }

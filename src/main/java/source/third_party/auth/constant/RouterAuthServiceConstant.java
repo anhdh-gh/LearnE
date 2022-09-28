@@ -22,5 +22,11 @@ public class RouterAuthServiceConstant {
 
     public static final String GET_USER_BY_ID = "/user/get-user-by-id";
 
-    public static final Object DELETE_USER_BY_ID = "/user/delete-user-by-id";
+    public static final String DELETE_USER_BY_ID = "/user/delete-user-by-id";
+
+    public static final String QUESTION_CREATE = "/question/create";
+
+    public static final String QUESTION_GET_ALL = "/question/all";
+
+    public static final String QUESTION_GET_BY_QUESTION_ID = "/question/get-by-id";
 }

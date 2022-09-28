@@ -22,4 +22,10 @@ public interface AuthServiceThirdParty {
     public BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception;
 
     public BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception;
+
+    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
+
+    public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
+
+    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
 }

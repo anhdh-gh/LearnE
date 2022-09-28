@@ -72,4 +72,22 @@ public class AuthController {
     public BaseResponse deleteUserById(@Valid @RequestBody UserDeleteByIdRequestDto request) throws Exception{
         return authService.deleteUserById(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_CREATE)
+    public BaseResponse createQuestion(@RequestBody CreateQuestionRequestDto createQuestionRequestDto) throws Exception {
+        return authService.createQuestion(createQuestionRequestDto);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
+    public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
+        return authService.getQuestionByQuestionId(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_ALL)
+    public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
+        return authService.getAllQuestion(request);
+    }
 }

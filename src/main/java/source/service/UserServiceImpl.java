@@ -133,23 +133,7 @@ public class UserServiceImpl implements UserService{
 
         Page<User> allUsers = userRepository.findAll(pageRequest);
         
-        return BaseResponse.ofSucceeded(
-                dataRequest.getRequestId(),
-                allUsers.getContent().stream().
-                    map(user -> UserGetAllResponseDto
-                        .builder()
-                            .id(user.getId())
-                            .userName(user.getUserName())
-                            .role(user.getRole())
-                            .email(user.getAccount().getEmail())
-                            .avatar(user.getAvatar())
-                            .gender(user.getGender())
-                            .dateOfBirth(user.getDateOfBirth())
-                            .address(user.getAddress())
-                            .phoneNumber(user.getPhoneNumber())
-                            .fullName(user.getFullName())
-                            .build())
-                        .collect(Collectors.toList()));
+        return BaseResponse.ofSucceeded(dataRequest.getRequestId(), allUsers);
     }
 
     @Override

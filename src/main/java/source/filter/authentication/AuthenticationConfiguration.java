@@ -21,7 +21,7 @@ public class AuthenticationConfiguration {
             RouterConstant.ADMIN_DELETE_USER,
             RouterConstant.QUESTION_CREATE,
             RouterConstant.QUESTION_GET_ALL,
-            RouterConstant.USER_GET_BY_ID
+            RouterConstant.QUESTION_GET_BY_QUESTION_ID
         );
         registrationBean.setOrder(1);
         return registrationBean;

@@ -21,7 +21,6 @@ public class LessonExerciseStatus extends BaseEntity {
     @Column(name = "Status")
     private StatusType status;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "Score")
     private float score;
 

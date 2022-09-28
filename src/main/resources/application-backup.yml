@@ -3,7 +3,8 @@ service:
     baseurl: http://localhost:6009
   gateway:
     baseurl: http://localhost:6008
-
+  question-bank:
+    baseurl: http://localhost:6010
 server:
   port: 6007
 

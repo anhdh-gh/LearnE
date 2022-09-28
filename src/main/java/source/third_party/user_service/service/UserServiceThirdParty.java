@@ -5,7 +5,6 @@ import source.dto.request.UserGetAllRequestDto;
 import source.dto.request.UserGetInfoRequestDto;
 import source.dto.request.UserUpdateRequestDto;
 import source.dto.response.BaseResponse;
-import source.third_party.user_service.dto.request.UserGetByIdThirdPartyRequestDto;
 import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
 
 public interface UserServiceThirdParty {

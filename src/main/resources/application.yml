@@ -4,7 +4,7 @@ service:
   gateway:
     baseurl: https://learneservicegateway.herokuapp.com
   question-bank:
-    baseurl: https://learneservicegateway.herokuapp.com
+    baseurl: https://learneservicequestionbank.herokuapp.com
 # Database Firebase
 firebase:
   service-account-filename: classpath:firebase-service-accounts.json

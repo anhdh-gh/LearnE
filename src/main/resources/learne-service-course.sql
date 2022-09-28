@@ -134,6 +134,7 @@ CREATE TABLE `lessonexercisestatus`
     `LessonExerciseId` varchar(255) NOT NULL,
     `UserId`           varchar(255) NOT NULL,
     `Status`           varchar(255) NOT NULL,
+    `Score`            float        NOT NULL,
     `CreateTime`       datetime DEFAULT NULL,
     `UpdateTime`       datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),

@@ -40,17 +40,6 @@ CREATE TABLE `chapter`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `chapter`
---
-
-LOCK
-TABLES `chapter` WRITE;
-/*!40000 ALTER TABLE `chapter` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chapter` ENABLE KEYS */;
-UNLOCK
-TABLES;
-
---
 -- Table structure for table `course`
 --
 
@@ -68,17 +57,6 @@ CREATE TABLE `course`
     PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `course`
---
-
-LOCK
-TABLES `course` WRITE;
-/*!40000 ALTER TABLE `course` DISABLE KEYS */;
-/*!40000 ALTER TABLE `course` ENABLE KEYS */;
-UNLOCK
-TABLES;
 
 --
 -- Table structure for table `extradata`
@@ -100,17 +78,6 @@ CREATE TABLE `extradata`
     CONSTRAINT `FKExtraData240978` FOREIGN KEY (`CourseId`) REFERENCES `course` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `extradata`
---
-
-LOCK
-TABLES `extradata` WRITE;
-/*!40000 ALTER TABLE `extradata` DISABLE KEYS */;
-/*!40000 ALTER TABLE `extradata` ENABLE KEYS */;
-UNLOCK
-TABLES;
 
 --
 -- Table structure for table `lesson`
@@ -135,17 +102,6 @@ CREATE TABLE `lesson`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `lesson`
---
-
-LOCK
-TABLES `lesson` WRITE;
-/*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
-UNLOCK
-TABLES;
-
---
 -- Table structure for table `lessonexercise`
 --
 
@@ -164,17 +120,6 @@ CREATE TABLE `lessonexercise`
     CONSTRAINT `FKLessonExer910564` FOREIGN KEY (`LessonId`) REFERENCES `lesson` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lessonexercise`
---
-
-LOCK
-TABLES `lessonexercise` WRITE;
-/*!40000 ALTER TABLE `lessonexercise` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lessonexercise` ENABLE KEYS */;
-UNLOCK
-TABLES;
 
 --
 -- Table structure for table `lessonexercisestatus`
@@ -198,17 +143,6 @@ CREATE TABLE `lessonexercisestatus`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `lessonexercisestatus`
---
-
-LOCK
-TABLES `lessonexercisestatus` WRITE;
-/*!40000 ALTER TABLE `lessonexercisestatus` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lessonexercisestatus` ENABLE KEYS */;
-UNLOCK
-TABLES;
-
---
 -- Table structure for table `lessonstatus`
 --
 
@@ -228,17 +162,6 @@ CREATE TABLE `lessonstatus`
     CONSTRAINT `FKLessonStat434395` FOREIGN KEY (`LessonId`) REFERENCES `lesson` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lessonstatus`
---
-
-LOCK
-TABLES `lessonstatus` WRITE;
-/*!40000 ALTER TABLE `lessonstatus` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lessonstatus` ENABLE KEYS */;
-UNLOCK
-TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -249,4 +172,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-28  0:30:53
+-- Dump completed on 2022-09-28 21:45:50

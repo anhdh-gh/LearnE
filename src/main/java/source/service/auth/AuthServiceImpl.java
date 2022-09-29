@@ -70,4 +70,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
         return authServiceThirdParty.getAllQuestion(request);
     }
+
+    @Override
+    public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
+        return authServiceThirdParty.createCourse(request);
+    }
 }

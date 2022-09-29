@@ -90,4 +90,10 @@ public class AuthController {
     public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
         return authService.getAllQuestion(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_CREATE)
+    public BaseResponse createCourse(@RequestBody CreateCourseRequestDto createCourseRequestDto) throws Exception {
+        return authService.createCourse(createCourseRequestDto);
+    }
 }

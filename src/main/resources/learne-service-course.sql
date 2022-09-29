@@ -51,6 +51,7 @@ CREATE TABLE `course`
     `Id`             varchar(255) NOT NULL,
     `Name`           varchar(255) NOT NULL,
     `Author`         varchar(255) DEFAULT NULL,
+    `Image`          varchar(255) DEFAULT NULL,
     `NumberOfPeople` bigint(20) DEFAULT NULL,
     `Description`    varchar(255) DEFAULT NULL,
     `CreateTime`     datetime     DEFAULT NULL,

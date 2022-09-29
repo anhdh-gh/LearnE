@@ -20,6 +20,9 @@ public class Course extends BaseEntity {
     @Column(name = "Author")
     private String author;
 
+    @Column(name = "Image")
+    private String image;
+
     @Column(name = "NumberOfPeople")
     private long numberOfPeople;
 
@@ -35,10 +38,11 @@ public class Course extends BaseEntity {
     private List<Chapter> chapters;
 
     @Builder
-    public Course(String id, Date createTime, Date updateTime, String name, String author, long numberOfPeople, String description, List<ExtraData> extraDataList, List<Chapter> chapters) {
+    public Course(String id, Date createTime, Date updateTime, String name, String author, String image, long numberOfPeople, String description, List<ExtraData> extraDataList, List<Chapter> chapters) {
         super(id, createTime, updateTime);
         this.name = name;
         this.author = author;
+        this.image = image;
         this.numberOfPeople = numberOfPeople;
         this.description = description;
         this.extraDataList = extraDataList;

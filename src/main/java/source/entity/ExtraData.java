@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "extradata")
+@Builder
 public class ExtraData extends BaseEntity {
 
     @Column(name = "ExtraDataKey")

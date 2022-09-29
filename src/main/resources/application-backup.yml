@@ -1,8 +1,10 @@
+
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/learne-service-course
     username: root
-    password: root
+    password: hunghung123
 
 #    sql:
 #      init:
@@ -21,3 +23,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
+server:
+  port: 6013

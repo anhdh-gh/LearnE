@@ -31,9 +31,8 @@ CREATE TABLE `chapter`
     `Id`         varchar(255) NOT NULL,
     `CourseId`   varchar(255) NOT NULL,
     `Name`       varchar(255) NOT NULL,
-    `Author`     varchar(255) DEFAULT NULL,
-    `CreateTime` datetime     DEFAULT NULL,
-    `UpdateTime` datetime     DEFAULT NULL,
+    `CreateTime` datetime DEFAULT NULL,
+    `UpdateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY          `FKChapter746961` (`CourseId`),
     CONSTRAINT `FKChapter746961` FOREIGN KEY (`CourseId`) REFERENCES `course` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -51,6 +50,7 @@ CREATE TABLE `course`
 (
     `Id`             varchar(255) NOT NULL,
     `Name`           varchar(255) NOT NULL,
+    `Author`         varchar(255) DEFAULT NULL,
     `NumberOfPeople` bigint(20) DEFAULT NULL,
     `Description`    varchar(255) DEFAULT NULL,
     `CreateTime`     datetime     DEFAULT NULL,

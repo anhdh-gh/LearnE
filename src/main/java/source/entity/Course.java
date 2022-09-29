@@ -17,6 +17,9 @@ public class Course extends BaseEntity {
     @Column(name = "Name")
     private String name;
 
+    @Column(name = "Author")
+    private String author;
+
     @Column(name = "NumberOfPeople")
     private long numberOfPeople;
 

@@ -5,6 +5,8 @@ service:
     baseurl: http://localhost:6008
   question-bank:
     baseurl: http://localhost:6010
+  course:
+    baseurl: http://localhost:6013
 server:
   port: 6007
 

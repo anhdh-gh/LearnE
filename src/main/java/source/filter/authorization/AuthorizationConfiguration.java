@@ -15,7 +15,8 @@ public class AuthorizationConfiguration {
         registrationBean.addUrlPatterns(RouterConstant.USER_GET_ALL,
                 RouterConstant.ADMIN_DELETE_USER,
                 RouterConstant.USER_GET_BY_ID,
-                RouterConstant.QUESTION_CREATE);
+                RouterConstant.QUESTION_CREATE,
+                RouterConstant.COURSE_CREATE);
         registrationBean.setOrder(2);
         return registrationBean;
     }

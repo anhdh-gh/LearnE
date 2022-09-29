@@ -35,9 +35,10 @@ public class Course extends BaseEntity {
     private List<Chapter> chapters;
 
     @Builder
-    public Course(String id, Date createTime, Date updateTime, String name, long numberOfPeople, String description, List<ExtraData> extraDataList, List<Chapter> chapters) {
+    public Course(String id, Date createTime, Date updateTime, String name, String author, long numberOfPeople, String description, List<ExtraData> extraDataList, List<Chapter> chapters) {
         super(id, createTime, updateTime);
         this.name = name;
+        this.author = author;
         this.numberOfPeople = numberOfPeople;
         this.description = description;
         this.extraDataList = extraDataList;

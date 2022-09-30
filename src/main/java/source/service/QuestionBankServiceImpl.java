@@ -10,15 +10,16 @@ import source.constant.ErrorCodeConstant;
 import source.dto.request.CreateQuestionRequestDto;
 import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.request.QuestionGetAllRequestDto;
+import source.dto.request.QuestionGetByIdsRequestDto;
 import source.dto.response.BaseResponse;
 import source.entity.Answer;
 import source.entity.Question;
 import source.entity.enumeration.QuestionType;
-import source.exception.BusinessErrors;
 import source.exception.BusinessException;
 import source.repository.QuestionRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -76,5 +77,12 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             request.getRequestId(),
             questions
         );
+    }
+
+    @Override
+    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
+        List<Question> questions = questionRepository.findByIds(request.getIds());
+        // to do handle vurable
+        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
     }
 }

@@ -7,6 +7,7 @@ import source.constant.RouterConstant;
 import source.dto.request.CreateQuestionRequestDto;
 import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.request.QuestionGetAllRequestDto;
+import source.dto.request.QuestionGetByIdsRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.QuestionBankService;
 
@@ -32,5 +33,11 @@ public class QuestionBankController {
     @PostMapping(RouterConstant.QUESTION_GET_ALL)
     public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
         return questionBankService.getAllQuestion(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
+    public BaseResponse getQuestionByIds(@RequestBody QuestionGetByIdsRequestDto request) throws Exception {
+        return questionBankService.getQuestionByQuestionIds(request);
     }
 }

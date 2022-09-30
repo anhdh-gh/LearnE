@@ -31,4 +31,6 @@ public class RouterAuthServiceConstant {
     public static final String QUESTION_GET_BY_QUESTION_ID = "/question/get-by-id";
 
     public static final String COURSE_CREATE = "/course/create";
+
+    public static final String QUESTION_GET_BY_IDS = "/question/get-by-ids";
 }

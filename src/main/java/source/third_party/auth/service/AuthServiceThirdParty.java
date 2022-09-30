@@ -30,4 +30,6 @@ public interface AuthServiceThirdParty {
     public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
 
     public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
+
+    public BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto requestDto) throws Exception;
 }

@@ -22,7 +22,8 @@ public class AuthenticationConfiguration {
             RouterConstant.QUESTION_CREATE,
             RouterConstant.QUESTION_GET_ALL,
             RouterConstant.QUESTION_GET_BY_QUESTION_ID,
-            RouterConstant.COURSE_CREATE
+            RouterConstant.COURSE_CREATE,
+            RouterConstant.QUESTION_GET_BY_IDS
         );
         registrationBean.setOrder(1);
         return registrationBean;

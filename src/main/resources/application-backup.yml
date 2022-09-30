@@ -1,4 +1,6 @@
-
+service:
+  question-bank:
+    baseurl: http://localhost:6010
 
 spring:
   datasource:

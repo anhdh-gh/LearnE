@@ -4,19 +4,20 @@ import { setUrl } from '../redux/actions'
 import { ROUTE_PATH } from '../constants'
 import { useDispatch } from 'react-redux'
 
-const Home = (props) => {
+const ShowCourseDetail = (props) => {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setUrl(ROUTE_PATH.HOME))
+        dispatch(setUrl(ROUTE_PATH.SHOW_COURSE_DETAIL))
     }, [ dispatch ])
 
     return <>
         <Header/>
-        <div className="min-h-screen"></div>
-        <Footer/>  
+        <div className="min-h-screen container-xl">
+        </div>
+        <Footer/>
     </>
 }
 
-export default Home
+export default ShowCourseDetail

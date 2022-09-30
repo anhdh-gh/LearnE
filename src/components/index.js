@@ -5,6 +5,7 @@ import ToastModal from './ToastModal'
 import Header from './Header'
 import UserInfo from './UserInfo'
 import NavigateSetter from './NavigateSetter'
+import Footer from './Footer'
 
 export {
     Toast,
@@ -14,4 +15,5 @@ export {
     Header,
     UserInfo,
     NavigateSetter,
+    Footer,
 }

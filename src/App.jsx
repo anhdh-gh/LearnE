@@ -16,7 +16,7 @@ const App = () => {
   }, [dispatch])
 
   return <Loader>
-    <div className="App">
+    <div className="App select-none">
       <Toast />
       <ToastModal/>
       <AppNavigator />

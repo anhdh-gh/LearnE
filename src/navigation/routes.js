@@ -1,5 +1,5 @@
 import { ROUTE_PATH } from '../constants'
-import { NotFound, Auth, Home } from '../pages'
+import { NotFound, Auth, Home, ShowCourseDetail } from '../pages'
 
 const routes = {
     privateAdminoute: [
@@ -12,6 +12,10 @@ const routes = {
         {
             path: ROUTE_PATH.HOME, 
             element: <Home/>
+        },   
+        {
+            path: ROUTE_PATH.SHOW_COURSE_DETAIL, 
+            element: <ShowCourseDetail/>
         },   
         {
             path: ROUTE_PATH.SIGN_UP, 

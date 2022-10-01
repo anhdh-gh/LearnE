@@ -1,4 +1,4 @@
-import { Header } from '../components'
+import { Header, Footer } from '../components'
 import { useEffect } from 'react'
 import { setUrl } from '../redux/actions'
 import { ROUTE_PATH } from '../constants'
@@ -14,6 +14,8 @@ const Home = (props) => {
 
     return <>
         <Header/>
+        <div className="min-h-screen"></div>
+        <Footer/>  
     </>
 }
 

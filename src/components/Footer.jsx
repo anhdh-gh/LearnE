@@ -5,10 +5,9 @@ const Footer = (props) => {
     const { className } = props
 
     return <div className={`
-    border-bottom border-2 border-danger border-start-0 border-end-0 border-top-0
+    border-bottom border-3 border-primary border-start-0 border-end-0 border-top-0
     d-flex flex-column align-items-center justify-content-around 
-    p-2 py-3 ${className}`}
-        style={{ backgroundColor: "#f3f7f9" }}
+    p-2 py-3 bg-indigo-100 ${className}`}
     >
         <div>
             <a target="_blank" rel="noreferrer" href="https://www.facebook.com/anhdh.fb" className="px-2">
@@ -37,7 +36,7 @@ const Footer = (props) => {
         </div>
 
         <p className="fw-bold text-center m-0 mt-2">
-            ©{new Date().getFullYear()}. ALL RIGHTS RESERVED. | Design by <a target="_blank" rel="noreferrer" className="text-danger text-decoration-none" href="https://www.facebook.com/anhdh.fb">
+            ©{new Date().getFullYear()}. ALL RIGHTS RESERVED. | Design by <a target="_blank" rel="noreferrer" className="text-indigo-700 text-decoration-none" href="https://www.facebook.com/anhdh.fb">
                 Đỗ Hùng Anh
             </a>
         </p>

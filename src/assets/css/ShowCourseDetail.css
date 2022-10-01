@@ -1,0 +1,12 @@
+.accordion-header > button::after {
+    content: none;
+    background-color: transparent;
+}
+
+.accordion-header > button {
+    background-color: transparent;
+}
+
+.accordion-header > button:focus {
+    box-shadow: none;
+}

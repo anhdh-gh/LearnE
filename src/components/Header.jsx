@@ -3,19 +3,29 @@ import AvatarIcon from '../assets/img/avatar-icon.jpg'
 import { Navbar, Container, Nav, NavDropdown, Placeholder, Badge } from 'react-bootstrap'
 import { ROUTE_PATH } from '../constants'
 import { useLocation, Link } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { UserInfo } from '../components'
 import { History } from '../components/NavigateSetter'
+import { useRef, useEffect } from 'react'
+import { setHeightHeader } from '../redux/actions'
 
 const Header = (props) => {
 
     const { pathname } = useLocation()
     const user = useSelector(state => state.user)
     const isLoadingUserInfo = useSelector(state => state.UI.Header.userInfo.isLoading)
+    const height = useSelector(state => state.UI.Header.height)
+    const dispatch = useDispatch()
+
+    const refHeader = useRef(null)
+  
+    useEffect(() => {
+        dispatch(setHeightHeader(refHeader.current.clientHeight))
+    }, [ dispatch ])
 
     return <>
-        <Navbar collapseOnSelect expand="sm" variant="dark" className="header-container d-none d-sm-block">
+        <Navbar ref={refHeader} collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container d-none d-sm-block">
             <Container fluid>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer"
@@ -92,7 +102,7 @@ const Header = (props) => {
             </Container>
         </Navbar>
 
-        <Navbar collapseOnSelect expand="sm" variant="dark" className="header-container d-sm-none d-block">
+        <Navbar collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container d-sm-none d-block">
             <Container fluid>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer"
@@ -158,6 +168,8 @@ const Header = (props) => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+
+        <div style={{height: `${height}px` || "0px"}}></div>
     </>
 }
 

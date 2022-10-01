@@ -28,7 +28,8 @@ const UISlice = createSlice({
         Header: {
             userInfo: {
                 isLoading: false
-            }
+            },
+            height: 0
         },
 
         Url: {
@@ -221,6 +222,16 @@ const UISlice = createSlice({
                 }
             }
         },  
+
+        setHeightHeader: (state, { payload }) => {
+            return {
+                ...state,
+                Header: {
+                    ...state.Header,
+                    height: payload
+                }
+            }
+        },
     }
 })
 
@@ -229,7 +240,7 @@ export const {
     showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
     showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
     hideAuthSignUpIsButtonSignUpSpin, setUrl, showAuthSignUpIsPageSignUp,
-    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn
+    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, setHeightHeader
 } = UISlice.actions
 
 export default UISlice.reducer

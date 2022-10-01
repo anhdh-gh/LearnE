@@ -228,7 +228,7 @@ const UISlice = createSlice({
                 ...state,
                 Header: {
                     ...state.Header,
-                    height: payload
+                    height: payload !== 0 ? payload : state.Header.height
                 }
             }
         },

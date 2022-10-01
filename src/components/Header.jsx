@@ -19,9 +19,11 @@ const Header = (props) => {
     const dispatch = useDispatch()
 
     const refHeader = useRef(null)
+    const refHeaderForSm = useRef(null)
   
     useEffect(() => {
         dispatch(setHeightHeader(refHeader.current.clientHeight))
+        dispatch(setHeightHeader(refHeaderForSm.current.clientHeight))
     }, [ dispatch ])
 
     return <>
@@ -102,7 +104,7 @@ const Header = (props) => {
             </Container>
         </Navbar>
 
-        <Navbar collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container d-sm-none d-block">
+        <Navbar ref={refHeaderForSm} collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container d-sm-none d-block">
             <Container fluid>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer"

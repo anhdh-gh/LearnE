@@ -23,7 +23,7 @@ const ShowCourseDetail = (props) => {
 
         <div className="min-h-screen container-xl">
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-lg-8">
                     <div className='mt-4'>
                         <h1 className='font-bold text-3xl'>Làm việc với Terminal & Ubuntu</h1>
                         <p className='text-gray-500'>Khóa học ReactJS từ cơ bản tới nâng cao, kết quả của khóa học này là bạn có thể làm hầu hết các dự án thường gặp với ReactJS. Cuối khóa học này bạn sẽ sở hữu một dự án giống Tiktok.com, bạn có thể tự tin đi xin việc khi nắm chắc các kiến thức được chia sẻ trong khóa học này.</p>
@@ -45,7 +45,7 @@ const ShowCourseDetail = (props) => {
                         <div className='sticky bg-white py-3 z-50' style={{ "top": `${height}px` }}>
                             <h2 className='mb-3 text-2xl font-bold'>Course content</h2>
                             <div className='d-flex justify-content-between'>
-                                <div><span className='fw-bold'>20</span> <span className='text-gray-500'>chapter</span> <span className='text-gray-500'>•</span> <span className='fw-bold'>119</span> <span className='text-gray-500'>lesson</span></div>
+                                <div><span className='fw-bold'>20</span> <span className='text-gray-500'>chapters</span> <span className='text-gray-500'>•</span> <span className='fw-bold'>119</span> <span className='text-gray-500'>lessons</span></div>
                                 <div className='cursor-pointer text-orange-500 fw-bold hover:opacity-75' onClick={() => setCurrentIndexShowContentCourse((previouState) => previouState.length === 0 ? [...Array(14).keys()] : [])}>{currentIndexShowContentCourse.length === 0 ? 'Expand all' : 'Zoom out all'}</div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ const ShowCourseDetail = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-lg-4">
                     <div className='pt-4 sticky' style={{ "top": `${height}px` }}>
                         <div className='flex justify-center items-center flex-col'>
                             <div className="rounded-lg relative">
@@ -105,11 +105,15 @@ const ShowCourseDetail = (props) => {
                                 </div>
 
                                 <div className="mb-4 text-gray-500 d-flex">
-                                    <i className="fa-solid fa-book-open text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Total <span className='font-bold text-black'>119</span> chapters</span></span>
+                                    <i className="fa-solid fa-book-open text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Total <span className='font-bold text-black'>20</span> chapters</span> </span>
                                 </div>
 
                                 <div className="mb-4 text-gray-500 d-flex">
                                     <i className="fa-solid fa-clapperboard text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Total <span className='font-bold text-black'>119</span> lessons</span></span>
+                                </div>
+                                
+                                <div className="mb-4 text-gray-500 d-flex">
+                                    <i className="fa-solid fa-clock text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Duration <span className='font-bold text-black'>12 hours 10 minutes</span></span></span>
                                 </div>
 
                                 <div className="mb-4 text-gray-500 d-flex">

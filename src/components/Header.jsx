@@ -19,15 +19,13 @@ const Header = (props) => {
     const dispatch = useDispatch()
 
     const refHeader = useRef(null)
-    const refHeaderForSm = useRef(null)
-  
+
     useEffect(() => {
         dispatch(setHeightHeader(refHeader.current.clientHeight))
-        dispatch(setHeightHeader(refHeaderForSm.current.clientHeight))
-    }, [ dispatch ])
+    }, [dispatch])
 
     return <>
-        <Navbar ref={refHeader} collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container d-none d-sm-block">
+        <Navbar ref={refHeader} collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container">
             <Container fluid>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer"
@@ -39,7 +37,7 @@ const Header = (props) => {
                 <Navbar.Toggle aria-controls="navbarScroll" />
 
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="my-2 my-sm-0">
+                    <Nav className="my-2 my-sm-0 d-none d-sm-flex">
 
                         <Nav.Link
                             className="cursor-pointer"
@@ -66,57 +64,7 @@ const Header = (props) => {
                         </Nav.Link>
                     </Nav>
 
-                    <Nav className="ms-auto my-2 my-sm-0 user-droplist">
-                        {isLoadingUserInfo ?
-                            <Placeholder as={Nav} animation="glow">
-                                <Placeholder xs={6} className="w-24" />
-                            </Placeholder>
-                            : _.isEmpty(user) ?
-                                <Nav className="my-2 my-sm-0">
-                                    <Nav.Link
-                                        as="span"
-                                        active="active"
-                                    ><Link to={ROUTE_PATH.SIGN_IN} className="cursor-pointer no-underline font-medium"><i className="fa-solid fa-right-to-bracket"></i> Sign in</Link>
-                                    </Nav.Link>
-                                </Nav>
-                                :
-                                <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown').removeAttribute("href")} active="active" id="navbarScrollingDropdown" align="end" className="header-user-dropList"
-                                    title={
-                                        <span className="header-user-title">
-                                            <img src={user?.avatar || AvatarIcon} alt='' className="d-sm-block d-none me-2" style={{ "border": "1px solid #00B871" }} />
-                                            <span>{user?.userName?.length > 15
-                                                ? user?.userName.substr(0, 15).concat('...')
-                                                : user?.userName || 'Username'}
-                                            </span>
-                                        </span>
-                                    }>
-                                    <NavDropdown.Item disabled>
-                                        <UserInfo user={user} />
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.SIGN_IN)}>
-                                        <div className="cursor-pointer"><i className="fas fa-sign-out-alt" /> Sign out</div>
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                        }
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-
-        <Navbar ref={refHeaderForSm} collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container d-sm-none d-block">
-            <Container fluid>
-                <Navbar.Brand
-                    className="fw-bold cursor-pointer"
-                    onClick={() => History.push(ROUTE_PATH.HOME)}
-                >
-                    <i className="fas fa-book-reader" /> Learn EV
-                </Navbar.Brand>
-
-                <Navbar.Toggle aria-controls="navbarScroll" />
-
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="my-2 my-sm-0">
+                    <Nav className="my-2 my-sm-0 d-sm-none d-block">
 
                         <Nav.Link
                             className="cursor-pointer"
@@ -147,18 +95,23 @@ const Header = (props) => {
                                     </Nav.Link>
                                 </Nav>
                                 :
-                                <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown1').removeAttribute("href")} active="active" id="navbarScrollingDropdown1" align="end" className="header-user-dropList"
+                                <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown').removeAttribute("href")} active="active" id="navbarScrollingDropdown" align="end" className="header-user-dropList"
                                     title={
                                         <span className="header-user-title">
                                             <img src={user?.avatar || AvatarIcon} alt='' className="d-sm-block d-none me-2" style={{ "border": "1px solid #00B871" }} />
-                                            <span>{user?.userName?.length > 20
-                                                ? user?.userName.substr(0, 20).concat('...')
+                                            <span className='d-none d-sm-block'>{user?.userName?.length > 15
+                                                ? user?.userName.substring(0, 15).concat('...')
+                                                : user?.userName || 'Username'}
+                                            </span>
+
+                                            <span className='d-sm-none d-block'>{user?.userName?.length > 20
+                                                ? user?.userName.substring(0, 20).concat('...')
                                                 : user?.userName || 'Username'}
                                             </span>
                                         </span>
                                     }>
                                     <NavDropdown.Item disabled>
-                                        <UserInfo limit={20} user={user} />
+                                        <UserInfo user={user} />
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.SIGN_IN)}>
@@ -171,7 +124,7 @@ const Header = (props) => {
             </Container>
         </Navbar>
 
-        <div style={{height: `${height}px` || "0px"}}></div>
+        <div style={{ height: `${height}px` || "0px" }}></div>
     </>
 }
 

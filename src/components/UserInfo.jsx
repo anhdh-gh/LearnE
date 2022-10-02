@@ -12,7 +12,7 @@ const UserInfo = (props) => {
                 {
                     user?.userName ? 
                         user?.userName?.length > (limit || 15)
-                        ? user?.userName.substr(0, (limit || 15)).concat('...')
+                        ? user?.userName.substring(0, (limit || 15)).concat('...')
                         : user?.userName
                     : "Username"
                 }
@@ -21,7 +21,7 @@ const UserInfo = (props) => {
                 {
                     user?.account?.email ? 
                         user?.account?.email?.length > (limit || 15)
-                        ? user?.account?.email.substr(0, (limit || 15)).concat('...')
+                        ? user?.account?.email.substring(0, (limit || 15)).concat('...')
                         : user?.account?.email
                     : "Email"
                 }

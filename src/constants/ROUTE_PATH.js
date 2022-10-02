@@ -8,6 +8,7 @@ const ROUTE_PATH = {
     SIGN_IN: "/signin",
     SIGN_UP: "/signup",
     SHOW_COURSE_DETAIL: "/course/detail/id",
+    SHOW_LESSON_DETAIL: "/course/lesson/id",
 
     // Not found
     NOT_FOUND: '*'

@@ -9,6 +9,7 @@ const CircularProgressBar = (props) => {
         fill = "transparent",
         classNameSvg = "",
         classNameTextPercent = "",
+        styleTextPercent = {},
 
         color = "black",
         classNameCircle = "",
@@ -19,7 +20,7 @@ const CircularProgressBar = (props) => {
 
     const circumference = radius * 2 * Math.PI // <=> 100%
 
-    return <div className="relative flex justify-center items-center">
+    return <div className="overflow-hidden rounded-full relative flex justify-center items-center">
         <svg
             className={`${classNameSvg}`}
             width={radius * 2}
@@ -47,7 +48,7 @@ const CircularProgressBar = (props) => {
                 strokeDashoffset={circumference - percent / 100 * circumference} // Kéo dài dấu gạch đó thêm 1 khoảng circumference - percent/100 * circumference (px)
             />
         </svg>
-        <span className={`absolute ${classNameTextPercent}`}>{percent}%</span>
+        <span className={`absolute ${classNameTextPercent}`} style={styleTextPercent}>{percent}%</span>
         {/* Phần từ cha là flex, thì phần tử con chỉ cần đặt là absolute là nó tự động căn giữa */}
     </div>
 }

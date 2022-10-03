@@ -16,12 +16,12 @@ public class LearnEApplication {
     }
 
     @Bean
-    public BCryptPasswordEncoder getByBCryptPasswordEncoder(){
+    public BCryptPasswordEncoder getByBCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
 }

@@ -2,7 +2,8 @@ package source.constant;
 
 public class ErrorCodeConstant {
 
-    private ErrorCodeConstant() {}
+    private ErrorCodeConstant() {
+    }
 
     public static final String EMAIL_IS_NOT_NULL_400001 = "400001";
     public static final String EMAIL_IS_NOT_VALID_400002 = "400002";
@@ -33,6 +34,6 @@ public class ErrorCodeConstant {
     public static final String REFRESH_TOKEN_IS_NOT_NULL_400027 = "400027";
     public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400028 = "400028";
     public static final String PAGE_IS_GREATER_THAN_MINUS_ONE_400029 = "400029";
-    public static final String SIZE_IS_GREATER_THAN_MINUS_ONE_400030= "400030";
+    public static final String SIZE_IS_GREATER_THAN_MINUS_ONE_400030 = "400030";
 
 }

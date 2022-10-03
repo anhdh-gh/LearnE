@@ -14,12 +14,13 @@ public class JsonUtil {
     /**
      * Instantiates a new json util.
      */
-    private JsonUtil() {}
+    private JsonUtil() {
+    }
 
     /**
      * Gets the generic object.
      *
-     * @param <T> the generic type
+     * @param <T>   the generic type
      * @param input the input
      * @param clazz the clazz
      * @return the generic object
@@ -34,8 +35,8 @@ public class JsonUtil {
     /**
      * Convert json str to object.
      *
-     * @param <T> the generic type
-     * @param json the json
+     * @param <T>   the generic type
+     * @param json  the json
      * @param clazz the clazz
      * @return the t
      */
@@ -62,13 +63,13 @@ public class JsonUtil {
      * @param clazz the clazz
      * @return the t
      * @throws JsonProcessingException the json processing exception
-     * @throws JsonMappingException the json mapping exception
-     * @throws IOException the io exception
+     * @throws JsonMappingException    the json mapping exception
+     * @throws IOException             the io exception
      */
     public static <T> T readObject(String input, Class<T> clazz)
-            throws JsonParseException, JsonMappingException, IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return objectMapper.readValue(input, clazz);
+        throws JsonParseException, JsonMappingException, IOException {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            return objectMapper.readValue(input, clazz);
     }
 }

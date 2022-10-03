@@ -13,5 +13,6 @@ public class RouterConstant {
     public static final String UPDATE_USER = "user/update";
     public static final String DELETE_USER = "user/delete";
 
-    private RouterConstant() {}
+    private RouterConstant() {
+    }
 }

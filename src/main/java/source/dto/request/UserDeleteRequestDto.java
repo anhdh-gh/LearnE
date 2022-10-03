@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDeleteRequestDto extends BasicRequest{
+public class UserDeleteRequestDto extends BasicRequest {
     private String id;
 }

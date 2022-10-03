@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserComparePasswordRequestDto extends BasicRequest{
+public class UserComparePasswordRequestDto extends BasicRequest {
     private String idUser;
 
     private String password;

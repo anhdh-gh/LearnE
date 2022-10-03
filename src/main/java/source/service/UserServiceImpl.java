@@ -11,17 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
-import source.entity.enumeration.Role;
-import source.dto.request.UserComparePasswordRequestDto;
-import source.dto.request.UserCreateRequestDto;
-import source.dto.request.UserGetByIdRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.UserComparePasswordResponseDto;
-import source.dto.request.*;
-import source.dto.response.*;
 import source.entity.Account;
 import source.entity.User;
+import source.entity.enumeration.Role;
 import source.exception.BusinessError;
 import source.exception.BusinessErrors;
 import source.repository.AccountRepository;
@@ -30,7 +26,6 @@ import source.repository.UserRepository;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -132,7 +127,7 @@ public class UserServiceImpl implements UserService{
         PageRequest pageRequest = PageRequest.of(dataRequest.getPage(), dataRequest.getSize());
 
         Page<User> allUsers = userRepository.findAll(pageRequest);
-        
+
         return BaseResponse.ofSucceeded(dataRequest.getRequestId(), allUsers);
     }
 
@@ -165,10 +160,10 @@ public class UserServiceImpl implements UserService{
         if(user == null){
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(request.getRequestId(),
-                    new BusinessError(
-                        errorCode,
-                        environment.getProperty(String.valueOf(errorCode)),
-                        HttpStatus.BAD_REQUEST));
+                new BusinessError(
+                    errorCode,
+                    environment.getProperty(String.valueOf(errorCode)),
+                    HttpStatus.BAD_REQUEST));
         } else{
             userRepository.delete(user);
             return BaseResponse.ofSucceeded(request.getRequestId(), user);

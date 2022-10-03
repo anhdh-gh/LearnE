@@ -1,6 +1,5 @@
 package source.exception.exception_handler;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
@@ -31,11 +30,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CommonExceptionHandler {
 
-    private CommonExceptionHandler(){}
+    private CommonExceptionHandler() {
+    }
 
-    private ObjectMapper objectMapper;
     @Autowired
     private Environment environment;
+
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<BaseResponse<Void>> handleBusinessException(BusinessException exception, HttpServletRequest request) {
         BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), exception);
@@ -69,31 +69,31 @@ public class CommonExceptionHandler {
     @ExceptionHandler(HttpStatusCodeException.class)
     public ResponseEntity<BaseResponse<Void>> handleHttpStatusCodeException(HttpStatusCodeException exception, HttpServletRequest request) {
         HttpStatus statusCode = exception.getStatusCode();
-        if(statusCode.value() == HttpStatus.BAD_REQUEST.value()) {
+        if (statusCode.value() == HttpStatus.BAD_REQUEST.value()) {
             BusinessError error = BusinessErrors.INVALID_PARAMETERS;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.INVALID_PARAMETERS.getMessage());
             return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
-        if(statusCode.value() == HttpStatus.UNAUTHORIZED.value()) {
+        if (statusCode.value() == HttpStatus.UNAUTHORIZED.value()) {
             BusinessError error = BusinessErrors.UNAUTHORIZED;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.UNAUTHORIZED.getMessage());
             return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
-        if(statusCode.value() == HttpStatus.FORBIDDEN.value()) {
+        if (statusCode.value() == HttpStatus.FORBIDDEN.value()) {
             BusinessError error = BusinessErrors.FORBIDDEN_ERROR;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.FORBIDDEN_ERROR.getMessage());
             return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
-        if(statusCode.value() == HttpStatus.NOT_FOUND.value()) {
+        if (statusCode.value() == HttpStatus.NOT_FOUND.value()) {
             BusinessError error = BusinessErrors.NOT_FOUND;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.NOT_FOUND.getMessage());
             return new ResponseEntity<>(data, HttpStatus.OK);
         }
 
-        if(statusCode.value() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+        if (statusCode.value() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
             BusinessError error = BusinessErrors.INTERNAL_SERVER_ERROR;
             BaseResponse<Void> data = BaseResponse.ofFailed((String) request.getAttribute("request_id"), error, BusinessErrors.INTERNAL_SERVER_ERROR.getMessage());
             return new ResponseEntity<>(data, HttpStatus.OK);

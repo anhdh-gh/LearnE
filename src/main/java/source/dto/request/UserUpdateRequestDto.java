@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 import source.entity.Address;
 import source.entity.FullName;
 import source.entity.enumeration.Gender;
-
 import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserUpdateRequestDto extends BasicRequest{
+public class UserUpdateRequestDto extends BasicRequest {
 
     private String id;
 

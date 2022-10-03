@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

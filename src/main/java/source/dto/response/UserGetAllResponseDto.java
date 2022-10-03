@@ -9,7 +9,6 @@ import source.entity.FullName;
 import source.entity.enumeration.Gender;
 import source.entity.enumeration.Role;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Data

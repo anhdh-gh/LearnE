@@ -9,7 +9,7 @@ import source.entity.enumeration.Role;
 import java.util.Date;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

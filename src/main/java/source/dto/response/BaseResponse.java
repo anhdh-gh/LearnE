@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * Base Response for RestAPI
  */
 @Data

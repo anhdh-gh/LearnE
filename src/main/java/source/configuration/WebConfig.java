@@ -15,14 +15,14 @@ public class WebConfig implements WebMvcConfigurer {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry
-                    .addMapping("/**") // Cho phép mọi nguồn
-                    .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-                    .allowedOrigins(
-                        "http://localhost:3000",
-                        "https://learnefrontend.vercel.app",
-                        "https://learnefrontend.herokuapp.com"
-                    );
+            registry
+                .addMapping("/**") // Cho phép mọi nguồn
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+                .allowedOrigins(
+                    "http://localhost:3000",
+                    "https://learnefrontend.vercel.app",
+                    "https://learnefrontend.herokuapp.com"
+                );
             }
         };
     }

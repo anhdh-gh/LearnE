@@ -2,7 +2,8 @@ package source.constant;
 
 public class RouterConstant {
 
-    private RouterConstant() {}
+    private RouterConstant() {
+    }
 
     public final static String USER_AVATAR_UPLOAD = "/user/avatar/upload";
 

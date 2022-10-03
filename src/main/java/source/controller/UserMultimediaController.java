@@ -2,7 +2,9 @@ package source.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import source.anotation.LogsActivityAnnotation;
 import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
@@ -28,7 +30,7 @@ public class UserMultimediaController {
         userUploadAvatarRequestDto.setUserId(((User) request.getAttribute(RequestKeyConstant.USER)).getId());
         return userMultimediaService.uploadAvatar(userUploadAvatarRequestDto);
     }
-    
+
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_AVATAR_DELETE)
     public BaseResponse deleteAvatar(@RequestBody UserDeleteAvatarRequestDto userDeleteAvatarRequestDto, HttpServletRequest request) throws Exception {

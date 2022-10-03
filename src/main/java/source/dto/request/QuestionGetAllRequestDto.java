@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionGetAllRequestDto extends BasicRequest{
+public class QuestionGetAllRequestDto extends BasicRequest {
 
     private int page;
 

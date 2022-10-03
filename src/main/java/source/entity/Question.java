@@ -1,14 +1,14 @@
 package source.entity;
 
-import javax.persistence.*;
 import lombok.*;
 import source.entity.enumeration.QuestionType;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

@@ -15,10 +15,14 @@ import java.io.Serializable;
 @Data
 public class BasicRequest implements Serializable {
 
-  /** The Constant serialVersionUID. */
+  /**
+   * The Constant serialVersionUID.
+   */
   private static final long serialVersionUID = 1606619939033520333L;
 
-  /** The request id. */
+  /**
+   * The request id.
+   */
   @JsonProperty("request_id")
   private String requestId;
 

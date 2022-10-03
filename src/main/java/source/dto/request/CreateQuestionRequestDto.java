@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.entity.Answer;
-import source.entity.enumeration.QuestionType;
 
 import java.util.List;
 

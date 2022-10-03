@@ -2,10 +2,9 @@ package source.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -15,12 +14,21 @@ import java.util.Date;
 @Table(name = "lessonexercise")
 public class LessonExercise extends BaseEntity {
 
-    @Column(name = "QuestionId")
-    private String questionId;
+    @Column(name = "Name")
+    private String name;
+
+    @Column(name = "Description")
+    private String description;
+
+    @OneToMany(targetEntity = LessonQuestion.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "LessonExerciseId", nullable = false)
+    private List<LessonQuestion> lessonQuestions;
 
     @Builder
-    public LessonExercise(String id, Date createTime, Date updateTime, String questionId) {
+    public LessonExercise(String id, Date createTime, Date updateTime, String name, String description, List<LessonQuestion> lessonQuestions) {
         super(id, createTime, updateTime);
-        this.questionId = questionId;
+        this.name = name;
+        this.description = description;
+        this.lessonQuestions = lessonQuestions;
     }
 }

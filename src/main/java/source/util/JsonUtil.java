@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -35,19 +34,6 @@ public class JsonUtil {
   }
 
   /**
-   * Convert json str to object.
-   *
-   * @param <T> the generic type
-   * @param json the json
-   * @param clazz the clazz
-   * @return the t
-   */
-  public static <T> T convertJsonStrToObject(String json, Class<T> clazz) {
-    Gson gson = new Gson();
-    return gson.fromJson(json, clazz);
-  }
-
-  /**
    * Convert object to string.
    *
    * @param obj the obj
@@ -59,7 +45,7 @@ public class JsonUtil {
   }
 
   public static <T> T readObject(String input, Class<T> clazz)
-      throws JsonParseException, JsonMappingException, IOException {
+      throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     return objectMapper.readValue(input, clazz);

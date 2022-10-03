@@ -1,19 +1,21 @@
 package source.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import source.dto.ChapterDto;
-import source.dto.ExtraDataDto;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import source.entity.BaseEntity;
+import source.entity.Chapter;
+import source.entity.Request;
+import source.entity.Target;
 
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CreateCourseRequestDto extends BasicRequest{
+@AllArgsConstructor
+@SuperBuilder
+public class CreateCourseRequestDto extends BasicRequest {
 
     private String name;
 
@@ -21,12 +23,15 @@ public class CreateCourseRequestDto extends BasicRequest{
 
     private String image;
 
-    private long numberOfPeople;
-
     private String description;
 
-    private List<ExtraDataDto> extraDataList;
+    private String level;
 
-    private List<ChapterDto> chapters;
+    private String price;
 
+    private List<Chapter> chapters;
+
+    private List<Target> targets;
+
+    private List<Request> requests;
 }

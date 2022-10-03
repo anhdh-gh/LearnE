@@ -25,29 +25,38 @@ public class Course extends BaseEntity {
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "NumberOfPeople")
-    private long numberOfPeople;
-
     @Column(name = "Description")
     private String description;
 
-    @OneToMany(targetEntity = ExtraData.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CourseId", nullable = false)
-    private List<ExtraData> extraDataList;
+    @Column(name = "Level")
+    private String level;
+
+    @Column(name = "Price")
+    private String price;
 
     @OneToMany(targetEntity = Chapter.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "CourseId", nullable = false)
     private List<Chapter> chapters;
 
+    @OneToMany(targetEntity = Target.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "CourseId", nullable = false)
+    private List<Target> targets;
+
+    @OneToMany(targetEntity = Request.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "CourseId", nullable = false)
+    private List<Request> requests;
+
     @Builder
-    public Course(String id, Date createTime, Date updateTime, String name, String author, String image, long numberOfPeople, String description, List<ExtraData> extraDataList, List<Chapter> chapters) {
+    public Course(String id, Date createTime, Date updateTime, String name, String author, String image, String description, String level, String price, List<Chapter> chapters, List<Target> targets, List<Request> requests) {
         super(id, createTime, updateTime);
         this.name = name;
         this.author = author;
         this.image = image;
-        this.numberOfPeople = numberOfPeople;
         this.description = description;
-        this.extraDataList = extraDataList;
+        this.level = level;
+        this.price = price;
         this.chapters = chapters;
+        this.targets = targets;
+        this.requests = requests;
     }
 }

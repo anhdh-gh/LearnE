@@ -5,6 +5,7 @@ import source.entity.enumeration.StatusType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -18,8 +19,8 @@ public class LessonStatus extends BaseEntity {
     private String userId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Status")
-    private StatusType status;
+    @Column(name = "Status", columnDefinition = "varchar(255) default 'UNFINISHED'")
+    private StatusType status = StatusType.UNFINISHED;
 
     @ManyToOne(targetEntity = Lesson.class)
     @JoinColumn (name = "LessonId", nullable = false)

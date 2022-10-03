@@ -11,9 +11,7 @@ import java.util.Collections;
 
 public class HttpUtil {
 
-    private HttpUtil() {
-
-    }
+    private HttpUtil() {}
 
     public static HttpEntity<BasicRequest> getHeader(BasicRequest request) {
         HttpHeaders headers = new HttpHeaders();

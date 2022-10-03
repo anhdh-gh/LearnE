@@ -17,6 +17,9 @@ public class Lesson extends BaseEntity {
     @Column(name = "Name")
     private String name;
 
+    @Column(name = "duration")
+    private String duration;
+
     @Column(name = "Description")
     private String description;
 
@@ -28,9 +31,11 @@ public class Lesson extends BaseEntity {
     private List<LessonExercise> lessonExercises;
 
     @Builder
-    public Lesson(String id, Date createTime, Date updateTime, String name, String description, String video, List<LessonExercise> lessonExercises) {
+
+    public Lesson(String id, Date createTime, Date updateTime, String name, String duration, String description, String video, List<LessonExercise> lessonExercises) {
         super(id, createTime, updateTime);
         this.name = name;
+        this.duration = duration;
         this.description = description;
         this.video = video;
         this.lessonExercises = lessonExercises;

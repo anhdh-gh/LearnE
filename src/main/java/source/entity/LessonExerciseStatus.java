@@ -19,7 +19,7 @@ public class LessonExerciseStatus extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
-    private StatusType status;
+    private StatusType status = StatusType.UNFINISHED;
 
     @Column(name = "Score")
     private float score;

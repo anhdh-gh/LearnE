@@ -31,7 +31,7 @@ CREATE TABLE `answer`
     `Id`         varchar(255) NOT NULL,
     `QuestionId` varchar(255) NOT NULL,
     `IsCorrect`  bit(1)       NOT NULL,
-    `Text`       varchar(255) NOT NULL,
+    `Text`       longtext     NOT NULL,
     `UpdateTime` datetime DEFAULT NULL,
     `CreateTime` datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
@@ -62,7 +62,7 @@ CREATE TABLE `question`
 (
     `Id`           varchar(255) NOT NULL,
     `QuestionType` varchar(255) NOT NULL,
-    `Text`         varchar(255) NOT NULL,
+    `Text`         longtext     NOT NULL,
     `Image`        varchar(255) DEFAULT NULL,
     `Audio`        varchar(255) DEFAULT NULL,
     `UpdateTime`   datetime     DEFAULT NULL,

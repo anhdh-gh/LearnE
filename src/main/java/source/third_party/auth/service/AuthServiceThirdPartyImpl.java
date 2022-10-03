@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
@@ -29,20 +28,22 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.SIGN_IN),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
-    public BaseResponse signUp(UserSignUpRequestDto request) throws Exception{
+    public BaseResponse signUp(UserSignUpRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.SIGN_UP),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -51,9 +52,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_ALL_USER),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -62,9 +64,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.UPDATE_USER),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -73,9 +76,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.DELETE_USER),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -84,9 +88,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.REFRESH_TOKEN),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -95,9 +100,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_USER_INFORMATION),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -106,9 +112,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_USER_BY_ID),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -117,9 +124,10 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.DELETE_USER_BY_ID),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
-        return JsonUtil.getGenericObject(responseEntity.getBody(),BaseResponse.class);
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
@@ -128,7 +136,8 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_BY_QUESTION_ID),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
@@ -139,8 +148,9 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_CREATE),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
-        
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
+
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
@@ -150,27 +160,30 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_ALL),
             HttpMethod.POST,
             getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
     public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_CREATE),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_CREATE),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+            });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
     public BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_BY_IDS),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+                String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_BY_IDS),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 

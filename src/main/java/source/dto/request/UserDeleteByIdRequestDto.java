@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class UserDeleteByIdRequestDto extends BasicRequest{
+public class UserDeleteByIdRequestDto extends BasicRequest {
 
     @NotNull(message = ErrorCodeConstant.USER_ID_IS_NOT_NULL_400025)
     @NotEmpty(message = ErrorCodeConstant.USER_ID_IS_NOT_EMPTY_400024)

@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserSignUpRequestDto extends BasicRequest{
+public class UserSignUpRequestDto extends BasicRequest {
 
     @NotNull(message = ErrorCodeConstant.EMAIL_IS_NOT_NULL_400001)
     @Email(message = ErrorCodeConstant.EMAIL_IS_NOT_VALID_400002)
@@ -24,7 +24,7 @@ public class UserSignUpRequestDto extends BasicRequest{
     @NotNull(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
     @Size(min = 6, max = 500, message = ErrorCodeConstant.PASSWORD_MUST_NO_MORE_THAN_100_CHARACTERS_400005)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-            message =ErrorCodeConstant.PASSWORD_IS_NOT_STRONG_400006)
+            message = ErrorCodeConstant.PASSWORD_IS_NOT_STRONG_400006)
     private String password;
 
     @JsonProperty("username")

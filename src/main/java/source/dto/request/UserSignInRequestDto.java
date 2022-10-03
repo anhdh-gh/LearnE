@@ -2,7 +2,6 @@ package source.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import source.constant.ErrorCodeConstant;
 
@@ -11,7 +10,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserSignInRequestDto extends BasicRequest{
+public class UserSignInRequestDto extends BasicRequest {
 
     @NotNull(message = ErrorCodeConstant.EMAIL_IS_NOT_NULL_400001)
     @Email(message = ErrorCodeConstant.EMAIL_IS_NOT_VALID_400002)
@@ -21,15 +20,14 @@ public class UserSignInRequestDto extends BasicRequest{
     private String email;
 
     /*** The password policy is:
-        At least 8 chars
-        Contains at least one digit
-        Contains at least one lower alpha char and one upper alpha char
-        Contains at least one char within a set of special chars (@#%$^ etc.)
-        Does not contain space, tab, etc.
-    * */
+     At least 8 chars
+     Contains at least one digit
+     Contains at least one lower alpha char and one upper alpha char
+     Contains at least one char within a set of special chars (@#%$^ etc.)
+     Does not contain space, tab, etc.
+     * */
     @NotNull(message = ErrorCodeConstant.PASSWORD_IS_NOT_NULL_400004)
     @NotEmpty(message = ErrorCodeConstant.PASSWORD_IS_NOT_EMPTY_400012)
     @NotBlank(message = ErrorCodeConstant.PASSWORD_IS_NOT_EMPTY_400012)
     private String password;
-
 }

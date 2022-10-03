@@ -7,8 +7,7 @@ import lombok.Getter;
 @Getter
 public enum ExtraDataKey {
 
-    TARGET("TARGET"),
-    REQUEST("REQUEST");
+    TARGET("TARGET"), REQUEST("REQUEST");
 
     private final String value;
 }

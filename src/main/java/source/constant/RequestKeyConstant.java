@@ -2,7 +2,8 @@ package source.constant;
 
 public class RequestKeyConstant {
 
-    private RequestKeyConstant() {}
+    private RequestKeyConstant() {
+    }
 
     public static final String REQUEST_ID = "request_id";
 

@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateCourseRequestDto extends BasicRequest{
+public class CreateCourseRequestDto extends BasicRequest {
 
     private String name;
 

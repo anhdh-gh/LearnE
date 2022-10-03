@@ -8,18 +8,19 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    private DateUtil(){}
+    private DateUtil() {
+    }
 
     public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate();
     }
 
     public static LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
         return Instant.ofEpochMilli(dateToConvert.getTime())
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate();
     }
 
     public static LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
@@ -28,18 +29,18 @@ public class DateUtil {
 
     public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime();
     }
 
 
     public static LocalDateTime convertToLocalDateTimeViaMilisecond(Date dateToConvert) {
         return Instant.ofEpochMilli(dateToConvert.getTime())
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime();
     }
 
-    public static boolean isValidFormat(String format, String value, Locale locale) throws Exception{
+    public static boolean isValidFormat(String format, String value, Locale locale) throws Exception {
         LocalDateTime ldt;
         DateTimeFormatter fomatter = DateTimeFormatter.ofPattern(format, locale);
         try {

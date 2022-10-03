@@ -7,14 +7,14 @@ import source.anotation.NullOrNotBlank;
 import source.constant.ErrorCodeConstant;
 import source.constant.Gender;
 
-
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserUpdateRequestDto extends BasicRequest{
+public class UserUpdateRequestDto extends BasicRequest {
 
     private Gender gender;
 

@@ -1,4 +1,4 @@
 package source.dto.request;
 
-public class UserDeleteRequestDto extends BasicRequest{
+public class UserDeleteRequestDto extends BasicRequest {
 }

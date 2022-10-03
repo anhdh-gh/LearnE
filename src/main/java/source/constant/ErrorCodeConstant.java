@@ -3,8 +3,8 @@ package source.constant;
 public class ErrorCodeConstant {
 
 
-
-    private ErrorCodeConstant() {}
+    private ErrorCodeConstant() {
+    }
 
     public static final String EMAIL_IS_NOT_NULL_400001 = "400001";
     public static final String EMAIL_IS_NOT_VALID_400002 = "400002";

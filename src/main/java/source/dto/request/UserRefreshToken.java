@@ -5,12 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import source.constant.ErrorCodeConstant;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRefreshToken extends BasicRequest{
+public class UserRefreshToken extends BasicRequest {
 
     @NotNull(message = ErrorCodeConstant.REFRESH_TOKEN_IS_NOT_NULL_400027)
     @NotBlank(message = ErrorCodeConstant.REFRESH_TOKEN_IS_NOT_EMPTY_400028)

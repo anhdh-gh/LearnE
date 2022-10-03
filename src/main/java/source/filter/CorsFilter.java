@@ -1,13 +1,13 @@
 package source.filter;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import org.json.simple.parser.JSONParser;
 import source.constant.ContentTypeConstant;
 import source.constant.RequestKeyConstant;
 
@@ -21,7 +21,9 @@ import java.util.UUID;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
     /*
@@ -30,7 +32,8 @@ public class CorsFilter implements Filter {
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
     /*
      * (non-Javadoc)
@@ -51,7 +54,7 @@ public class CorsFilter implements Filter {
         }
         request.setAttribute(RequestKeyConstant.REQUEST_ID, requestId);
 
-        if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
+        if (contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
             request.setAttribute(RequestKeyConstant.AUTHORIZATION, request.getHeader("Authorization"));
             chain.doFilter(request, response);
         } else {
@@ -60,8 +63,8 @@ public class CorsFilter implements Filter {
 
                 JSONParser parser = new JSONParser();
                 JSONObject dataRequest = ObjectUtils.isEmpty(requestWrapper.getBody())
-                    ? new JSONObject()
-                    : (JSONObject) parser.parse(requestWrapper.getBody());
+                        ? new JSONObject()
+                        : (JSONObject) parser.parse(requestWrapper.getBody());
 
                 dataRequest.put(RequestKeyConstant.REQUEST_ID, requestId);
                 dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
@@ -82,5 +85,6 @@ public class CorsFilter implements Filter {
      * @see javax.servlet.Filter#destroy()
      */
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 }

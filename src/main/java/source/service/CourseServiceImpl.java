@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.CreateCourseRequestDto;
-import source.dto.request.GetCourseByCourseIdAndUserIdRequestDto;
+import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.entity.Course;
 import source.repository.*;
@@ -51,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public BaseResponse getCourseByCourseIdAndUserIdRequestDto(GetCourseByCourseIdAndUserIdRequestDto request) throws Exception {
+    public BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception {
         return null;
     }
 }

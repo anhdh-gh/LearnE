@@ -27,3 +27,6 @@ spring:
         format_sql: true
 server:
   port: 6013
+
+app:
+  name: service-course

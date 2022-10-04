@@ -78,7 +78,7 @@ const CourseApi = {
 
     handleGetCourseDetailForUser(courseId) {
 
-        // Set status và tổng số lượng lesson, tổng duration for course
+        // Set status for course
         const lessons = course.chapters.reduce((lessons, chapter) => [...lessons, ...chapter.lessons], [])
         course.status = lessons.every(lesson => lesson?.status === STATUS_TYPE.FINISHED)
             ? STATUS_TYPE.FINISHED
@@ -86,8 +86,11 @@ const CourseApi = {
               ? STATUS_TYPE.UNFINISHED
               : STATUS_TYPE.PROCESSING
 
+        // Set status for course, tổng số lượng lesson, tổng duration, tổng số lượng lesson đã hoàn thành, phần trăm hoàn thành course
         course.lessons = lessons
         course.totalDuration = lessons.reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")
+        course.numberOfLessonsFinished = lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.FINISHED ? 1 : 0), 0)
+        course.percent = course.numberOfLessonsFinished / course.lessons.length * 100
 
         // Set status và số lượng bài đã học trong chapter for chapter
         course.chapters.forEach(chapter => {

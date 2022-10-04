@@ -1,5 +1,5 @@
 import { Navigate, Route } from 'react-router-dom'
-import { ROUTE_PATH } from '../constants'
+import { ROUTE_PATH, ROLE } from '../constants'
 import { useSelector } from "react-redux"
 import _ from 'lodash'
 
@@ -10,7 +10,7 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
     return (
         <Route
             {...rest}
-            render={(props) => !_.isEmpty(user) && user?.role === 'ADMIN' ?
+            render={(props) => !_.isEmpty(user) && user?.role === ROLE.ADMIN ?
                 <Component {...props} /> : 
                 <Navigate to={ROUTE_PATH.SIGN_IN}/>
             }

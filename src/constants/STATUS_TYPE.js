@@ -1,0 +1,8 @@
+const STATUS_TYPE = {
+
+    UNFINISHED: "UNFINISHED",
+    PROCESSING: "PROCESSING",
+    FINISHED: "FINISHED",
+}
+
+export default STATUS_TYPE

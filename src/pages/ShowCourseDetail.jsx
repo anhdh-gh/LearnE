@@ -1,46 +1,15 @@
 import '../assets/css/ShowCourseDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
-import { Header, Footer } from '../components'
+import { Header, Footer, Loader } from '../components'
 import { useEffect } from 'react'
 import { setUrl } from '../redux/actions'
 import { ROUTE_PATH } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { Accordion } from 'react-bootstrap'
 import { useState } from 'react'
-import { CommonUtil } from '../utils'
+import { useGetCourseDetailForUser } from '../hook'
 
 const ShowCourseDetail = (props) => {
-
-    const course = {
-        id: "id",
-        name: "Làm việc với Terminal & Ubuntu",
-        // description: "Khóa học ReactJS từ cơ bản tới nâng cao, kết quả của khóa học này là bạn có thể làm hầu hết các dự án thường gặp với ReactJS. Cuối khóa học này bạn sẽ sở hữu một dự án giống Tiktok.com, bạn có thể tự tin đi xin việc khi nắm chắc các kiến thức được chia sẻ trong khóa học này.",
-        // image: "https://files.fullstack.edu.vn/f8-prod/courses/13/13.png",
-        // level: "Basic",
-        // author: "Đỗ Hùng Anh",
-        // extraDataList: [
-        //     // ...[...Array(8).keys()].map((extraData, index) => ({
-        //     //     id: `Extra data TARGET ${index + 1}`,
-        //     //     extraDataKey: "TARGET",
-        //     //     extraDataValue: `Biết cách tối ưu hiệu năng ứng dụng ${index + 1}`            
-        //     // })),
-        //     // ...[...Array(4).keys()].map((extraData, index) => ({
-        //     //     id: `Extra data REQUEST ${index + 1}`,
-        //     //     extraDataKey: "REQUEST",
-        //     //     extraDataValue: `Nắm chắc HTML, CSS, đã có sản phẩm tự tay làm ${index + 1}`            
-        //     // })),
-        // ],
-        chapters: [...Array(3).keys()].map((chapter, index) => ({
-            id: `Chapter ${index + 1}`,
-            name: `Chapter ${index + 1}`,
-            lessons: [...Array(10).keys()].map((lesson, indexLesson) => ({
-                id: `Chapter ${index + 1} - Lesson ${indexLesson + 1}`,
-                name: `Chapter ${index + 1} - Lesson ${indexLesson + 1}`,
-                duration: `02:15` // Not null
-            }))
-        })), 
-        // fee: "1 triệu"
-    }
 
     const dispatch = useDispatch()
 
@@ -51,7 +20,9 @@ const ShowCourseDetail = (props) => {
         dispatch(setUrl(ROUTE_PATH.SHOW_COURSE_DETAIL))
     }, [dispatch])
 
-    return <>
+    const { data: course, isLoading, isFetching, refetch } = useGetCourseDetailForUser()
+
+    return isLoading || isFetching ? <Loader/> : <>
         <Header />
 
         <div className="min-h-screen container-xl">
@@ -62,12 +33,12 @@ const ShowCourseDetail = (props) => {
                         <p className='text-gray-500'>{course.description}</p>
                     </div>
 
-                    {course?.extraDataList?.some(extraData => extraData.extraDataKey === 'TARGET') && <div className='mt-5'>
+                    {course?.targets && course?.targets?.length > 0 && <div className='mt-5'>
                         <h2 className='mb-3 text-2xl font-bold'>What will you learn?</h2>
                         <div className="row">
                             {
-                                course?.extraDataList?.filter(extraData => extraData.extraDataKey === 'TARGET').map((extraData, index) => <div className="col-md-6 mb-4 text-gray-500 d-flex" key={extraData.id}>
-                                    <i className="fa-solid fa-check text-orange-500 leading-4 me-2"></i> <span className='leading-4'>{extraData.extraDataValue}</span>
+                                course?.targets.map((target, index) => <div className="col-md-6 mb-4 text-gray-500 d-flex" key={target.id}>
+                                    <i className="fa-solid fa-check text-orange-500 leading-4 me-2"></i> <span className='leading-4'>{target.text}</span>
                                 </div>)
                             }
                         </div>
@@ -78,7 +49,7 @@ const ShowCourseDetail = (props) => {
                         <div className='sticky bg-white py-3 z-50' style={{ "top": `${height}px` }}>
                             <h2 className='mb-3 text-2xl font-bold'>Course content</h2>
                             <div className='d-flex justify-content-between'>
-                                <div><span className='fw-bold'>{course.chapters.length}</span> <span className='text-gray-500'>chapters</span> <span className='text-gray-500'>•</span> <span className='fw-bold'>{course.chapters.reduce((sum, chapter) => sum + chapter.lessons.length, 0)}</span> <span className='text-gray-500'>lessons</span></div>
+                                <div><span className='fw-bold'>{course.chapters.length}</span> <span className='text-gray-500'>chapters</span> <span className='text-gray-500'>•</span> <span className='fw-bold'>{course.lessons.length}</span> <span className='text-gray-500'>lessons</span></div>
                                 <div className='cursor-pointer text-orange-500 fw-bold hover:opacity-75' onClick={() => setCurrentIdShowContentCourse((previouState) => previouState.length === 0 ? [...course.chapters.map(chapter => chapter.id)] : [])}>{currentIdShowContentCourse.length === 0 ? 'Expand all' : 'Zoom out all'}</div>
                             </div>
                         </div>
@@ -107,12 +78,12 @@ const ShowCourseDetail = (props) => {
                         </div>
                     </div>
 
-                    {course?.extraDataList?.some(extraData => extraData.extraDataKey === 'REQUEST') && <div className='mt-5'>
+                    {course?.requests && course.requests.length > 0 && <div className='mt-5'>
                         <h2 className='mb-3 text-2xl font-bold'>Request</h2>
                         <div>
                             {
-                                course?.extraDataList?.filter(extraData => extraData.extraDataKey === 'REQUEST').map((extraData, index) => <div className="mb-4 text-gray-500 d-flex" key={extraData.id}>
-                                    <i className="fa-solid fa-check text-orange-500 leading-4 me-2"></i> <span className='leading-4'>{extraData.extraDataValue}</span>
+                                course.requests.map((request, index) => <div className="mb-4 text-gray-500 d-flex" key={request.id}>
+                                    <i className="fa-solid fa-check text-orange-500 leading-4 me-2"></i> <span className='leading-4'>{request.text}</span>
                                 </div>)
                             }
                         </div>
@@ -129,7 +100,7 @@ const ShowCourseDetail = (props) => {
                                 <div className='absolute rounded-lg z-10 inset-0 bg-black opacity-25'></div>
                             </div>
 
-                            {course?.fee ? <div className='text-4xl pt-4 text-orange-500'>{course.fee}</div> : <div className='text-4xl pt-4 text-orange-500'>Free</div>}
+                            {course?.price ? <div className='text-4xl pt-4 text-orange-500'>{course.price}</div> : <div className='text-4xl pt-4 text-orange-500'>Free</div>}
                             <div className="rounded-full px-5 py-2.5 mt-3 text-white uppercase bg-orange-600 hover:opacity-75 cursor-pointer font-bold duration-200 active:-translate-x-0.5 active:translate-y-0.5">Start now</div>
                             <div className='mt-4'>
                                 {course?.level && <div className="mb-4 text-gray-500 d-flex">
@@ -141,11 +112,11 @@ const ShowCourseDetail = (props) => {
                                 </div>}
 
                                 <div className="mb-4 text-gray-500 d-flex">
-                                    <i className="fa-solid fa-book-open text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Total <span className='font-bold text-black'>{course.chapters.length}</span> chapters</span> <span className='text-gray-500'>•</span> <span><span className='font-bold text-black'>{course.chapters.reduce((sum, chapter) => sum + chapter.lessons.length, 0)}</span> lessons</span></span>
+                                    <i className="fa-solid fa-book-open text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Total <span className='font-bold text-black'>{course.chapters.length}</span> chapters</span> <span className='text-gray-500'>•</span> <span><span className='font-bold text-black'>{course.lessons.length}</span> lessons</span></span>
                                 </div>
                                 
                                 <div className="mb-4 text-gray-500 d-flex">
-                                    <i className="fa-solid fa-clock text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Duration <span className='font-bold text-black'>{course.chapters.reduce((save, chapter) => [...save, ...chapter.lessons], []).reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")}</span></span></span>
+                                    <i className="fa-solid fa-clock text-gray-700 leading-4 me-2"></i> <span className='leading-4'><span>Duration <span className='font-bold text-black'>{course.totalDuration}</span></span></span>
                                 </div>
 
                                 <div className="mb-4 text-gray-500 d-flex">

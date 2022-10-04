@@ -31,8 +31,8 @@ CREATE TABLE `answerchoice`
     `Id`                      varchar(255) NOT NULL,
     `LessonQuestionHistoryId` varchar(255) NOT NULL,
     `AnswerId`                varchar(255) NOT NULL,
-    `CreateTime`              date DEFAULT NULL,
-    `UpdateTime`              date DEFAULT NULL,
+    `CreateTime`              datetime DEFAULT NULL,
+    `UpdateTime`              datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY                       `FKAnswerChoi188174` (`LessonQuestionHistoryId`),
     CONSTRAINT `FKAnswerChoi188174` FOREIGN KEY (`LessonQuestionHistoryId`) REFERENCES `lessonquestionhistory` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -117,8 +117,8 @@ CREATE TABLE `lessonexercise`
     `LessonId`    varchar(255) NOT NULL,
     `Name`        varchar(255) NOT NULL,
     `Description` longtext,
-    `CreateTime`  date DEFAULT NULL,
-    `UpdateTime`  date DEFAULT NULL,
+    `CreateTime`  datetime DEFAULT NULL,
+    `UpdateTime`  datetime DEFAULT NULL,
     PRIMARY KEY (`Id`),
     KEY           `FKLessonExer910564` (`LessonId`),
     CONSTRAINT `FKLessonExer910564` FOREIGN KEY (`LessonId`) REFERENCES `lesson` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -141,7 +141,6 @@ CREATE TABLE `lessonexercisestatus`
     `Status`           varchar(255) NOT NULL,
     `CreateTime`       datetime DEFAULT NULL,
     `UpdateTime`       datetime DEFAULT NULL,
-    `Score`            datetime     NOT NULL,
     PRIMARY KEY (`Id`),
     KEY                `FKLessonExer936762` (`LessonId`),
     KEY                `FKLessonExer257807` (`LessonExerciseId`),
@@ -161,9 +160,10 @@ CREATE TABLE `lessonquestion`
 (
     `Id`               varchar(255) NOT NULL,
     `LessonExerciseId` varchar(255) NOT NULL,
-    `CreateTime`       date DEFAULT NULL,
-    `UpdateTime`       date DEFAULT NULL,
+    `CreateTime`       datetime DEFAULT NULL,
+    `UpdateTime`       datetime DEFAULT NULL,
     `QuestionId`       varchar(255) NOT NULL,
+    `Score`            float        NOT NULL,
     PRIMARY KEY (`Id`),
     KEY                `FKLessonQues641174` (`LessonExerciseId`),
     CONSTRAINT `FKLessonQues641174` FOREIGN KEY (`LessonExerciseId`) REFERENCES `lessonexercise` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -182,8 +182,8 @@ CREATE TABLE `lessonquestionhistory`
     `Id`               varchar(255) NOT NULL,
     `LessonQuestionId` varchar(255) NOT NULL,
     `UserId`           varchar(255) NOT NULL,
-    `CreateTime`       date DEFAULT NULL,
-    `UpdateTime`       date DEFAULT NULL,
+    `CreateTime`       datetime DEFAULT NULL,
+    `UpdateTime`       datetime DEFAULT NULL,
     `Score`            float        NOT NULL,
     PRIMARY KEY (`Id`),
     KEY                `FKLessonQues214875` (`LessonQuestionId`),
@@ -261,4 +261,4 @@ CREATE TABLE `target`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-03 23:39:27
+-- Dump completed on 2022-10-04 10:27:12

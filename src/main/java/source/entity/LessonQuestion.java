@@ -18,9 +18,13 @@ public class LessonQuestion extends BaseEntity {
     @Column(name = "QuestionId")
     private String questionId;
 
+    @Column(name = "Score")
+    private float score;
+
     @Builder
-    public LessonQuestion(String id, Date createTime, Date updateTime, String questionId) {
+    public LessonQuestion(String id, Date createTime, Date updateTime, String questionId, float score) {
         super(id, createTime, updateTime);
         this.questionId = questionId;
+        this.score = score;
     }
 }

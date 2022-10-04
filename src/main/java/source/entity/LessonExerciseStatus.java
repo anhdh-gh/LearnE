@@ -21,19 +21,15 @@ public class LessonExerciseStatus extends BaseEntity {
     @Column(name = "Status")
     private StatusType status;
 
-    @Column(name = "Score")
-    private float score;
-
     @ManyToOne(targetEntity = LessonExercise.class)
     @JoinColumn (name = "LessonExerciseId", nullable = false)
     private LessonExercise lessonExercise;
 
     @Builder
-    public LessonExerciseStatus(String id, Date createTime, Date updateTime, String userId, StatusType status, float score, LessonExercise lessonExercise) {
+    public LessonExerciseStatus(String id, Date createTime, Date updateTime, String userId, StatusType status, LessonExercise lessonExercise) {
         super(id, createTime, updateTime);
         this.userId = userId;
         this.status = status;
-        this.score = score;
         this.lessonExercise = lessonExercise;
     }
 }

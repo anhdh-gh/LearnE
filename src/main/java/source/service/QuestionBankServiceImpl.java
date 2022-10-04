@@ -81,8 +81,11 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Override
     public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
-        List<Question> questions = questionRepository.findByIds(request.getIds());
-        // to do handle vurable
+        List<Question> questions = questionRepository.findByIds(request.getQuestionIds());
+        if(questions.size() < request.getQuestionIds().size()) {
+            int errorCode = Integer.parseInt(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031);
+            throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
+        }
         return BaseResponse.ofSucceeded(request.getRequestId(), questions);
     }
 }

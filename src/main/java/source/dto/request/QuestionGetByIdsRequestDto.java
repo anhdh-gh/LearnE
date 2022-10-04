@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionGetByIdsRequestDto extends BasicRequest {
-    private List<String> ids;
+    private List<String> questionIds;
 }

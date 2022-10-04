@@ -20,7 +20,7 @@ public class LessonStatus extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Status", columnDefinition = "varchar(255) default 'UNFINISHED'")
-    private StatusType status = StatusType.UNFINISHED;
+    private StatusType status;
 
     @ManyToOne(targetEntity = Lesson.class)
     @JoinColumn (name = "LessonId", nullable = false)

@@ -4,7 +4,7 @@ public class RequestKeyConstant {
 
     private RequestKeyConstant() {}
 
-    public static final String USER = "user";
+    public static final String USER_AUTH = "user_auth";
 
     public static final String REQUEST_ID = "request_id";
 

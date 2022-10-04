@@ -2,13 +2,13 @@ package source.filter.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import source.constant.JwtTokenTypeConstant;
 import source.constant.RequestKeyConstant;
 import source.dto.response.BaseResponse;
 import source.entity.User;
+import source.entity.enumeration.Role;
 import source.exception.BusinessErrors;
 import source.util.JwtUtil;
 
@@ -29,32 +29,15 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = getJwtFromRequest(request);
-
-            if (StringUtils.hasText(jwt) && jwtUtil.validateJwtToken(jwt)) {
-                User user = jwtUtil.getUserFromJwtToken(jwt);
-                if(user != null) {
-                    request.setAttribute(RequestKeyConstant.USER, user);
-                    filterChain.doFilter(request, response);
-                } else {
-                    handlerError(request, response);
-                }
+            User user = (User) request.getAttribute(RequestKeyConstant.USER_AUTH);
+            if(user != null) {
+                filterChain.doFilter(request, response);
             } else {
                 handlerError(request, response);
             }
-        } catch (Exception ex) {
+        } catch (Exception e) {
             handlerError(request, response);
-            log.error("failed on set user authentication", ex);
         }
-    }
-
-    private String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        // Kiểm tra xem header Authorization có chứa thông tin jwt không
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtTokenTypeConstant.BEARER + " ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
     }
 
     private void handlerError(HttpServletRequest request, HttpServletResponse response) throws IOException {

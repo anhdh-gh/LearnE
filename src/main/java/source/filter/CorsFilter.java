@@ -10,7 +10,10 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.json.simple.parser.JSONParser;
 import source.constant.ContentTypeConstant;
+import source.constant.JwtTokenTypeConstant;
 import source.constant.RequestKeyConstant;
+import source.entity.User;
+import source.util.JwtUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +27,8 @@ public class CorsFilter implements Filter {
 
     /** The logger. */
     private Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+
+    private final JwtUtil jwtUtil = new JwtUtil();
 
     /*
      * (non-Javadoc)
@@ -66,12 +71,32 @@ public class CorsFilter implements Filter {
                 dataRequest.put(RequestKeyConstant.REQUEST_ID, requestId);
                 dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
                 requestWrapper.setBody(dataRequest.toString());
+
+                // Set user auth if exists
+                String jwt = getJwtFromRequest(request);
+                if (StringUtils.hasText(jwt) && jwtUtil.validateJwtToken(jwt)) {
+                    User userAuth = jwtUtil.getUserFromJwtToken(jwt);
+                    if(userAuth != null) {
+                        request.setAttribute(RequestKeyConstant.USER_AUTH, userAuth);
+                        dataRequest.put(RequestKeyConstant.USER_AUTH, userAuth);
+                    }
+                }
+
                 chain.doFilter(requestWrapper, res);
             } catch (Exception e) {
                 logger.error(e.toString(), e);
                 response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
             }
         }
+    }
+
+    private String getJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        // Kiểm tra xem header Authorization có chứa thông tin jwt không
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtTokenTypeConstant.BEARER + " ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     /*

@@ -10,7 +10,6 @@ import source.dto.response.BaseResponse;
 import source.entity.User;
 import source.service.refresh_token_service.RefreshTokenService;
 import source.service.user_service.UserService;
-import source.third_party.user_service.dto.request.UserGetByIdThirdPartyRequestDto;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -50,21 +49,21 @@ public class UserController {
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_UPDATE)
     public BaseResponse updateUser(@RequestBody UserUpdateRequestDto userUpdateRequestDto, HttpServletRequest request) throws Exception {
-        userUpdateRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER)).getId());
+        userUpdateRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER_AUTH)).getId());
         return userService.updateUser(userUpdateRequestDto);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_DELETE)
     public BaseResponse deleteUser(@RequestBody UserDeleteRequestDto userDeleteRequestDto, HttpServletRequest request) throws Exception {
-        userDeleteRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER)).getId());
+        userDeleteRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER_AUTH)).getId());
         return userService.deleteUser(userDeleteRequestDto);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_GET_INFO)
     public BaseResponse getUserInformation(@RequestBody UserGetInfoRequestDto userGetInfoRequestDto, HttpServletRequest request) throws Exception {
-        userGetInfoRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER)).getId());
+        userGetInfoRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER_AUTH)).getId());
         return userService.getUserInfo(userGetInfoRequestDto);
     }
 

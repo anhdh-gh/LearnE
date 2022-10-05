@@ -3,11 +3,12 @@ import PagesImage from '../assets/img/pages-image.png'
 import { Header, Footer, Loader } from '../components'
 import { useEffect } from 'react'
 import { setUrl } from '../redux/actions'
-import { ROUTE_PATH } from '../constants'
+import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { Accordion } from 'react-bootstrap'
 import { useState } from 'react'
 import { useGetCourseDetailForUser } from '../hook'
+import { History } from '../components/NavigateSetter'
 
 const ShowCourseDetail = (props) => {
 
@@ -16,13 +17,18 @@ const ShowCourseDetail = (props) => {
     const [currentIdShowContentCourse, setCurrentIdShowContentCourse] = useState([])
     const height = useSelector(state => state.UI.Header.height)
 
-    useEffect(() => {
-        dispatch(setUrl(ROUTE_PATH.SHOW_COURSE_DETAIL))
-    }, [dispatch])
-
     const { data: course, isLoading, isFetching, refetch } = useGetCourseDetailForUser()
 
-    return isLoading || isFetching ? <Loader/> : <>
+    useEffect(() => {
+        if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
+            dispatch(setUrl(ROUTE_PATH.SHOW_COURSE_DETAIL))
+        } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
+            History.replace(ROUTE_PATH.SHOW_LESSON_DETAIL)
+        }
+    }, [ dispatch, course?.status ])
+
+
+    return isLoading || isFetching || !course?.status || course.status !== STATUS_TYPE.UNFINISHED ? <Loader/> : <>
         <Header />
 
         <div className="min-h-screen container-xl">

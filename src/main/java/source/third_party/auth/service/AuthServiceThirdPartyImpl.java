@@ -187,6 +187,17 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
+    @Override
+    public BaseResponse getDetailCourse(GetCourseDetailRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_COURSE_DETAIL),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
     private HttpEntity<BasicRequest> getHeader(BasicRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

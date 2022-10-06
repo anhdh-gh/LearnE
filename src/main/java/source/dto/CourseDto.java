@@ -1,10 +1,8 @@
-package source.dto.request;
+package source.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-import source.entity.Chapter;
 import source.entity.Request;
 import source.entity.Target;
 
@@ -13,8 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-public class CreateCourseRequestDto extends BasicRequest {
+public class CourseDto extends BaseDto{
 
     private String name;
 
@@ -24,11 +21,13 @@ public class CreateCourseRequestDto extends BasicRequest {
 
     private String description;
 
+    private Long numberOfPeople;
+
     private String level;
 
     private String price;
 
-    private List<Chapter> chapters;
+    private List<ChapterDto> chapters;
 
     private List<Target> targets;
 

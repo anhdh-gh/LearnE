@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.CreateCourseRequestDto;
+import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.CourseService;
 
@@ -20,5 +21,10 @@ public class CourseController {
     @PostMapping(RouterConstant.COURSE_CREATE)
     public BaseResponse createCourse(@Valid @RequestBody CreateCourseRequestDto request) throws Exception {
         return courseService.createCourse(request);
+    }
+
+    @PostMapping(RouterConstant.COURSE_GET_DETAILS_FOR_USER)
+    public BaseResponse getCourseDetail(@Valid @RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
+        return courseService.getCourseDetailForUserRequestDto(request);
     }
 }

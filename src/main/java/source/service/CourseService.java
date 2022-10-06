@@ -9,4 +9,6 @@ public interface CourseService {
     BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
 
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
+
+
 }

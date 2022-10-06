@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChapterDto extends BaseDto {
+public class BaseDto {
 
+    protected String id;
 
-    private String name;
+    protected Date createTime;
 
-    private List<LessonDto> lessons;
+    protected Date updateTime;
 }

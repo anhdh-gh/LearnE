@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCourseRequestDto extends BasicRequest {
+public class CourseDto extends BaseDto {
 
     private String name;
 
@@ -18,6 +18,8 @@ public class CreateCourseRequestDto extends BasicRequest {
     private String image;
 
     private String description;
+
+    private Long numberOfPeople;
 
     private String level;
 

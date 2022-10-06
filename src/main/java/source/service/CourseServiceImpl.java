@@ -13,9 +13,7 @@ import source.dto.QuestionDto;
 import source.dto.request.CreateCourseRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.response.BaseResponse;
-import source.entity.Course;
-import source.entity.Lesson;
-import source.entity.LessonExercise;
+import source.entity.*;
 import source.entity.enumeration.StatusType;
 import source.exception.BusinessException;
 import source.repository.*;
@@ -161,11 +159,15 @@ public class CourseServiceImpl implements CourseService {
             return BaseResponse.ofSucceeded(request.getRequestId(), courseDto);
         }
         // set status of user in lesson
+
         lessonDtos.forEach(
             lessonDto -> {
                 Lesson lesson = modelMapper.map(lessonDto, Lesson.class);
-                StatusType statusType = lessonStatusRepository.getByUserIdAndAndLesson(userId, lesson).getStatus();
-                lessonDto.setStatus(statusType);
+                System.out.println("do some thing");
+                LessonStatus lessonStatus =  lessonStatusRepository.getByUserIdAndAndLesson(userId, lesson);
+                if(!Objects.isNull(lessonStatus)){
+                    lessonDto.setStatus(lessonStatus.getStatus());
+                 }
                 }
         );
         // check user has do exercise
@@ -178,8 +180,11 @@ public class CourseServiceImpl implements CourseService {
             lessonDto.getLessonExercises().forEach(
                 lessonExerciseDto -> {
                     LessonExercise lessonExercise = modelMapper.map(lessonExerciseDto, LessonExercise.class);
-                    StatusType statusType = lessonExerciseStatusRepository.getByUserIdAndAndLessonExercise(userId, lessonExercise).getStatus();
-                    lessonExerciseDto.setStatus(statusType);
+                    LessonExerciseStatus lessonExerciseStatus = lessonExerciseStatusRepository.getByUserIdAndAndLessonExercise(userId, lessonExercise);
+                    if(lessonExerciseStatus != null){
+                        lessonExerciseDto.setStatus(lessonExerciseStatus.getStatus());
+                    }
+
                 }
             );
         });

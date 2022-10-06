@@ -20,7 +20,7 @@ public class LessonDto extends BaseDto{
 
     private String video;
 
-    private StatusType status;
+    private StatusType status = StatusType.UNFINISHED;
 
     private List<LessonExerciseDto> lessonExercises;
 }

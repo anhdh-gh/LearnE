@@ -17,7 +17,7 @@ const ShowCourseDetail = (props) => {
     const [currentIdShowContentCourse, setCurrentIdShowContentCourse] = useState([])
     const height = useSelector(state => state.UI.Header.height)
 
-    const { data: course, isLoading, isFetching, refetch } = useGetCourseDetailForUser()
+    const { data: course, isLoading, isFetching } = useGetCourseDetailForUser()
 
     useEffect(() => {
         if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
@@ -64,13 +64,13 @@ const ShowCourseDetail = (props) => {
                             {
                                 course.chapters.map((chapter, indexChapter) => <Accordion activeKey={currentIdShowContentCourse} key={chapter.id} className="mb-2">
                                     <Accordion.Item eventKey={chapter.id}>
-                                        <Accordion.Header className='d-flex accordion-header bg-gray-100' onClick={() => setCurrentIdShowContentCourse((previouState => previouState.some(id => id === chapter.id) ? previouState.filter(id => id !== chapter.id) : [...previouState, chapter.id]))}>
-                                            <span><i className={`fa-solid text-orange-500 ${currentIdShowContentCourse.some(id => id === chapter.id) ? 'fa-minus' : 'fa-plus'}`}></i> {chapter.name}</span>
+                                        <Accordion.Header className='d-flex ShowCourseDetail-accordion-header bg-gray-100' onClick={() => setCurrentIdShowContentCourse((previouState => previouState.some(id => id === chapter.id) ? previouState.filter(id => id !== chapter.id) : [...previouState, chapter.id]))}>
+                                            <span><i className={`fa-solid text-orange-500 ${currentIdShowContentCourse.some(id => id === chapter.id) ? 'fa-minus' : 'fa-plus'}`}></i> {`${indexChapter + 1}. ${chapter.name}`}</span>
                                             <span className='ms-auto text-gray-500 font-normal'>{chapter.lessons.length} lesson</span>
                                         </Accordion.Header>
-                                        <Accordion.Body>
+                                        <Accordion.Body className='py-0'>
                                             {chapter.lessons.map((lesson, indexLesson) =>
-                                                <div className='d-flex justify-content-between py-3 border-b-2 border-slate-200' key={lesson.id}>
+                                                <div className={`d-flex justify-content-between py-3 ${indexLesson === chapter.lessons.length-1 ? 'border-b-0' : 'border-b-2'} border-slate-200`} key={lesson.id}>
                                                     <div className='text-gray-500'>
                                                         <i className="fa-regular fa-circle-play text-orange-500"></i> {course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}. {lesson.name}
                                                     </div>

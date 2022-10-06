@@ -3,7 +3,8 @@ import {
     showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
     showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
     hideAuthSignUpIsButtonSignUpSpin, setUrl, showAuthSignUpIsPageSignUp,
-    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, setHeightHeader
+    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, setHeightHeader,
+    setHeightCourseHeader
 } from '../features/UISlice'
 import { saveUser, removeUser } from '../features/UserSlice'
 import { refreshToken, signIn, getUserInfo, signOut, signUp } from './userSagaAction'
@@ -31,5 +32,6 @@ export {
     hideAuthSignUpIsPageSignUp, 
     showAuthSignInIsPageSignIn, 
     hideAuthSignInIsPageSignIn,
-    setHeightHeader
+    setHeightHeader,
+    setHeightCourseHeader
 }

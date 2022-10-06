@@ -1,0 +1,7 @@
+.ShowLessonDetail-accordion-header > button {
+    background-color: transparent;
+}
+
+.ShowLessonDetail-accordion-header > button:focus {
+    box-shadow: none;
+}

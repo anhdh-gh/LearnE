@@ -1,60 +1,86 @@
-import '../assets/css/ShowCourseDetail.css'
-import { Footer, CircularProgressBar, Loader } from '../components'
-import { useEffect } from 'react'
+import '../assets/css/ShowLessonDetail.css'
+import { Footer, Loader, CourseHeader } from '../components'
+import { useEffect, useState } from 'react'
 import { setUrl } from '../redux/actions'
-import { ROUTE_PATH } from '../constants'
+import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch } from 'react-redux'
-import { Navbar, Container, Nav } from 'react-bootstrap'
-import { History } from '../components/NavigateSetter'
 import { useGetCourseDetailForUser } from '../hook'
+import { Accordion } from 'react-bootstrap'
+import { History } from '../components/NavigateSetter'
 
 const ShowLessonDetail = (props) => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(setUrl(ROUTE_PATH.SHOW_LESSON_DETAIL))
-    }, [dispatch])
+    const { data: course, isLoading, isFetching } = useGetCourseDetailForUser()
 
-    const { data: course, isLoading, isFetching, refetch } = useGetCourseDetailForUser()
+    useEffect(() => {
+        if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
+            dispatch(setUrl(ROUTE_PATH.SHOW_LESSON_DETAIL))
+        } else if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
+            History.replace(ROUTE_PATH.SHOW_COURSE_DETAIL)
+        }
+    }, [ dispatch, course?.status ])
+
+    const [ currentIdShowContentCourse, setCurrentIdShowContentCourse ] = useState([])
+
+    useEffect(() => {
+        setCurrentIdShowContentCourse((!course || !course?.chapters) ? [] : [...[course.chapters.filter(
+            chapter => chapter.lessons.some(chapter => chapter.status === STATUS_TYPE.PROCESSING))[0]]
+            .map(chapter => chapter.id)
+        ])
+    }, [ course, course?.chapters ])
 
     return isLoading || isFetching ? <Loader/> : <>
-        <Navbar bg="dark" fixed="top" variant="dark">
-            <Container fluid className="justify-start">
-                <Navbar.Brand
-                    className="fw-bold cursor-pointer me-2"
-                    // onClick={() => History.push(ROUTE_PATH.HOME)}
-                >
-                    <i className="fa-solid fa-chevron-left px-3"/>
-                </Navbar.Brand>
-                <Navbar.Brand
-                    className="fw-bold cursor-pointer me-2 d-none d-sm-block"
-                    // onClick={() => History.push(ROUTE_PATH.HOME)}
-                >
-                    <i className="fas fa-book-reader px-2"/>
-                </Navbar.Brand>
+        <CourseHeader course={course} />
 
-                <Navbar.Brand className='text-base font-bold d-none d-lg-block'>{course.name.length > 70 ? course.name.substring(0, 70).concat('...') : course.name}</Navbar.Brand>
-                <Navbar.Brand className='text-base font-bold d-none d-md-block d-lg-none'>{course.name.length > 50 ? course.name.substring(0, 50).concat('...') : course.name}</Navbar.Brand>
-                <Navbar.Brand className='text-base font-bold d-none d-sm-block d-md-none'>{course.name.length > 30 ? course.name.substring(0, 30).concat('...') : course.name}</Navbar.Brand>
-                <Navbar.Brand className='text-base font-bold d-sm-none'>{course.name.length > 20 ? course.name.substring(0, 20).concat('...') : course.name}</Navbar.Brand>
-                
-                <Navbar.Brand className='m-0 ms-auto px-3 flex justify-center items-center'>
-                    <CircularProgressBar
-                        colorCircleDone="rgb(148 163 184)"
-                        color="rgb(132 204 22)"
-                        classNameTextPercent="text-white font-bold"
-                        radius={18}
-                        strokeWidth={2}
-                        percent={course.percent}
-                        styleTextPercent={{fontSize: course.percent < 10 ? "10px" : course.percent < 100 ? "9px" : "8px"}}
-                    /> <span className='ms-2 text-xs d-none d-sm-block'><span className='font-bold'>{course.numberOfLessonsFinished}/{course.lessons.length}</span> lessons</span>
-                </Navbar.Brand>
-            </Container>
-        </Navbar>
+        <div className="min-h-screen container-fluid">
+            <div className='row'>
+                <div className='col-lg-9'>
+                    <div className='min-h-screen'></div>
+                </div>
+                <div className='col-lg-3'>
+                    <div className=''>
+                        <div className='font-bold py-3.5 px-2.5 tracking-wider'>Course content</div>
 
-        <div className="min-h-screen container-xl">
+                        <div className='max-h-screen overflow-x-scroll relative'>
+                            {course.chapters.map((chapter, indexChapter) => <Accordion activeKey={currentIdShowContentCourse} key={chapter.id} className="">
+                                <Accordion.Item eventKey={chapter.id} className="rounded-none">
+                                    <Accordion.Header className='flex flex-col ShowLessonDetail-accordion-header bg-gray-100 sticky top-0' onClick={() => setCurrentIdShowContentCourse((previouState => previouState.some(id => id === chapter.id) ? previouState.filter(id => id !== chapter.id) : [...previouState, chapter.id]))}>
+                                        <div>
+                                            <div>{`${indexChapter + 1}. ${chapter.name}`}</div>
+                                            <div className='text-xs text-gray-500 mt-1 tracking-widest'>{chapter.numberOfLessonFinshed}/{chapter.lessons.length} | {chapter.totalDuration}</div>                                    
+                                        </div>
+                                    </Accordion.Header>
+                                    <Accordion.Body className='py-0'>
+                                        {chapter.lessons.map((lesson, indexLesson) =>
+                                            <div className={`${indexLesson === chapter.lessons.length-1 ? 'border-b-0' : 'border-b-2'} d-flex justify-content-between py-3 border-slate-200`} key={lesson.id}>
+                                                <div className={`
+                                                    ${!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED || lesson?.status === STATUS_TYPE.FINISHED
+                                                        ? 'text-gray-500' : 'text-black'
+                                                } min-w-full`}>
+                                                    <div>
+                                                        <div className='flex min-w-full'>
+                                                            <div>{course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}. {lesson.name}</div>
+                                                            {!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED
+                                                            ? <div className='ml-auto'><i className="fa-solid fa-lock text-gray-500"/></div>
+                                                            : lesson?.status === STATUS_TYPE.FINISHED
+                                                            ? <div className='ml-auto'><i className="fa-solid fa-circle-check text-lime-500"/></div>
+                                                            : <></>}
+                                                        </div>        
 
+                                                        <div className='text-xs'><i className={`fa-solid fa-circle-play ${lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING && "text-orange-500"}`}></i> {lesson.duration}</div>                                                
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>)}       
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <Footer />
     </>

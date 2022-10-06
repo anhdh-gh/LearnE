@@ -24,12 +24,12 @@ const course = {
     //     updateTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
     //     text: `Nắm chắc HTML, CSS, đã có sản phẩm tự tay làm ${index + 1}`
     // })),
-    chapters: [...Array(3).keys()].map((chapter, index) => ({
+    chapters: [...Array(30).keys()].map((chapter, index) => ({
         id: `Chapter id ${index + 1}`,
         // createTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
         // updateTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
         name: `Chapter name ${index + 1}`,
-        lessons: [...Array(10).keys()].map((lesson, indexLesson) => ({
+        lessons: [...Array(5).keys()].map((lesson, indexLesson) => ({
             id: `Lesson id ${indexLesson + 1}`,
             // createTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
             // updateTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
@@ -37,7 +37,7 @@ const course = {
             duration: `${indexLesson}1:02:15`,
             // description: `Lesson description ${index + 1}`,
             video: `https://youtu.be/Z3rOofQx01A`,
-            status: indexLesson < 4 && STATUS_TYPE.FINISHED,
+            status: indexLesson < 2 ? STATUS_TYPE.UNFINISHED : indexLesson > 2 && indexLesson < 4 && index < 2 ? STATUS_TYPE.PROCESSING : STATUS_TYPE.FINISHED,
             lessonExercises: [...Array(4).keys()].map((item, index) => ({
                 id: `LessonExercises id ${index + 1}`,
                 // createTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
@@ -82,7 +82,7 @@ const CourseApi = {
         const lessons = course.chapters.reduce((lessons, chapter) => [...lessons, ...chapter.lessons], [])
         course.status = lessons.every(lesson => lesson?.status === STATUS_TYPE.FINISHED)
             ? STATUS_TYPE.FINISHED
-            : lessons.every(lesson => lesson?.status || lesson?.status === STATUS_TYPE.UNFINISHED)
+            : lessons.every(lesson => !lesson?.status || lesson?.status === STATUS_TYPE.UNFINISHED)
               ? STATUS_TYPE.UNFINISHED
               : STATUS_TYPE.PROCESSING
 
@@ -90,15 +90,17 @@ const CourseApi = {
         course.lessons = lessons
         course.totalDuration = lessons.reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")
         course.numberOfLessonsFinished = lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.FINISHED ? 1 : 0), 0)
-        course.percent = course.numberOfLessonsFinished / course.lessons.length * 100
+        course.percent = parseInt(course.numberOfLessonsFinished / course.lessons.length * 100)
 
         // Set status và số lượng bài đã học trong chapter for chapter
         course.chapters.forEach(chapter => {
             const numberOfLessonFinshed = chapter.lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.FINISHED ? 1 : 0), 0)
+            const numberOfLessonUnFinshed = chapter.lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.UNFINISHED ? 1 : 0), 0)
             chapter.status = numberOfLessonFinshed === chapter.lessons.length ? STATUS_TYPE.FINISHED
-                : numberOfLessonFinshed === 0 ? STATUS_TYPE.UNFINISHED
+                : numberOfLessonUnFinshed === chapter.lessons.length ? STATUS_TYPE.UNFINISHED
                 : STATUS_TYPE.PROCESSING
             chapter.numberOfLessonFinshed = numberOfLessonFinshed
+            chapter.totalDuration = chapter.lessons.reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")
         })
 
         // Tinh điểm cho các lessonExercises

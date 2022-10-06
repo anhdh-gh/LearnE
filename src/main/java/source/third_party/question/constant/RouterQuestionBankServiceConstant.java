@@ -6,9 +6,9 @@ public class RouterQuestionBankServiceConstant {
 
     }
 
-    public static final String QUESTION_CREATE = "/question/create";
+    public static final String QUESTION_CREATE = "/questions/create";
 
-    public static final String QUESTION_GET_ALL = "/question/all";
+    public static final String QUESTION_GET_ALL = "/questions/all";
 
-    public static final String QUESTION_GET_BY_QUESTION_ID = "/question/get-by-id";
+    public static final String QUESTION_GET_BY_QUESTION_ID = "/questions/get-by-id";
 }

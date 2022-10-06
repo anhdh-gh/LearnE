@@ -7,8 +7,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import source.constant.RouterConstant;
 import source.dto.request.CreateCourseRequestDto;
+import source.dto.request.GetCourseDetailRequestDto;
 import source.dto.request.QuestionGetByIdsRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.course.constant.RouterCourseServiceConstant;
@@ -28,7 +28,7 @@ public class CourseServiceThirdPartyImpl implements CourseServiceThirdParty{
     @Override
     public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterConstant.COURSE_CREATE),
+                String.format("%s%s", baseUrl, RouterCourseServiceConstant.COURSE_CREATE),
                 HttpMethod.POST,
                 getHeader(request),
                 new ParameterizedTypeReference<BaseResponse>() {});
@@ -38,10 +38,20 @@ public class CourseServiceThirdPartyImpl implements CourseServiceThirdParty{
     @Override
     public BaseResponse getQuestionsByIds(QuestionGetByIdsRequestDto requestDto) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterConstant.QUESTION_GET_BY_IDS),
+            String.format("%s%s", baseUrl, RouterCourseServiceConstant.QUESTION_GET_BY_IDS),
             HttpMethod.POST,
             getHeader(requestDto),
             new ParameterizedTypeReference<BaseResponse>() {});
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse getDetailCourse(GetCourseDetailRequestDto requestDto) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterCourseServiceConstant.GET_COURSE_DETAIL),
+                HttpMethod.POST,
+                getHeader(requestDto),
+                new ParameterizedTypeReference<BaseResponse>() {});
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 }

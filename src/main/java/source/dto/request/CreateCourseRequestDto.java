@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import source.dto.ChapterDto;
+import source.dto.RequestDto;
+import source.dto.TargetDto;
 import source.entity.Chapter;
 import source.entity.Request;
 import source.entity.Target;
@@ -28,9 +31,9 @@ public class CreateCourseRequestDto extends BasicRequest {
 
     private String price;
 
-    private List<Chapter> chapters;
+    private List<ChapterDto> chapters;
 
-    private List<Target> targets;
+    private List<TargetDto> targets;
 
-    private List<Request> requests;
+    private List<RequestDto> requests;
 }

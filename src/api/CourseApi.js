@@ -2,7 +2,7 @@ import { STATUS_TYPE, QUESTION_TYPE } from '../constants'
 import { CommonUtil } from '../utils'
 
 const course = {
-    id: "Course id",
+    id: "course_id",
     // createTime: "yyyy-mm-dd hh:mi:ss.fff",
     // updateTime: "yyyy-mm-dd hh:mi:ss.fff",
     name: "Làm việc với Terminal & Ubuntu",
@@ -30,14 +30,14 @@ const course = {
         // updateTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
         name: `Chapter name ${index + 1}`,
         lessons: [...Array(5).keys()].map((lesson, indexLesson) => ({
-            id: `Lesson id ${indexLesson + 1}`,
+            id: `Chapter id ${index + 1} - Lesson id ${indexLesson + 1}`,
             // createTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
             // updateTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
             name: `Lesson name ${indexLesson + 1}`,
             duration: `${indexLesson}1:02:15`,
             // description: `Lesson description ${index + 1}`,
             video: `https://youtu.be/Z3rOofQx01A`,
-            status: indexLesson < 2 ? STATUS_TYPE.UNFINISHED : indexLesson > 2 && indexLesson < 4 && index < 2 ? STATUS_TYPE.PROCESSING : STATUS_TYPE.FINISHED,
+            status: indexLesson < 2 ? STATUS_TYPE.UNFINISHED : indexLesson > 2 && indexLesson < 4 && index > 5 ? STATUS_TYPE.PROCESSING : STATUS_TYPE.FINISHED,
             lessonExercises: [...Array(4).keys()].map((item, index) => ({
                 id: `LessonExercises id ${index + 1}`,
                 // createTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,

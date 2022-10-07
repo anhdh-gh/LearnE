@@ -1,6 +1,6 @@
 import '../assets/css/ShowLessonDetail.css'
 import { Footer, Loader, CourseHeader } from '../components'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { setUrl } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch } from 'react-redux'
@@ -8,11 +8,15 @@ import { useGetCourseDetailForUser } from '../hook'
 import { Accordion } from 'react-bootstrap'
 import { History } from '../components/NavigateSetter'
 
+const useMountEffect = fun => useEffect(fun, [ fun ])
+
 const ShowLessonDetail = (props) => {
 
     const dispatch = useDispatch()
 
     const { data: course, isLoading, isFetching } = useGetCourseDetailForUser()
+
+    const refScrollLesson = useRef(null)
 
     useEffect(() => {
         if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
@@ -22,14 +26,20 @@ const ShowLessonDetail = (props) => {
         }
     }, [ dispatch, course?.status ])
 
+    const [ idLessonCurrentShow, setIdLessonCurrentShow ] = useState()
     const [ currentIdShowContentCourse, setCurrentIdShowContentCourse ] = useState([])
 
     useEffect(() => {
-        setCurrentIdShowContentCourse((!course || !course?.chapters) ? [] : [...[course.chapters.filter(
-            chapter => chapter.lessons.some(chapter => chapter.status === STATUS_TYPE.PROCESSING))[0]]
-            .map(chapter => chapter.id)
-        ])
+        const chapterCurrentShow = course && course?.chapters && course.chapters.filter(
+            chapter => chapter.lessons.some(chapter => chapter.status === STATUS_TYPE.PROCESSING))[0]
+        setCurrentIdShowContentCourse(!chapterCurrentShow ? [] : [...[chapterCurrentShow].map(chapter => chapter.id)])
+        setIdLessonCurrentShow(!chapterCurrentShow ? '' : chapterCurrentShow.lessons.filter(lesson => lesson.status === STATUS_TYPE.PROCESSING)[0].id)
     }, [ course, course?.chapters ])
+
+    useMountEffect(() => {
+        refScrollLesson?.current?.scrollIntoView()
+        console.log(idLessonCurrentShow)
+    }, [])
 
     return isLoading || isFetching ? <Loader/> : <>
         <CourseHeader course={course} />
@@ -37,7 +47,9 @@ const ShowLessonDetail = (props) => {
         <div className="min-h-screen container-fluid">
             <div className='row'>
                 <div className='col-lg-9'>
-                    <div className='min-h-screen'></div>
+                    <div className='min-h-screen'>
+                        <button onClick={() => {refScrollLesson?.current?.scrollIntoView()}}>Click</button>
+                    </div>
                 </div>
                 <div className='col-lg-3'>
                     <div className=''>
@@ -54,7 +66,7 @@ const ShowLessonDetail = (props) => {
                                     </Accordion.Header>
                                     <Accordion.Body className='py-0'>
                                         {chapter.lessons.map((lesson, indexLesson) =>
-                                            <div className={`${indexLesson === chapter.lessons.length-1 ? 'border-b-0' : 'border-b-2'} d-flex justify-content-between py-3 border-slate-200`} key={lesson.id}>
+                                            <div ref={ idLessonCurrentShow === lesson.id ? refScrollLesson : null } className={`${indexLesson === chapter.lessons.length-1 ? 'border-b-0' : 'border-b-2'} d-flex justify-content-between py-3 border-slate-200`} key={lesson.id}>
                                                 <div className={`
                                                     ${!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED || lesson?.status === STATUS_TYPE.FINISHED
                                                         ? 'text-gray-500' : 'text-black'
@@ -87,3 +99,7 @@ const ShowLessonDetail = (props) => {
 }
 
 export default ShowLessonDetail
+
+/*
+    - Nếu slug === id lessong thì thêm bg-blue-300 (đang active vào)
+*/

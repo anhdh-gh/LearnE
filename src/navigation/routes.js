@@ -14,7 +14,7 @@ const routes = {
             element: <Home/>
         },   
         {
-            path: ROUTE_PATH.SHOW_COURSE_DETAIL, 
+            path: `${ROUTE_PATH.SHOW_COURSE_DETAIL}/:courseId`, 
             element: <ShowCourseDetail/>
         },   
         {

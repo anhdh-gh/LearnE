@@ -7,8 +7,8 @@ const ROUTE_PATH = {
     HOME: "/",
     SIGN_IN: "/signin",
     SIGN_UP: "/signup",
-    SHOW_COURSE_DETAIL: "/course/detail/id",
-    SHOW_LESSON_DETAIL: "/course/lesson/id",
+    SHOW_COURSE_DETAIL: "/course/detail",
+    SHOW_LESSON_DETAIL: "/course/lesson",
 
     // Not found
     NOT_FOUND: '*'

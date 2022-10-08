@@ -95,7 +95,7 @@ const CourseApi = {
         course.percent = parseInt(course.numberOfLessonsFinished / course.lessons.length * 100)
 
         // Set status và số lượng bài đã học trong chapter for chapter
-        course.chapters.forEach(chapter => {
+        course.chapters.forEach((chapter, indexChapter) => {
             const numberOfLessonFinshed = chapter.lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.FINISHED ? 1 : 0), 0)
             const numberOfLessonUnFinshed = chapter.lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.UNFINISHED ? 1 : 0), 0)
             chapter.status = numberOfLessonFinshed === chapter.lessons.length ? STATUS_TYPE.FINISHED
@@ -103,6 +103,7 @@ const CourseApi = {
                 : STATUS_TYPE.PROCESSING
             chapter.numberOfLessonFinshed = numberOfLessonFinshed
             chapter.totalDuration = chapter.lessons.reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")
+            chapter.displayName = `${indexChapter + 1}. ${chapter.name}`
         })
 
         // Lấy ra chapter đầu tiên có lesson status là PROCESSING

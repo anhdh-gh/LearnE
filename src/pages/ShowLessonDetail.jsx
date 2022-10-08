@@ -1,5 +1,5 @@
 import '../assets/css/ShowLessonDetail.css'
-import { Footer, Loader, CourseHeader } from '../components'
+import { Loader, CourseHeader } from '../components'
 import { useEffect, useState, useRef } from 'react'
 import { setUrl } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
@@ -9,6 +9,8 @@ import { Accordion } from 'react-bootstrap'
 import { History } from '../components/NavigateSetter'
 import { useParams } from 'react-router'
 import { NotFound } from '../pages'
+
+import { Navbar, Container } from 'react-bootstrap'
 
 const ShowLessonDetail = (props) => {
 
@@ -29,14 +31,34 @@ const ShowLessonDetail = (props) => {
 
     const refScrollChapter = useRef(null)
     const refButtonScrollChapter = useRef(null)
+    const refNavbarButtom= useRef(null)
 
-    const [ idChapterCurrentShow, setIdChapterCurrentShow ] = useState()
+    const [ chapterCurrentShow, setChapterCurrentShow ] = useState()
     const [ currentIdShowContentCourse, setCurrentIdShowContentCourse ] = useState([])
+    const [ showCourseContent, setShowCourseContent ] = useState(true)
+    const [ previousLesson, setPreviousLesson ] = useState()
+    const [ nextLesson, setNextLesson ] = useState()
 
     useEffect(() => {
         if(course && !isLoading && !isFetching) {
             setCurrentIdShowContentCourse(!course ? [] : [course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0]?.id])
-            setIdChapterCurrentShow(!course ? '' : course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0]?.id)
+            setChapterCurrentShow(course && course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0])
+            course && course?.lessons?.some((lesson, indexLesson, lessons) => {
+                if(lesson.id === lessonId) {
+                    if(indexLesson - 1 >= 0) {
+                        setPreviousLesson(lessons[indexLesson - 1])
+                    } else {
+                        setPreviousLesson(null)
+                    }
+                    if(indexLesson + 1 < lessons.length) {
+                        setNextLesson(lessons[indexLesson + 1])
+                    } else {
+                        setNextLesson(null)
+                    }
+                    return true
+                }
+                return false
+            })
             refScrollChapter?.current?.scrollIntoView()
 
             const refSetTimeout = setTimeout(() => {
@@ -45,7 +67,7 @@ const ShowLessonDetail = (props) => {
             return () => clearTimeout(refSetTimeout)            
         }
 
-    }, [ course, idChapterCurrentShow, lessonId, isFetching, isLoading ])
+    }, [ course, chapterCurrentShow, lessonId, isFetching, isLoading ])
 
     return isLoading || isFetching ? <Loader /> : !course ? <NotFound/> : course?.lessons.every(lesson => lesson.id !== lessonId) ? <NotFound/> : <>
 
@@ -53,19 +75,19 @@ const ShowLessonDetail = (props) => {
 
         <div className='min-h-screen container-fluid'>
             <div className='row'>
-                <div className='col-lg-9'>
+                <div className={`${showCourseContent ? 'col-lg-9' : 'col-lg-12'}`}>
                     <div className='min-h-screen'>
-                        <button ref={refButtonScrollChapter} className="d-none" onClick={() => window.scrollTo(0, 0)}>Click</button>
+                        <button ref={refButtonScrollChapter} className='d-none' onClick={() => window.scrollTo(0, 0)}>Click</button>
                     </div>
                 </div>
-                <div className='col-lg-3'>
+                <div className={`${showCourseContent ? 'col-lg-3' : 'd-none'}`}>
 
                     <div className=''>
                         <div className='font-bold py-3.5 px-2.5 tracking-wider'>Course content</div>
 
                         <div className='max-h-screen overflow-x-scroll relative'>
                             {
-                                course?.chapters.map((chapter, indexChapter) => <Accordion activeKey={currentIdShowContentCourse} ref={chapter.id === idChapterCurrentShow ? refScrollChapter : null} key={chapter.id}>
+                                course?.chapters.map((chapter, indexChapter) => <Accordion activeKey={currentIdShowContentCourse} ref={chapter.id === chapterCurrentShow?.id ? refScrollChapter : null} key={chapter.id}>
                                     <Accordion.Item eventKey={chapter.id} className="rounded-none">
                                         <Accordion.Header className='flex flex-col ShowLessonDetail-accordion-header bg-gray-100 sticky top-0' onClick={() => setCurrentIdShowContentCourse((previouState => previouState.some(id => id === chapter.id) ? previouState.filter(id => id !== chapter.id) : [...previouState, chapter.id]))}>
                                             <div>
@@ -104,7 +126,28 @@ const ShowLessonDetail = (props) => {
                 </div>
             </div>
         </div >
-        <Footer/>
+
+        <Navbar fixed="bottom" variant="light" className='bg-gray-300' ref={refNavbarButtom}>
+            <Container fluid className="justify-start">
+                <Navbar.Brand className="m-0 py-0 px-3">
+                    <div className="flex">
+                        {previousLesson && <div onClick={() => History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${previousLesson?.id}`)} className='hover:opacity-95 active:scale-95 fw-bold cursor-pointer text-xs border-2 rounded p-2 border-orange-500'><i className="fa-solid fa-chevron-left"></i> PREVIOUS LESSON</div>}
+                        {nextLesson && <div onClick={() => History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${nextLesson?.id}`)} className={`hover:opacity-95 active:scale-95 fw-bold cursor-pointer text-xs border-2 rounded p-2 border-orange-500 ${previousLesson && 'ms-2'}`}>NEXT LESSON <i className="fa-solid fa-chevron-right"></i></div>}
+                    </div>
+                </Navbar.Brand>
+
+                <Navbar.Brand className='m-0 ms-auto px-3 py-0 cursor-pointer'>
+                    <div className='flex items-center' onClick={() => setShowCourseContent(!showCourseContent)}>
+                        <div className='text-base font-semibold pe-3'>{chapterCurrentShow?.displayName}</div>
+                        <div className='flex bg-white w-8 h-8 rounded-full justify-center items-center hover:bg-gray-200 active:scale-95'>
+                            <i className={`${`text-base font-bold fa-solid fa-${showCourseContent ? 'arrow-right' : 'bars'}`}`}></i>
+                        </div>
+                    </div>
+                </Navbar.Brand>
+            </Container>
+        </Navbar>
+
+        <div style={{ height: `${refNavbarButtom?.current?.clientHeight}px` || "0px" }}></div>
     </>
 }
 

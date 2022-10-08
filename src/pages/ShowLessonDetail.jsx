@@ -83,7 +83,7 @@ const ShowLessonDetail = (props) => {
                                                         <div>
                                                             <div className='flex min-w-full'>
                                                                 <div>{course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}. {lesson.name}</div>
-                                                                {!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED
+                                                                {(!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED) && lesson.id !== lessonId
                                                                     ? <div className='ml-auto'><i className="fa-solid fa-lock text-gray-500" /></div>
                                                                     : lesson?.status === STATUS_TYPE.FINISHED
                                                                         ? <div className='ml-auto'><i className="fa-solid fa-circle-check text-lime-500" /></div>

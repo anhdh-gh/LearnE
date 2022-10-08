@@ -1,9 +1,10 @@
 import { Navbar, Container } from 'react-bootstrap'
-// import { History } from '../components/NavigateSetter'
+import { History } from '../components/NavigateSetter'
 import { CircularProgressBar } from '../components'
 import { useRef, useEffect } from 'react'
 import { setHeightCourseHeader } from '../redux/actions'
 import { useSelector, useDispatch } from 'react-redux'
+import { ROUTE_PATH } from '../constants'
 
 const CourseHeader = (props) => {
 
@@ -22,13 +23,13 @@ const CourseHeader = (props) => {
             <Container fluid className="justify-start">
                 <Navbar.Brand
                     className="fw-bold cursor-pointer me-2"
-                // onClick={() => History.push(ROUTE_PATH.HOME)}
+                onClick={() => History.push(ROUTE_PATH.HOME)}
                 >
                     <i className="fa-solid fa-chevron-left px-3" />
                 </Navbar.Brand>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer me-2 d-none d-sm-block"
-                // onClick={() => History.push(ROUTE_PATH.HOME)}
+                onClick={() => History.push(ROUTE_PATH.HOME)}
                 >
                     <i className="fas fa-book-reader px-2" />
                 </Navbar.Brand>

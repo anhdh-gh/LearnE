@@ -77,6 +77,8 @@ const course = {
 const CourseApi = {
 
     handleGetCourseDetailForUser(courseId) {
+        if(courseId !== course.id)
+            return null
 
         // Set status for course
         const lessons = course.chapters.reduce((lessons, chapter) => [...lessons, ...chapter.lessons], [])
@@ -103,6 +105,16 @@ const CourseApi = {
             chapter.totalDuration = chapter.lessons.reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")
         })
 
+        // Lấy ra chapter đầu tiên có lesson status là PROCESSING
+        const chapterCurrentProcessing = course.chapters.filter(
+            chapter => chapter.lessons.some(chapter => chapter.status === STATUS_TYPE.PROCESSING))[0]
+        course.chapterCurrentProcessing = chapterCurrentProcessing
+
+        // Lấy ra lesson đầu tiên trong chapterCurrentProcessing có lesson status là PROCESSING
+        const lessonCurrentProcessing = chapterCurrentProcessing.lessons.filter(
+            lesson => lesson.status === STATUS_TYPE.PROCESSING)[0]
+        course.lessonCurrentProcessing = lessonCurrentProcessing
+
         // Tinh điểm cho các lessonExercises
         lessons.forEach(lesson => {
             lesson.lessonExercises.forEach(lessonExercise => {
@@ -114,7 +126,7 @@ const CourseApi = {
             })
         })
 
-        return () => course
+        return course
     }
 }
 

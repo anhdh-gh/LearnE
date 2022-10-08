@@ -9,26 +9,32 @@ import { Accordion } from 'react-bootstrap'
 import { useState } from 'react'
 import { useGetCourseDetailForUser } from '../hook'
 import { History } from '../components/NavigateSetter'
+import { useParams } from 'react-router'
+import { NotFound } from '../pages'
 
 const ShowCourseDetail = (props) => {
 
     const dispatch = useDispatch()
+    const { courseId } = useParams()
 
     const [currentIdShowContentCourse, setCurrentIdShowContentCourse] = useState([])
     const height = useSelector(state => state.UI.Header.height)
 
-    const { data: course, isLoading, isFetching } = useGetCourseDetailForUser()
+    const { data: course, isLoading, isFetching, refetch } = useGetCourseDetailForUser(courseId)
 
     useEffect(() => {
-        if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
-            dispatch(setUrl(ROUTE_PATH.SHOW_COURSE_DETAIL))
-        } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
-            History.replace(ROUTE_PATH.SHOW_LESSON_DETAIL)
+        if(course && !isLoading && !isFetching) {
+            if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
+                dispatch(setUrl(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${course?.chapterCurrentProcessing?.id}`))
+            } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
+                History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${course?.lessonCurrentProcessing?.id}`)
+            }            
+        } else {
+            refetch()
         }
-    }, [ dispatch, course?.status ])
+    }, [ refetch, courseId, isLoading, course, isFetching, dispatch, course?.status, course?.chapterCurrentProcessing?.id, course?.lessonCurrentProcessing?.id ])
 
-
-    return isLoading || isFetching || !course?.status || course.status !== STATUS_TYPE.UNFINISHED ? <Loader/> : <>
+    return isLoading || isFetching || !course?.status || course.status !== STATUS_TYPE.UNFINISHED ? <Loader /> : !course ? <NotFound/> : <>
         <Header />
 
         <div className="min-h-screen container-xl">

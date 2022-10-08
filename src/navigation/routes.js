@@ -18,7 +18,7 @@ const routes = {
             element: <ShowCourseDetail/>
         },   
         {
-            path: ROUTE_PATH.SHOW_LESSON_DETAIL, 
+            path: `${ROUTE_PATH.SHOW_LESSON_DETAIL}/:courseId/:lessonId`, 
             element: <ShowLessonDetail/>
         },   
         {

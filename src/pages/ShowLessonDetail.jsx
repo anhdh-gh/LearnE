@@ -90,7 +90,7 @@ const ShowLessonDetail = (props) => {
                                                                         : <></>}
                                                             </div>
 
-                                                            <div className='text-xs'><i className={`fa-solid fa-circle-play ${((lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING) || lesson.id === lessonId) && "text-orange-500"}`}></i> {lesson.duration}</div>
+                                                            <div className='text-xs'><i className={`me-1 fa-solid fa-circle-play ${((lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING) || lesson.id === lessonId) && "text-orange-500"}`}></i> {lesson.duration}</div>
                                                         </div>
                                                     </div>
                                                 </div>

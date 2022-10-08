@@ -1,15 +1,16 @@
-package source.dto.request;
+package source.dto.request.course;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import source.dto.BaseDto;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCourseRequestDto extends BasicRequest {
+public class CourseDto extends BaseDto {
 
     private String name;
 
@@ -18,6 +19,8 @@ public class CreateCourseRequestDto extends BasicRequest {
     private String image;
 
     private String description;
+
+    private Long numberOfPeople;
 
     private String level;
 

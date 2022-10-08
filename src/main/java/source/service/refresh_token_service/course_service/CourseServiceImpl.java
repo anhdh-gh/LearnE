@@ -2,9 +2,9 @@ package source.service.refresh_token_service.course_service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import source.dto.request.CreateCourseRequestDto;
-import source.dto.request.GetCourseDetailRequestDto;
-import source.dto.request.QuestionGetByIdsRequestDto;
+import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.GetCourseDetailRequestDto;
+import source.dto.request.question.QuestionGetByIdsRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.course.service.CourseServiceThirdParty;
 

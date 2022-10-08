@@ -1,12 +1,9 @@
 package source.service.refresh_token_service;
 
-import com.google.api.client.auth.oauth2.TokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import source.constant.JwtTokenTypeConstant;
-import source.dto.request.TokenRefreshRequestDto;
+import source.dto.request.user.TokenRefreshRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.TokenResponseDto;
 import source.entity.RefreshToken;
@@ -17,10 +14,8 @@ import source.repository.RefreshTokenRepository;
 import source.repository.UserRepository;
 import source.util.JwtUtil;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class RefreshTokenServiceImpl implements RefreshTokenService {

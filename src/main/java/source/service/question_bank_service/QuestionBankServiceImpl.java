@@ -2,12 +2,11 @@ package source.service.question_bank_service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import source.dto.request.CreateQuestionRequestDto;
-import source.dto.request.GetQuestionByQuestionIdRequestDto;
-import source.dto.request.QuestionGetAllRequestDto;
+import source.dto.request.user.CreateQuestionRequestDto;
+import source.dto.request.question.GetQuestionByQuestionIdRequestDto;
+import source.dto.request.question.QuestionGetAllRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.question.service.QuestionBankServiceThirdParty;
-import source.third_party.user_service.service.UserServiceThirdParty;
 
 @Service
 public class QuestionBankServiceImpl implements QuestionBankService {

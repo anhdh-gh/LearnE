@@ -6,16 +6,14 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import source.constant.RequestKeyConstant;
-import source.dto.request.*;
+import source.dto.request.user.UserDeleteRequestDto;
+import source.dto.request.user.UserGetAllRequestDto;
+import source.dto.request.user.UserGetInfoRequestDto;
+import source.dto.request.user.UserUpdateRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.user_service.constant.RouterUserServiceConstant;
-import source.third_party.user_service.dto.request.UserGetByIdThirdPartyRequestDto;
 import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
 import source.util.JsonUtil;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 
 import static source.util.HttpUtil.getHeader;
 

@@ -1,8 +1,8 @@
 package source.service.refresh_token_service.course_service;
 
-import source.dto.request.CreateCourseRequestDto;
-import source.dto.request.GetCourseDetailRequestDto;
-import source.dto.request.QuestionGetByIdsRequestDto;
+import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.GetCourseDetailRequestDto;
+import source.dto.request.question.QuestionGetByIdsRequestDto;
 import source.dto.response.BaseResponse;
 
 public interface CourseService {

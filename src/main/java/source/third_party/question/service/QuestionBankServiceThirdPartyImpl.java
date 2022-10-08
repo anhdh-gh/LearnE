@@ -7,12 +7,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import source.dto.request.CreateQuestionRequestDto;
-import source.dto.request.GetQuestionByQuestionIdRequestDto;
-import source.dto.request.QuestionGetAllRequestDto;
+import source.dto.request.user.CreateQuestionRequestDto;
+import source.dto.request.question.GetQuestionByQuestionIdRequestDto;
+import source.dto.request.question.QuestionGetAllRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.question.constant.RouterQuestionBankServiceConstant;
-import source.third_party.user_service.constant.RouterUserServiceConstant;
 import source.util.JsonUtil;
 
 import static source.util.HttpUtil.getHeader;

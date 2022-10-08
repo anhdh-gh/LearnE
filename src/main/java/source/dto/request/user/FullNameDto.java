@@ -1,4 +1,4 @@
-package source.dto.request;
+package source.dto.request.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

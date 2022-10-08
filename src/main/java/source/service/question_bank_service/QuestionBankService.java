@@ -1,9 +1,8 @@
 package source.service.question_bank_service;
 
-import source.dto.request.CreateQuestionRequestDto;
-import source.dto.request.GetQuestionByQuestionIdRequestDto;
-import source.dto.request.QuestionGetAllRequestDto;
-import source.dto.request.UserSignUpRequestDto;
+import source.dto.request.user.CreateQuestionRequestDto;
+import source.dto.request.question.GetQuestionByQuestionIdRequestDto;
+import source.dto.request.question.QuestionGetAllRequestDto;
 import source.dto.response.BaseResponse;
 
 public interface QuestionBankService {

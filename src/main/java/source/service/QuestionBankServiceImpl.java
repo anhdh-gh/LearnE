@@ -7,10 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
-import source.dto.request.CreateQuestionRequestDto;
-import source.dto.request.GetQuestionByQuestionIdRequestDto;
-import source.dto.request.QuestionGetAllRequestDto;
-import source.dto.request.QuestionGetByIdsRequestDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.entity.Answer;
 import source.entity.Question;
@@ -19,8 +16,10 @@ import source.exception.BusinessException;
 import source.repository.QuestionRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +45,12 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Override
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception {
-        Question questionSave = questionRepository.save(Question
+        Question questionSave = saveQuestion(request);
+        return BaseResponse.ofSucceeded(request.getRequestId(), questionSave);
+    }
+
+    private Question saveQuestion(CreateQuestionRequestDto request) throws Exception {
+        return questionRepository.save(Question
             .builder()
             .questionType(QuestionType.valueOf(request.getQuestionType()))
             .text(request.getText())
@@ -63,8 +67,17 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                 .collect(Collectors.toList()))
             .build()
         );
+    }
 
-        return BaseResponse.ofSucceeded(request.getRequestId(), questionSave);
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
+    public BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception {
+        Set<String> ids = new HashSet<>();
+        for(CreateQuestionRequestDto questionRequestDto : request.getQuestions()) {
+            Question questionSave = saveQuestion(questionRequestDto);
+            ids.add(questionSave.getId());
+        }
+        return getQuestionByQuestionIds(QuestionGetByIdsRequestDto.builder().questionIds(ids).build());
     }
 
     @Override
@@ -81,8 +94,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Override
     public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
-        List<Question> questions = questionRepository.findByIds(request.getQuestionIds());
-        if(questions.size() < request.getQuestionIds().size()) {
+        List<Question> questions = questionRepository.findByIdIn(request.getQuestionIds());
+        if(questions.size() != request.getQuestionIds().size()) {
             int errorCode = Integer.parseInt(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031);
             throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
         }

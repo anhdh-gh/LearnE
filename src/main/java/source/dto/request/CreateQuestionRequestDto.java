@@ -14,6 +14,9 @@ import java.util.List;
 @SuperBuilder
 public class CreateQuestionRequestDto extends BasicRequest {
 
+    @JsonProperty("id")
+    private String id;
+
     @JsonProperty("questionType")
     private String questionType;
 

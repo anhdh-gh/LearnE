@@ -8,11 +8,11 @@ import source.dto.response.BaseResponse;
 
 public interface QuestionBankService {
 
-    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
+    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
 
-    public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
+    BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
 
-    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
+    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
 
-    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
+    BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
 }

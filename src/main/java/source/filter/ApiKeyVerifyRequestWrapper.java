@@ -39,7 +39,6 @@ public class ApiKeyVerifyRequestWrapper extends HttpServletRequestWrapper {
                     stringBuilder.append(charBuffer, 0, bytesRead);
                 }
             } else {
-                stringBuilder.append("");
             }
         } catch (IOException ex) {
             throw ex;

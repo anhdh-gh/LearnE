@@ -22,7 +22,7 @@ public class CorsFilter implements Filter {
     /**
      * The logger.
      */
-    private Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
     /*
      * (non-Javadoc)

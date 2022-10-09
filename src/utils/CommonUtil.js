@@ -20,7 +20,13 @@ const CommonUtil = {
         second = second % 60
         
         return (hour < 10 ? "0" + hour : hour) + ':' + (minute < 10 ? "0" + minute : minute) + ':' + (second < 10 ? "0" + second : second) 
-    }
+    },
+
+    getDateStringFromMilliseconds(milliseconds) {
+        const monthString = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+        const d = new Date(milliseconds)
+        return `${monthString[d.getMonth()]} ${d.getDay()}, ${d.getFullYear()}`
+    } 
 }
 
 export default CommonUtil

@@ -8,7 +8,7 @@ import { ROUTE_PATH } from '../constants'
 
 const  CourseHeader = (props) => {
 
-    const { course } = props
+    const { course, onClick } = props
 
     const refHeader = useRef(null)
     const dispatch = useDispatch()
@@ -19,7 +19,7 @@ const  CourseHeader = (props) => {
     }, [dispatch])
 
     return <>
-        <Navbar ref={refHeader} bg="dark" fixed="top" variant="dark">
+        <Navbar onClick={onClick} ref={refHeader} bg="dark" fixed="top" variant="dark">
             <Container fluid className="justify-start">
                 <Navbar.Brand
                     className="fw-bold cursor-pointer me-2 py-0"

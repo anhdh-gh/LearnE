@@ -1,3 +1,7 @@
+.flex_row_reverse {
+    flex-direction: row-reverse
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,4 +24,13 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    overflow-y: overlay;
+}
+
+
+.overflow-overlay {
+    overflow: overlay;
 }

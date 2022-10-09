@@ -31,12 +31,12 @@ const course = {
         name: `Chapter name ${index + 1}`,
         lessons: [...Array(5).keys()].map((lesson, indexLesson) => ({
             id: `Chapter id ${index + 1} - Lesson id ${indexLesson + 1}`,
-            // createTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
+            createTime: CommonUtil.getDateStringFromMilliseconds(1665081532000),
             // updateTime: `yyyy-mm-dd hh:mi:ss.fff ${index + 1}`,
             name: `Lesson name ${indexLesson + 1}`,
             duration: `${indexLesson}1:02:15`,
             // description: `Lesson description ${index + 1}`,
-            video: `https://youtu.be/Z3rOofQx01A`,
+            video: `${indexLesson < 2 ? 'https://www.youtube.com/watch?v=C0oooD-OXkk' : 'https://www.youtube.com/watch?v=mPLXxcSZICI'}`,
             status: indexLesson < 2 ? STATUS_TYPE.UNFINISHED : indexLesson > 2 && indexLesson < 4 && index > 5 ? STATUS_TYPE.PROCESSING : STATUS_TYPE.FINISHED,
             lessonExercises: [...Array(4).keys()].map((item, index) => ({
                 id: `LessonExercises id ${index + 1}`,
@@ -87,6 +87,8 @@ const CourseApi = {
             : lessons.every(lesson => !lesson?.status || lesson?.status === STATUS_TYPE.UNFINISHED)
               ? STATUS_TYPE.UNFINISHED
               : STATUS_TYPE.PROCESSING
+
+        // course.status = STATUS_TYPE.UNFINISHED
 
         // Set status for course, tổng số lượng lesson, tổng duration, tổng số lượng lesson đã hoàn thành, phần trăm hoàn thành course
         course.lessons = lessons

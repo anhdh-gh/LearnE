@@ -34,7 +34,7 @@ const ShowCourseDetail = (props) => {
         }
     }, [ refetch, courseId, isLoading, course, isFetching, dispatch, course?.status, course?.chapterCurrentProcessing?.id, course?.lessonCurrentProcessing?.id ])
 
-    return isLoading || isFetching || !course?.status || course.status !== STATUS_TYPE.UNFINISHED ? <Loader /> : !course ? <NotFound/> : <>
+    return isLoading || isFetching || !course?.status || course.status !== STATUS_TYPE.UNFINISHED ? <Loader /> : !course ? <NotFound/> : <div className='max-h-screen'>
         <Header />
 
         <div className="min-h-screen container-xl">
@@ -106,7 +106,7 @@ const ShowCourseDetail = (props) => {
                         <div className='flex justify-center items-center flex-col'>
                             <div className="rounded-lg relative">
                                 <img className="rounded-lg" alt="img-introduce" src={course?.image || PagesImage } />
-                                <div className='absolute z-20 inset-0 flex justify-center items-center flex flex-col'>
+                                <div className='absolute z-20 inset-0 flex justify-center items-center flex-col'>
                                     <i className="fa-solid text-5xl fa-circle-play rounded-full bg-orange-600 text-white cursor-pointer opacity-95 hover:opacity-100 active:scale-95"></i>
                                 </div>
                                 <div className='absolute rounded-lg z-10 inset-0 bg-black opacity-25'></div>
@@ -142,7 +142,7 @@ const ShowCourseDetail = (props) => {
         </div>
 
         <Footer />
-    </>
+    </div>
 }
 
 export default ShowCourseDetail

@@ -39,6 +39,13 @@ const UISlice = createSlice({
         Url: {
             previous: undefined,
             current: undefined,
+        }, 
+
+        BrowserWindow: {
+            dimension: {
+                width: window.innerWidth,
+                height: window.innerHeight
+            }
         }
     },
     reducers: {
@@ -246,6 +253,20 @@ const UISlice = createSlice({
                 }
             }
         },
+
+        setDimensionBrowserWindow: (state, { payload }) => {
+            return {
+                ...state,
+                BrowserWindow: {
+                    ...state.BrowserWindow,
+                    dimension: {
+                        ...state.BrowserWindow.dimension,
+                        width: payload.width,
+                        height: payload.height
+                    }
+                }
+            }
+        }
     }
 })
 
@@ -255,7 +276,7 @@ export const {
     showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
     hideAuthSignUpIsButtonSignUpSpin, setUrl, showAuthSignUpIsPageSignUp,
     hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, setHeightHeader,
-    setHeightCourseHeader
+    setHeightCourseHeader, setDimensionBrowserWindow
 } = UISlice.actions
 
 export default UISlice.reducer

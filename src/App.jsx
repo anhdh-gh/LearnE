@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from './redux/actions/userSagaAction'
 import AppNavigator from './navigation/AppNavigator'
+// import { setDimensionBrowserWindow } from './redux/actions'
 
 const App = () => {
 
@@ -13,15 +14,16 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUserInfo())
-  }, [dispatch])
+    // window.addEventListener('resize', () => dispatch(setDimensionBrowserWindow({width: window.innerWidth, height: window.innerHeight})))
+    // return window.removeEventListener('resize', () => dispatch(setDimensionBrowserWindow({width: window.innerWidth, height: window.innerHeight})))
+  }, [ dispatch ])
 
-  return <Loader>
-    <div className="App select-none">
-      <Toast />
-      <ToastModal/>
-      <AppNavigator />
-    </div>
-  </Loader>
+  return <div className="App select-none">
+    <Loader useStateLoader={true}/>
+    <Toast />
+    <ToastModal/>
+    <AppNavigator />
+  </div>
 }
 
 export default App

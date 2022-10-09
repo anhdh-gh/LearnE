@@ -160,7 +160,7 @@ const ShowLessonDetail = (props) => {
                     </div>
                 </div>
 
-                <Offcanvas className="w-full sm:w-5/12" responsive="lg" show={showCourseContent} onHide={() => setShowCourseContent(false)}>
+                <Offcanvas className="w-full sm:w-1/2 w-5/12" responsive="lg" show={showCourseContent} onHide={() => setShowCourseContent(false)}>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Course content</Offcanvas.Title>
                     </Offcanvas.Header>

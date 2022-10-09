@@ -115,7 +115,7 @@ const ShowLessonDetail = (props) => {
                         <div className='mt-5 text-center py-3 text-gray-500 font-semibold'>Made with <i className="text-red-500 fa-solid fa-heart"></i> · Powered by Do Hung Anh</div>
                     </div>
                 </div>
-                <div className={`${showCourseContent ? 'col-lg-3' : 'd-none'} px-0`}>
+                <div className={`${showCourseContent && window.innerWidth >= 992 ? 'col-lg-3' : 'd-none'} px-0`}>
 
                     <div className=''>
                         <div ref={refCourseContent} className='font-bold p-3 tracking-wider'>Course content</div>
@@ -160,7 +160,7 @@ const ShowLessonDetail = (props) => {
                     </div>
                 </div>
 
-                <Offcanvas className="w-full sm:w-1/2 w-5/12" responsive="lg" show={showCourseContent} onHide={() => setShowCourseContent(false)}>
+                <Offcanvas className="w-full sm:w-1/2 md:w-5/12" responsive="lg" show={showCourseContent && window.innerWidth < 992} onHide={() => setShowCourseContent(false)}>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Course content</Offcanvas.Title>
                     </Offcanvas.Header>

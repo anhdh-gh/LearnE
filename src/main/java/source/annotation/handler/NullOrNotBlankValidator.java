@@ -1,4 +1,6 @@
-package source.anotation;
+package source.annotation.handler;
+
+import source.annotation.NullOrNotBlank;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

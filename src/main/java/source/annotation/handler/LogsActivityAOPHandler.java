@@ -1,4 +1,4 @@
-package source.annotation;
+package source.annotation.handler;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import source.annotation.LogsActivityAnnotation;
 import source.dto.request.BasicRequest;
 import source.dto.response.BaseResponse;
 import source.util.JsonUtil;

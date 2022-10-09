@@ -3,7 +3,7 @@ package source.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.anotation.NullOrNotBlank;
+import source.annotation.NullOrNotBlank;
 import source.constant.ErrorCodeConstant;
 import source.constant.Gender;
 

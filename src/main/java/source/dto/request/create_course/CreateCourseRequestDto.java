@@ -1,14 +1,13 @@
-package source.dto.request;
+package source.dto.request.create_course;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import source.entity.BaseEntity;
-import source.entity.Chapter;
+import source.dto.request.BasicRequest;
 import source.entity.Request;
 import source.entity.Target;
 
-import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -29,7 +28,7 @@ public class CreateCourseRequestDto extends BasicRequest {
 
     private String price;
 
-    private List<Chapter> chapters;
+    private List<ChapterDto> chapters;
 
     private List<Target> targets;
 

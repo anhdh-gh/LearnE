@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 import java.io.Serializable;
 
 /**
- * The Class RequestBasicObj.
+ * The Class BasicRequest.
  */
 @NoArgsConstructor
 @AllArgsConstructor

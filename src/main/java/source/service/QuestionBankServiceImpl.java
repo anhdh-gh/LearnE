@@ -53,6 +53,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     private Question saveQuestion(CreateQuestionRequestDto request) throws Exception {
         return questionRepository.save(Question
             .builder()
+            .id(request.getId())
             .questionType(QuestionType.valueOf(request.getQuestionType()))
             .text(request.getText())
             .image(request.getImage())

@@ -1,11 +1,10 @@
-package source.dto.request.create_course;
+package source.dto.response.get_course_detail_for_user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import source.dto.request.BasicRequest;
+import source.entity.BaseEntity;
 
 import java.util.List;
 
@@ -13,10 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class LessonQuestionDto extends BasicRequest {
-
-    @JsonProperty("id")
-    private String questionId;
+public class QuestionDto extends BaseEntity {
 
     private QuestionType questionType;
 

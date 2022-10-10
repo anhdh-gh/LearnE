@@ -1,6 +1,7 @@
 package source.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,14 +14,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "answerchoice")
+@SuperBuilder
 public class AnswerChoice extends BaseEntity {
 
     @Column(name = "AnswerId")
     private String answerId;
-
-    @Builder
-    public AnswerChoice(String id, Date createTime, Date updateTime, String answerId) {
-        super(id, createTime, updateTime);
-        this.answerId = answerId;
-    }
 }

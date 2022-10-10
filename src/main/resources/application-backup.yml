@@ -1,6 +1,11 @@
+app:
+  name: service-course
+
 service:
   question-bank:
-    baseurl: http://localhost:6010
+    baseurl: https://learneservicequestionbank.herokuapp.com
+  user:
+    baseurl: https://learneserviceuser.herokuapp.com
 
 spring:
   datasource:

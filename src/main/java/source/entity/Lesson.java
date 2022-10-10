@@ -1,6 +1,7 @@
 package source.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "lesson")
+@SuperBuilder
 public class Lesson extends BaseEntity {
 
     @Column(name = "Name")
@@ -29,15 +31,4 @@ public class Lesson extends BaseEntity {
     @OneToMany(targetEntity = LessonExercise.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "LessonId", nullable = false)
     private List<LessonExercise> lessonExercises;
-
-    @Builder
-
-    public Lesson(String id, Date createTime, Date updateTime, String name, String duration, String description, String video, List<LessonExercise> lessonExercises) {
-        super(id, createTime, updateTime);
-        this.name = name;
-        this.duration = duration;
-        this.description = description;
-        this.video = video;
-        this.lessonExercises = lessonExercises;
-    }
 }

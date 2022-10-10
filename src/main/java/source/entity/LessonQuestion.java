@@ -1,6 +1,7 @@
 package source.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "lessonquestion")
+@SuperBuilder
 public class LessonQuestion extends BaseEntity {
 
     @Column(name = "QuestionId")
@@ -20,11 +22,4 @@ public class LessonQuestion extends BaseEntity {
 
     @Column(name = "Score")
     private float score;
-
-    @Builder
-    public LessonQuestion(String id, Date createTime, Date updateTime, String questionId, float score) {
-        super(id, createTime, updateTime);
-        this.questionId = questionId;
-        this.score = score;
-    }
 }

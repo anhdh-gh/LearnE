@@ -5,14 +5,11 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-
 public enum StatusType {
 
     UNFINISHED("UNFINISHED"),
     PROCESSING("PROCESSING"),
-    FINISHED("FINISHED"),
-    UNKNOWN(null)
-    ;
+    FINISHED("FINISHED");
 
     private final String value;
 }

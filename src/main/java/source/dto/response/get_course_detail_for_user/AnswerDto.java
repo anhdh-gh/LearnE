@@ -19,5 +19,5 @@ public class AnswerDto extends BaseEntity {
     private boolean isCorrect;
 
     @JsonProperty("isChoice")
-    private boolean isChoice;
+    private Boolean isChoice;
 }

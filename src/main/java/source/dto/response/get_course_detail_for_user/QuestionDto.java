@@ -24,5 +24,5 @@ public class QuestionDto extends BaseEntity {
 
     private List<AnswerDto> answers;
 
-    private float score;
+    private Float score;
 }

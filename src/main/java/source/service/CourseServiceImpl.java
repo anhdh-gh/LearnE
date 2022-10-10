@@ -139,19 +139,17 @@ public class CourseServiceImpl implements CourseService {
         // Set infor for course
         response.setNumberOfPeople(lessonStatusRepository.countDistinctUserId());
 
-        if(request.getUserId() == null) {
-            return BaseResponse.ofSucceeded(request.getRequestId(), response);
-        }
-
         // Kiểm tra user xem có tồn tại hay không
-        BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
-            .builder()
-            .requestId(request.getRequestId())
-            .id(request.getUserId())
-            .build()
-        );
-        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
-            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        if(request.getUserId() != null) {
+            BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
+                .builder()
+                .requestId(request.getRequestId())
+                .id(request.getUserId())
+                .build()
+            );
+            if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+                return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+            }
         }
 
         // Set info for chapterDtos
@@ -166,14 +164,18 @@ public class CourseServiceImpl implements CourseService {
             lessonDtos.addAll(chapterDtos.get(i).getLessonDtos());
             lessons.addAll(response.getChapters().get(i).getLessons());
         }
-        lessonDtos.forEach(lessonDto -> {
-            Optional<LessonStatus> lessonStatus = lessonStatusRepository.findLessonStatusByUserIdAndLessonId(request.getUserId(), lessonDto.getId());
-            if(lessonStatus.isPresent()) {
-                lessonDto.setStatus(lessonStatus.get().getStatus());
-            } else {
-                lessonDto.setStatus(StatusType.UNFINISHED);
-            }
-        });
+
+        if(request.getUserId() != null) {
+            lessonDtos.forEach(lessonDto -> {
+                Optional<LessonStatus> lessonStatus = lessonStatusRepository.findLessonStatusByUserIdAndLessonId(request.getUserId(), lessonDto.getId());
+                if(lessonStatus.isPresent()) {
+                    lessonDto.setStatus(lessonStatus.get().getStatus());
+                } else {
+                    lessonDto.setStatus(StatusType.UNFINISHED);
+                }
+            });
+        }
+
 
         // Set info for lessonExercises
         List<LessonExercise> lessonExercises = new ArrayList<>();
@@ -183,14 +185,16 @@ public class CourseServiceImpl implements CourseService {
             lessonExerciseDtos.addAll(lessonDtos.get(i).getLessonExerciseDtos());
             lessonExercises.addAll(lessons.get(i).getLessonExercises());
         }
-        lessonExerciseDtos.forEach(lessonExerciseDto -> {
-            Optional<LessonExerciseStatus> lessonExerciseStatus = lessonExerciseStatusRepository.findLessonExerciseStatusByUserIdAndLessonExerciseId(request.getUserId(), lessonExerciseDto.getId());
-            if(lessonExerciseStatus.isPresent()) {
-                lessonExerciseDto.setStatus(lessonExerciseStatus.get().getStatus());
-            } else {
-                lessonExerciseDto.setStatus(StatusType.UNFINISHED);
-            }
-        });
+        if(request.getUserId() != null) {
+            lessonExerciseDtos.forEach(lessonExerciseDto -> {
+                Optional<LessonExerciseStatus> lessonExerciseStatus = lessonExerciseStatusRepository.findLessonExerciseStatusByUserIdAndLessonExerciseId(request.getUserId(), lessonExerciseDto.getId());
+                if(lessonExerciseStatus.isPresent()) {
+                    lessonExerciseDto.setStatus(lessonExerciseStatus.get().getStatus());
+                } else {
+                    lessonExerciseDto.setStatus(StatusType.UNFINISHED);
+                }
+            });
+        }
 
         // Set info for lessonQuestions
         List<source.dto.response.get_course_detail_for_user.LessonQuestionDto> lessonQuestionDtos = new ArrayList<>();
@@ -199,7 +203,7 @@ public class CourseServiceImpl implements CourseService {
             lessonQuestionDtos.addAll(lessonExerciseDtos.get(i).getLessonQuestionDtos());
         }
         Set<String> questionIds = lessonQuestionDtos.stream().map(LessonQuestion::getQuestionId).collect(Collectors.toSet());
-        baseResponse = questionBankThirdPartyService.getQuestionByQuestionIds(
+        BaseResponse baseResponse = questionBankThirdPartyService.getQuestionByQuestionIds(
             QuestionGetByIdsRequestDto
             .builder()
             .requestId(request.getRequestId())
@@ -217,13 +221,16 @@ public class CourseServiceImpl implements CourseService {
         });
         lessonQuestionDtos.forEach(lessonQuestionDto -> {
             lessonQuestionDto.setQuestion(map.get(lessonQuestionDto.getQuestionId()));
-            Float score = lessonQuestionHistoryRepository.findLessonQuestionHistoriesByUserIdAndLessonQuestionId(request.getUserId(), lessonQuestionDto.getId());
-            lessonQuestionDto.getQuestion().setScore(score != null ? score : 0);
 
-            lessonQuestionDto.getQuestion().getAnswers()
-                .forEach(answerDto -> answerDto
-                    .setChoice(lessonQuestionHistoryRepository
-                        .checkAnswerOfUser(lessonQuestionDto.getId(), answerDto.getId())));
+            if(request.getUserId() != null) {
+                Float score = lessonQuestionHistoryRepository.findLessonQuestionHistoriesByUserIdAndLessonQuestionId(request.getUserId(), lessonQuestionDto.getId());
+                lessonQuestionDto.getQuestion().setScore(score != null ? score : 0);
+
+                lessonQuestionDto.getQuestion().getAnswers()
+                    .forEach(answerDto -> answerDto
+                        .setIsChoice(lessonQuestionHistoryRepository
+                            .checkAnswerOfUser(lessonQuestionDto.getId(), answerDto.getId())));
+            }
         });
 
         return BaseResponse.ofSucceeded(request.getRequestId(), response);

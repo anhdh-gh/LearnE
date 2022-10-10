@@ -5,31 +5,31 @@ import source.dto.response.BaseResponse;
 
 
 public interface AuthServiceThirdParty {
-    public BaseResponse signIn(UserSignInRequestDto request) throws Exception;
+    BaseResponse signIn(UserSignInRequestDto request) throws Exception;
 
-    public BaseResponse signUp(UserSignUpRequestDto request) throws Exception;
+    BaseResponse signUp(UserSignUpRequestDto request) throws Exception;
 
-    public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
+    BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
 
-    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception;
+    BaseResponse updateUser(UserUpdateRequestDto request) throws Exception;
 
-    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception;
+    BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception;
 
-    public BaseResponse refreshToken(UserRefreshToken request) throws Exception;
+    BaseResponse refreshToken(UserRefreshToken request) throws Exception;
 
-    public BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception;
+    BaseResponse getUserInformation(UserGetUserInformationRequestDto request) throws Exception;
 
-    public BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception;
+    BaseResponse getUserById(UserGetUserByIdRequestDto request) throws Exception;
 
-    public BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception;
+    BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception;
 
-    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
+    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
 
-    public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
+    BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
 
-    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
+    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
 
-    public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
+    BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
 
-    public BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto requestDto) throws Exception;
+    BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto requestDto) throws Exception;
 }

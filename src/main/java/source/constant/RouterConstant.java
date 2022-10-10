@@ -23,6 +23,5 @@ public class RouterConstant {
 
     public static final String QUESTION_GET_BY_IDS = "/question/get-by-ids";
 
-    private RouterConstant() {
-    }
+    private RouterConstant() {}
 }

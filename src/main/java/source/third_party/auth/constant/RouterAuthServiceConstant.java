@@ -3,10 +3,7 @@ package source.third_party.auth.constant;
 public class RouterAuthServiceConstant {
 
 
-    private RouterAuthServiceConstant() {
-    }
-
-    ;
+    private RouterAuthServiceConstant() {}
 
     public final static String SIGN_IN = "/user/signin";
 

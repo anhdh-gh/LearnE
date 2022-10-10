@@ -92,12 +92,6 @@ public class AuthController {
     }
 
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.COURSE_CREATE)
-    public BaseResponse createCourse(@RequestBody CreateCourseRequestDto createCourseRequestDto) throws Exception {
-        return authService.createCourse(createCourseRequestDto);
-    }
-
-    @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
     public BaseResponse getQuestionsByIds(@RequestBody QuestionGetByIdsRequestDto requestDto) throws Exception {
         return authService.getQuestionsByIds(requestDto);

@@ -1,16 +1,17 @@
 package source.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ChapterDto extends BaseDto {
-
+@NoArgsConstructor
+@Builder
+public class ChapterDto {
 
     private String name;
 

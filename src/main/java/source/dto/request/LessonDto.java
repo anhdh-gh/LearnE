@@ -1,26 +1,23 @@
 package source.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.entity.enumeration.StatusType;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class LessonDto extends BaseDto {
+@NoArgsConstructor
+@Builder
+public class LessonDto {
 
     private String name;
-
-    private String duration;
 
     private String description;
 
     private String video;
-
-    private StatusType status = StatusType.UNFINISHED;
 
     private List<LessonExerciseDto> lessonExercises;
 }

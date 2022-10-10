@@ -1,9 +1,8 @@
-package source.dto.request.course;
+package source.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.dto.BaseDto;
 import source.entity.enumeration.StatusType;
 
 import java.util.List;

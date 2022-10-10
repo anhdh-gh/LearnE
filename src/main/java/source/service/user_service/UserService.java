@@ -1,6 +1,6 @@
 package source.service.user_service;
 
-import source.dto.request.user.*;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 
 public interface UserService {

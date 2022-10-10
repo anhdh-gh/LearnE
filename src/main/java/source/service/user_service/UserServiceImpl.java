@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.constant.ErrorFirebaseConstant;
 import source.constant.JwtTokenTypeConstant;
-import source.dto.request.user.*;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;

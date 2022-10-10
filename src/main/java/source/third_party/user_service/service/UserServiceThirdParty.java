@@ -1,9 +1,9 @@
 package source.third_party.user_service.service;
 
-import source.dto.request.user.UserDeleteRequestDto;
-import source.dto.request.user.UserGetAllRequestDto;
-import source.dto.request.user.UserGetInfoRequestDto;
-import source.dto.request.user.UserUpdateRequestDto;
+import source.dto.request.UserDeleteRequestDto;
+import source.dto.request.UserGetAllRequestDto;
+import source.dto.request.UserGetInfoRequestDto;
+import source.dto.request.UserUpdateRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
 

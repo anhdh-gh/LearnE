@@ -1,4 +1,4 @@
-package source.dto.request.course;
+package source.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

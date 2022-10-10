@@ -1,6 +1,4 @@
-package source.dto.request.course;
-
-import source.dto.BaseDto;
+package source.dto.request;
 
 public class RequestDto extends BaseDto {
     private String text;

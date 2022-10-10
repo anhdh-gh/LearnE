@@ -1,14 +1,13 @@
-package source.dto.request.user;
+package source.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import source.dto.request.BasicRequest;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDeleteRequestDto extends BasicRequest {
+public class UserDeleteRequestDto extends BasicRequest{
 
     private String id;
 }

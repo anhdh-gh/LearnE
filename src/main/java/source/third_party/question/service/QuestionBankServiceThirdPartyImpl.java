@@ -12,7 +12,6 @@ import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.request.QuestionGetAllRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.question.constant.RouterQuestionBankServiceConstant;
-import source.third_party.user_service.constant.RouterUserServiceConstant;
 import source.util.JsonUtil;
 
 import static source.util.HttpUtil.getHeader;

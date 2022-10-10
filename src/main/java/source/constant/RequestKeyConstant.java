@@ -6,6 +6,10 @@ public class RequestKeyConstant {
 
     public static final String USER_AUTH = "user_auth";
 
+    public static final String USER_AUTH_ID = "user_auth_id";
+
+    public static final String USER_AUTH_ROLE = "user_auth_role";
+
     public static final String REQUEST_ID = "request_id";
 
     public static final String URI = "uri";

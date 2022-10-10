@@ -9,13 +9,13 @@ import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDt
 
 public interface UserServiceThirdParty {
 
-    public BaseResponse createUser(UserSignUpThirdPartyRequestDto request) throws Exception;
+    BaseResponse createUser(UserSignUpThirdPartyRequestDto request) throws Exception;
 
-    public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
+    BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
 
-    public BaseResponse updateUser(UserUpdateRequestDto userUpdateRequestDto) throws Exception;
+    BaseResponse updateUser(UserUpdateRequestDto userUpdateRequestDto) throws Exception;
 
-    public BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
+    BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
 
-    public BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception;
+    BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception;
 }

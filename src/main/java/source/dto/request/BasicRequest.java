@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import source.entity.User;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@SuperBuilder
 public class BasicRequest implements Serializable {
 
   /** The Constant serialVersionUID. */
@@ -26,6 +28,9 @@ public class BasicRequest implements Serializable {
   @JsonProperty("uri")
   private String uri;
 
-  @JsonProperty("user_auth")
-  private User userAuth;
+  @JsonProperty("user_auth_id")
+  private String userAuthId;
+
+  @JsonProperty("user_auth_role")
+  private String userAuthRole;
 }

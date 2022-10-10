@@ -7,7 +7,6 @@ import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.request.QuestionGetAllRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.question.service.QuestionBankServiceThirdParty;
-import source.third_party.user_service.service.UserServiceThirdParty;
 
 @Service
 public class QuestionBankServiceImpl implements QuestionBankService {

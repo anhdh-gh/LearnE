@@ -9,10 +9,8 @@ import source.constant.RouterConstant;
 import source.dto.request.CreateQuestionRequestDto;
 import source.dto.request.GetQuestionByQuestionIdRequestDto;
 import source.dto.request.QuestionGetAllRequestDto;
-import source.dto.request.UserSignUpRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.question_bank_service.QuestionBankService;
-import source.service.user_service.UserService;
 
 @RestController
 public class QuestionBankController {

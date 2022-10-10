@@ -25,7 +25,7 @@ import java.util.UUID;
 @Service
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
-    private Long refreshTokenDurationMs = 86400000L;
+    private final Long refreshTokenDurationMs = 86400000L;
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;

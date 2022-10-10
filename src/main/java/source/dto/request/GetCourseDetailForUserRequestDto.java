@@ -9,7 +9,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class TokenRefreshRequestDto extends BasicRequest {
+public class GetCourseDetailForUserRequestDto extends BasicRequest {
 
-    private String refreshToken;
+    private String courseId;
+
+    private String userId;
 }

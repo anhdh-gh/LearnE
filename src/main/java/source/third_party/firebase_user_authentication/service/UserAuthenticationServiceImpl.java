@@ -23,7 +23,7 @@ import java.util.Properties;
 @Service
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 
-    private String firebaseWebApiKey;
+    private final String firebaseWebApiKey;
     private StringUtility stringUtility = null;
 
     public UserAuthenticationServiceImpl() {

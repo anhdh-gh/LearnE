@@ -14,13 +14,13 @@ import java.util.UUID;
 @Service
 public interface RefreshTokenService {
 
-    public Optional<RefreshToken> findByToken(String token);
+    Optional<RefreshToken> findByToken(String token);
 
-    public RefreshToken createRefreshToken(User user);
+    RefreshToken createRefreshToken(User user);
 
-    public RefreshToken verifyExpiration(RefreshToken token);
+    RefreshToken verifyExpiration(RefreshToken token);
 
-    public void deleteByUserId(String userId);
+    void deleteByUserId(String userId);
 
-    public BaseResponse refreshToken(TokenRefreshRequestDto request);
+    BaseResponse refreshToken(TokenRefreshRequestDto request);
 }

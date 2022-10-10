@@ -5,12 +5,12 @@ import source.third_party.firebase_user_authentication.bean.FirebaseSignInSignUp
 
 public interface UserAuthenticationService {
 
-    public FirebaseSignInSignUpResponseBean signUpWithEmailAndPassword(String email, String password);
+    FirebaseSignInSignUpResponseBean signUpWithEmailAndPassword(String email, String password);
 
-    public FirebaseSignInSignUpResponseBean signInWithEmailAndPassword(String email, String password);
+    FirebaseSignInSignUpResponseBean signInWithEmailAndPassword(String email, String password);
 
-    public void deleteUserAccount(String idToken);
+    void deleteUserAccount(String idToken);
 
-    public FirebaseRefreshTokenToIdTokenResponseBean exchangeRefreshTokenToIdToken(String refreshToken);
+    FirebaseRefreshTokenToIdTokenResponseBean exchangeRefreshTokenToIdToken(String refreshToken);
 
 }

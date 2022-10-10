@@ -13,6 +13,7 @@ import source.constant.ContentTypeConstant;
 import source.constant.JwtTokenTypeConstant;
 import source.constant.RequestKeyConstant;
 import source.entity.User;
+import source.util.JsonUtil;
 import source.util.JwtUtil;
 
 import javax.servlet.*;
@@ -26,7 +27,7 @@ import java.util.UUID;
 public class CorsFilter implements Filter {
 
     /** The logger. */
-    private Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
     private final JwtUtil jwtUtil = new JwtUtil();
 
@@ -70,7 +71,6 @@ public class CorsFilter implements Filter {
 
                 dataRequest.put(RequestKeyConstant.REQUEST_ID, requestId);
                 dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
-                requestWrapper.setBody(dataRequest.toString());
 
                 // Set user auth if exists
                 String jwt = getJwtFromRequest(request);
@@ -78,10 +78,11 @@ public class CorsFilter implements Filter {
                     User userAuth = jwtUtil.getUserFromJwtToken(jwt);
                     if(userAuth != null) {
                         request.setAttribute(RequestKeyConstant.USER_AUTH, userAuth);
-                        dataRequest.put(RequestKeyConstant.USER_AUTH, userAuth);
+                        dataRequest.put(RequestKeyConstant.USER_AUTH_ID, userAuth.getId());
+                        dataRequest.put(RequestKeyConstant.USER_AUTH_ROLE, userAuth.getRole().getValue());
                     }
                 }
-
+                requestWrapper.setBody(dataRequest.toString());
                 chain.doFilter(requestWrapper, res);
             } catch (Exception e) {
                 logger.error(e.toString(), e);

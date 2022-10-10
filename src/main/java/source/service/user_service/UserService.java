@@ -5,15 +5,15 @@ import source.dto.response.BaseResponse;
 
 public interface UserService {
 
-    public BaseResponse signUp(UserSignUpRequestDto userSignUpRequestDto) throws Exception;
+    BaseResponse signUp(UserSignUpRequestDto userSignUpRequestDto) throws Exception;
 
-    public BaseResponse signIn(UserSignInRequestDto userSignInRequestDto) throws Exception;
+    BaseResponse signIn(UserSignInRequestDto userSignInRequestDto) throws Exception;
 
-    public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
+    BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
 
-    public BaseResponse updateUser(UserUpdateRequestDto userUpdateRequestDto) throws Exception;
+    BaseResponse updateUser(UserUpdateRequestDto userUpdateRequestDto) throws Exception;
 
-    public BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
+    BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
 
-    public BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception;
+    BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception;
 }

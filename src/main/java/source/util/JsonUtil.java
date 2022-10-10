@@ -59,7 +59,7 @@ public class JsonUtil {
   }
 
   public static <T> T readObject(String input, Class<T> clazz)
-      throws JsonParseException, JsonMappingException, IOException {
+      throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     return objectMapper.readValue(input, clazz);

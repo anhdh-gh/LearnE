@@ -2,8 +2,6 @@ package source.constant;
 
 public class ErrorCodeConstant {
 
-
-
     private ErrorCodeConstant() {}
 
     public static final String EMAIL_IS_NOT_NULL_400001 = "400001";
@@ -37,5 +35,5 @@ public class ErrorCodeConstant {
     public static final String PAGE_IS_GREATER_THAN_MINUS_ONE_400029 = "400029";
     public static final String SIZE_IS_GREATER_THAN_MINUS_ONE_400030= "400030";
     public static final String QUESTION_ID_NOT_FOUND_400031 = "400031";
-    public static final String COURSE_NOT_FOUND_400033 = "400033";
+
 }

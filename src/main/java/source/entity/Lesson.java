@@ -31,6 +31,7 @@ public class Lesson extends BaseEntity {
     private List<LessonExercise> lessonExercises;
 
     @Builder
+
     public Lesson(String id, Date createTime, Date updateTime, String name, String duration, String description, String video, List<LessonExercise> lessonExercises) {
         super(id, createTime, updateTime);
         this.name = name;

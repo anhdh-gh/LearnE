@@ -1,13 +1,14 @@
 package source.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+import source.entity.BaseEntity;
 import source.entity.Chapter;
 import source.entity.Request;
 import source.entity.Target;
 
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data

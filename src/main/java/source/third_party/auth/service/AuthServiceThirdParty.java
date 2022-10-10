@@ -29,7 +29,8 @@ public interface AuthServiceThirdParty {
 
     BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
 
-    BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
-
     BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto requestDto) throws Exception;
+
+    BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
+
 }

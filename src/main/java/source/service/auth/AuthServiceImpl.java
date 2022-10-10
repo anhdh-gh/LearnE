@@ -72,12 +72,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
-        return authServiceThirdParty.createCourse(request);
+    public BaseResponse getQuestionsByIds(QuestionGetByIdsRequestDto requestDto) throws Exception {
+        return authServiceThirdParty.getQuestionByIds(requestDto);
     }
 
     @Override
-    public BaseResponse getQuestionsByIds(QuestionGetByIdsRequestDto requestDto) throws Exception {
-        return authServiceThirdParty.getQuestionByIds(requestDto);
+    public BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception {
+        return authServiceThirdParty.getCourseDetailForUserRequestDto(request);
     }
 }

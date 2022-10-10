@@ -96,4 +96,10 @@ public class AuthController {
     public BaseResponse getQuestionsByIds(@RequestBody QuestionGetByIdsRequestDto requestDto) throws Exception {
         return authService.getQuestionsByIds(requestDto);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_GET_DETAIL_FOR_USER)
+    public BaseResponse getCourseDetailForUser(@RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
+        return authService.getCourseDetailForUserRequestDto(request);
+    }
 }

@@ -34,6 +34,5 @@ public class ErrorCodeConstant {
     public static final String REFRESH_TOKEN_IS_NOT_EMPTY_400028 = "400028";
     public static final String PAGE_IS_GREATER_THAN_MINUS_ONE_400029 = "400029";
     public static final String SIZE_IS_GREATER_THAN_MINUS_ONE_400030= "400030";
-    public static final String QUESTION_ID_NOT_FOUND_400031 = "400031";
 
 }

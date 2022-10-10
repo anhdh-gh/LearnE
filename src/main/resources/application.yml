@@ -13,6 +13,3 @@ spring:
 service:
   question-bank:
     baseurl: https://learneservicequestionbank.herokuapp.com
-
-app:
-  name: service-course

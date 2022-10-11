@@ -8,6 +8,7 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
 import source.dto.request.GetCourseDetailForUserRequestDto;
+import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.response.BaseResponse;
 import source.entity.User;
 import source.service.course_service.CourseService;
@@ -25,5 +26,12 @@ public class CourseController {
     public BaseResponse getCourseDetailForUser(@RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
         request.setUserId(request.getUserAuthId());
         return courseService.getCourseDetailForUserRequestDto(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
+    public BaseResponse getCourseDetailForUser(@RequestBody UpdateLessonStatusRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
+        return courseService.updateLessonStatus(request);
     }
 }

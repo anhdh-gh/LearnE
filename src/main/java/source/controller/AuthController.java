@@ -75,31 +75,37 @@ public class AuthController {
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_CREATE)
-    public BaseResponse createQuestion(@RequestBody CreateQuestionRequestDto createQuestionRequestDto) throws Exception {
+    public BaseResponse createQuestion(@Valid @RequestBody CreateQuestionRequestDto createQuestionRequestDto) throws Exception {
         return authService.createQuestion(createQuestionRequestDto);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
-    public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
+    public BaseResponse getQuestionByQuestionId(@Valid @RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
         return authService.getQuestionByQuestionId(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_GET_ALL)
-    public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
+    public BaseResponse getQuestion(@Valid @RequestBody QuestionGetAllRequestDto request) throws Exception {
         return authService.getAllQuestion(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
-    public BaseResponse getQuestionsByIds(@RequestBody QuestionGetByIdsRequestDto requestDto) throws Exception {
+    public BaseResponse getQuestionsByIds(@Valid @RequestBody QuestionGetByIdsRequestDto requestDto) throws Exception {
         return authService.getQuestionsByIds(requestDto);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_DETAIL_FOR_USER)
-    public BaseResponse getCourseDetailForUser(@RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
+    public BaseResponse getCourseDetailForUser(@Valid @RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
         return authService.getCourseDetailForUserRequestDto(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
+    public BaseResponse getCourseDetailForUser(@Valid @RequestBody UpdateLessonStatusRequestDto request) throws Exception {
+        return authService.updateLessonStatus(request);
     }
 }

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.dto.request.GetCourseDetailForUserRequestDto;
+import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.create_course.CreateCourseRequestDto;
 import source.dto.request.create_course.LessonQuestionDto;
 import source.dto.response.BaseResponse;
+import source.dto.response.UpdateLessonStatusResponseDto;
 import source.dto.response.get_course_detail_for_user.*;
 import source.entity.*;
 import source.entity.enumeration.StatusType;
@@ -234,6 +236,47 @@ public class CourseServiceImpl implements CourseService {
         });
 
         return BaseResponse.ofSucceeded(request.getRequestId(), response);
+    }
+
+    @Override
+    public BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception {
+        // Kiểm tra xem lessonId có tồn tại hay không
+        Optional<Lesson> optionalLesson = lessonRepository.findById(request.getLessonId());
+        if(!optionalLesson.isPresent()) {
+            return BaseResponse
+                .ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.LESSON_IS_NOT_FOUND_400034));
+        }
+
+        // Kiểm tra xem UserId có tồn tại hay không
+        BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
+            .builder()
+            .requestId(request.getRequestId())
+            .id(request.getUserId())
+            .build()
+        );
+        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        }
+
+        // Thực hiện update status lesson
+        Optional<LessonStatus> optionalLessonStatus = lessonStatusRepository.findLessonStatusByUserIdAndLessonId(request.getUserId(), request.getLessonId());
+        if(optionalLessonStatus.isPresent()) {
+            LessonStatus lessonStatusUpdate = optionalLessonStatus.get();
+            lessonStatusUpdate.setStatus(request.getStatus());
+            lessonStatusRepository.save(lessonStatusUpdate);
+            return BaseResponse.ofSucceeded(
+                request.getRequestId(), modelMapper.map(request, UpdateLessonStatusResponseDto.class));
+        } else {
+            LessonStatus lessonStatusCreate = LessonStatus
+                .builder()
+                .lesson(optionalLesson.get())
+                .status(request.getStatus())
+                .userId(request.getUserId())
+                .build();
+            lessonStatusRepository.save(lessonStatusCreate);
+            return BaseResponse.ofSucceeded(
+                request.getRequestId(), modelMapper.map(request, UpdateLessonStatusResponseDto.class));
+        }
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {

@@ -1,5 +1,7 @@
 package source.constant;
 
+import source.entity.Lesson;
+
 public class ErrorCodeConstant {
 
     private ErrorCodeConstant() {}
@@ -36,4 +38,6 @@ public class ErrorCodeConstant {
     public static final String SIZE_IS_GREATER_THAN_MINUS_ONE_400030= "400030";
     public static final String QUESTION_ID_NOT_FOUND_400031 = "400031";
     public static final String COURSE_NOT_FOUND_400033 = "400033";
+
+    public static final String LESSON_IS_NOT_FOUND_400034 = "400034";
 }

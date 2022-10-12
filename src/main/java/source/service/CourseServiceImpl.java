@@ -139,7 +139,7 @@ public class CourseServiceImpl implements CourseService {
         GetCourseDetailForUserResponseDto response = modelMapper.map(courseOptional.get(), GetCourseDetailForUserResponseDto.class);
 
         // Set infor for course
-        response.setNumberOfPeople(lessonStatusRepository.countDistinctUserId());
+        response.setNumberOfPeople(lessonStatusRepository.countDistinctUserId(courseOptional.get().getId()));
 
         // Kiểm tra user xem có tồn tại hay không
         if(request.getUserId() != null) {

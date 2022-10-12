@@ -14,7 +14,7 @@ public class UpdateLessonStatusRequestDto extends BasicRequest {
 
     private String userId;
 
-    private String lessonId;
+    private Long lessonId;
 
     private StatusType status;
 }

@@ -1,11 +1,10 @@
 package source.entity;
 
-import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,21 +16,17 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class BaseEntity {
+public class UidBaseEntity extends BaseEntity {
 
-    @Column(name = "CreateTime")
-    protected Date createTime;
+    @Id
+    @Column(name = "Id")
+    protected String id;
 
-    @Column(name = "UpdateTime")
-    protected Date updateTime;
-
-    @PrePersist // Thực thi trước khi entity được persist (được lưu vào database) bởi method persist()
+    @Override
     protected void init() {
-        this.createTime = new Date();
-    }
-
-    @PreUpdate // Thực thi trước khi entity được update
-    protected void updateTime() {
-        this.updateTime = new Date();
+        super.init();
+        if(this.id == null) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 }

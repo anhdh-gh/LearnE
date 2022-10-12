@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `chapter`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chapter`
 (
-    `Id`         varchar(255) NOT NULL,
+    `Id`         bigint NOT NULL AUTO_INCREMENT,
     `CourseId`   varchar(255) NOT NULL,
     `Name`       varchar(255) NOT NULL,
     `CreateTime` datetime DEFAULT NULL,
@@ -90,8 +90,8 @@ DROP TABLE IF EXISTS `lesson`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lesson`
 (
-    `Id`          varchar(255) NOT NULL,
-    `ChapterId`   varchar(255) NOT NULL,
+    `Id`          bigint NOT NULL AUTO_INCREMENT,
+    `ChapterId`   bigint NOT NULL,
     `Name`        varchar(255) NOT NULL,
     `Duration`    varchar(255) NOT NULL,
     `Description` longtext,
@@ -113,8 +113,8 @@ DROP TABLE IF EXISTS `lessonexercise`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lessonexercise`
 (
-    `Id`          varchar(255) NOT NULL,
-    `LessonId`    varchar(255) NOT NULL,
+    `Id`          bigint NOT NULL AUTO_INCREMENT,
+    `LessonId`    bigint NOT NULL,
     `Name`        varchar(255) NOT NULL,
     `Description` longtext,
     `CreateTime`  datetime DEFAULT NULL,
@@ -135,8 +135,8 @@ DROP TABLE IF EXISTS `lessonexercisestatus`;
 CREATE TABLE `lessonexercisestatus`
 (
     `Id`               varchar(255) NOT NULL,
-    `LessonExerciseId` varchar(255) NOT NULL,
-    `LessonId`         varchar(255) NOT NULL,
+    `LessonExerciseId` bigint NOT NULL,
+    `LessonId`         bigint NOT NULL,
     `UserId`           varchar(255) NOT NULL,
     `Status`           varchar(255) NOT NULL,
     `CreateTime`       datetime DEFAULT NULL,
@@ -158,8 +158,8 @@ DROP TABLE IF EXISTS `lessonquestion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lessonquestion`
 (
-    `Id`               varchar(255) NOT NULL,
-    `LessonExerciseId` varchar(255) NOT NULL,
+    `Id`               bigint NOT NULL AUTO_INCREMENT,
+    `LessonExerciseId` bigint NOT NULL,
     `CreateTime`       datetime DEFAULT NULL,
     `UpdateTime`       datetime DEFAULT NULL,
     `QuestionId`       varchar(255) NOT NULL,
@@ -180,7 +180,7 @@ DROP TABLE IF EXISTS `lessonquestionhistory`;
 CREATE TABLE `lessonquestionhistory`
 (
     `Id`               varchar(255) NOT NULL,
-    `LessonQuestionId` varchar(255) NOT NULL,
+    `LessonQuestionId` bigint NOT NULL,
     `UserId`           varchar(255) NOT NULL,
     `CreateTime`       datetime DEFAULT NULL,
     `UpdateTime`       datetime DEFAULT NULL,
@@ -201,7 +201,7 @@ DROP TABLE IF EXISTS `lessonstatus`;
 CREATE TABLE `lessonstatus`
 (
     `Id`         varchar(255) NOT NULL,
-    `LessonId`   varchar(255) NOT NULL,
+    `LessonId`   bigint NOT NULL,
     `UserId`     varchar(255) NOT NULL,
     `Status`     varchar(255) NOT NULL,
     `CreateTime` datetime DEFAULT NULL,

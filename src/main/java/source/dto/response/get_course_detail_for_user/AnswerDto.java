@@ -1,17 +1,18 @@
 package source.dto.response.get_course_detail_for_user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import source.entity.BaseEntity;
+import source.entity.UidBaseEntity;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class AnswerDto extends BaseEntity {
+public class AnswerDto extends UidBaseEntity {
 
     private String text;
 

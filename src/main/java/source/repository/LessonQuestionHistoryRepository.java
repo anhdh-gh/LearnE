@@ -15,12 +15,12 @@ public interface LessonQuestionHistoryRepository extends JpaRepository<LessonQue
         value = "SELECT score FROM lessonquestionhistory lqh WHERE lqh.UserId = ?1 and lqh.LessonQuestionId = ?2",
         nativeQuery = true
     )
-    public Float findLessonQuestionHistoriesByUserIdAndLessonQuestionId(String userId, String lessonQuestionId);
+    public Float findLessonQuestionHistoriesByUserIdAndLessonQuestionId(String userId, Long lessonQuestionId);
 
     @Query(
         value = "select if(count(*) > 0, 'true', 'false') from answerchoice ac inner join lessonquestionhistory lqh" +
                 " on ac.LessonQuestionHistoryId = lqh.Id and lqh.LessonQuestionId = ?1 and ac.Id = ?2",
         nativeQuery = true
     )
-    boolean checkAnswerOfUser(String lessonQuestionId, String AnswerId);
+    boolean checkAnswerOfUser(Long lessonQuestionId, String AnswerId);
 }

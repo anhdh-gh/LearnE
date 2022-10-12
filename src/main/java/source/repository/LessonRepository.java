@@ -6,5 +6,5 @@ import source.entity.Course;
 import source.entity.Lesson;
 
 @Repository
-public interface LessonRepository extends JpaRepository<Lesson, String> {
+public interface LessonRepository extends JpaRepository<Lesson, Long> {
 }

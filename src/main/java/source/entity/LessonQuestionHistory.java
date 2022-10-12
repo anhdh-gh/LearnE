@@ -1,12 +1,19 @@
 package source.entity;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-import source.entity.enumeration.StatusType;
-
-import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -15,7 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "lessonquestionhistory")
 @SuperBuilder
-public class LessonQuestionHistory extends BaseEntity {
+public class LessonQuestionHistory extends UidBaseEntity {
 
     @Column(name = "UserId")
     private String userId;

@@ -1,11 +1,14 @@
 package source.entity;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import java.util.List;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -14,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "lesson")
 @SuperBuilder
-public class Lesson extends BaseEntity {
+public class Lesson extends AutoIncrementIdBaseEntity {
 
     @Column(name = "Name")
     private String name;
@@ -30,5 +33,6 @@ public class Lesson extends BaseEntity {
 
     @OneToMany(targetEntity = LessonExercise.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "LessonId", nullable = false)
+    @OrderBy(value = "id asc")
     private List<LessonExercise> lessonExercises;
 }

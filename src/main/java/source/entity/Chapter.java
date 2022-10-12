@@ -1,11 +1,14 @@
 package source.entity;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import java.util.List;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -14,12 +17,13 @@ import java.util.List;
 @Entity
 @Table(name = "chapter")
 @SuperBuilder
-public class Chapter extends BaseEntity {
+public class Chapter extends AutoIncrementIdBaseEntity {
 
     @Column(name = "name")
     private String name;
 
     @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "ChapterId", nullable = false)
+    @OrderBy(value = "id asc")
     private List<Lesson> lessons;
 }

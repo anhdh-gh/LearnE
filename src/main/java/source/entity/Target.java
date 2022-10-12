@@ -1,12 +1,14 @@
 package source.entity;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -15,7 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name = "target")
 @SuperBuilder
-public class Target extends BaseEntity {
+public class Target extends UidBaseEntity {
 
     @Column(name = "Text")
     private String text;

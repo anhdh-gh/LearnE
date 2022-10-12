@@ -18,5 +18,5 @@ public interface LessonStatusRepository extends JpaRepository<LessonStatus, Stri
         "where course.Id = ?1", nativeQuery = true)
     Long countDistinctUserId(String courseId);
 
-    Optional<LessonStatus> findLessonStatusByUserIdAndLessonId(String userId, String lessonId);
+    Optional<LessonStatus> findLessonStatusByUserIdAndLessonId(String userId, Long lessonId);
 }

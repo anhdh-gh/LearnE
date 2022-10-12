@@ -1,13 +1,14 @@
 package source.entity;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import java.util.List;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -16,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "course")
 @SuperBuilder
-public class Course extends BaseEntity {
+public class Course extends UidBaseEntity {
 
     @Column(name = "Name")
     private String name;
@@ -38,6 +39,7 @@ public class Course extends BaseEntity {
 
     @OneToMany(targetEntity = Chapter.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "CourseId", nullable = false)
+    @OrderBy(value = "id asc")
     private List<Chapter> chapters;
 
     @OneToMany(targetEntity = Target.class, cascade = CascadeType.ALL)

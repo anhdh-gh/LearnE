@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface LessonStatusRepository extends JpaRepository<LessonStatus, String> {
 
     @Query(value = 
-        "select count(distinct UserId) from lessonstatus" +
-        "inner join lesson on lesson.Id = lessonstatus.LessonId" +
-        "inner join chapter on chapter.Id = lesson.ChapterId" +
-        "inner join course on course.Id = chapter.CourseId" +
+        "select count(distinct UserId) from lessonstatus " +
+        "inner join lesson on lesson.Id = lessonstatus.LessonId " +
+        "inner join chapter on chapter.Id = lesson.ChapterId " +
+        "inner join course on course.Id = chapter.CourseId " +
         "where course.Id = ?1", nativeQuery = true)
     Long countDistinctUserId(String courseId);
 

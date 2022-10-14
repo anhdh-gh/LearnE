@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react'
 import { setUrl } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useSelector, useDispatch } from 'react-redux'
-import { useGetCourseDetailForUser } from '../hook'
+import { useGetCourseDetailForUser, useUpdateLessonStatus } from '../hook'
 import { Accordion } from 'react-bootstrap'
 import { History } from '../components/NavigateSetter'
 import { useParams } from 'react-router'
@@ -15,19 +15,22 @@ import { Navbar, Container, Offcanvas } from 'react-bootstrap'
 
 const ShowLessonDetail = (props) => {
 
-    const { courseId, lessonId } = useParams()
+    let { courseId, lessonId } = useParams()
+    lessonId = parseInt(lessonId)
 
     const heightCourseHeader = useSelector(state => state.UI.CourseHeader.height)
 
     const dispatch = useDispatch()
     const { data: course, isLoading, isFetching } = useGetCourseDetailForUser(courseId)
 
+    const { mutate: updateLessonStatus, isLoading: isLoadingUpdateLessonStatus, isError: isErrorUpdateLessonStatus } = useUpdateLessonStatus()
+
     useEffect(() => {
         if (course && !isLoading && !isFetching) {
             if (course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
                 dispatch(setUrl(ROUTE_PATH.SHOW_LESSON_DETAIL))
             } else if (course?.status && course.status === STATUS_TYPE.UNFINISHED) {
-                History.replace(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${course?.chapterCurrentProcessing?.id}`)
+                // History.replace(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${course?.chapterCurrentProcessing?.id}`)
             }
         }
 
@@ -44,6 +47,8 @@ const ShowLessonDetail = (props) => {
     const [currentLesson, setCurrentsLesson] = useState()
     const [nextLesson, setNextLesson] = useState()
     const [loadVideo, setloadVideo] = useState()
+    const[heightNavbarButtom, setHeightNavbarButtom] = useState(0)
+    const[heightCourseContent, setHeightCourseContent] = useState(0)
 
     const removeScrollBody = () => document.body.classList.remove("overflow-hidden")
 
@@ -52,8 +57,10 @@ const ShowLessonDetail = (props) => {
             setCurrentIdShowContentCourse(!course ? [] : [course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0]?.id])
             setChapterCurrentShow(course && course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0])
             course && course?.lessons?.some((lesson, indexLesson, lessons) => {
+
                 if (lesson.id === lessonId) {
                     setCurrentsLesson(lesson)
+
                     if (indexLesson - 1 >= 0) {
                         setPreviousLesson(lessons[indexLesson - 1])
                     } else {
@@ -64,6 +71,11 @@ const ShowLessonDetail = (props) => {
                     } else {
                         setNextLesson(null)
                     }
+
+                    if(lesson?.status === STATUS_TYPE.UNFINISHED) {
+                        updateLessonStatus({lessonId: lesson.id, status: STATUS_TYPE.PROCESSING})
+                    }
+
                     return true
                 }
                 return false
@@ -73,17 +85,27 @@ const ShowLessonDetail = (props) => {
             if(window.innerWidth < 992) {
                 setShowCourseContent(false)
             }
-        }
-    }, [ dispatch, course, chapterCurrentShow, lessonId, isFetching, isLoading ])
 
-    return isLoading || isFetching ? <Loader /> : !course ? <NotFound /> : !currentLesson ? <NotFound /> : <>
+            if(refNavbarButtom?.current?.clientHeight) {
+                setHeightNavbarButtom(refNavbarButtom?.current?.clientHeight)
+            }
+
+            if(refCourseContent?.current?.clientHeight) {
+                setHeightCourseContent(refCourseContent?.current?.clientHeight)
+            }
+        }
+
+    }, [ heightCourseContent, updateLessonStatus, dispatch, course, chapterCurrentShow, lessonId, isFetching, isLoading ])
+
+    return isLoading || isFetching || isLoadingUpdateLessonStatus || isErrorUpdateLessonStatus ? <Loader /> 
+    : !course ? <NotFound /> : !currentLesson ? <NotFound /> : <>
 
         <CourseHeader course={course} onClick={removeScrollBody} />
 
         <div className='min-h-screen container-fluid'>
             <div className='row'>
                 <div className={`${showCourseContent ? 'col-lg-9' : 'col-lg-12'} px-0`}>
-                    <div className='overflow-overlay' style={{ maxHeight: `calc(100vh - ${heightCourseHeader}px - ${refNavbarButtom?.current?.clientHeight}px)` }}>
+                    <div className='overflow-overlay' style={{ maxHeight: `calc(100vh - ${heightNavbarButtom}px - ${heightCourseHeader}px)` }}>
 
                         <div className='bg-black relative'>
                             <img className="w-full h-auto" alt="img-video" src={PagesImage} style={{ maxHeight: "75vh" }} />
@@ -120,7 +142,7 @@ const ShowLessonDetail = (props) => {
                     <div className=''>
                         <div ref={refCourseContent} className='font-bold p-3 tracking-wider'>Course content</div>
 
-                        <div className='overflow-overlay relative p-0' style={{ maxHeight: `calc(100vh - ${heightCourseHeader}px - ${refNavbarButtom?.current?.clientHeight}px - ${refCourseContent?.current?.clientHeight}px)` }}>
+                        <div className='overflow-overlay relative p-0' style={{ maxHeight: `calc(100vh - ${heightCourseHeader}px - ${heightNavbarButtom}px - ${heightCourseContent}px)` }}>
                             {
                                 course?.chapters.map((chapter, indexChapter) => <Accordion activeKey={currentIdShowContentCourse} ref={chapter.id === chapterCurrentShow?.id ? refScrollChapter : null} key={chapter.id}>
                                     <Accordion.Item eventKey={chapter.id} className="rounded-none">

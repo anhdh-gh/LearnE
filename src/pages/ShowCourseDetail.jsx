@@ -1,7 +1,7 @@
 import '../assets/css/ShowCourseDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Header, Footer, Loader } from '../components'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { setUrl } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,21 +20,30 @@ const ShowCourseDetail = (props) => {
     const [currentIdShowContentCourse, setCurrentIdShowContentCourse] = useState([])
     const height = useSelector(state => state.UI.Header.height)
 
-    const { data: course, isLoading, isFetching, refetch } = useGetCourseDetailForUser(courseId)
+    const { data: course, isLoading: isLoadingGetCourseDetailForUser, isFetching: isFetchingGetCourseDetailForUser, refetch: getCourseDetailForUser } = useGetCourseDetailForUser(courseId)
+
+    const redirectToLessonDetail = useCallback(() => {
+        History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${course?.lessonCurrentProcessing?.id}`)
+    }, [ course?.lessonCurrentProcessing?.id, courseId ])
 
     useEffect(() => {
-        if(course && !isLoading && !isFetching) {
+        if(course && !isLoadingGetCourseDetailForUser && !isFetchingGetCourseDetailForUser) {
             if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
-                dispatch(setUrl(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${course?.chapterCurrentProcessing?.id}`))
+                dispatch(setUrl(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${courseId}`))
             } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
-                History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${course?.lessonCurrentProcessing?.id}`)
+                redirectToLessonDetail()
             }            
         } else {
-            refetch()
+            getCourseDetailForUser()
         }
-    }, [ refetch, courseId, isLoading, course, isFetching, dispatch, course?.status, course?.chapterCurrentProcessing?.id, course?.lessonCurrentProcessing?.id ])
+    }, [ redirectToLessonDetail, getCourseDetailForUser, courseId, isLoadingGetCourseDetailForUser, course, isFetchingGetCourseDetailForUser, dispatch, course?.status ])
 
-    return isLoading || isFetching || !course?.status || course.status !== STATUS_TYPE.UNFINISHED ? <Loader /> : !course ? <NotFound/> : <div className='max-h-screen'>
+    return isLoadingGetCourseDetailForUser 
+        || isFetchingGetCourseDetailForUser 
+        || !course?.status 
+        || course.status !== STATUS_TYPE.UNFINISHED 
+        ? <Loader /> 
+        : !course ? <NotFound/> : <div className='max-h-screen'>
         <Header />
 
         <div className="min-h-screen container-xl">
@@ -107,13 +116,15 @@ const ShowCourseDetail = (props) => {
                             <div className="rounded-lg relative">
                                 <img className="rounded-lg" alt="img-introduce" src={course?.image || PagesImage } />
                                 <div className='absolute z-20 inset-0 flex justify-center items-center flex-col'>
-                                    <i className="fa-solid text-5xl fa-circle-play rounded-full bg-orange-600 text-white cursor-pointer opacity-95 hover:opacity-100 active:scale-95"></i>
+                                    <i onClick={redirectToLessonDetail} className="fa-solid text-5xl fa-circle-play rounded-full bg-orange-600 text-white cursor-pointer opacity-95 hover:opacity-100 active:scale-95"></i>
                                 </div>
                                 <div className='absolute rounded-lg z-10 inset-0 bg-black opacity-25'></div>
                             </div>
 
                             {course?.price ? <div className='text-4xl pt-4 text-orange-500'>{course.price}</div> : <div className='text-4xl pt-4 text-orange-500'>Free</div>}
-                            <div className="rounded-full px-5 py-2.5 mt-3 text-white uppercase bg-orange-600 hover:opacity-75 cursor-pointer font-bold duration-200 active:-translate-x-0.5 active:translate-y-0.5">Start now</div>
+                            <div 
+                                onClick={redirectToLessonDetail}
+                                className="rounded-full px-5 py-2.5 mt-3 text-white uppercase bg-orange-600 hover:opacity-75 cursor-pointer font-bold duration-200 active:-translate-x-0.5 active:translate-y-0.5">Start now</div>
                             <div className='mt-4'>
                                 {course?.level && <div className="mb-4 text-gray-500 d-flex">
                                     <i className="fa-solid fa-book-open text-gray-700 leading-4 me-2"></i> <span className='leading-4'>Level: <span className='font-bold text-black'>{course.level}</span></span>

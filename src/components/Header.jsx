@@ -55,7 +55,7 @@ const Header = (props) => {
                             className="cursor-pointer"
                             as="span"
                             active="active"
-                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/course_id`)}
+                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/61caf478-c63c-4e00-8311-44bd20a89be4`)}
                         >
                             {pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL)
                                 ? <Badge pill bg="primary">Course</Badge>

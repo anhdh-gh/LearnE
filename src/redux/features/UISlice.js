@@ -27,7 +27,7 @@ const UISlice = createSlice({
 
         Header: {
             userInfo: {
-                isLoading: false
+                isLoading: true
             },
             height: 0
         },

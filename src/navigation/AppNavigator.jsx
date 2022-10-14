@@ -12,16 +12,20 @@ const AppNavigator = (props) => {
         {props?.children}
         <Routes>
             {/* Private admin routers */}
-            {routes.privateAdminoute.map((route, index) => <PrivateAdminRoute key={index}
-                path={route.path}
-                element={route.element}
-            />)}
+            <Route element={<PrivateAdminRoute/>}>
+                {routes.privateAdminoute.map((route, index) => <Route key={index}
+                    path={route.path}
+                    element={route.element}
+                />)}                
+            </Route>
 
             {/* Private user routers */}
-            {routes.privateRoute.map((route, index) => <PrivateRoute key={index}
-                path={route.path}
-                element={route.element}
-            />)}
+            <Route element={<PrivateRoute/>}>
+                {routes.privateRoute.map((route, index) => <Route key={index}
+                    path={route.path}
+                    element={route.element}
+                />)}                
+            </Route>
 
             {/* Public routers */}
             {routes.publicRoute.map((route, index) => <Route key={index}

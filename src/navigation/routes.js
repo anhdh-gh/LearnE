@@ -6,6 +6,10 @@ const routes = {
     ],
 
     privateRoute: [
+        {
+            path: `${ROUTE_PATH.SHOW_LESSON_DETAIL}/:courseId/:lessonId`, 
+            element: <ShowLessonDetail/>
+        }, 
     ],
 
     publicRoute: [
@@ -16,11 +20,7 @@ const routes = {
         {
             path: `${ROUTE_PATH.SHOW_COURSE_DETAIL}/:courseId`, 
             element: <ShowCourseDetail/>
-        },   
-        {
-            path: `${ROUTE_PATH.SHOW_LESSON_DETAIL}/:courseId/:lessonId`, 
-            element: <ShowLessonDetail/>
-        },   
+        },     
         {
             path: ROUTE_PATH.SIGN_UP, 
             element: <Auth isSignUp={true}/>

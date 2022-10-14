@@ -4,7 +4,8 @@ const ROUTE_PATH = {
     SIGN_IN: '/user/signin',
     GET_USER_INFO: "/user/information",
     REFRESH_TOKEN: "/user/refreshtoken",
-    SIGN_UP: '/user/signup'
+    SIGN_UP: '/user/signup',
+    GET_COURSE_DETAIL_FOR_USER: '/course/get-course-detail-for-user',
 }
 
 const UserApi = {

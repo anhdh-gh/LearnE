@@ -23,14 +23,12 @@ const ShowLessonDetail = (props) => {
     const dispatch = useDispatch()
     const { data: course, isLoading, isFetching } = useGetCourseDetailForUser(courseId)
 
-    const { mutate: updateLessonStatus, isLoading: isLoadingUpdateLessonStatus, isError: isErrorUpdateLessonStatus } = useUpdateLessonStatus()
+    const { mutate: updateLessonStatus } = useUpdateLessonStatus()
 
     useEffect(() => {
         if (course && !isLoading && !isFetching) {
             if (course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
-                dispatch(setUrl(ROUTE_PATH.SHOW_LESSON_DETAIL))
-            } else if (course?.status && course.status === STATUS_TYPE.UNFINISHED) {
-                // History.replace(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${course?.chapterCurrentProcessing?.id}`)
+                dispatch(setUrl(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${course?.lessonCurrentProcessing?.id}`))
             }
         }
 
@@ -72,10 +70,6 @@ const ShowLessonDetail = (props) => {
                         setNextLesson(null)
                     }
 
-                    if(lesson?.status === STATUS_TYPE.UNFINISHED) {
-                        updateLessonStatus({lessonId: lesson.id, status: STATUS_TYPE.PROCESSING})
-                    }
-
                     return true
                 }
                 return false
@@ -97,7 +91,7 @@ const ShowLessonDetail = (props) => {
 
     }, [ heightCourseContent, updateLessonStatus, dispatch, course, chapterCurrentShow, lessonId, isFetching, isLoading ])
 
-    return isLoading || isFetching || isLoadingUpdateLessonStatus || isErrorUpdateLessonStatus ? <Loader /> 
+    return isLoading || isFetching ? <Loader /> 
     : !course ? <NotFound /> : !currentLesson ? <NotFound /> : <>
 
         <CourseHeader course={course} onClick={removeScrollBody} />
@@ -123,6 +117,16 @@ const ShowLessonDetail = (props) => {
                                     width='100%'
                                     height='100%'
                                     onReady={() => setloadVideo(false)}
+                                    onEnded={() => {
+                                        if(currentLesson && currentLesson?.status === STATUS_TYPE.PROCESSING) {
+                                            updateLessonStatus({lessonId, status: STATUS_TYPE.FINISHED})
+                                        }
+                                    }}
+                                    onStart={() => {
+                                        if(currentLesson && currentLesson?.status === STATUS_TYPE.UNFINISHED) {
+                                            updateLessonStatus({lessonId, status: STATUS_TYPE.PROCESSING})
+                                        }
+                                    }}
                                 />
                             </div>
 

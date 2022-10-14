@@ -21,10 +21,11 @@ function useUpdateLessonStatus() {
                     (oldCourse) => {
                         const course = _.cloneDeep(oldCourse)
                         course?.chapters?.some(chapter => {
-                            const lesson = chapter.lessons.filter(lesson => lesson.id === lessonId)
+                            const lesson = chapter.lessons.filter(lesson => lesson.id === lessonId)[0]
                             if (!lesson)
                                 return false
                             lesson.status = status
+
                             return true
                         })
                         return CourseApi.handleCourseData(course)

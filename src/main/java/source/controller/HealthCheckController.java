@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import source.dto.response.BaseResponse;
 
 @RestController
-public class HealthCheck {
+public class HealthCheckController {
 
     @GetMapping("/health-check")
     public BaseResponse healthCheck() {

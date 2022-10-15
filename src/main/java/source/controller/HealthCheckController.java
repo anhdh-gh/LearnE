@@ -9,6 +9,6 @@ public class HealthCheckController {
 
     @GetMapping("/health-check")
     public BaseResponse healthCheck() {
-        return BaseResponse.ofSucceeded("LearnE gateway service is running!");
+        return BaseResponse.ofSucceeded("LearnE auth service is running!");
     }
 }

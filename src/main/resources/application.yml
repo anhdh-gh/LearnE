@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_b483559a4cc08c2
-    username: bac7c08a0ea042
-    password: 592a49cf
+    url: mysql://nrkgklvcruf1lxyz:d16m1b3oo84mplbt@migae5o25m2psr4q.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/m4s79dyh4tj03mmp
+    username: nrkgklvcruf1lxyz
+    password: d16m1b3oo84mplbt
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:

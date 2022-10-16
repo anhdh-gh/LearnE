@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: mysql://nrkgklvcruf1lxyz:d16m1b3oo84mplbt@migae5o25m2psr4q.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/m4s79dyh4tj03mmp
-    username: nrkgklvcruf1lxyz
-    password: d16m1b3oo84mplbt
+    url: jdbc:postgresql://ec2-54-173-237-110.compute-1.amazonaws.com:5432/d2mgtmnhm5keag
+    username: bazghxlgpcnbnq
+    password: c65804038d1b89559a7b8fe063abeeb76fa120e4b76b5854b7e56f420116b5b3
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "account")
+@Table(name = "account", schema = "public")
 public class Account extends BaseEntity {
 
     @Column(name = "Email")

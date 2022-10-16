@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)

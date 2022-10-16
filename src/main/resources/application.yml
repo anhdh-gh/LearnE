@@ -15,6 +15,6 @@ spring:
 
 service:
   question-bank:
-    baseurl: https://learneservicequestionbank.herokuapp.com
+    baseurl: https://learnequestionbank.herokuapp.com
   user:
-    baseurl: https://learneserviceuser.herokuapp.com
+    baseurl: https://learneuser.herokuapp.com

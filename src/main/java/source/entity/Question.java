@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "question")
+@Table(name = "question", schema = "public")
 public class Question extends BaseEntity {
 
     @Enumerated(EnumType.STRING)

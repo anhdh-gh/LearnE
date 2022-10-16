@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "answer")
+@Table(name = "answer", schema = "public")
 public class Answer extends BaseEntity {
 
     @Column(name = "Text")

@@ -1,6 +1,6 @@
 service:
   auth:
-    baseurl: https://learneserviceauth.herokuapp.com
+    baseurl: https://learneauth.herokuapp.com
 
 app:
   name: service-gateway

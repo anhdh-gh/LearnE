@@ -1,12 +1,12 @@
 service:
   user:
-    baseurl: https://learneserviceuser.herokuapp.com
+    baseurl: https://learneuser.herokuapp.com
   gateway:
-    baseurl: https://learneservicegateway.herokuapp.com
+    baseurl: https://learnegateway.herokuapp.com
   question-bank:
-    baseurl: https://learneservicequestionbank.herokuapp.com
+    baseurl: https://learnequestionbank.herokuapp.com
   course:
-    baseurl: https://learneservicecourse.herokuapp.com
+    baseurl: http://localhost:6013
 # Database Firebase
 firebase:
   service-account-filename: classpath:firebase-service-accounts.json

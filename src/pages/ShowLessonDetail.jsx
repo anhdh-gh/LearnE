@@ -2,16 +2,15 @@ import '../assets/css/ShowLessonDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Loader, CourseHeader } from '../components'
 import { useEffect, useState, useRef } from 'react'
-import { setUrl } from '../redux/actions'
+import { setUrl, getCourseById, updateLessonStatus, showNotFound, hideNotFound } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useSelector, useDispatch } from 'react-redux'
-import { useGetCourseDetailForUser, useUpdateLessonStatus } from '../hook'
 import { Accordion } from 'react-bootstrap'
 import { History } from '../components/NavigateSetter'
 import { useParams } from 'react-router'
-import { NotFound } from '../pages'
 import ReactPlayer from 'react-player/youtube'
 import { Navbar, Container, Offcanvas } from 'react-bootstrap'
+import _ from 'lodash'
 
 const ShowLessonDetail = (props) => {
 
@@ -19,20 +18,26 @@ const ShowLessonDetail = (props) => {
     lessonId = parseInt(lessonId)
 
     const heightCourseHeader = useSelector(state => state.UI.CourseHeader.height)
+    const isPFetchCourseProcessing = useSelector(state => state.UI.FetchCourseProcessing.isProcessing)
 
     const dispatch = useDispatch()
-    const { data: course, isLoading, isFetching } = useGetCourseDetailForUser(courseId)
-
-    const { mutate: updateLessonStatus } = useUpdateLessonStatus()
+    const course = useSelector(state => state.course)
 
     useEffect(() => {
-        if (course && !isLoading && !isFetching) {
+        if(_.isEmpty(course)) {
+            dispatch(getCourseById(courseId))
+        }
+
+    }, [ dispatch, course, courseId ])
+
+    useEffect(() => {
+        if (course) {
             if (course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
                 dispatch(setUrl(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${course?.lessonCurrentProcessing?.id}`))
             }
         }
 
-    }, [isLoading, course, isFetching, dispatch, course?.status])
+    }, [ course, dispatch, course?.status ])
 
     const refScrollChapter = useRef(null)
     const refNavbarButtom = useRef(null)
@@ -51,10 +56,8 @@ const ShowLessonDetail = (props) => {
     const removeScrollBody = () => document.body.classList.remove("overflow-hidden")
 
     useEffect(() => {
-        if (course && !isLoading && !isFetching) {
-            setCurrentIdShowContentCourse(!course ? [] : [course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0]?.id])
-            setChapterCurrentShow(course && course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0])
-            course && course?.lessons?.some((lesson, indexLesson, lessons) => {
+        if (course) {
+            const isLessonExist = course?.lessons?.some((lesson, indexLesson, lessons) => {
 
                 if (lesson.id === lessonId) {
                     setCurrentsLesson(lesson)
@@ -74,25 +77,36 @@ const ShowLessonDetail = (props) => {
                 }
                 return false
             })
-            document.body.classList.add("overflow-hidden")
+            
+            if(isLessonExist) {
+                setCurrentIdShowContentCourse(!course ? [] : [course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0]?.id])
+                setChapterCurrentShow(course && course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0])
+            
+                document.body.classList.add("overflow-hidden")
 
-            if(window.innerWidth < 992) {
-                setShowCourseContent(false)
-            }
+                if(window.innerWidth < 1024) {
+                    setShowCourseContent(false)
+                }
+    
+                if(refNavbarButtom?.current?.clientHeight) {
+                    setHeightNavbarButtom(refNavbarButtom?.current?.clientHeight)
+                }
+    
+                if(refCourseContent?.current?.clientHeight) {
+                    setHeightCourseContent(refCourseContent?.current?.clientHeight)
+                }
 
-            if(refNavbarButtom?.current?.clientHeight) {
-                setHeightNavbarButtom(refNavbarButtom?.current?.clientHeight)
-            }
-
-            if(refCourseContent?.current?.clientHeight) {
-                setHeightCourseContent(refCourseContent?.current?.clientHeight)
+                dispatch(hideNotFound())
+            } else {
+                if(!isPFetchCourseProcessing) {
+                    dispatch(showNotFound())
+                }
             }
         }
 
-    }, [ heightCourseContent, updateLessonStatus, dispatch, course, chapterCurrentShow, lessonId, isFetching, isLoading ])
+    }, [ isPFetchCourseProcessing, heightCourseContent, dispatch, course, chapterCurrentShow, lessonId, currentLesson ])
 
-    return isLoading || isFetching ? <Loader /> 
-    : !course ? <NotFound /> : !currentLesson ? <NotFound /> : <>
+    return _.isEmpty(course) || !currentLesson ? <Loader useStateLoader={true} /> : <>
 
         <CourseHeader course={course} onClick={removeScrollBody} />
 
@@ -118,13 +132,13 @@ const ShowLessonDetail = (props) => {
                                     height='100%'
                                     onReady={() => setloadVideo(false)}
                                     onEnded={() => {
-                                        if(currentLesson && currentLesson?.status === STATUS_TYPE.PROCESSING) {
-                                            updateLessonStatus({lessonId, status: STATUS_TYPE.FINISHED})
+                                        if(currentLesson && currentLesson?.status !== STATUS_TYPE.FINISHED) {
+                                            dispatch(updateLessonStatus(lessonId, STATUS_TYPE.FINISHED))
                                         }
                                     }}
                                     onStart={() => {
                                         if(currentLesson && currentLesson?.status === STATUS_TYPE.UNFINISHED) {
-                                            updateLessonStatus({lessonId, status: STATUS_TYPE.PROCESSING})
+                                            dispatch(updateLessonStatus(lessonId, STATUS_TYPE.PROCESSING))
                                         }
                                     }}
                                 />

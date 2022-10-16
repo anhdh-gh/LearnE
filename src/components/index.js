@@ -8,6 +8,7 @@ import NavigateSetter from './NavigateSetter'
 import Footer from './Footer'
 import CircularProgressBar from './CircularProgressBar'
 import CourseHeader from './CourseHeader'
+import TopLoader from './TopLoader'
 
 export {
     Toast,
@@ -20,4 +21,5 @@ export {
     Footer,
     CircularProgressBar,
     CourseHeader,
+    TopLoader,
 }

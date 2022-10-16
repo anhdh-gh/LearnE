@@ -1,35 +1,39 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "react-toastify/dist/ReactToastify.css"
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import { Toast, Loader, ToastModal } from "./components"
+import { Toast, Loader, ToastModal, TopLoader } from "./components"
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserInfo } from './redux/actions/userSagaAction'
+import { initInfo } from './redux/actions'
 import AppNavigator from './navigation/AppNavigator'
+import { NotFound } from './pages'
+import _ from 'lodash'
 // import { setDimensionBrowserWindow } from './redux/actions'
 
 const App = () => {
 
   // Đoạn userInfo loading này dùng nhiều chỗ, thì phải tách nó trong state ra chứ không để trong Header nữa
-  const isLoadingUserInfo = useSelector(state => state.UI.Header.userInfo.isLoading)
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
-    dispatch(getUserInfo())
+    if (_.isEmpty(user)) {
+      dispatch(initInfo())
+    }
     // window.addEventListener('resize', () => dispatch(setDimensionBrowserWindow({width: window.innerWidth, height: window.innerHeight})))
     // return window.removeEventListener('resize', () => dispatch(setDimensionBrowserWindow({width: window.innerWidth, height: window.innerHeight})))
-  }, [ dispatch ])
+
+  }, [dispatch, user])
 
   return <div className="App select-none">
-    {
-      isLoadingUserInfo 
-      ? <Loader useStateLoader={true}/> 
-      : <>
+    <AppNavigator>
+      <Loader useStateLoader={true}>
+        <NotFound useStateNotFound={true} />
+        <TopLoader />
         <Toast />
-        <ToastModal/>
-        <AppNavigator />    
-      </>
-    }
+        <ToastModal />
+      </Loader>
+    </AppNavigator>
   </div>
 }
 

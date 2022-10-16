@@ -1,6 +1,6 @@
 import '../assets/css/Header.css'
 import AvatarIcon from '../assets/img/avatar-icon.jpg'
-import { Navbar, Container, Nav, NavDropdown, Placeholder, Badge } from 'react-bootstrap'
+import { Navbar, Container, Nav, NavDropdown, Badge } from 'react-bootstrap'
 import { ROUTE_PATH } from '../constants'
 import { useLocation, Link } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,13 +8,12 @@ import _ from 'lodash'
 import { UserInfo } from '../components'
 import { History } from '../components/NavigateSetter'
 import { useRef, useEffect } from 'react'
-import { setHeightHeader } from '../redux/actions'
+import { setHeightHeader, signOut } from '../redux/actions'
 
 const Header = (props) => {
 
     const { pathname } = useLocation()
     const user = useSelector(state => state.user)
-    const isLoadingUserInfo = useSelector(state => state.UI.Header.userInfo.isLoading)
     const height = useSelector(state => state.UI.Header.height)
     const dispatch = useDispatch()
 
@@ -55,7 +54,7 @@ const Header = (props) => {
                             className="cursor-pointer"
                             as="span"
                             active="active"
-                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/61caf478-c63c-4e00-8311-44bd20a89be4`)}
+                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/37aeb3a7-1673-49f1-b0a7-ed5b40c36515`)}
                         >
                             {pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL)
                                 ? <Badge pill bg="primary">Course</Badge>
@@ -82,42 +81,38 @@ const Header = (props) => {
                     </Nav>
 
                     <Nav className="ms-auto my-2 my-sm-0 user-droplist">
-                        {isLoadingUserInfo ?
-                            <Placeholder as={Nav} animation="glow">
-                                <Placeholder xs={6} className="w-24" />
-                            </Placeholder>
-                            : _.isEmpty(user) ?
-                                <Nav className="my-2 my-sm-0">
-                                    <Nav.Link
-                                        as="span"
-                                        active="active"
-                                    ><Link to={ROUTE_PATH.SIGN_IN} className="cursor-pointer no-underline font-medium"><i className="fa-solid fa-right-to-bracket"></i> Sign in</Link>
-                                    </Nav.Link>
-                                </Nav>
-                                :
-                                <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown').removeAttribute("href")} active="active" id="navbarScrollingDropdown" align="end" className="header-user-dropList"
-                                    title={
-                                        <span className="header-user-title">
-                                            <img src={user?.avatar || AvatarIcon} alt='' className="d-sm-block d-none me-2" style={{ "border": "1px solid #00B871" }} />
-                                            <span className='d-none d-sm-block'>{user?.userName?.length > 15
-                                                ? user?.userName.substring(0, 15).concat('...')
-                                                : user?.userName || 'Username'}
-                                            </span>
-
-                                            <span className='d-sm-none d-block'>{user?.userName?.length > 20
-                                                ? user?.userName.substring(0, 20).concat('...')
-                                                : user?.userName || 'Username'}
-                                            </span>
+                        {_.isEmpty(user) ?
+                            <Nav className="my-2 my-sm-0">
+                                <Nav.Link
+                                    as="span"
+                                    active="active"
+                                ><Link to={ROUTE_PATH.SIGN_IN} className="cursor-pointer no-underline font-medium"><i className="fa-solid fa-right-to-bracket"></i> Sign in</Link>
+                                </Nav.Link>
+                            </Nav>
+                            :
+                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown').removeAttribute("href")} active="active" id="navbarScrollingDropdown" align="end" className="header-user-dropList"
+                                title={
+                                    <span className="header-user-title">
+                                        <img src={user?.avatar || AvatarIcon} alt='' className="d-sm-block d-none me-2" style={{ "border": "1px solid #00B871" }} />
+                                        <span className='d-none d-sm-block'>{user?.userName?.length > 15
+                                            ? user?.userName.substring(0, 15).concat('...')
+                                            : user?.userName || 'Username'}
                                         </span>
-                                    }>
-                                    <NavDropdown.Item disabled>
-                                        <UserInfo user={user} />
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.SIGN_IN)}>
-                                        <div className="cursor-pointer"><i className="fas fa-sign-out-alt" /> Sign out</div>
-                                    </NavDropdown.Item>
-                                </NavDropdown>
+
+                                        <span className='d-sm-none d-block'>{user?.userName?.length > 20
+                                            ? user?.userName.substring(0, 20).concat('...')
+                                            : user?.userName || 'Username'}
+                                        </span>
+                                    </span>
+                                }>
+                                <NavDropdown.Item disabled>
+                                    <UserInfo user={user} />
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span" onClick={() => dispatch(signOut())}>
+                                    <div className="cursor-pointer"><i className="fas fa-sign-out-alt" /> Sign out</div>
+                                </NavDropdown.Item>
+                            </NavDropdown>
                         }
                     </Nav>
                 </Navbar.Collapse>

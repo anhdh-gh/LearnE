@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ScrollToTop } from '../components'
 import routes from './routes'
 import PrivateRoute from './PrivateRoute'
@@ -6,6 +6,7 @@ import PrivateAdminRoute from './PrivateAdminRoute'
 import { NavigateSetter } from '../components'
 
 const AppNavigator = (props) => {
+
     return <BrowserRouter>
         <ScrollToTop/>
         <NavigateSetter/>

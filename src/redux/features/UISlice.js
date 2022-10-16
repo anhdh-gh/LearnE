@@ -3,7 +3,24 @@ import { createSlice } from '@reduxjs/toolkit'
 const UISlice = createSlice({
     name: 'UI',
     initialState: {
+        InitIsProcessing: {
+            isProcessing: true
+        },
+
+        FetchCourseProcessing: {
+            isProcessing: true
+        },
+
         Loader: {
+            isShow: false
+        },
+
+        TopLoader: {
+            isShow: false,
+            isDisplay: false
+        },
+
+        NotFound: {
             isShow: false
         },
 
@@ -26,9 +43,6 @@ const UISlice = createSlice({
         },
 
         Header: {
-            userInfo: {
-                isLoading: true
-            },
             height: 0
         },
 
@@ -49,6 +63,26 @@ const UISlice = createSlice({
         }
     },
     reducers: {
+        initIsProcessingDone: (state, { payload }) => {
+            return {
+                ...state,
+                InitIsProcessing: {
+                    ...state.InitIsProcessing,
+                    isProcessing: false
+                }
+            }
+        },
+
+        fetchCourseProcessingDone: (state, { payload }) => {
+            return {
+                ...state,
+                FetchCourseProcessing: {
+                    ...state.FetchCourseProcessing,
+                    isProcessing: false
+                }
+            }
+        },
+
         showLoader: (state, { payload }) => {
             return {
                 ...state,
@@ -64,6 +98,58 @@ const UISlice = createSlice({
                 ...state,
                 Loader: {
                     ...state.Loader,
+                    isShow: false
+                }
+            }
+        },
+
+        showTopLoader: (state, { payload }) => {
+            return {
+                ...state,
+                TopLoader: {
+                    ...state.TopLoader,
+                    isShow: true,
+                    isDisplay: true
+                }
+            }
+        },
+
+        hideTopLoader: (state, { payload }) => {
+            return {
+                ...state,
+                TopLoader: {
+                    ...state.TopLoader,
+                    isShow: false
+                }
+            }
+        },
+
+        offDisplayTopLoader: (state, { payload }) => {
+            return {
+                ...state,
+                TopLoader: {
+                    ...state.TopLoader,
+                    isShow: false,
+                    isDisplay: false
+                }
+            }
+        },
+
+        showNotFound: (state, { payload }) => {
+            return {
+                ...state,
+                NotFound: {
+                    ...state.NotFound,
+                    isShow: true
+                }
+            }
+        },
+
+        hideNotFound: (state, { payload }) => {
+            return {
+                ...state,
+                NotFound: {
+                    ...state.NotFound,
                     isShow: false
                 }
             }
@@ -116,32 +202,6 @@ const UISlice = createSlice({
                 }
             }
         },        
-
-        showLoadingHeaderUserInfo: (state, { payload }) => {
-            return {
-                ...state,
-                Header: {
-                    ...state.Header,
-                    userInfo: {
-                        ...state.Header.isLoading,
-                        isLoading: true
-                    }
-                }
-            }
-        },
-
-        hideLoadingHeaderUserInfo: (state, { payload }) => {
-            return {
-                ...state,
-                Header: {
-                    ...state.Header,
-                    userInfo: {
-                        ...state.Header.isLoading,
-                        isLoading: false
-                    }
-                }
-            }
-        },
 
         showAuthSignUpIsButtonSignUpSpin: (state, { payload }) => {
             return {
@@ -271,12 +331,20 @@ const UISlice = createSlice({
 })
 
 export const { 
-    showLoader, hideLoader, showToastModal, hideToastModal, 
+    showLoader, hideLoader, 
+    showToastModal, hideToastModal, 
     showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
-    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
-    hideAuthSignUpIsButtonSignUpSpin, setUrl, showAuthSignUpIsPageSignUp,
-    hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, setHeightHeader,
-    setHeightCourseHeader, setDimensionBrowserWindow
+    showAuthSignUpIsButtonSignUpSpin,hideAuthSignUpIsButtonSignUpSpin, 
+    setUrl, 
+    showAuthSignUpIsPageSignUp,hideAuthSignUpIsPageSignUp, 
+    showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, 
+    setHeightHeader,
+    setHeightCourseHeader, 
+    setDimensionBrowserWindow, 
+    showTopLoader, hideTopLoader, offDisplayTopLoader,
+    showNotFound, hideNotFound,
+    initIsProcessingDone,
+    fetchCourseProcessingDone,
 } = UISlice.actions
 
 export default UISlice.reducer

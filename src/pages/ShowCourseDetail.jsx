@@ -2,48 +2,47 @@ import '../assets/css/ShowCourseDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Header, Footer, Loader } from '../components'
 import { useEffect, useCallback } from 'react'
-import { setUrl } from '../redux/actions'
+import { setUrl, getCourseById } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { Accordion } from 'react-bootstrap'
 import { useState } from 'react'
-import { useGetCourseDetailForUser } from '../hook'
 import { History } from '../components/NavigateSetter'
 import { useParams } from 'react-router'
-import { NotFound } from '../pages'
+import _ from 'lodash'
 
 const ShowCourseDetail = (props) => {
 
     const dispatch = useDispatch()
     const { courseId } = useParams()
 
-    const [currentIdShowContentCourse, setCurrentIdShowContentCourse] = useState([])
+    const [ currentIdShowContentCourse, setCurrentIdShowContentCourse ] = useState([])
     const height = useSelector(state => state.UI.Header.height)
-
-    const { data: course, isLoading: isLoadingGetCourseDetailForUser, isFetching: isFetchingGetCourseDetailForUser, refetch: getCourseDetailForUser } = useGetCourseDetailForUser(courseId)
+    const user = useSelector(state => state.user)
+    const course = useSelector(state => state.course)
 
     const redirectToLessonDetail = useCallback(() => {
         History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${course?.lessonCurrentProcessing?.id}`)
     }, [ course?.lessonCurrentProcessing?.id, courseId ])
 
     useEffect(() => {
-        if(course && !isLoadingGetCourseDetailForUser && !isFetchingGetCourseDetailForUser) {
+        if(_.isEmpty(course)) {
+            dispatch(getCourseById(courseId))
+        }
+    }, [ dispatch, course , courseId ])
+
+    useEffect(() => {
+        if(course) {
             if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
                 dispatch(setUrl(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${courseId}`))
-            } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
+            } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED && !_.isEmpty(user)) {
                 redirectToLessonDetail()
             }            
-        } else {
-            getCourseDetailForUser()
-        }
-    }, [ redirectToLessonDetail, getCourseDetailForUser, courseId, isLoadingGetCourseDetailForUser, course, isFetchingGetCourseDetailForUser, dispatch, course?.status ])
+        } 
 
-    return isLoadingGetCourseDetailForUser 
-        || isFetchingGetCourseDetailForUser 
-        || !course?.status 
-        || course.status !== STATUS_TYPE.UNFINISHED 
-        ? <Loader /> 
-        : !course ? <NotFound/> : <div className='max-h-screen'>
+    }, [ course, courseId, dispatch, redirectToLessonDetail, user ])
+
+    return _.isEmpty(course) ? <Loader useStateLoader={true} /> : <div className='max-h-screen'>
         <Header />
 
         <div className="min-h-screen container-xl">

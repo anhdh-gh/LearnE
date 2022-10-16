@@ -1,9 +1,8 @@
 import { STATUS_CODES, KEY } from "../../constants"
 import ACTION_TYPE_SAGA from "../actions/ACTION_TYPE_SAGA"
 import { 
-    showLoader, showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
-    hideLoader, saveUser, refreshToken, removeUser, 
-    showLoadingHeaderUserInfo, hideLoadingHeaderUserInfo, showAuthSignUpIsButtonSignUpSpin,
+    showAuthSignInIsButtonSignInSpin, hideAuthSignInIsButtonSignInSpin, 
+    saveUser, showAuthSignUpIsButtonSignUpSpin,
     hideAuthSignUpIsButtonSignUpSpin, hideAuthSignUpIsPageSignUp, showAuthSignInIsPageSignIn
 } from '../actions'
 import { Notification } from '../../utils'
@@ -13,7 +12,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects'
 import { History } from '../../components/NavigateSetter'
 import { Validation } from "../../validation"
 import { ROUTE_PATH } from "../../constants"
-const { FETCH_USER_INFO, SIGN_IN, REFRESH_TOKEN, SIGN_OUT, SIGN_UP } = ACTION_TYPE_SAGA
+const { SIGN_IN, SIGN_UP } = ACTION_TYPE_SAGA
 const { SUCCESS } = STATUS_CODES
 
 function* signInWorker({ payload }) {
@@ -33,72 +32,18 @@ function* signInWorker({ payload }) {
                 Notification.success("Logged in successfully")
                 yield put(saveUser(user))
                 const { previous } = yield select(state => state.UI.Url)
-                const acceptUrl = [ ROUTE_PATH.HOME, `${ROUTE_PATH.SHOW_COURSE_DETAIL}/61caf478-c63c-4e00-8311-44bd20a89be4` ].some(route => route === previous)
+                const acceptUrl = [ ROUTE_PATH.HOME, `${ROUTE_PATH.SHOW_COURSE_DETAIL}/37aeb3a7-1673-49f1-b0a7-ed5b40c36515` ].some(route => route === previous)
                 History.push(acceptUrl ? previous : ROUTE_PATH.HOME)
             } else {
                 const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message
                 Notification.error(message)
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
             Notification.error("Login failed")
         }
     }
     yield put(hideAuthSignInIsButtonSignInSpin())
-}
-
-function* getUserInfoWorker() {
-    yield put(showLoader())
-    yield put(showLoadingHeaderUserInfo())
-    try {
-        const response = yield call(UserApi.handleGetUserInfo()) // block
-        const { data, meta } = response
-        if(meta.code === SUCCESS) {
-            yield put(saveUser(data))
-        } else {
-            yield put(refreshToken())
-        }
-    } catch (error) {
-        console.log(error)
-    }
-    yield put(hideLoadingHeaderUserInfo())
-    yield put(hideLoader())
-}
-
-function* refreshTokenWorker() {
-    yield put(showLoader())
-    yield put(showLoadingHeaderUserInfo())
-    try {
-        const refreshToken = Cookie.get(KEY.REFRESH_TOKEN)
-        if(refreshToken) {
-            const response = yield call(UserApi.handleRefreshToken(refreshToken)) // block
-            const { data, meta } = response
-            if(meta.code === SUCCESS) {
-                const { accessToken, tokenType, refreshToken, user } = data
-                Cookie.set(KEY.REFRESH_TOKEN, refreshToken)
-                localStorage.setItem(KEY.ACCESS_TOKEN, accessToken)
-                localStorage.setItem(KEY.TOKEN_TYPE, tokenType)
-                yield put(saveUser(user)) 
-            }            
-        }
-    } catch (error) {
-        console.log(error)
-    }
-    yield put(hideLoadingHeaderUserInfo())
-    yield put(hideLoader())
-}
-
-function* signOutWorker() {
-    yield put(showLoader())
-    try {
-        Cookie.remove(KEY.REFRESH_TOKEN)
-        localStorage.removeItem(KEY.ACCESS_TOKEN)
-        localStorage.removeItem(KEY.TOKEN_TYPE)
-        yield put(removeUser())
-    } catch (error) {
-        console.log(error)
-    }
-    yield put(hideLoader())
 }
 
 function* signUpWorker({ payload }) {
@@ -119,7 +64,7 @@ function* signUpWorker({ payload }) {
                 Notification.error(message)
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
             Notification.error("Sign up failed")
         }
     }
@@ -128,9 +73,6 @@ function* signUpWorker({ payload }) {
 
 function* userWatcher() {
     yield takeLatest(SIGN_IN, signInWorker)
-    yield takeLatest(FETCH_USER_INFO, getUserInfoWorker)
-    yield takeLatest(REFRESH_TOKEN, refreshTokenWorker)
-    yield takeLatest(SIGN_OUT, signOutWorker)
     yield takeLatest(SIGN_UP, signUpWorker)
 }
 

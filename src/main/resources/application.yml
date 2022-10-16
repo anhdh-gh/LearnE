@@ -3,11 +3,11 @@ app:
 
 spring:
   datasource:
-    url: mysql://o1phhfb5paah5n4c:cgfp5hatumtevwdd@r98du2bxwqkq3shg.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/wenf20llniwlmley
-    username: o1phhfb5paah5n4c
-    password: cgfp5hatumtevwdd
+    url: jdbc:postgresql://ec2-44-209-24-62.compute-1.amazonaws.com:5432/d5n7pg3io17ktp
+    username: tcdtbzhwzhgcdf
+    password: 1a3fac565bb99232c01c52f0c33afa232e307675c9bb0fa6fceb5aeb67639429
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

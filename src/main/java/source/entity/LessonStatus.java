@@ -20,7 +20,7 @@ import source.entity.enumeration.StatusType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "lessonstatus")
+@Table(name = "lessonstatus", schema = "public")
 @SuperBuilder
 public class LessonStatus extends UidBaseEntity {
 

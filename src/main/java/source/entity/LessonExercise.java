@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "lessonexercise")
+@Table(name = "lessonexercise", schema = "public")
 @SuperBuilder
 public class LessonExercise extends AutoIncrementIdBaseEntity {
 

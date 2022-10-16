@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "lessonquestionhistory")
+@Table(name = "lessonquestionhistory", schema = "public")
 @SuperBuilder
 public class LessonQuestionHistory extends UidBaseEntity {
 

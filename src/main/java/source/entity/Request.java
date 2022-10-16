@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "request")
+@Table(name = "request", schema = "public")
 @SuperBuilder
 public class Request extends UidBaseEntity {
 

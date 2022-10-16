@@ -6,7 +6,7 @@ service:
   question-bank:
     baseurl: https://learnequestionbank.herokuapp.com
   course:
-    baseurl: http://localhost:6013
+    baseurl: https://learnecourse.herokuapp.com
 # Database Firebase
 firebase:
   service-account-filename: classpath:firebase-service-accounts.json

@@ -5,7 +5,7 @@ export const signIn = (username, password, rememberMe) => ({
     payload: {username, password, rememberMe}
 })
 
-export const signOut= () => ({
+export const signOut = () => ({
     type: ACTION_TYPE_SAGA.RESET_INFO_WHEN_NO_MORE_USER,
 })
 

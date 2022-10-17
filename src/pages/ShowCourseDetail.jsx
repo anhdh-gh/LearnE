@@ -2,7 +2,7 @@ import '../assets/css/ShowCourseDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Header, Footer, Loader } from '../components'
 import { useEffect, useCallback } from 'react'
-import { setUrl, getCourseById } from '../redux/actions'
+import { getCourseById } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { Accordion } from 'react-bootstrap'
@@ -32,15 +32,11 @@ const ShowCourseDetail = (props) => {
     }, [ dispatch, course , courseId ])
 
     useEffect(() => {
-        if(course) {
-            if(course?.status && course.status === STATUS_TYPE.UNFINISHED) {
-                dispatch(setUrl(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${courseId}`))
-            } else if(course?.status && course.status !== STATUS_TYPE.UNFINISHED && !_.isEmpty(user)) {
-                redirectToLessonDetail()
-            }            
+        if(course && course?.status && course.status !== STATUS_TYPE.UNFINISHED && !_.isEmpty(user)) {
+            redirectToLessonDetail()        
         } 
 
-    }, [ course, courseId, dispatch, redirectToLessonDetail, user ])
+    }, [ course, redirectToLessonDetail, user ])
 
     return _.isEmpty(course) ? <Loader useStateLoader={true} /> : <div className='max-h-screen'>
         <Header />

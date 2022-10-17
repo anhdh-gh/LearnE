@@ -12,7 +12,6 @@ import _ from 'lodash'
 
 const App = () => {
 
-  // Đoạn userInfo loading này dùng nhiều chỗ, thì phải tách nó trong state ra chứ không để trong Header nữa
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 

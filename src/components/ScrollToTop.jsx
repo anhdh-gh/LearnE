@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { hideNotFound } from "../redux/actions"
+import { setUrl, hideNotFound } from "../redux/actions"
 
 const ScrollToTop = () => {
 
@@ -11,6 +11,8 @@ const ScrollToTop = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
 
+        dispatch(setUrl(pathname))
+        
         return () => dispatch(hideNotFound())
     }, [ pathname, dispatch ])
 

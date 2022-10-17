@@ -2,7 +2,7 @@ import '../assets/css/ShowLessonDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Loader, CourseHeader } from '../components'
 import { useEffect, useState, useRef } from 'react'
-import { setUrl, getCourseById, updateLessonStatus, showNotFound, hideNotFound } from '../redux/actions'
+import { getCourseById, updateLessonStatus, showNotFound, hideNotFound } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useSelector, useDispatch } from 'react-redux'
 import { Accordion } from 'react-bootstrap'
@@ -29,15 +29,6 @@ const ShowLessonDetail = (props) => {
         }
 
     }, [ dispatch, course, courseId ])
-
-    useEffect(() => {
-        if (course) {
-            if (course?.status && course.status !== STATUS_TYPE.UNFINISHED) {
-                dispatch(setUrl(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${course?.lessonCurrentProcessing?.id}`))
-            }
-        }
-
-    }, [ course, dispatch, course?.status ])
 
     const refScrollChapter = useRef(null)
     const refNavbarButtom = useRef(null)
@@ -97,11 +88,9 @@ const ShowLessonDetail = (props) => {
                 }
 
                 dispatch(hideNotFound())
-            } else {
-                if(!isPFetchCourseProcessing) {
-                    dispatch(showNotFound())
-                }
-            }
+            } 
+        } else if(!isPFetchCourseProcessing) {
+            dispatch(showNotFound())
         }
 
     }, [ isPFetchCourseProcessing, heightCourseContent, dispatch, course, chapterCurrentShow, lessonId, currentLesson ])

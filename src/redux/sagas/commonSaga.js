@@ -14,12 +14,18 @@ const { SUCCESS } = STATUS_CODES
 function* initInfoWorker() {
     yield put(showLoader())
     try {
-        const responseUser = yield call(UserApi.handleGetUserInfo())
+        const accessToken = localStorage.getItem(KEY.ACCESS_TOKEN)
+        const tokenType = localStorage.getItem(KEY.TOKEN_TYPE)
+        const refreshToken = Cookie.get(KEY.REFRESH_TOKEN)
 
-        // Save user info
-        const { data: dataUser, meta: metaUser } = responseUser
-        if(metaUser.code === SUCCESS) {
-            yield put(saveUser(dataUser))
+        if ((accessToken && tokenType) || refreshToken) {
+            const responseUser = yield call(UserApi.handleGetUserInfo())
+
+            // Save user info
+            const { data: dataUser, meta: metaUser } = responseUser
+            if(metaUser.code === SUCCESS) {
+                yield put(saveUser(dataUser))
+            }
         }
     } catch (error) {
         console.error(error)

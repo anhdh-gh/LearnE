@@ -17,13 +17,20 @@ import { CommonUtil } from '../utils'
 const ShowLessonDetail = (props) => {
 
     let { courseId, lessonId } = useParams()
-    lessonId = parseInt(lessonId)
+    lessonId = lessonId ? parseInt(lessonId) : null
 
     const heightCourseHeader = useSelector(state => state.UI.CourseHeader.height)
     const isPFetchCourseProcessing = useSelector(state => state.UI.FetchCourseProcessing.isProcessing)
 
     const dispatch = useDispatch()
     const course = useSelector(state => state.course)
+
+    useEffect(() => {
+        if(!lessonId) {
+            dispatch(showNotFound())
+        }
+
+    }, [ dispatch, lessonId ])
 
     useEffect(() => {
         if(_.isEmpty(course)) {

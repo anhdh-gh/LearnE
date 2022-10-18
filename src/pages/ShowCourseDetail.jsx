@@ -23,8 +23,12 @@ const ShowCourseDetail = (props) => {
     const course = useSelector(state => state.course)
 
     const redirectToLessonDetail = useCallback(() => {
-        History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${course?.lessonCurrentProcessing?.id}`)
-    }, [ course?.lessonCurrentProcessing?.id, courseId ])
+        if(course?.lessonCurrentProcessing?.id) {
+            History.replace(`${ROUTE_PATH.SHOW_LESSON_DETAIL}/${courseId}/${course?.lessonCurrentProcessing?.id}`)
+        } else if(_.isEmpty(user)) {
+            History.push(ROUTE_PATH.SIGN_IN)
+        }
+    }, [ course?.lessonCurrentProcessing?.id, courseId, user ])
 
     useEffect(() => {
         if(_.isEmpty(course)) {

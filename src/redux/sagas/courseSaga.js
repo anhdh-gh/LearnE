@@ -110,12 +110,12 @@ function* updateLessonStatusWorker({ payload }) {
 
             if(res) {
                 yield put(saveCourse(handleCourseData(course)))
-                yield put(hideTopLoader())
             }
         }
     } catch (error) {
         console.error(error)
     }
+    yield put(hideTopLoader())
 }
 
 function* courseWatcher() {

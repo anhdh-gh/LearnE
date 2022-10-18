@@ -1,0 +1,16 @@
+.homePage-container > .header {
+    background-color: #3b4c9b;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../img/pages-image.png");
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.homePage-container > .main {
+    padding: 3rem 0;
+    background-color: #f6f7fb;
+}

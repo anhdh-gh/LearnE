@@ -12,6 +12,7 @@ import { setHeightHeader, signOut } from '../redux/actions'
 
 const Header = (props) => {
 
+    const { notUseHeightHeader } = props
     const { pathname } = useLocation()
     const user = useSelector(state => state.user)
     const height = useSelector(state => state.UI.Header.height)
@@ -119,7 +120,7 @@ const Header = (props) => {
             </Container>
         </Navbar>
 
-        <div style={{ height: `${height}px` || "0px" }}></div>
+        {!notUseHeightHeader && <div style={{ height: `${height}px` || "0px" }}></div>}
     </>
 }
 

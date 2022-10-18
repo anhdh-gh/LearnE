@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { History } from '../components/NavigateSetter'
 import { useParams } from 'react-router'
 import _ from 'lodash'
+import Parser from 'html-react-parser'
 
 const ShowCourseDetail = (props) => {
 
@@ -46,7 +47,8 @@ const ShowCourseDetail = (props) => {
                 <div className="col-lg-8">
                     <div className='mt-4'>
                         <h1 className='font-bold text-3xl'>{course.name}</h1>
-                        <p className='text-gray-500'>{course.description}</p>
+                        {Parser(course?.description)}
+                        
                     </div>
 
                     {course?.targets && course?.targets?.length > 0 && <div className='mt-5'>

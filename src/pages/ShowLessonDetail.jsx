@@ -11,6 +11,8 @@ import { useParams } from 'react-router'
 import ReactPlayer from 'react-player/youtube'
 import { Navbar, Container, Offcanvas } from 'react-bootstrap'
 import _ from 'lodash'
+import Parser from 'html-react-parser'
+import { CommonUtil } from '../utils'
 
 const ShowLessonDetail = (props) => {
 
@@ -138,10 +140,14 @@ const ShowLessonDetail = (props) => {
                             </div>}
                         </div>
 
-                        <div className='font-semibold mt-4 ps-3 text-4xl'>{currentLesson?.name}</div>
-                        <div className='text-gray-500 mt-2.5 ps-3'>Last updated on {currentLesson?.updateTime || currentLesson?.createTime}</div>
+                        <div className='px-3'>
+                            <div className='font-semibold mt-4 text-4xl'>{currentLesson?.name}</div>
+                            <div className='text-gray-500 text-base mt-2.5'>Last updated on {CommonUtil.getDateStringFromMilliseconds(currentLesson?.updateTime || currentLesson?.createTime)}</div>
 
-                        <div className='mt-5 text-center py-3 text-gray-500 font-semibold'>Made with <i className="text-red-500 fa-solid fa-heart"></i> · Powered by Do Hung Anh</div>
+                            {Parser(currentLesson?.description)}
+
+                            <div className='mt-5 text-center py-3 text-gray-500 font-semibold'>Made with <i className="text-red-500 fa-solid fa-heart"></i> · Powered by Do Hung Anh</div>
+                        </div>
                     </div>
                 </div>
                 <div className={`${showCourseContent && window.innerWidth >= 992 ? 'col-lg-3' : 'd-none'} px-0`}>

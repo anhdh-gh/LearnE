@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from "react-redux"
 import { useEffect, useCallback } from 'react'
 import { 
-    signOut, setUrl, signIn, signUp, showAuthSignInIsPageSignIn,
+    signOut, signIn, signUp, showAuthSignInIsPageSignIn,
     hideAuthSignUpIsPageSignUp, showAuthSignUpIsPageSignUp, hideAuthSignInIsPageSignIn
 } from '../redux/actions'
 import { History } from '../components/NavigateSetter'
@@ -26,14 +26,12 @@ const Auth = (props) => {
     const [ username, setUserName] = useState('')
 
     const showPageSignIn = useCallback(() => {
-        dispatch(setUrl(ROUTE_PATH.SIGN_IN))
         History.replace(ROUTE_PATH.SIGN_IN)
         dispatch(showAuthSignInIsPageSignIn())
         dispatch(hideAuthSignUpIsPageSignUp())
     }, [ dispatch ])
 
     const showPageSignUp = useCallback(() => {
-        dispatch(setUrl(ROUTE_PATH.SIGN_UP))
         History.replace(ROUTE_PATH.SIGN_UP)
         dispatch(showAuthSignUpIsPageSignUp())
         dispatch(hideAuthSignInIsPageSignIn())

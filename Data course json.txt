@@ -1,0 +1,247 @@
+	
+{
+    "name": "Toeic english course",
+    "author": "Kim Dung",
+    "image": "https://www.testcenter.vn/blog/wp-content/uploads/2020/11/Banner-002.jpg",
+    "description": "<p className='text-gray-500'>Toeic English course from basic to advanced, the result of this course is that you have the knowledge of Toeic English to be able to take the exam and get the highest score possible. <a href='https://ptiteduvn-my.sharepoint.com/personal/anhdh_b18cn010_stu_ptit_edu_vn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fanhdh%5Fb18cn010%5Fstu%5Fptit%5Fedu%5Fvn%2FDocuments%2FCac%5Fmon%5Fhoc%2FToeic&ga=1' target=\"_blank\" className='no-underline'>Document</a>.</p>",
+    "level": "Basic",
+    "price": "Free",
+    "targets": [
+        {
+            "text": "Mất gốc lấy lại căn bản, tạo cảm hứng"
+        },
+        {
+            "text": "Học cách quản lý thời gian, phân tích đề, tìm hiểu thói quen ra đề của Toeic."
+        },
+        {
+            "text": "Tăng ít nhất 50-100 điểm so với điểm ban đầu."
+        },
+        {
+            "text": "Mở rộng kiến thức, hướng dẫn các tài liệu sát với đề thi nhất."
+        }
+    ],
+    "requests": [
+        {
+            "text": "Chủ động học tập và làm theo sự hướng dẫn"
+        },
+        {
+            "text": "Cần có nền tảng tiếng anh căn bản"
+        },
+        {
+            "text": "Tích cực trao đổi với cố giáo và các học viên khác"
+        },
+        {
+            "text": "Làm các bài tập đầy đủ"
+        }
+    ],
+    "chapters": [
+        {
+            "name": "Knowledge base",
+            "lessons": [
+                {
+                    "name": "Part of speech",
+                    "duration": "2:09:10",
+                    "description": "<div className='mt-4 text-base'><div className=\"mb-2 text-lg\"><a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Etp51e5ZJANOivOj2XVMqRwBpLmgnRno77ExQvYGq_9q4w?e=7aO1F7' target=\"_blank\" className='no-underline'>Homework</a></div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ mới chủ đề contract quyển 600 từ.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Làm bt trang 5,6, dịch part 7 ra vở.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ loại - Part of speech (sau unit 1) phần từ vựng unit 1-20.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Chuẩn bị trước từ mới chủ đề Marketing.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại các thì hiện tại (Present tense).</div></div>",
+                    "video": "https://youtu.be/mPLXxcSZICI"
+                },
+                {
+                    "name": "Present tense",
+                    "duration": "2:05:04",
+                    "description": "<div className='mt-4 text-base'><div className=\"mb-2 text-lg\"><a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Ev7Ic_OPLA1MqDrIunHW-q4BNfwlh915PyZnEXZbj3qh2g?e=kAg6wF' target=\"_blank\" className='no-underline'>Homework</a></div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Làm tiếp unit 2 quyển 600 từ.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 1: 10-A, 11-A, 12-B, 13-D, 14-B, 15-D, 16-D, 17-B, 18-D, 19-A, 20-B, 21-C, 22-A, 23-D.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Dịch trước unit 3- warranty.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Làm BT trang 22 - 23 sách ngữ pháp very easy.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem trước past tense (thì quá khứ).</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe tiếp unit 2 Trang 32 - 35 sách nghe (very easy), track 7- 10.</div><div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại và xem key unit 1 track 2-5.</div></div>",
+                    "video": "https://youtu.be/A1moI-Lf4Co"
+                },
+                {
+                    "name": "Part 1: Describe a photo with a person - Past tense",
+                    "duration": "1:52:23",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Ei6p7eSLy_VLo33-i-XgRKkBKIX3q2hhA3IIop7AF_6WPA?e=X6Hnmo' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Làm tiếp bài từ vựng unit 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 2: 10-C, 11-A, 12-C, 13-A, 14-D, 15-B, 16-C, 17-A, 18-D, 19-B, 20-A, 21-C, 22-D, 23-B.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Ngữ pháp trang 36, 37 sách very easy 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test unit 3 trang 46 - 49 sách very easy 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe 10 bức tranh tả 1 người (tomato leap).</div> </div>",
+                    "video": "https://youtu.be/hDsiGIP0ggY"
+                },
+                {
+                    "name": "Part 1: Describe a photo with two or more people - Future tense",
+                    "duration": "1:42:11",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EqHNNFMR5_JHrMJlkb8P778BM6unOrhtZYMKBzLD7e7YYg?e=b4CbUk' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 3: 10-D, 11-B, 12-D, 13-C, 14-A, 15-D, 16-A, 17-B, 18-C, 19-A, 20-D, 21-D, 22-B, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Ngữ pháp Verb tense (sau phần từ mới unit 4).</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test unit 4 sách very easy.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe 10 bức tranh có 2 người trở lên (tomato leap).</div> </div>",
+                    "video": "https://youtu.be/Lum10F-cP1Y"
+                },
+                {
+                    "name": "Part 1: Describe the photo of the object or scene - Passive voice",
+                    "duration": "1:59:51",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EgINd3VeUVRBlevvxK9rs8oB5Wk4rT1FnRUXxhapaTjnzQ?e=ikk3a3' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 4: 10-A, 11-A, 12-C, 13-D, 14-C, 15-A, 16-D, 17-A, 18-C, 19-C, 20-A, 21-B, 22-A, 23-D.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test unit 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe 10 bức tranh sự vật, khung cảnh (track 025).</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Ngữ pháp câu bi động (sau từ mới bài 5).</div> </div>",
+                    "video": "https://youtu.be/1fC-g5LKM8Q"
+                },
+                {
+                    "name": "Ving and vinf",
+                    "duration": "2:05:55",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EuxWKJilwOpIq_D4H0Nn_3MBan14vGA4weFweRAgVnBs5A?e=GgXJFd' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 6.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 5: 10-B, 11-C, 12-B, 13-A, 14-A, 15-D, 16-A, 17-D, 18-C, 19-B, 20-B, 21-C, 22-D, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Ngữ pháp - Ving and Vinf trang 45-46 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Mini test unit 6.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại các phần tranh.</div> </div>",
+                    "video": "https://youtu.be/KrA1PV0PsWI"
+                },
+                {
+                    "name": "Part 2: Identifying time, identifying people - Pronouns",
+                    "duration": "1:54:50",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Eu5wQLDYvRBIn3ii3JNo5UIB24P2WJJ1lf_Y-YH4JHP6Bw?e=LpQsvS' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 7.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 6: 10-A, 11-B, 12-B, 13-B, 14-B, 15-C, 16-B, 17-A, 18-D, 19-C, 20-C, 21-D, 22-B, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Ngữ pháp pronouns (trang kế tiếp sau phần từ mới unit 7).</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test unit 7.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại câu hỏi when & who (part 2).</div> </div>",
+                    "video": "https://youtu.be/YEGx4paY63Y"
+                },
+                {
+                    "name": "Part 2: Identifying a opinion, identifying a choice - Relative pronouns",
+                    "duration": "2:00:36",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EowTsiM1W0ROnHYoHwPdu-8BDzRqPbkoc1379WxxDz-HoQ?e=RMcIUu' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 8.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 7: 10-D, 11-C, 12-A, 13-B, 14-D, 15-B, 16-A, 17-C, 18-D, 19-A, 20-C, 21-D, 22-B, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span>Ngữ pháp trang 92 - 93 relative pronouns.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại câu hỏi opinion, choice (part 2).</div> </div>",
+                    "video": "https://youtu.be/fYh5IgQuApY"
+                },
+                {
+                    "name": "Part 2: Identifying a suggestion - Conjunctions",
+                    "duration": "2:03:56",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Et2qLqzIM6xDkiTFZsrcBKkBsVHf-H75N8McoNtuADZWxw?e=MNGkcq' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 9.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 8: 10-A, 11-B, 12-B, 13-D, 14-A, 15-B, 16-C, 17-C, 18-B, 19-B, 20-C, 21-B, 22-C, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span>Ngữ pháp liên từ.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại câu hỏi suggestion part 2.</div> </div>",
+                    "video": "https://youtu.be/tt5tniAMpEU"
+                },
+                {
+                    "name": "Part 2: Identifying a reason, identifying a location - Modifiers",
+                    "duration": "1:55:29",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/ErLzjzOZLTdEsDVha_2h3GwBYf1wMthI6nUeZuB55bCrYg' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 10.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 9: 10-C, 11-D, 12-B, 13-A, 14-C, 15-A, 16-B, 17-C, 18-C, 19-B, 20-D, 21-B, 22-A, 23-B.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span>Ngữ pháp modifiers.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe mini test unit 10.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại câu hỏi where and why.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe part 2 tổng hợp 25 câu.</div> </div>",
+                    "video": "https://youtu.be/vNHtWpeh7BQ"
+                }
+            ]
+        },
+        {
+            "name": "Start practicing",
+            "lessons": [
+                {
+                    "name": "Correct the exercise and practice 1",
+                    "duration": "1:56:54",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EkKhW5Rd2v5HhNaDEnOHwNMBmdFUW6cFVSn5a2ijQzIdnA?e=htLlWH' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 11.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 10: 10-A, 11-B, 12-A, 13-A, 14-B, 15-C, 16-D, 17-C, 18-C, 19-B, 20-D, 21-B, 22-B, 23-C.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span>Reading 101 - 130 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 3 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 2 đã check trên lớp.</div> </div>",
+                    "video": "https://youtu.be/2U3J090VNrA"
+                },
+                {
+                    "name": "Correct the exercise and practice 2",
+                    "duration": "1:35:00",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/ErSQ4Osa-MFCsZfaOfJ11SsByBueTGFBU9PeCCOeuYljwQ' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 12.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 11: 10-C, 11-A, 12-A, 13-B, 14-D, 15-A, 16-B, 17-D, 18-A, 19-B, 20-B, 21-A, 22-D, 23-C.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 131 - 150 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 4 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Check lại part 3 test 1.</div> </div>",
+                    "video": "https://youtu.be/4g0_nkxRppM"
+                },
+                {
+                    "name": "Correct the exercise and practice 3",
+                    "duration": "1:52:28",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EjQedXLK0RxEl_KkwsYxObsBxfThR1rPluO12iu7XFlI1w?e=p8TDUg' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 13.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 12: 10-D, 11-C, 12-A, 13-D, 14-B, 15-A, 16-B, 17-C, 18-D, 19-C, 20-C, 21-D, 22-A, 23-D.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 151 - 171 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 3 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Check lại part 1, 2, 4 test 1.</div> </div>",
+                    "video": "https://youtu.be/cUTbU_sN0VM"
+                },
+                {
+                    "name": "Correct the exercise and practice 4",
+                    "duration": "1:58:42",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Ej-I8aY7cedDutXeFkGEa3UBYEaws0zax8yvxSy5A-8isg?e=uOVkEy' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 14.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 13: 10-D, 11-B, 12-C, 13-A, 14-D, 15-B, 16-A, 17-D, 18-D, 19-B, 20-D, 21-A, 22-D, 23-C</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc Reading đọc tiếp 172 - 185 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 4 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 101 - 171 test 1: 101-A, 102-D, 103-D, 104-D, 105-A, 106-B, 107-C, 108-D, 109-D, 110-A, 111-B, 112-B, 113-C, 114-B, 115-D, 116-B, 117-C, 118-C, 119-C, 120-A, 121-A, 122-C, 123-D, 124-A, 125-C, 126-D, 127-B, 128-B, 129-C, 130-B, 131-D, 132-B, 133-A, 134-D, 135-A, 136-B, 137-B, 138-C, 139-B, 140-D, 141-A, 142-B, 143-D, 144-A, 145-B, 146-C, 147-B, 148-C, 149-B, 150-D, 151-B, 152-C, 153-A, 154-D, 155-D, 156-A, 157-B, 158-A, 159-C, 160-A, 161-D, 162-A, 163-D, 164-A, 165-C, 166-B, 167-C, 168-A, 169-B, 170-C, 171-A.</div> </div>",
+                    "video": "https://youtu.be/cJjIg2gKfBs"
+                },
+                {
+                    "name": "Correct the exercise and practice 5",
+                    "duration": "1:48:48",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EqhUBgp2U49NpsW25FIMG0QBeBNGG1spSPPcyodffB8IiA?e=h57HGK' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 15.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 14: 10-A, 11-D, 12-B, 13-B, 14-C, 15-D, 16-A, 17-C, 18-C, 19-C, 20-B, 21-A, 22-D, 21-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 186 - 200 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 3 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lai part 1, 2, 4 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 172 - 185 test 1: 172-B, 173-C, 174-B, 175-D, 176-C, 177-B, 178-C, 179-D, 180-A, 181-C, 182-B, 183-A, 184-B, 185-C.</div> </div>",
+                    "video": "https://youtu.be/S1YjiTxVIE8"
+                },
+                {
+                    "name": "Correct the exercise and practice 6",
+                    "duration": "2:02:25",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href=' https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EqweQgqI-8pCo6c0nHRaEMcB3AiRHE3rFwEZjwXSqUX-RQ?e=9gPgcR' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 16.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 15: 10-C, 11-C, 12-C, 13-C, 14-B, 15-A, 16-D, 17-B, 18-A, 19-C, 20-D, 21-B, 22-A, 23-B.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 101 - 130 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 1, 2 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 3 test 3 và xem lại part 5 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 186 - 200 test 1: 180-A, 181-C, 182-B, 183-A, 184-B, 185-C, 186-B, 187-C, 188-A, 189-D, 190-A, 191-B, 192-C, 193-A, 194-D, 195-D, 196-A, 197-C, 198-B, 199-C, 200-D.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 101 - 130 test 3: 101-B, 102-A, 103-A, 104-C, 105-D, 106-C, 107-A, 108-C, 109-B, 110-A, 111-B, 112-A, 113-A, 114-D, 115-C, 116-D, 117-C, 118-D, 119-D, 120-C, 121-D, 122-C, 123-A, 124-B, 125-B, 126-D, 127-D, 128-B, 129-D, 130-A.</div> </div>",
+                    "video": "https://youtu.be/urLZJuBQG1o"
+                },
+                {
+                    "name": "Correct the exercise and practice 7",
+                    "duration": "1:46:38",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EkBWQoViy0VGpxV4mSBao1sBvYycQcdrf23v0ZyufbVSKQ?e=a8Wohn' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 17.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 16: 10-C, 11-A, 12-D, 13-A, 14-C, 15-C, 16-C, 17-C, 18-D, 19-C, 20-B, 21-A, 22-D, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 131 - 151 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 3 test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại key part 1, 2, 4 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 101 - 131: 101-A, 102-C, 103-A, 104-D, 105-A, 106-D, 107-A, 108-B, 109-B, 110-A, 111-C, 112-B, 113-D, 114-C, 115-B, 116-D, 117-A, 118-B, 119-C, 120-D, 121-A, 122-C, 123-B, 124-A, 125-C, 126-B, 127-B, 128-A, 129-D, 130-C.</div> </div>",
+                    "video": "https://youtu.be/s76GBbXHpfE"
+                },
+                {
+                    "name": "Correct the exercise and practice 8",
+                    "duration": "2:06:35",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Em15IoErbkVEjVaRtcqIzZgBiE-zYzay_Xw8sCoTd4YNxA?e=1tmMLI' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 18.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 17: 10-C, 11-C, 12-C, 13-C, 14-B, 15-A, 16-B, 17-D, 18-B, 19-A, 20-C, 21-D, 22-A, 23-D.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 152 - 171 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening nghe tiếp part 1, 2 test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại key part 3 test 4, part 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 131 - 151 test 2: 131-C, 132-D, 133-A, 134-B, 135-D, 136-D, 137-B, 138-A, 139-B, 140-A, 141-B, 142-D, 143-C, 144-C, 145-A, 146-B, 147-B, 148-D, 149-B, 150-C, 151-D.</div> </div>",
+                    "video": "https://youtu.be/xIaIkdo8vt8"
+                },
+                {
+                    "name": "Correct the exercise and practice 9",
+                    "duration": "2:00:27",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EmfmZOfYf8ZApEFqgQ441LkBukJt6Ti_GGJtcr81UqHfRw?e=5jYUX6' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 19.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 18: 10-A, 11-C, 12- ,A 13-A, 14-C, 15-B, 16-B, 17-D, 18-A, 19-D, 20-A, 21-B, 22-C, 23-B.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading 171 - 185 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 3 test 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 1, 2, 4 test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 151 - 171 test 2: 151-D, 152-D, 153-D, 154-B, 155-A, 156-B, 157-A, 158-B, 159-B, 160-C, 161-A, 162-C, 163-B, 164-B, 165-D, 166-D, 167-A, 168-D, 169-C, 170-A, 171-C.</div> </div>",
+                    "video": "https://youtu.be/KpN5W-I4LgQ"
+                },
+                {
+                    "name": "General review of knowledge",
+                    "duration": "2:06:34",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EqsjX_xeiKBPqDeqZL7mlOIBHJxSS8BhichsGvUeuK_w4A?e=VRU9ne' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Từ vựng unit 19.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key unit 18: 10-A, 11-C, 12- ,A 13-A, 14-C, 15-B, 16-B, 17-D, 18-A, 19-D, 20-A, 21-B, 22-C, 23-B.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 186 - 200 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Listening part 4 test 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 3 test 5, key bài 19, 20.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 171 - 185 test 2: 171-C, 172-A, 173-C, 174-C, 175-D, 176-B, 177-D, 178-B, 179-C, 180-A, 181-D, 182-D, 183-B, 184-C, 185-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Lesson 19: 10-B, 11-B, 12-C, 13-A, 14-C, 15-B, 16-A, 17-D, 18-C, 19-C, 20-D, 21-B, 22-A, 23-C.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Lesson 20: 10-B, 11-A, 12-A, 13-D, 14-D, 15-A, 16-A, 17-A, 18-B, 19-B, 20-C, 21-B, 22-C, 23-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Word reivew: 1-A, 2-B, 3-A, 4-A, 5-C, 6-C, 7-B, 8-A, 9-D, 10-B, 11-D, 12-B, 13-A, 14-C, 15-D, 16-B, 17-A, 18-C, 19-D.</div> </div>",
+                    "video": "https://youtu.be/DuTMXdpGGWc"
+                }
+            ]
+        },
+        {
+            "name": "Acceleration practice and mock exam",
+            "lessons": [
+                {
+                    "name": "Mock exam (1st)",
+                    "duration": "2:33:32",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EkLdv4mdLa1Hje7jdLBrDvMBfAqhgOAz45ig-Klk1bojUA?e=LZNI0v' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại bài test.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> <a href='https://www.facebook.com/groups/351705076734456/' target=\"_blank\" className='no-underline'>Join group</a>.</div> </div>",
+                    "video": "https://youtu.be/wAWNHx5loCI"
+                },
+                {
+                    "name": "Advanced Practice 1",
+                    "duration": "1:55:47",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EkG4swa-53dJqpaDPZXJnJMBt362Nkwbz9HnpSAihrJ-GA?e=GAYFHN' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 101 - 131 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe part 3 test 1 bộ mới.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 1, 2, 4 test 5 bộ cũ.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 186 - 200 test 1: 186-B, 187-A, 188-C, 189-D, 190-B, 191-D, 192-C, 193-A, 194-B, 195-D, 196-C, 197-B, 198-A, 199-D, 200-D.</div> </div>",
+                    "video": "https://youtu.be/3KYc-JJx_Tw"
+                },
+                {
+                    "name": "Advanced Practice 2",
+                    "duration": "1:51:16",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EscwXNh2_SlNqnzM62TfoXgBnPDm0bmWeTfuduhF8r9E5w?e=fveeU6' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 131 - 160 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe part 1, 2 test 1 bộ mới.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 3, 4 test 1, part 5 test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 101 - 130 test 3: 101-C, 102-A, 103-B, 104-D, 105-B, 106-A, 107-A, 108-B, 109-D, 110-D, 111-A, 112-D, 113-C, 114-D, 115-B, 116-B, 117-A, 118-C, 119-A, 120-D, 121-C, 122-C, 123-D, 124-B, 125-A, 126-B, 127-C, 128-B, 129-D, 130-C. </div> </div>",
+                    "video": "https://youtu.be/6EuxnQLcy8w"
+                },
+                {
+                    "name": "Advanced Practice 3",
+                    "duration": "1:49:59",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Erc8uhtY2q1HoeF_7j8NYmAB4qWintWEyi1nuKTo3bq1ew?e=xS5Hgg' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 161 - 185 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe part 4 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 5 test 3, part 1, 2 test 1 và part 3 test 2 đã chữa.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 131 - 160 test 3: 131-C, 132-A, 133-A, 134-D, 135-D, 136-A, 137-B, 138-C, 139-D, 140-C, 141-D, 142-A, 143-D, 144-A, 145-D, 146-B, 147-C, 148-B, 149-B, 150-C, 151-C, 152-A, 153-B, 154-A, 155-B, 156-A, 157-D, 158-B, 159-C, 160-A.</div> </div>",
+                    "video": "https://youtu.be/8GSqo1SDA1Y"
+                },
+                {
+                    "name": "Advanced Practice 4",
+                    "duration": "1:55:25",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Etfm5nf2xPlEjs9EPEQQYv0BGNH6DUiNxPTZWX9BISwPRw?e=ZtWDeI' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 186 - 200 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 5 - test 7.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại part 1, 2, 4 test 2.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 161 - 185 test 3: 161-C, 162-D, 163-A, 164-B, 165-C, 166.B 167-A, 168-B, 169-A, 170-C, 171-D, 172.A 173-D, 174-C, 175-A, 176-A, 177-C, 178.B 179-D, 180-B, 181-D, 182-B, 183-A, 184-A, 185-B. </div> </div>",
+                    "video": "https://youtu.be/TXudGbrwkhE"
+                },
+                {
+                    "name": "Mock exam (2st)",
+                    "duration": "2:27:32",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EjG0k0etZv1Gma0a9JjTysABUdGtSrUM98xwNFXptx_ocA?e=Kpab1Y' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại bài test.</div> </div>",
+                    "video": "https://youtu.be/z8sqwD0K7Ys"
+                },
+                {
+                    "name": "Advanced Practice 5",
+                    "duration": "1:45:34",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EhgghWp-MIJMgl98XRcXT_MBoX7H4NU2_sfeqOjMONH3EQ?e=FGHAgJ' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 101 - 146 test 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 5 test 9, part 3 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe part 4 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> <a href='https://drive.google.com/drive/mobile/folders/1WxNftKhVDhkt38Z15s76WZr2Qp2gE-0U?fbclid=IwAR2x9Pu6NalBvINtZtTcOBUoxxoMuh3C0itZppthETKIOY-SXQQ8LIKBhC5' target=\"_blank\" className='no-underline'>Bộ đề ôn tập</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 186 - 200 test 3: 186-A, 187-C, 188-C, 189-D, 190-B, 191-B, 192-D, 193-A, 194-C, 195-C, 196-D, 197-B, 198-A, 199-C, 200-C.</div> </div>",
+                    "video": "https://youtu.be/6zrGwyfQV_g"
+                },
+                {
+                    "name": "Mock exam (3st)",
+                    "duration": "1:43:26",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Eu8XyjepKCFIjRbFKd3ijd8Btmpst6JHaI1DaYzigkHY0A?e=kBAb8F' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 147 - 167 test 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 5 test 10, part 1, 2, 4 test 3.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe tiếp part 4 test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 101 - 146 test 5: 101-C, 102.D 103-D, 104-A, 105-C, 106.C 107-D, 108-A, 109-B, 110-B, 111-C, 112.C 113-D, 114-D, 115-B, 116-C, 117-D, 118.A 119-C, 120-A, 121-D, 122-C, 123-B, 124-A, 125-B, 126-A, 127-B, 128-B, 129-B, 130-C, 131-B, 132-C, 133-D, 134-A, 135-C, 136-A, 137-C, 138-B, 139-C, 140-C, 141-B, 142-D, 143-B, 144-D, 145-A, 146-D.</div> </div>",
+                    "video": "https://youtu.be/c09ojQL86aw"
+                },
+                {
+                    "name": "Advanced Practice 6",
+                    "duration": "2:02:22",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Ek8HTRV126VFoZddNez80bwB7T6K4EqtNJcRebWSsjWV1A?e=LI62JY' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp 168 - 200 test 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại part 3, 4 test 4, part 5 test 1.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe part 1, 2 test 4.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key 147 - 167 test 5: 147-B, 148-C, 149-B, 150-A, 151-A, 152-D, 153-A, 154-C, 155-B, 156-C, 157-C, 158-B, 159-A, 160-D, 161-C, 162-D, 163-B, 164-D, 165-D, 166-B, 167-A.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Key part 5 test 1: 101-B, 102-D, 103-B, 104-A, 105-D, 106-B, 107-C, 108-B, 109-D, 110-C, 111-B, 112-B, 113-A, 114-B, 115-A, 116-A, 117-D, 118-D, 119-C, 120-A, 121-B, 122-A, 123-D, 124-D, 125-B, 126-A, 127-B, 128-A, 129-B, 130-C.</div> </div>",
+                    "video": "https://youtu.be/1P-p8-JCZUA"
+                },
+                {
+                    "name": "Advanced Practice 7",
+                    "duration": "1:56:46",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/EogW5Rj8cOdIhVuHU6nVuWgB9aukwXulH8S_7ENqiGzx4g?e=IxDfyg' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Reading đọc tiếp test 6.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe lại test 5.</div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Nghe tiếp test 6.</div> </div>",
+                    "video": "https://youtu.be/CbyX6DbTKhI"
+                },
+                {
+                    "name": "Advanced Practice 8",
+                    "duration": "27:06",
+                    "video": "https://youtu.be/juVYVnJoLZ0"
+                },
+                {
+                    "name": "Mock exam (4st)",
+                    "duration": "2:26:39",
+                    "description": "<div className='mt-4 text-base'> <div className=\"mb-2 text-lg\"> <a href='https://ptiteduvn-my.sharepoint.com/:f:/g/personal/anhdh_b18cn010_stu_ptit_edu_vn/Ern_vBb0eCBOg79ENamwPfUB2K1nMp-4TlrowcuVt81KHw?e=w1BxS10' target=\"_blank\" className='no-underline'>Homework</a> </div> <div className=\"flex justify-start mb-2\"><span className='me-3'><i className=\"fa-solid fa-arrows-to-dot\"></i></span> Xem lại bài test.</div> </div>",
+                    "video": "https://youtu.be/A9BBrHvXt54"
+                }
+            ]
+        }
+    ]
+}
+
+	

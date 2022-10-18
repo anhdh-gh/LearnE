@@ -141,10 +141,10 @@ const ShowLessonDetail = (props) => {
                         </div>
 
                         <div className='px-3'>
-                            <div className='font-semibold mt-4 text-4xl'>{currentLesson?.name}</div>
+                            <div className='font-semibold mt-4 text-2xl'>{currentLesson?.name}</div>
                             <div className='text-gray-500 text-base mt-2.5'>Last updated on {CommonUtil.getDateStringFromMilliseconds(currentLesson?.updateTime || currentLesson?.createTime)}</div>
 
-                            {Parser(currentLesson?.description)}
+                            {currentLesson?.description && Parser(currentLesson?.description)}
 
                             <div className='mt-5 text-center py-3 text-gray-500 font-semibold'>Made with <i className="text-red-500 fa-solid fa-heart"></i> · Powered by Do Hung Anh</div>
                         </div>
@@ -162,7 +162,7 @@ const ShowLessonDetail = (props) => {
                                         <Accordion.Header className='flex flex-col ShowLessonDetail-accordion-header bg-gray-100 sticky top-0' onClick={() => setCurrentIdShowContentCourse((previouState => previouState.some(id => id === chapter.id) ? previouState.filter(id => id !== chapter.id) : [...previouState, chapter.id]))}>
                                             <div>
                                                 <div>{`${indexChapter + 1}. ${chapter.name}`}</div>
-                                                <div className='text-xs text-gray-500 mt-1 tracking-widest'>{chapter.numberOfLessonFinshed}/{chapter.lessons.length} | {chapter.totalDuration}</div>
+                                                <div className='text-xs text-gray-500 mt-2 tracking-widest'>{chapter.numberOfLessonFinshed}/{chapter.lessons.length} | {chapter.totalDuration}</div>
                                             </div>
                                         </Accordion.Header>
                                         <Accordion.Body className='p-0'>
@@ -174,7 +174,10 @@ const ShowLessonDetail = (props) => {
                                                         } min-w-full`}>
                                                         <div>
                                                             <div className='flex min-w-full'>
-                                                                <div>{course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}. {lesson.name}</div>
+                                                                <div className='flex pe-1'>
+                                                                    <span className='pr-2'>{course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}.</span>
+                                                                    <span>{lesson.name}</span>
+                                                                </div>
                                                                 {(!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED) && lesson.id !== lessonId
                                                                     ? <div className='ml-auto'><i className="fa-solid fa-lock text-gray-500" /></div>
                                                                     : lesson?.status === STATUS_TYPE.FINISHED
@@ -182,7 +185,7 @@ const ShowLessonDetail = (props) => {
                                                                         : <></>}
                                                             </div>
 
-                                                            <div className='text-xs'><i className={`me-1 fa-solid fa-circle-play ${((lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING) || lesson.id === lessonId) && "text-orange-500"}`}></i> {lesson.duration}</div>
+                                                            <div className='text-xs mt-2'><i className={`me-1 fa-solid fa-circle-play ${((lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING) || lesson.id === lessonId) && "text-orange-500"}`}></i> {lesson.duration}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -206,7 +209,7 @@ const ShowLessonDetail = (props) => {
                                     <Accordion.Header className='flex flex-col ShowLessonDetail-accordion-header bg-gray-100 sticky top-0' onClick={() => setCurrentIdShowContentCourse((previouState => previouState.some(id => id === chapter.id) ? previouState.filter(id => id !== chapter.id) : [...previouState, chapter.id]))}>
                                         <div>
                                             <div>{`${indexChapter + 1}. ${chapter.name}`}</div>
-                                            <div className='text-xs text-gray-500 mt-1 tracking-widest'>{chapter.numberOfLessonFinshed}/{chapter.lessons.length} | {chapter.totalDuration}</div>
+                                            <div className='text-xs text-gray-500 mt-2 tracking-widest'>{chapter.numberOfLessonFinshed}/{chapter.lessons.length} | {chapter.totalDuration}</div>
                                         </div>
                                     </Accordion.Header>
                                     <Accordion.Body className='p-0'>
@@ -218,7 +221,10 @@ const ShowLessonDetail = (props) => {
                                                     } min-w-full`}>
                                                     <div>
                                                         <div className='flex min-w-full'>
-                                                            <div>{course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}. {lesson.name}</div>
+                                                            <div className='flex pe-2'>
+                                                                <span className='pr-2'>{course.chapters.filter((chapter, indexFilter) => indexFilter < indexChapter).reduce((sum, chapter) => sum + chapter.lessons.length, 0) + indexLesson + 1}.</span>
+                                                                <span>{lesson.name}</span>
+                                                            </div>
                                                             {(!lesson.status || lesson?.status === STATUS_TYPE.UNFINISHED) && lesson.id !== lessonId
                                                                 ? <div className='ml-auto'><i className="fa-solid fa-lock text-gray-500" /></div>
                                                                 : lesson?.status === STATUS_TYPE.FINISHED
@@ -226,7 +232,7 @@ const ShowLessonDetail = (props) => {
                                                                     : <></>}
                                                         </div>
 
-                                                        <div className='text-xs'><i className={`me-1 fa-solid fa-circle-play ${((lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING) || lesson.id === lessonId) && "text-orange-500"}`}></i> {lesson.duration}</div>
+                                                        <div className='text-xs mt-2'><i className={`me-1 fa-solid fa-circle-play ${((lesson?.status && lesson?.status === STATUS_TYPE.PROCESSING) || lesson.id === lessonId) && "text-orange-500"}`}></i> {lesson.duration}</div>
                                                     </div>
                                                 </div>
                                             </div>

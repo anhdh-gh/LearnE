@@ -47,7 +47,7 @@ const ShowCourseDetail = (props) => {
                 <div className="col-lg-8">
                     <div className='mt-4'>
                         <h1 className='font-bold text-3xl'>{course.name}</h1>
-                        {Parser(course?.description)}
+                        {course?.description && Parser(course?.description)}
                         
                     </div>
 

@@ -44,6 +44,11 @@ const Auth = (props) => {
         } else if(isSignUp) {
             showPageSignUp()
         }
+
+        return () => {
+            dispatch(showAuthSignInIsPageSignIn())
+            dispatch(hideAuthSignUpIsPageSignUp())
+        }
     }, [ dispatch, isSignIn, isSignUp, showPageSignIn, showPageSignUp ])
 
     useEffect(() => {
@@ -134,7 +139,7 @@ const Auth = (props) => {
             </div>
         </div>
 
-        <div className="container max-w-xs md:hidden" id="container">
+        <div className="container max-w-xs md:hidden static" id="container">
             <div className={`form-container w-100 sign-up-container ${!isPageSignUp && 'd-none'} ${isPageSignUp && 'opacity-100'}`}>
                 <form action="/#" onSubmit={submitSignUp} className="px-4">
                     <h1>Create Account</h1>

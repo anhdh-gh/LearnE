@@ -75,8 +75,8 @@ const Header = (props) => {
                         <Nav.Link
                             className="cursor-pointer"
                             as="span"
-                            active={pathname === ROUTE_PATH.SHOW_COURSE_DETAIL && "active"}
-                            onClick={() => History.push(ROUTE_PATH.SHOW_COURSE_DETAIL)}
+                            active={pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL) && "active"}
+                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/746c8e3a-f39f-4360-9df2-6f396062393a`)}
                         >Course</Nav.Link>
                     </Nav>
 

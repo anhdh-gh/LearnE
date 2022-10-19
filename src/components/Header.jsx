@@ -31,7 +31,7 @@ const Header = (props) => {
                     className="fw-bold cursor-pointer"
                     onClick={() => History.push(ROUTE_PATH.HOME)}
                 >
-                    <i className="fas fa-book-reader" /> Learn EV
+                    <i className="fas fa-book-reader" /> Learn E
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="navbarScroll" />

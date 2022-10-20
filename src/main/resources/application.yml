@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-100-26-39-41.compute-1.amazonaws.com:5432/dfadjkel9cmlon
-    username: udfrqepeatccsz
-    password: 888e21a53fe51002291372304ecd137a1fdc1b533006a3ab8d91f3349d6d2326
+    url: jdbc:postgresql://ec2-44-206-89-185.compute-1.amazonaws.com:5432/db0pt7meirvfkq
+    username: dbbhwsrxdjgxhx
+    password: ebd5cd30243605c7269b37648d48f2d95aac2ca6589b2414c144c6f984013f48
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:

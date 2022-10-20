@@ -2,15 +2,11 @@ package source.exception;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import source.util.GetMessageUtils;
 
 /**
  * Exception Dictionary
  */
 public class BusinessErrors {
-
-    @Autowired
-    public static GetMessageUtils messageUtils;
 
     /**
      * 400

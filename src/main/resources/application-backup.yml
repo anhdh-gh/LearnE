@@ -27,3 +27,7 @@ spring:
 
 app:
   name: service-studyset
+
+service:
+  user:
+    baseurl: https://learneuser.herokuapp.com

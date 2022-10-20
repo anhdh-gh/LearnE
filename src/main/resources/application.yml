@@ -4,11 +4,19 @@ spring:
     username: dbbhwsrxdjgxhx
     password: ebd5cd30243605c7269b37648d48f2d95aac2ca6589b2414c144c6f984013f48
   jpa:
+    show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
 
 app:
   name: service-studyset
+
+service:
+  user:
+    baseurl: https://learneuser.herokuapp.com

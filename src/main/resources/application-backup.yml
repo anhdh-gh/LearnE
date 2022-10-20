@@ -26,4 +26,4 @@ spring:
         format_sql: true
 
 app:
-  name: service-questions-bank
+  name: service-studyset

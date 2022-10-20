@@ -11,4 +11,4 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 app:
-  name: service-questions-bank
+  name: service-studyset

@@ -36,4 +36,6 @@ public class ErrorCodeConstant {
     public static final String SIZE_IS_GREATER_THAN_MINUS_ONE_400030= "400030";
     public static final String QUESTION_ID_NOT_FOUND_400031 = "400031";
     public static final String STUDYSET_NOT_FOUND_400032 = "400032";
+
+    public static final String OWNER_USER_ID_IN_STUDYSET_INVALID_400033 = "400033";
 }

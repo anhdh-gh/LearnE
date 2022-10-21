@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import source.dto.response.BaseResponse;
 import source.third_party.user.constant.RouterUserServiceConstant;
 import source.third_party.user.dto.request.UserGetByIdRequestDto;
+import source.third_party.user.dto.request.UserGetListByIdsRequestDto;
 import source.util.JsonUtil;
 
 import static source.util.HttpUtil.getHeader;
@@ -30,6 +31,16 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
             String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_USER_BY_ID),
             HttpMethod.POST,
             getHeader(userGetByIdRequestDto),
+            new ParameterizedTypeReference<BaseResponse>() {});
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse getUserByUserIds(UserGetListByIdsRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_USER_LIST_BY_IDS),
+            HttpMethod.POST,
+            getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {});
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }

@@ -70,8 +70,7 @@ public class CorsFilter implements Filter {
                 dataRequest.put(RequestKeyConstant.URI, request.getRequestURI());
                 dataRequest.put(RequestKeyConstant.AUTHORIZATION, requestWrapper.getHeader("Authorization"));
                 requestWrapper.setBody(dataRequest.toString());
-                requestWrapper.setBody(dataRequest.toString());
-                chain.doFilter(requestWrapper, res);
+                chain.doFilter(requestWrapper, response);
             } catch (Exception e) {
                 logger.error(e.toString(), e);
                 response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);

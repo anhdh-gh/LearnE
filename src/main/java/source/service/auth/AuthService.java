@@ -1,6 +1,9 @@
 package source.service.auth;
 
 import source.dto.request.*;
+import source.dto.request.studyset.AddOrUpdateExaminationRequestDto;
+import source.dto.request.studyset.CreateStudysetRequestDto;
+import source.dto.request.studyset.GetStudysetByIdRequestDto;
 import source.dto.response.BaseResponse;
 
 public interface AuthService {
@@ -34,4 +37,10 @@ public interface AuthService {
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
 
     BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception;
+
+    BaseResponse createStudyset(CreateStudysetRequestDto request) throws Exception;
+
+    BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception;
+
+    BaseResponse addOrUpdateExaminationRequestDto(AddOrUpdateExaminationRequestDto request) throws Exception;
 }

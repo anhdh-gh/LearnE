@@ -8,6 +8,9 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.UserGetUserInformationRequestDto;
 import source.dto.request.*;
+import source.dto.request.studyset.AddOrUpdateExaminationRequestDto;
+import source.dto.request.studyset.CreateStudysetRequestDto;
+import source.dto.request.studyset.GetStudysetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
 
@@ -107,5 +110,23 @@ public class AuthController {
     @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
     public BaseResponse getCourseDetailForUser(@Valid @RequestBody UpdateLessonStatusRequestDto request) throws Exception {
         return authService.updateLessonStatus(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.CREATE_STUDYSET)
+    public BaseResponse createStudyset(@Valid @RequestBody CreateStudysetRequestDto request) throws Exception {
+        return authService.createStudyset(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.GET_STUDYSET_BY_ID)
+    public BaseResponse getStudysetById(@Valid @RequestBody GetStudysetByIdRequestDto request) throws Exception {
+        return authService.getStudysetById(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.ADD_OR_UPDATE_EXAMINATION)
+    public BaseResponse addOrUpdateExaminationRequestDto(@Valid @RequestBody AddOrUpdateExaminationRequestDto request) throws Exception {
+        return authService.addOrUpdateExaminationRequestDto(request);
     }
 }

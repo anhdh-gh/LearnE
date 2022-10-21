@@ -20,10 +20,12 @@ import source.entity.User;
 import source.entity.enumeration.Role;
 import source.exception.BusinessError;
 import source.exception.BusinessErrors;
+import source.exception.BusinessException;
 import source.repository.AccountRepository;
 import source.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -168,6 +170,16 @@ public class UserServiceImpl implements UserService{
             userRepository.delete(user);
             return BaseResponse.ofSucceeded(request.getRequestId(), user);
         }
+    }
+
+    @Override
+    public BaseResponse getUserByUserIds(UserGetListByIdsRequestDto request) throws Exception {
+        List<User> users = userRepository.findByIdIn(request.getIds());
+        if(users.size() != request.getIds().size()) {
+            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
+            throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
+        }
+        return BaseResponse.ofSucceeded(request.getRequestId(), users);
     }
 
     private User maskPassword(User user){

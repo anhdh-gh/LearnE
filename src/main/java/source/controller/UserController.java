@@ -51,4 +51,10 @@ public class UserController {
     public BaseResponse deleteUser(@RequestBody UserDeleteRequestDto userDeleteRequestDto) throws Exception {
         return userService.deleteUser(userDeleteRequestDto);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.GET_USER_LIST_BY_IDS)
+    public BaseResponse getUserByUserIds(@RequestBody UserGetListByIdsRequestDto request) throws Exception {
+        return userService.getUserByUserIds(request);
+    }
 }

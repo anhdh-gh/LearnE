@@ -13,6 +13,8 @@ public class RouterConstant {
     public static final String UPDATE_USER = "user/update";
     public static final String DELETE_USER = "user/delete";
 
+    public static final String GET_USER_LIST_BY_IDS = "/user/get-by-ids";
+
     private RouterConstant() {
     }
 }

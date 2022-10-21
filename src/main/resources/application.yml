@@ -7,6 +7,8 @@ service:
     baseurl: https://learnequestionbank.herokuapp.com
   course:
     baseurl: https://learnecourse.herokuapp.com
+  studyset:
+    baseurl: https://learnestudyset.herokuapp.com
 # Database Firebase
 firebase:
   service-account-filename: classpath:firebase-service-accounts.json

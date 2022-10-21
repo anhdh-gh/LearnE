@@ -24,6 +24,9 @@ public class Studyset extends BaseEntity {
     @Column(name = "Description")
     private String description;
 
+    @Column(name = "OwnerUserId")
+    private String ownerUserId;
+
     @OneToMany(targetEntity = WordCard.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "StudysetId", nullable = false)
     private List<WordCard> wordCards;

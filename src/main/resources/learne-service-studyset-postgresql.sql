@@ -2,6 +2,7 @@ CREATE TABLE Studyset
 (
     Id          varchar(255) NOT NULL,
     Title       varchar(255) NOT NULL,
+    OwnerUserId       varchar(255) NOT NULL,
     Description text         NOT NULL,
     CreateTime  timestamp,
     UpdateTime  timestamp

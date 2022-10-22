@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.StudysetDto;
+import source.dto.TestResultDto;
 import source.dto.request.DeleteStudysetByIdRequestDto;
 import source.dto.request.GetAllStudysetByOwnerUserIdRequestDto;
 
+import source.dto.request.GetRankStudysetRequestDto;
 import source.dto.request.GetStudysetByIdRequestDto;
-import source.dto.request.SaveStudysetScore;
 import source.dto.response.BaseResponse;
 import source.service.StudysetService;
 
@@ -27,10 +28,10 @@ public class StudysetController {
         return studysetService.createStudyset(request);
     }
 
-    @PostMapping(RouterConstant.SAVE_STUDYSET_SCORE)
+    @PostMapping(RouterConstant.SAVE_STUDYSET_TEST_RESULT)
     @LogsActivityAnnotation
-    public BaseResponse saveStudysetScore(@RequestBody SaveStudysetScore request) throws Exception {
-        return studysetService.saveStudysetScore(request);
+    public BaseResponse saveTestResult(@RequestBody TestResultDto request) throws Exception {
+        return studysetService.saveTestResult(request);
     }
 
     @PostMapping(RouterConstant.GET_STUDYSET_BY_ID)
@@ -53,7 +54,7 @@ public class StudysetController {
 
     @PostMapping(RouterConstant.DELETE_STUDYSET_BY_ID)
     @LogsActivityAnnotation
-    public BaseResponse getAllStudyset(@RequestBody DeleteStudysetByIdRequestDto request) throws Exception {
+    public BaseResponse deleteStudyset(@RequestBody DeleteStudysetByIdRequestDto request) throws Exception {
         return studysetService.deleteStudyset(request);
     }
 
@@ -61,5 +62,11 @@ public class StudysetController {
     @LogsActivityAnnotation
     public BaseResponse updateStudyset(@RequestBody StudysetDto request) throws Exception {
         return studysetService.updateStudyset(request);
+    }
+
+    @PostMapping(RouterConstant.GET_RANK_STUDYSET)
+    @LogsActivityAnnotation
+    public BaseResponse getRankStudyset(@RequestBody GetRankStudysetRequestDto request) throws Exception {
+        return studysetService.getRankStudyset(request);
     }
 }

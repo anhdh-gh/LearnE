@@ -13,15 +13,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "examination", schema = "public")
+@Table(name = "testresult", schema = "public")
 @EqualsAndHashCode(callSuper=false)
-public class Examination extends BaseEntity {
+public class TestResult extends BaseEntity {
 
     @Column(name = "UserId")
     private String userId;
 
     @Column(name = "Score")
     private float score;
+
+    @Column(name = "CompletionTime")
+    private long completionTime;
 
     @ManyToOne(targetEntity = Studyset.class)
     @JoinColumn(name = "StudysetId", nullable = false)

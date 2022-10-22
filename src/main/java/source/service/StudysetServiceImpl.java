@@ -1,6 +1,5 @@
 package source.service;
 
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -10,16 +9,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.dto.StudysetDto;
+import source.dto.TestResultDto;
 import source.dto.UserDto;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
-import source.entity.Examination;
 import source.entity.Studyset;
+import source.entity.TestResult;
 import source.entity.WordCard;
 import source.exception.BusinessErrors;
 import source.exception.BusinessException;
-import source.repository.ExaminationRepository;
 import source.repository.StudysetRepository;
+import source.repository.TestResultRepository;
 import source.third_party.user.dto.request.UserGetByIdRequestDto;
 import source.third_party.user.dto.request.UserGetListByIdsRequestDto;
 import source.third_party.user.service.UserServiceThirdParty;
@@ -41,7 +41,7 @@ public class StudysetServiceImpl implements StudysetService {
     private Environment environment;
 
     @Autowired
-    private ExaminationRepository examinationRepository;
+    private TestResultRepository testResultRepository;
 
     @Autowired
     private UserServiceThirdParty userServiceThirdParty;
@@ -111,7 +111,7 @@ public class StudysetServiceImpl implements StudysetService {
     }
 
     @Override
-    public BaseResponse saveStudysetScore(SaveStudysetScore request) throws Exception {
+    public BaseResponse saveTestResult(TestResultDto request) throws Exception {
         // Kiểm tra user có tồn tại không
         UserDto userDto = checkUserExits(request, request.getUserId());
 
@@ -119,26 +119,25 @@ public class StudysetServiceImpl implements StudysetService {
         Studyset studyset = checkStudysetExits(request.getStudysetId());
 
         // Thực hiện lưu score
-        Optional<Examination> examinationOptional
-            = examinationRepository.findExaminationByUserIdAndStudysetId(request.getUserId(), request.getStudysetId());
+        Optional<TestResult> optionalTestResultDto
+            = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), request.getStudysetId());
 
-        if(!examinationOptional.isPresent()) {
-            Examination examinationSave = Examination
-                .builder()
-                .userId(request.getUserId())
-                .studyset(studyset)
-                .score(request.getScore())
-                .build();
-
-            examinationRepository.save(examinationSave);
+        TestResult testResultResponse = null;
+        if(!optionalTestResultDto.isPresent()) {
+            TestResult testResultSave = modelMapper.map(request, TestResult.class);
+            testResultSave.setStudyset(studyset);
+            testResultResponse = testResultRepository.save(testResultSave);
         } else {
-            Examination examination = examinationOptional.get();
-            examination.setScore(request.getScore());
-            examinationRepository.save(examination);
+            TestResult testResultUpdate = optionalTestResultDto.get();
+            testResultUpdate.setScore(request.getScore());
+            testResultUpdate.setCompletionTime(request.getCompletionTime());
+            testResultResponse = testResultRepository.save(testResultUpdate);
         }
 
         // Trả kết quả về
-        return BaseResponse.ofSucceeded(request.getRequestId(), request);
+        TestResultDto testResultDto = modelMapper.map(testResultResponse, TestResultDto.class);
+        testResultDto.setStudysetId(testResultResponse.getStudyset().getId());
+        return BaseResponse.ofSucceeded(request.getRequestId(), testResultDto);
     }
 
     @Override
@@ -194,6 +193,37 @@ public class StudysetServiceImpl implements StudysetService {
             request.getRequestId(),
             studysetDtosPage
         );
+    }
+
+    @Override
+    public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
+        // Kiểm tra studyset có tồn tại hay không
+        Studyset studyset = checkStudysetExits(request.getStudysetId());
+
+        // Lấy ra xếp hạng của studyset này
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("score").descending()
+                .and(Sort.by("completionTime").ascending()
+                .and(Sort.by("updateTime").ascending()
+                .and(Sort.by("createTime").ascending())))
+        );
+        Page<TestResult> testResultsPage = testResultRepository.findAllByStudysetId(request.getStudysetId(), pageRequest);
+
+        // Lấy ra một list user theo userIds
+        Set<String> userIds = testResultsPage.toList().stream().map(TestResult::getUserId).collect(Collectors.toSet());
+        Map<String, UserDto> userDtosMap = getListUserByUserIds(request, userIds).stream().collect(Collectors.toMap(UserDto::getId, userDto -> userDto));
+
+        // Tạo response trả về
+        Page<TestResultDto> testResultDtosResponse = testResultsPage.map(testResult -> {
+            TestResultDto testResultDto = modelMapper.map(testResult, TestResultDto.class);
+            testResultDto.setUser(userDtosMap.get(testResult.getUserId()));
+            return testResultDto;
+        });
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getStudysetId(), testResultDtosResponse);
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {

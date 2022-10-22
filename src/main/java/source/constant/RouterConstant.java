@@ -8,7 +8,7 @@ public class RouterConstant {
 
     public static final String UPDATE_STUDYSET = "/studyset/update";
 
-    public static final String SAVE_STUDYSET_SCORE = "/studyset/save-studyset-score";
+    public static final String SAVE_STUDYSET_TEST_RESULT = "/studyset/test-result/save";
 
     public static final String GET_STUDYSET_BY_ID = "/studyset/get-by-id";
 
@@ -17,4 +17,6 @@ public class RouterConstant {
     public static final String GET_ALL_STUDYSET = "/studyset/get-all-studyset";
 
     public static final String DELETE_STUDYSET_BY_ID = "/studyset/delete-by-id";
+
+    public static final String GET_RANK_STUDYSET = "/studyset/rank";
 }

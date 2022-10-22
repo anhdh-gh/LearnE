@@ -1,8 +1,8 @@
 package source.service;
 
 import source.dto.StudysetDto;
+import source.dto.TestResultDto;
 import source.dto.request.*;
-
 import source.dto.response.BaseResponse;
 
 public interface StudysetService {
@@ -15,9 +15,11 @@ public interface StudysetService {
 
     BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception;
 
-    BaseResponse saveStudysetScore(SaveStudysetScore request) throws Exception;
+    BaseResponse saveTestResult(TestResultDto request) throws Exception;
 
     BaseResponse getAllStudysetByOwnerUserId(GetAllStudysetByOwnerUserIdRequestDto request) throws Exception;
 
     BaseResponse getAllStudyset(GetAllStudysetRequestDto request) throws Exception;
+
+    BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception;
 }

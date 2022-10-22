@@ -9,11 +9,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Data
 @SuperBuilder
-public class SaveStudysetScore extends BasicRequest {
-
-    private String userId;
+public class GetRankStudysetRequestDto extends BasicRequest {
 
     private String studysetId;
 
-    private float score;
+    private int page;
+
+    private int size;
 }

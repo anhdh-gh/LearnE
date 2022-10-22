@@ -3,6 +3,7 @@ package source.service.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.*;
+import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.service.AuthServiceThirdParty;
 
@@ -84,5 +85,45 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception {
         return authServiceThirdParty.updateLessonStatus(request);
+    }
+
+    @Override
+    public BaseResponse createStudyset(StudysetDto request) throws Exception {
+        return authServiceThirdParty.createStudyset(request);
+    }
+
+    @Override
+    public BaseResponse updateStudyset(StudysetDto request) throws Exception {
+        return authServiceThirdParty.updateStudyset(request);
+    }
+
+    @Override
+    public BaseResponse deleteStudyset(DeleteStudysetByIdRequestDto request) throws Exception {
+        return authServiceThirdParty.deleteStudyset(request);
+    }
+
+    @Override
+    public BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getStudysetById(request);
+    }
+
+    @Override
+    public BaseResponse saveTestResult(TestResultDto request) throws Exception {
+        return authServiceThirdParty.saveTestResult(request);
+    }
+
+    @Override
+    public BaseResponse getAllStudysetByOwnerUserId(GetAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getAllStudysetByOwnerUserId(request);
+    }
+
+    @Override
+    public BaseResponse getAllStudyset(GetAllStudysetRequestDto request) throws Exception {
+        return authServiceThirdParty.getAllStudyset(request);
+    }
+
+    @Override
+    public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
+        return authServiceThirdParty.getRankStudyset(request);
     }
 }

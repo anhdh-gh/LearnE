@@ -8,6 +8,7 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.UserGetUserInformationRequestDto;
 import source.dto.request.*;
+import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
 
@@ -107,5 +108,53 @@ public class AuthController {
     @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
     public BaseResponse getCourseDetailForUser(@Valid @RequestBody UpdateLessonStatusRequestDto request) throws Exception {
         return authService.updateLessonStatus(request);
+    }
+
+    @PostMapping(RouterConstant.CREATE_STUDYSET)
+    @LogsActivityAnnotation
+    public BaseResponse createStudyset(@RequestBody StudysetDto request) throws Exception {
+        return authService.createStudyset(request);
+    }
+
+    @PostMapping(RouterConstant.SAVE_STUDYSET_TEST_RESULT)
+    @LogsActivityAnnotation
+    public BaseResponse saveTestResult(@RequestBody TestResultDto request) throws Exception {
+        return authService.saveTestResult(request);
+    }
+
+    @PostMapping(RouterConstant.GET_STUDYSET_BY_ID)
+    @LogsActivityAnnotation
+    public BaseResponse getStudysetById(@RequestBody GetStudysetByIdRequestDto request) throws Exception {
+        return authService.getStudysetById(request);
+    }
+
+    @PostMapping(RouterConstant.GET_ALL_STUDYSET_BY_OWNER_USER_ID)
+    @LogsActivityAnnotation
+    public BaseResponse getAllStudysetByOwnerUserId(@RequestBody GetAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return authService.getAllStudysetByOwnerUserId(request);
+    }
+
+    @PostMapping(RouterConstant.GET_ALL_STUDYSET)
+    @LogsActivityAnnotation
+    public BaseResponse getAllStudyset(@RequestBody GetAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return authService.getAllStudyset(request);
+    }
+
+    @PostMapping(RouterConstant.DELETE_STUDYSET_BY_ID)
+    @LogsActivityAnnotation
+    public BaseResponse deleteStudyset(@RequestBody DeleteStudysetByIdRequestDto request) throws Exception {
+        return authService.deleteStudyset(request);
+    }
+
+    @PostMapping(RouterConstant.UPDATE_STUDYSET)
+    @LogsActivityAnnotation
+    public BaseResponse updateStudyset(@RequestBody StudysetDto request) throws Exception {
+        return authService.updateStudyset(request);
+    }
+
+    @PostMapping(RouterConstant.GET_RANK_STUDYSET)
+    @LogsActivityAnnotation
+    public BaseResponse getRankStudyset(@RequestBody GetRankStudysetRequestDto request) throws Exception {
+        return authService.getRankStudyset(request);
     }
 }

@@ -12926,6 +12926,13 @@
 										<property name="type" type="string" value="String"/>
 									</properties>
 								</vpumlModel>
+								<vpumlModel id="qOwMACGA0RlkMQkw" modelType="AutoAttributeTypeModel">
+									<properties>
+										<property name="name" type="string" value="completionTime"/>
+										<property name="modelType" type="string" value="AutoAttributeTypeModel"/>
+										<property name="type" type="string" value="String"/>
+									</properties>
+								</vpumlModel>
 							</vpumlModels>
 						</property>
 					</properties>
@@ -13376,12 +13383,12 @@
 				</vpumlModel>
 				<vpumlModel id="6TvF98GA0RlkMQ7o" modelType="DBTable">
 					<properties>
-						<property name="name" type="string" value="Examination"/>
+						<property name="name" type="string" value="TestResult"/>
 						<property name="modelType" type="string" value="DBTable"/>
 						<property name="documentation" type="htmlString" value=""/>
 						<property name="pmAuthor" type="string" value="anh.do10_onemount"/>
 						<property name="pmCreateDateTime" type="string" value="1666172837015"/>
-						<property name="pmLastModified" type="string" value="1666174866579"/>
+						<property name="pmLastModified" type="string" value="1666451823893"/>
 						<property name="userIDLastNumericValue" type="int" value="0"/>
 						<property name="backlogActivityId" type="int" value="0"/>
 						<property name="type" type="int" value="0"/>
@@ -13401,6 +13408,7 @@
 						<modelRef value="WTvF98GA0RlkMQ7r"/>
 						<modelRef value="2TvF98GA0RlkMQ7s"/>
 						<modelRef value="uTvF98GA0RlkMQ7t"/>
+						<modelRef value="J5KMACGA0RlkMQm9"/>
 					</vpumlChildModelRefs>
 					<vpumlChildModels>
 						<vpumlModel id="GTvF98GA0RlkMQ7p" modelType="DBColumn">
@@ -13588,7 +13596,51 @@
 								<property name="syncToAttribute" type="int" value="0"/>
 							</properties>
 						</vpumlModel>
+						<vpumlModel id="J5KMACGA0RlkMQm9" modelType="DBColumn">
+							<properties>
+								<property name="name" type="string" value="CompletionTime"/>
+								<property name="modelType" type="string" value="DBColumn"/>
+								<property name="documentation" type="htmlString" value=""/>
+								<property name="pmAuthor" type="string" value="anh.do10_onemount"/>
+								<property name="pmCreateDateTime" type="string" value="1666450541028"/>
+								<property name="pmLastModified" type="string" value="1666450715388"/>
+								<property name="userIDLastNumericValue" type="int" value="0"/>
+								<property name="backlogActivityId" type="int" value="0"/>
+								<property name="qualityScore" type="int" value="-1"/>
+								<property name="type" type="int" value="16"/>
+								<property name="identitySeed" type="int" value="-1"/>
+								<property name="identityIncrement" type="int" value="-1"/>
+								<property name="sequenceAllocationSize" type="int" value="-1"/>
+								<property name="nullable" type="boolean" value="false"/>
+								<property name="unique" type="boolean" value="false"/>
+								<property name="primaryKey" type="boolean" value="false"/>
+								<property name="index" type="boolean" value="false"/>
+								<property name="length" type="int" value="19"/>
+								<property name="scale" type="int" value="0"/>
+								<property name="syncType" type="int" value="1"/>
+								<property name="generated" type="int" value="0"/>
+								<property name="syncToAttribute" type="int" value="0"/>
+							</properties>
+						</vpumlModel>
 					</vpumlChildModels>
+				</vpumlModel>
+				<vpumlModel id="Gv6MACGA0RlkMQna" modelType="AutoColumnTypeModelContainer">
+					<properties>
+						<property name="name" type="string" value="AutoColumnTypeModelContainer"/>
+						<property name="modelType" type="string" value="AutoColumnTypeModelContainer"/>
+						<property name="autoColumns" type="models">
+							<vpumlModels>
+								<vpumlModel id="whqMACGA0RlkMQnE" modelType="AutoColumnTypeModel">
+									<properties>
+										<property name="name" type="string" value="Column"/>
+										<property name="modelType" type="string" value="AutoColumnTypeModel"/>
+										<property name="type" type="string" value="int4(0,0)"/>
+										<property name="nullable" type="boolean" value="true"/>
+									</properties>
+								</vpumlModel>
+							</vpumlModels>
+						</property>
+					</properties>
 				</vpumlModel>
 				<vpumlModel id="pTvF98GA0RlkMQ7y" modelType="DBForeignKey">
 					<properties>
@@ -13627,7 +13679,7 @@
 						<property name="documentation" type="htmlString" value=""/>
 						<property name="pmAuthor" type="string" value="anh.do10_onemount"/>
 						<property name="pmCreateDateTime" type="string" value="1666172837047"/>
-						<property name="pmLastModified" type="string" value="1666174704435"/>
+						<property name="pmLastModified" type="string" value="1666451893547"/>
 						<property name="userIDLastNumericValue" type="int" value="0"/>
 						<property name="backlogActivityId" type="int" value="0"/>
 						<property name="qualityScore" type="int" value="-1"/>
@@ -13636,7 +13688,7 @@
 						<property name="onDelete" type="stringSelection" value="Cascade"/>
 						<property name="onUpdate" type="stringSelection" value="Cascade"/>
 						<property name="fromPhrase" type="string" value="Studyset"/>
-						<property name="toPhrase" type="string" value="Examination"/>
+						<property name="toPhrase" type="string" value="TestResult"/>
 						<property name="syncType" type="int" value="0"/>
 						<property name="toMultiplicity" type="stringSelection" value="0..*"/>
 						<property name="fromMultiplicity" type="stringSelection" value="1"/>
@@ -14075,7 +14127,7 @@
 				<qualityScore value="-1"/>
 			</xmi:Extension>
 		</ownedMember>
-		<ownedMember isAbstract="false" isActive="false" isLeaf="false" name="Examination" visibility="public" xmi:id="1dvZ98GA0RlkMQ34" xmi:type="uml:Class">
+		<ownedMember isAbstract="false" isActive="false" isLeaf="false" name="TestResult" visibility="public" xmi:id="1dvZ98GA0RlkMQ34" xmi:type="uml:Class">
 			<xmi:Extension extender="Visual Paradigm">
 				<isRoot xmi:value="false"/>
 				<modelType value="Class"/>
@@ -14219,6 +14271,27 @@
 				</xmi:Extension>
 				<lowerValue value="1" xmi:id="LFRF98GA0RlkMQ5i_multiplicity_lowerValue" xmi:type="uml:LiteralString"/>
 			</ownedAttribute>
+			<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="completionTime" type="long_id" visibility="private" xmi:id="zut0ACGA0RlkMQkW" xmi:type="uml:Property">
+				<xmi:Extension extender="Visual Paradigm">
+					<attribute/>
+					<ormDetail>
+						<xmi:Extension extender="Visual Paradigm">
+							<vpumlChildModels>
+								<vpumlModel id="tUZcACGA0RlkMQej" modelType="ORMAttributeDetail">
+									<properties>
+										<property name="name" type="string" value=""/>
+										<property name="modelType" type="string" value="ORMAttributeDetail"/>
+										<property name="lazy" type="boolean" value="false"/>
+										<property name="persistable" type="int" value="0"/>
+									</properties>
+								</vpumlModel>
+							</vpumlChildModels>
+						</xmi:Extension>
+					</ormDetail>
+					<isVisble xmi:value="true"/>
+					<qualityScore value="-1"/>
+				</xmi:Extension>
+			</ownedAttribute>
 		</ownedMember>
 		<ownedMember isAbstract="false" isDerived="false" isLeaf="false" xmi:id="oQpp98GA0RlkMQ1h" xmi:type="uml:Association">
 			<xmi:Extension extender="Visual Paradigm">
@@ -14348,7 +14421,7 @@
 				<qualityScore value="-1"/>
 			</xmi:Extension>
 			<memberEnd xmi:idref="gPMF98GA0RlkMQ4o"/>
-			<ownedEnd aggregation="none" association="gPMF98GA0RlkMQ4n" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" name="Examination" type="1dvZ98GA0RlkMQ34" xmi:id="gPMF98GA0RlkMQ4o" xmi:type="uml:Property">
+			<ownedEnd aggregation="none" association="gPMF98GA0RlkMQ4n" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" name="TestResult" type="1dvZ98GA0RlkMQ34" xmi:id="gPMF98GA0RlkMQ4o" xmi:type="uml:Property">
 				<xmi:Extension extender="Visual Paradigm">
 					<associationEnd/>
 					<qualifier>
@@ -14433,6 +14506,7 @@
 		<ownedMember name="String" visibility="public" xmi:id="String_id" xmi:type="uml:DataType"/>
 		<ownedMember name="float" visibility="public" xmi:id="float_id" xmi:type="uml:DataType"/>
 		<ownedMember name="Date" visibility="public" xmi:id="Date_id" xmi:type="uml:DataType"/>
+		<ownedMember name="long" visibility="public" xmi:id="long_id" xmi:type="uml:DataType"/>
 	</uml:Model>
 	<uml:Diagram diagramType="ClassDiagram" documentation="" name="Studyset" toolName="Visual Paradigm" xmi:id="Mpix98GA0RlkMQyZ">
 		<xmi:Extension extender="Visual Paradigm">
@@ -14442,7 +14516,7 @@
 				<ashowAllocatedTo value="true"/>
 				<apmAuthor value="anh.do10_onemount"/>
 				<apmCreateDateTime value="1666171345227"/>
-				<apmLastModified value="1666339410385"/>
+				<apmLastModified value="1666451812071"/>
 				<ateamworkCreateDateTime value="0"/>
 				<ashowShapeLegend value="false"/>
 				<ashowConnectorLegend value="false"/>
@@ -14490,8 +14564,8 @@
 				<amaximized value="false"/>
 				<ax value="0"/>
 				<ay value="0"/>
-				<awidth value="1380"/>
-				<aheight value="597"/>
+				<awidth value="1364"/>
+				<aheight value="565"/>
 				<aqualityScore value="-1"/>
 				<a_globalPaletteOption value="true"/>
 				<ainitializeDiagramForCreate value="true"/>
@@ -14519,9 +14593,9 @@
 			</properties>
 		</xmi:Extension>
 		<uml:Diagram.element>
-			<uml:DiagramElement geometry="91,205,119,111" preferredShapeType="Class" subject="1dvZ98GA0RlkMQ34" xmi:id="1dvZ98GA0RlkMQ33">
+			<uml:DiagramElement geometry="91,205,126,126" preferredShapeType="Class" subject="1dvZ98GA0RlkMQ34" xmi:id="1dvZ98GA0RlkMQ33">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="0,0,119,30"/>
+					<captionBounds value="0,0,126,30"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
@@ -14833,12 +14907,12 @@
 			</uml:DiagramElement>
 			<uml:DiagramElement fromDiagramElement="1dvZ98GA0RlkMQ33" geometry="141,203;141,155;" preferredShapeType="Association" subject="gPMF98GA0RlkMQ4n" toDiagramElement="aAyx98GA0RlkMQym" xmi:id="sPMF98GA0RlkMQ4s">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="141,179,20,0"/>
+					<captionBounds value="141,178,20,0"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
 					<captionSide value="1"/>
-					<roleA multiplicity="105,188,37,15" roleName="146,156,82,82"/>
+					<roleA multiplicity="105,188,37,15" roleName="150,191,74,15"/>
 					<roleB multiplicity="144,153,27,15" roleName="78,130,64,64"/>
 					<properties>
 						<azOrder value="10"/>
@@ -14871,7 +14945,7 @@
 						<ahasRoleAShape value="true"/>
 						<ahasRoleBShape value="true"/>
 						<ashowMultiplicityConstraints value="false"/>
-						<aroleARectangle value="Re:146.0,156.0,82.0,82.0"/>
+						<aroleARectangle value="Re:150.0,191.0,74.0,15.0"/>
 						<aroleBRectangle value="Re:78.0,130.0,64.0,64.0"/>
 						<amultiplicityBRectangle value="Re:144.0,153.0,27.0,15.0"/>
 						<amultiplicityARectangle value="Re:105.0,188.0,37.0,15.0"/>
@@ -14919,7 +14993,7 @@
 				<ashowAllocatedTo value="true"/>
 				<apmAuthor value="anh.do10_onemount"/>
 				<apmCreateDateTime value="1666172823770"/>
-				<apmLastModified value="1666340132939"/>
+				<apmLastModified value="1666451871721"/>
 				<ateamworkCreateDateTime value="0"/>
 				<ashowShapeLegend value="false"/>
 				<ashowConnectorLegend value="false"/>
@@ -14966,8 +15040,8 @@
 				<amaximized value="true"/>
 				<ax value="0"/>
 				<ay value="0"/>
-				<awidth value="1356"/>
-				<aheight value="597"/>
+				<awidth value="1340"/>
+				<aheight value="565"/>
 				<aqualityScore value="-1"/>
 				<a_globalPaletteOption value="true"/>
 				<ainitializeDiagramForCreate value="true"/>
@@ -14998,9 +15072,9 @@
 			</properties>
 		</xmi:Extension>
 		<uml:Diagram.element>
-			<uml:DiagramElement geometry="241,271,193,131" preferredShapeType="DBTable" subject="6TvF98GA0RlkMQ7o" xmi:id="9PvF98GA0RlkMQ8K">
+			<uml:DiagramElement geometry="241,271,213,149" preferredShapeType="DBTable" subject="6TvF98GA0RlkMQ7o" xmi:id="9PvF98GA0RlkMQ8K">
 				<xmi:Extension extender="Visual Paradigm">
-					<captionBounds value="0,0,193,15"/>
+					<captionBounds value="0,0,213,15"/>
 					<captionInternalWidth value="-2147483648"/>
 					<captionInternalHeight value="-2147483648"/>
 					<captionVisible value="true"/>
@@ -15161,7 +15235,7 @@
 						<ahasFromLabel value="true"/>
 						<ahasToLabel value="true"/>
 						<afromLabelRect value="Re:352.0,160.0,53.0,20.0"/>
-						<atoLabelRect value="Re:248.0,249.0,71.0,20.0"/>
+						<atoLabelRect value="Re:247.0,252.0,73.0,20.0"/>
 						<arequestResetLabels value="false"/>
 					</properties>
 				</xmi:Extension>

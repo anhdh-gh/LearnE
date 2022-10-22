@@ -5,17 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @SuperBuilder
-public class AddOrUpdateExaminationRequestDto extends BasicRequest {
+public class GetAllStudysetRequestDto extends BasicRequest {
 
-    private String userId;
+    private int page;
 
-    private String studysetId;
-
-    private float score;
+    private int size;
 }

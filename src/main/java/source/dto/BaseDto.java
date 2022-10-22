@@ -1,4 +1,4 @@
-package source.dto.response;
+package source.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,15 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.dto.request.BasicRequest;
 
+import java.util.Date;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @SuperBuilder
-public class AddOrUpdateExaminationResponseDto {
+public class BaseDto extends BasicRequest {
 
-    private String userId;
+    protected String id;
 
-    private String studysetId;
+    protected Date createTime;
 
-    private float score;
+    protected Date updateTime;
 }

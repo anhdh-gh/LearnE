@@ -1,12 +1,23 @@
 package source.service;
 
-import source.dto.request.CreateStudysetRequestDto;
-import source.dto.request.GetStudysetByIdRequestDto;
+import source.dto.StudysetDto;
+import source.dto.request.*;
+
 import source.dto.response.BaseResponse;
 
 public interface StudysetService {
 
-    BaseResponse createStudyset(CreateStudysetRequestDto request) throws Exception;
+    BaseResponse createStudyset(StudysetDto request) throws Exception;
+
+    BaseResponse updateStudyset(StudysetDto request) throws Exception;
+
+    BaseResponse deleteStudyset(DeleteStudysetByIdRequestDto request) throws Exception;
 
     BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception;
+
+    BaseResponse saveStudysetScore(SaveStudysetScore request) throws Exception;
+
+    BaseResponse getAllStudysetByOwnerUserId(GetAllStudysetByOwnerUserIdRequestDto request) throws Exception;
+
+    BaseResponse getAllStudyset(GetAllStudysetRequestDto request) throws Exception;
 }

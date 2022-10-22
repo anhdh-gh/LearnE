@@ -36,10 +36,4 @@ public class RouterAuthServiceConstant {
     public static final String COURSE_GET_DETAIL_FOR_USER = "/course/get-course-detail-for-user";
 
     public static final String COURSE_UPDATE_LESSON_STATUS = "/course/update-lesson-status";
-
-    public static final String CREATE_STUDYSET = "/studyset/cteate";
-
-    public static final String ADD_OR_UPDATE_EXAMINATION = "/studyset/examination/add-or-update";
-
-    public static final String GET_STUDYSET_BY_ID = "/studyset/get-by-id";
 }

@@ -3,15 +3,11 @@ package source.service.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.*;
-import source.dto.request.studyset.AddOrUpdateExaminationRequestDto;
-import source.dto.request.studyset.CreateStudysetRequestDto;
-import source.dto.request.studyset.GetStudysetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.service.AuthServiceThirdParty;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-
     @Autowired
     private AuthServiceThirdParty authServiceThirdParty;
 
@@ -88,20 +84,5 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception {
         return authServiceThirdParty.updateLessonStatus(request);
-    }
-
-    @Override
-    public BaseResponse createStudyset(CreateStudysetRequestDto request) throws Exception {
-        return authServiceThirdParty.createStudyset(request);
-    }
-
-    @Override
-    public BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception {
-        return authServiceThirdParty.getStudysetById(request);
-    }
-
-    @Override
-    public BaseResponse addOrUpdateExaminationRequestDto(AddOrUpdateExaminationRequestDto request) throws Exception {
-        return authServiceThirdParty.addOrUpdateExaminationRequestDto(request);
     }
 }

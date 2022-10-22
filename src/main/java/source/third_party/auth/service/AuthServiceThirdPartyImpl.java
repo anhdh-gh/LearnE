@@ -7,9 +7,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import source.dto.request.*;
-import source.dto.request.studyset.AddOrUpdateExaminationRequestDto;
-import source.dto.request.studyset.CreateStudysetRequestDto;
-import source.dto.request.studyset.GetStudysetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.constant.RouterAuthServiceConstant;
 import source.util.JsonUtil;
@@ -19,7 +16,6 @@ import java.util.Collections;
 
 @Service
 public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
-
     @Value("${service.auth.baseurl}")
     private String baseUrl;
 
@@ -195,36 +191,6 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_UPDATE_LESSON_STATUS),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
-    public BaseResponse createStudyset(CreateStudysetRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.CREATE_STUDYSET),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
-    public BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_STUDYSET_BY_ID),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
-    public BaseResponse addOrUpdateExaminationRequestDto(AddOrUpdateExaminationRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.ADD_OR_UPDATE_EXAMINATION),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {});

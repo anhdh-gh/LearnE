@@ -87,7 +87,7 @@ const createAxios = () => {
 
 const handleResult = (api) => {
     return api
-        .then(res => Promise.resolve(res.data))
+        .then(res => Promise.resolve(res?.data))
         .catch(err => console.log(err))
 }
 

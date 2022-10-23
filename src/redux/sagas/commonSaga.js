@@ -20,11 +20,13 @@ function* initInfoWorker() {
 
         if ((accessToken && tokenType) || refreshToken) {
             const responseUser = yield call(UserApi.handleGetUserInfo())
-
-            // Save user info
-            const { data: dataUser, meta: metaUser } = responseUser
-            if(metaUser.code === SUCCESS) {
-                yield put(saveUser(dataUser))
+            if(responseUser) {
+                // Save user info
+                const { meta: metaUser } = responseUser
+                if(metaUser.code === SUCCESS) {
+                    const { data: dataUser } = responseUser
+                    yield put(saveUser(dataUser))
+                }                
             }
         }
     } catch (error) {

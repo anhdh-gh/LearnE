@@ -20,4 +20,6 @@ public interface StudysetServiceThirdParty {
     BaseResponse getAllStudyset(GetAllStudysetRequestDto request) throws Exception;
 
     BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception;
+
+    BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception;
 }

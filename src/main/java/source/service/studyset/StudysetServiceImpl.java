@@ -51,4 +51,9 @@ public class StudysetServiceImpl implements StudysetService {
     public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
         return studysetServiceThirdParty.getRankStudyset(request);
     }
+
+    @Override
+    public BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception {
+        return studysetServiceThirdParty.checkOwnerStudysetValid(request);
+    }
 }

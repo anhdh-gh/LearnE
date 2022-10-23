@@ -67,4 +67,11 @@ public class StudysetController {
     public BaseResponse getRankStudyset(@RequestBody GetRankStudysetRequestDto request) throws Exception {
         return studysetService.getRankStudyset(request);
     }
+
+    @PostMapping(RouterConstant.CHECK_OWNER_STUDYSET_VALID)
+    @LogsActivityAnnotation
+    public BaseResponse checkOwnerStudysetValid(@RequestBody CheckOwnerStudysetValidRequestDto request) throws Exception {
+        request.setOwnerUserId(request.getUserAuthId());
+        return studysetService.checkOwnerStudysetValid(request);
+    }
 }

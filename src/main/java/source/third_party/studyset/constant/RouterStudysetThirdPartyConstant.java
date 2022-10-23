@@ -19,4 +19,6 @@ public class RouterStudysetThirdPartyConstant {
     public static final String DELETE_STUDYSET_BY_ID = "/studyset/delete-by-id";
 
     public static final String GET_RANK_STUDYSET = "/studyset/rank";
+
+    public static final String CHECK_OWNER_STUDYSET_VALID = "/studyset/check-owner-studyset-valid";
 }

@@ -9,6 +9,7 @@ import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/act
 import { useSelector, useDispatch } from "react-redux"
 import { Button } from 'react-bootstrap'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
+import { History } from '../components/NavigateSetter'
 
 const ShowListStudyset = (props) => {
 
@@ -21,7 +22,7 @@ const ShowListStudyset = (props) => {
 
     const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllByOwnerUserId } = useQuery(
         ["getAllByOwnerUserId"],
-        () => StudysetApi.getAllByOwnerUserId(ownerUserId, page, size)(),
+        () => StudysetApi.getAllByOwnerUserId(ownerUserId, page, size),
         {
             refetchOnWindowFocus: false,
         }
@@ -71,7 +72,7 @@ const ShowListStudyset = (props) => {
                         </div>
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
                             <SearchBox placeholder="Search" />
-                            <Button style={{ height: 'fit-content', fontWeight: 'bold' }}>Create</Button>
+                            <Button onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Create</Button>
                         </div>
                     </div>
                 </div>

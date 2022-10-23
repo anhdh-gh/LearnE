@@ -12,6 +12,8 @@ import TopLoader from './TopLoader'
 import SearchBox from './SearchBox'
 import CardStudySet from './CardStudySet'
 import Pagination from './Pagination'
+import CreateEditStudySet from './CreateEditStudySet'
+import Textarea from './Textarea'
 
 export {
     Toast,
@@ -28,4 +30,6 @@ export {
     SearchBox,
     CardStudySet,
     Pagination,
+    CreateEditStudySet,
+    Textarea,
 }

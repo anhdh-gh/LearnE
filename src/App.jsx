@@ -25,12 +25,12 @@ const App = () => {
   }, [dispatch, user])
 
   return <div className="App select-none">
+    <Toast />
+    <TopLoader />
+    <ToastModal />
     <AppNavigator>
       <Loader useStateLoader={true}>
         <NotFound useStateNotFound={true} />
-        <TopLoader />
-        <Toast />
-        <ToastModal />
       </Loader>
     </AppNavigator>
   </div>

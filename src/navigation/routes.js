@@ -1,5 +1,5 @@
 import { ROUTE_PATH } from '../constants'
-import { NotFound, Auth, Home, ShowCourseDetail, ShowLessonDetail, ShowListStudyset } from '../pages'
+import { NotFound, Auth, Home, ShowCourseDetail, ShowLessonDetail, ShowListStudyset, CreateStudySet } from '../pages'
 
 const routes = {
     privateAdminoute: [
@@ -9,6 +9,11 @@ const routes = {
         {
             path: `${ROUTE_PATH.SHOW_LESSON_DETAIL}/:courseId/:lessonId`, 
             element: <ShowLessonDetail/>
+        }, 
+
+        {
+            path: `${ROUTE_PATH.STUDY_SET_CREATE}`, 
+            element: <CreateStudySet/>
         }, 
     ],
 

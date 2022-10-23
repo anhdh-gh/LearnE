@@ -1,0 +1,78 @@
+.CreateEditStudySet-container {
+    position: relative;
+}
+
+.CreateEditStudySet-container > .stricky-information {
+    background-color: #FFF;
+    z-index: 5000;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    box-shadow: 0 0.25rem 1rem 0 rgb(0 0 0 / 16%);
+}
+
+.CreateEditStudySet-container .infomation {
+    padding: 24px 0;
+    justify-content: space-between
+}
+
+.CreateEditStudySet-container .infomation > .title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 0;
+    border-bottom: .3125rem solid #3ccfcf;
+}
+
+.CreateEditStudySet-container .wordCards {
+    background-color: #f6f7fb;
+    min-height: 100vh;
+}
+.CreateEditStudySet-container .wordCards .wordCard-input {
+    border-radius: .5rem;
+    cursor: move;
+    position: relative;
+    background-color: #FFF;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input > .header {
+    display: flex;
+    justify-content: space-between;
+    padding: .75rem;
+    border-bottom: 2px solid #f6f7fb;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input > .header .drag-icon {
+    color: #CCC;
+    padding: 0 2.5625rem;
+}   
+
+.CreateEditStudySet-container .wordCards .wordCard-input > .header .index {
+    color: #939bb4;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: .0875rem;
+    line-height: 1.5;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input > .header .delete-icon {
+    cursor: pointer;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input > .header .drag-icon:hover {
+    color: #FFCD1F;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input .input-type {
+    padding: 2rem .75rem;
+    cursor: initial;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input .input-type .suggestion {
+    cursor: pointer;
+    background-color: #f6f7fb;
+    font-weight: bold;
+}
+
+.CreateEditStudySet-container .wordCards .wordCard-input .input-type .suggestion:hover {
+    background-color: #FFCD1F;
+}

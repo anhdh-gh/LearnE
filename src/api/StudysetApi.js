@@ -25,7 +25,7 @@ const StudysetApi = {
     //     ]
     // }
     createStudyset(studyset) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_CREATE, studyset)
+        return ApiClient.post(ROUTE_PATH.STUDYSET_CREATE, studyset)
     },
 
     // {
@@ -46,39 +46,39 @@ const StudysetApi = {
     //     ]
     // }
     updateStudyset(studyset) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_UPDATE, studyset)
+        return ApiClient.post(ROUTE_PATH.STUDYSET_UPDATE, studyset)
     },
 
     saveTestResult(studysetId, completionTime, score) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_SAVE_TEST_RESULT, {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_SAVE_TEST_RESULT, {
             studysetId, completionTime, score
         })
     },
 
     getAllByOwnerUserId(ownerUserId, page, size) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_GET_ALL_BY_OWNER_USER_ID, {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_GET_ALL_BY_OWNER_USER_ID, {
             ownerUserId, page, size
         })
     },
 
     getAll(page, size) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_GET_ALL, {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_GET_ALL, {
             page, size
         })
     },
 
     getRankStudyset(studysetId, page, size) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_GET_RANK, {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_GET_RANK, {
             studysetId, page, size
         })
     },
 
     getById(studysetId) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_GET_BY_ID, {studysetId})
+        return ApiClient.post(ROUTE_PATH.STUDYSET_GET_BY_ID, {studysetId})
     },
 
     deleteById(studysetId) {
-        return () => ApiClient.post(ROUTE_PATH.STUDYSET_DELETE_BY_ID, {studysetId})
+        return ApiClient.post(ROUTE_PATH.STUDYSET_DELETE_BY_ID, {studysetId})
     },
 }
 

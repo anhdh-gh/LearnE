@@ -4,6 +4,7 @@ import Home from './Home'
 import ShowCourseDetail from './ShowCourseDetail'
 import ShowLessonDetail from './ShowLessonDetail'
 import ShowListStudyset from './ShowListStudyset'
+import CreateStudySet from './CreateStudySet'
 
 export {
     NotFound,
@@ -12,4 +13,5 @@ export {
     ShowCourseDetail,
     ShowLessonDetail,
     ShowListStudyset,
+    CreateStudySet,
 }

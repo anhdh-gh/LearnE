@@ -1,5 +1,5 @@
 import { ROUTE_PATH } from '../constants'
-import { NotFound, Auth, Home, ShowCourseDetail, ShowLessonDetail } from '../pages'
+import { NotFound, Auth, Home, ShowCourseDetail, ShowLessonDetail, ShowListStudyset } from '../pages'
 
 const routes = {
     privateAdminoute: [
@@ -17,10 +17,17 @@ const routes = {
             path: ROUTE_PATH.HOME, 
             element: <Home/>
         },   
+
+        {
+            path: `${ROUTE_PATH.STUDY_SET_VIEW}/:ownerUserId/:page`, 
+            element: <ShowListStudyset/>
+        }, 
+
         {
             path: `${ROUTE_PATH.SHOW_COURSE_DETAIL}/:courseId`, 
             element: <ShowCourseDetail/>
         },     
+
         {
             path: ROUTE_PATH.SIGN_UP, 
             element: <Auth isSignUp={true}/>
@@ -29,6 +36,7 @@ const routes = {
             path: ROUTE_PATH.SIGN_IN, 
             element: <Auth isSignIn={true}/>
         },   
+
         {
             path: ROUTE_PATH.NOT_FOUND, // Không match với path nào ở phía trên (luôn đặt ở cuối cùng)
             element: <NotFound />

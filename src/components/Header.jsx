@@ -62,6 +62,18 @@ const Header = (props) => {
                                 : 'Course'
                             }
                         </Nav.Link>
+
+                        {!_.isEmpty(user) && <Nav.Link
+                            className="cursor-pointer"
+                            as="span"
+                            active="active"
+                            onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}
+                        >
+                            {pathname.includes(ROUTE_PATH.STUDY_SET_VIEW)
+                                ? <Badge pill bg="primary">Study set</Badge>
+                                : 'Study set'
+                            }
+                        </Nav.Link>}
                     </Nav>
 
                     <Nav className="my-2 my-sm-0 d-sm-none d-block">
@@ -79,6 +91,13 @@ const Header = (props) => {
                             active={pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL) && "active"}
                             onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/746c8e3a-f39f-4360-9df2-6f396062393a`)}
                         >Course</Nav.Link>
+
+                        {!_.isEmpty(user) && <Nav.Link
+                            className="cursor-pointer"
+                            as="span"
+                            active={pathname.includes(ROUTE_PATH.STUDY_SET_VIEW) && "active"}
+                            onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}
+                        >Study set</Nav.Link>}
                     </Nav>
 
                     <Nav className="ms-auto my-2 my-sm-0 user-droplist">

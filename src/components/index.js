@@ -9,6 +9,9 @@ import Footer from './Footer'
 import CircularProgressBar from './CircularProgressBar'
 import CourseHeader from './CourseHeader'
 import TopLoader from './TopLoader'
+import SearchBox from './SearchBox'
+import CardStudySet from './CardStudySet'
+import Pagination from './Pagination'
 
 export {
     Toast,
@@ -22,4 +25,7 @@ export {
     CircularProgressBar,
     CourseHeader,
     TopLoader,
+    SearchBox,
+    CardStudySet,
+    Pagination,
 }

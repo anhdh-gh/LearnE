@@ -241,8 +241,13 @@ public class StudysetServiceImpl implements StudysetService {
         // Kiểm tra xem chủ sỡ hữu studyset có đúng không
         checkOwnerUserIdValid(request.getOwnerUserId(), studyset);
 
+        // Kiểm tra user tồn tại và lấy ra OwnerUser
+        UserDto userDto = checkUserExits(request, studyset.getOwnerUserId());
+
         // Trả về kết quả
-        return BaseResponse.ofSucceeded(request.getRequestId(), request);
+        StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
+        studysetDto.setOwnerUser(userDto);
+        return BaseResponse.ofSucceeded(request.getRequestId(), studysetDto);
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {

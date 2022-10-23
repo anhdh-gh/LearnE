@@ -14,11 +14,11 @@ const CreateStudySet = (props) => {
         dispatch(showLoader())
         StudysetApi.createStudyset(studyset)
         .then(res => {
-            const { data, meta } = res
+            const { meta } = res
             if(meta.code === STATUS_CODES.SUCCESS) {
+                const { data: studyset } = res
                 dispatch(hideLoader()) 
-                // Đoạn này phải trả về trang show studyset detail
-                History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${data?.ownerUserId}/0`)
+                History.push(`${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/${studyset?.id}`)
                 Notification.success("Created successfully!")
             } else {
                 dispatch(hideLoader())

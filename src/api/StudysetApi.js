@@ -74,7 +74,7 @@ const StudysetApi = {
         })
     },
 
-    getById(studysetId) {
+    getStudysetById(studysetId) {
         return ApiClient.post(ROUTE_PATH.STUDYSET_GET_BY_ID, {studysetId})
     },
 

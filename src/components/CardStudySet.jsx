@@ -17,7 +17,7 @@ const CardStudySet = (props) => {
                 <UserInfo user={studyset?.ownerUser}/>
             </Card.Header>}
 
-            <Card.Body>
+            <Card.Body onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/${studyset?.id}`)}>
                 <Card.Title className="title">
                     {
                         studyset?.title.length > 50

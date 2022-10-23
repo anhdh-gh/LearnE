@@ -14,6 +14,9 @@ import CardStudySet from './CardStudySet'
 import Pagination from './Pagination'
 import CreateEditStudySet from './CreateEditStudySet'
 import Textarea from './Textarea'
+import WordCardSlide from './WordCardSlide'
+import WordCardList from './WordCardList'
+import AudioWord from './AudioWord'
 
 export {
     Toast,
@@ -32,4 +35,7 @@ export {
     Pagination,
     CreateEditStudySet,
     Textarea,
+    WordCardSlide,
+    WordCardList,
+    AudioWord,
 }

@@ -34,3 +34,8 @@ body {
 .overflow-overlay {
     overflow: overlay;
 }
+
+.flex-center-vertical {
+    display: flex;
+    align-items: center;
+}

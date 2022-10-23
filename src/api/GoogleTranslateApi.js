@@ -12,7 +12,7 @@ const GoogleTranslateApi = {
                     .map(definition => definition.trim().toLowerCase())
                     .filter(definition => definition !== term.trim().toLowerCase())
             }  catch (err) {
-                console.log(err)
+                console.error(err)
             }
         
         return []

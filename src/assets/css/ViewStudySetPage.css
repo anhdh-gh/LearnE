@@ -1,0 +1,49 @@
+.ViewStudySetPage-container .title {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: .3125rem solid #3ccfcf;
+    padding: 8px 0;
+    display: inline-block;
+    overflow: auto;
+    max-width: 100%;
+}
+
+.ViewStudySetPage-container .func > div {
+    font-weight: bold;
+    padding: .25rem 1rem .25rem .5rem;
+    transition: all .12s cubic-bezier(.47,0,.745,.715);
+    border-radius: .25rem;
+    margin-bottom: .25rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.ViewStudySetPage-container .func > div:active {
+    transform: translate(-5px, 5px);
+}
+
+.ViewStudySetPage-container .func > div:hover {
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    background-color: #ffcd1f;
+}
+
+.ViewStudySetPage-container .func i {
+    color: #4257b2;
+    font-size: 1.25rem;
+}
+
+.ViewStudySetPage-container .author .user-info-container > .avatar {
+    width: 64px;
+    height: 64px;
+}
+
+.ViewStudySetPage-container .author .user-info-container > .text-user-info {
+    white-space: nowrap;
+}
+
+.ViewStudySetPage-container .description {
+    color: #AAA;
+    overflow: auto;
+    word-wrap: break-word;
+}

@@ -16,6 +16,7 @@ const ROUTE_PATH = {
     SHOW_COURSE_DETAIL: "/course/detail",
 
     STUDY_SET_VIEW: '/studyset/view',
+    STUDY_SET_VIEW_DETAIL: '/studyset/view/detail',
     STUDY_SET_TEST: '/studyset/test',
 
     // Not found

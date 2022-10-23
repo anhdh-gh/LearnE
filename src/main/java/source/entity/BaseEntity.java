@@ -32,11 +32,16 @@ public class BaseEntity {
         if (this.id == null) {
             this.id = UUID.randomUUID().toString();
         }
-        this.createTime = new Date();
+
+        if (this.createTime == null) {
+            this.createTime = new Date();
+        }
     }
 
     @PreUpdate // Thực thi trước khi entity được update
     protected void updateTime() {
-        this.updateTime = new Date();
+        if (this.updateTime == null) {
+            this.updateTime = new Date();
+        }
     }
 }

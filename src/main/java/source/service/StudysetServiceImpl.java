@@ -73,13 +73,15 @@ public class StudysetServiceImpl implements StudysetService {
         // Kiểm tra xem chủ sỡ hữu studyset có đúng không
         checkOwnerUserIdValid(request.getOwnerUserId(), studyset);
 
+        // Set dữ liệu để lưu
+        Studyset studysetSave = modelMapper.map(request, Studyset.class);
+        studysetSave.setWordCards(mapList(request.getWordCards(), WordCard.class));
+        studysetSave.setCreateTime(studyset.getCreateTime());
+
         // Xóa cái cũ
         studysetRepository.delete(studyset);
 
         // Thực hiện lưu studyset mới
-        Studyset studysetSave = modelMapper.map(request, Studyset.class);
-        studysetSave.setWordCards(mapList(request.getWordCards(), WordCard.class));
-        studysetSave.setCreateTime(studyset.getCreateTime());
         studysetSave = studysetRepository.save((studysetSave));
 
         // Trả về kết quả

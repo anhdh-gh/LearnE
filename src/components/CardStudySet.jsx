@@ -2,6 +2,8 @@ import '../assets/css/CardStudySet.css'
 import { Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { UserInfo } from './index'
 import { useSelector } from 'react-redux'
+import { History } from './NavigateSetter'
+import { ROUTE_PATH } from '../constants'
 
 const CardStudySet = (props) => {
 
@@ -37,7 +39,7 @@ const CardStudySet = (props) => {
 
             {showFooter && user?.id === studyset?.ownerUser?.id && <Card.Footer className="d-flex justify-content-between">
                 <OverlayTrigger placement="bottom" overlay={<Tooltip>Edit</Tooltip>}>
-                    <Badge bg="primary">
+                    <Badge bg="primary" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_EDIT}/${studyset?.id}`)}>
                         <i className="fas fa-edit fs-6"/>
                     </Badge>                          
                 </OverlayTrigger>

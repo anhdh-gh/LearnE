@@ -9,7 +9,7 @@ import { GoogleTranslateApi } from '../api'
 import { CommonUtil } from '../utils'
 
 const CreateEditStudySet = (props) => {
-    const { studysetProp, handleSubmit: handleSubmitProp } = props
+    const { studyset: studysetProp, handleSubmit: handleSubmitProp } = props
     const [ y, setY ] = useState(window.scrollY)
     const strickyRef = useRef(null)
 

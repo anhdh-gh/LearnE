@@ -69,7 +69,7 @@ const Header = (props) => {
                             active="active"
                             onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}
                         >
-                            {pathname.includes(ROUTE_PATH.STUDY_SET_VIEW)
+                            {pathname.includes('/studyset/')
                                 ? <Badge pill bg="primary">Study set</Badge>
                                 : 'Study set'
                             }
@@ -95,7 +95,7 @@ const Header = (props) => {
                         {!_.isEmpty(user) && <Nav.Link
                             className="cursor-pointer"
                             as="span"
-                            active={pathname.includes(ROUTE_PATH.STUDY_SET_VIEW) && "active"}
+                            active={pathname.includes('/studyset/') && "active"}
                             onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}
                         >Study set</Nav.Link>}
                     </Nav>

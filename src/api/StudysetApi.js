@@ -8,7 +8,8 @@ const ROUTE_PATH = {
     STUDYSET_GET_ALL: '/studyset/get-all-studyset',
     STUDYSET_GET_RANK: '/studyset/rank',
     STUDYSET_GET_BY_ID: '/studyset/get-by-id',
-    STUDYSET_DELETE_BY_ID: '/studyset/delete-by-id'
+    STUDYSET_DELETE_BY_ID: '/studyset/delete-by-id',
+    CHECK_OWNER_STUDYSET_VALID: '/studyset/check-owner-studyset-valid'
 }
 
 const StudysetApi = {
@@ -79,6 +80,10 @@ const StudysetApi = {
 
     deleteById(studysetId) {
         return ApiClient.post(ROUTE_PATH.STUDYSET_DELETE_BY_ID, {studysetId})
+    },
+
+    checkOwnerStudysetValid(studysetId) {
+        return ApiClient.post(ROUTE_PATH.CHECK_OWNER_STUDYSET_VALID, {studysetId})
     },
 }
 

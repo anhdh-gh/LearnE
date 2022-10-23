@@ -105,9 +105,16 @@ public class StudysetServiceImpl implements StudysetService {
 
     @Override
     public BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception {
+        // Kiểm tra studyset có tồn tại hay không?
         Studyset studyset = checkStudysetExits(request.getStudysetId());
 
-        return BaseResponse.ofSucceeded(request.getRequestId(), studyset);
+        // Lấy ra OwnerUser
+        UserDto userDto = checkUserExits(request, studyset.getOwnerUserId());
+
+        // Trả về kết quả
+        StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
+        studysetDto.setOwnerUser(userDto);
+        return BaseResponse.ofSucceeded(request.getRequestId(), studysetDto);
     }
 
     @Override

@@ -8,11 +8,8 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.StudysetDto;
 import source.dto.TestResultDto;
-import source.dto.request.DeleteStudysetByIdRequestDto;
-import source.dto.request.GetAllStudysetByOwnerUserIdRequestDto;
+import source.dto.request.*;
 
-import source.dto.request.GetRankStudysetRequestDto;
-import source.dto.request.GetStudysetByIdRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.StudysetService;
 
@@ -68,5 +65,11 @@ public class StudysetController {
     @LogsActivityAnnotation
     public BaseResponse getRankStudyset(@RequestBody GetRankStudysetRequestDto request) throws Exception {
         return studysetService.getRankStudyset(request);
+    }
+
+    @PostMapping(RouterConstant.CHECK_OWNER_STUDYSET_VALID)
+    @LogsActivityAnnotation
+    public BaseResponse checkOwnerStudysetValid(@RequestBody CheckOwnerStudysetValidRequestDto request) throws Exception {
+        return studysetService.checkOwnerStudysetValid(request);
     }
 }

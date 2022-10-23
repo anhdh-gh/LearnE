@@ -233,6 +233,18 @@ public class StudysetServiceImpl implements StudysetService {
         return BaseResponse.ofSucceeded(request.getStudysetId(), testResultDtosResponse);
     }
 
+    @Override
+    public BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception {
+        // Kiểm tra studyset có tồn tại hay không
+        Studyset studyset = checkStudysetExits(request.getStudysetId());
+
+        // Kiểm tra xem chủ sỡ hữu studyset có đúng không
+        checkOwnerUserIdValid(request.getOwnerUserId(), studyset);
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), request);
+    }
+
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
         return source
             .stream()

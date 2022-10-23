@@ -9,6 +9,7 @@ import source.third_party.auth.service.AuthServiceThirdParty;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
     @Autowired
     private AuthServiceThirdParty authServiceThirdParty;
 
@@ -125,5 +126,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
         return authServiceThirdParty.getRankStudyset(request);
+    }
+
+    @Override
+    public BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception {
+        return authServiceThirdParty.checkOwnerStudysetValid(request);
     }
 }

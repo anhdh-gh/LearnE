@@ -17,6 +17,7 @@ import java.util.Collections;
 
 @Service
 public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
+
     @Value("${service.auth.baseurl}")
     private String baseUrl;
 
@@ -272,6 +273,16 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.GET_RANK_STUDYSET),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.CHECK_OWNER_STUDYSET_VALID),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {});

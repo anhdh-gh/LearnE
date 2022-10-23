@@ -36,6 +36,10 @@ public class BaseEntity {
         if (this.createTime == null) {
             this.createTime = new Date();
         }
+
+        if (this.updateTime == null) {
+            this.updateTime = new Date();
+        }
     }
 
     @PreUpdate // Thực thi trước khi entity được update

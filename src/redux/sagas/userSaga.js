@@ -32,7 +32,7 @@ function* signInWorker({ payload }) {
                 Notification.success("Logged in successfully")
                 yield put(saveUser(user))
                 const { previous } = yield select(state => state.UI.Url)
-                const acceptUrl = [ ROUTE_PATH.HOME, ROUTE_PATH.SHOW_COURSE_DETAIL, ROUTE_PATH.SHOW_LESSON_DETAIL ].some(route => previous?.includes(route))
+                const acceptUrl = [ ROUTE_PATH.SHOW_COURSE_DETAIL, ROUTE_PATH.SHOW_LESSON_DETAIL ].some(route => previous?.includes(route) )
                 History.push(acceptUrl ? previous : ROUTE_PATH.HOME)
             } else {
                 const message = (meta?.errors?.length > 0 && meta?.errors[0]?.description ) || meta?.message

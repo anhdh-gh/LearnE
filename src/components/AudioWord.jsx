@@ -62,3 +62,7 @@ const AudioWord = (props) => {
 }
 
 export default AudioWord
+
+// Cái response của api dictionary này nó chứa cả audio
+// Nghĩ cách xem làm thế nào để show được audio
+// https://api.dictionaryapi.dev/api/v2/entries/en/agreement

@@ -44,3 +44,15 @@
         transform: scale(1);
     }
 }
+
+#navbarScrollingDropdown-studyset-sm,
+#navbarScrollingDropdown-studyset {
+    min-height: 100%;
+    color: #FFFFFF;
+}
+
+#navbarScrollingDropdown-studyset-sm + div.dropdown-menu.show,
+#navbarScrollingDropdown-studyset + div.dropdown-menu.show {
+    top: 125%;
+    min-width: auto;
+}

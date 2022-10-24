@@ -5,10 +5,15 @@ import { useDispatch } from 'react-redux'
 import { History } from '../components/NavigateSetter'
 import { showLoader, hideLoader } from '../redux/actions'
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
+import { useEffect } from 'react'
 
 const CreateStudySet = (props) => {
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleCreateStudyset = (studyset) => {
         dispatch(showLoader())

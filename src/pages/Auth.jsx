@@ -88,9 +88,9 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input required type="text" placeholder="Username" name='username' onChange={e => setUserName(e.target.value)}/>
-                    <input required type="email" placeholder="Email" name='email' onChange={e => setEmail(e.target.value)}/>
-                    <input required type="password" placeholder="Password" name='password'onChange={e => setPassword(e.target.value)} />
+                    <input required type="text" defaultValue={username} placeholder="Username" name='username' onChange={e => setUserName(e.target.value)}/>
+                    <input required type="email" defaultValue={email} placeholder="Email" name='email' onChange={e => setEmail(e.target.value)}/>
+                    <input required type="password" defaultValue={password} placeholder="Password" name='password'onChange={e => setPassword(e.target.value)} />
                     <button disabled={isButtonSignUpSpin} className={`${isButtonSignUpSpin && 'opacity-50'}`}>
                         <i className={`${!isButtonSignUpSpin && 'd-none'} fa-solid fa-spinner animate-spin`}></i> Sign up</button>
                     <div className='flex mt-3.5 w-full justify-between'>
@@ -108,10 +108,10 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input required type="email" placeholder="Email" name="email" onChange={e => setEmail(e.target.value)}/>
-                    <input required type="password" placeholder="Password" name="password" onChange={e => setPassword(e.target.value)}/>
+                    <input required type="email" defaultValue={email} placeholder="Email" name="email" onChange={e => setEmail(e.target.value)}/>
+                    <input required type="password" defaultValue={password} placeholder="Password" name="password" onChange={e => setPassword(e.target.value)}/>
                     <label className='w-full flex justify-start items-center cursor-pointer'>
-                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="rememberMe" onChange={e => setRememberMe(e.target.checked)}/>
+                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked={rememberMe && "checked"} name="rememberMe" onChange={e => setRememberMe(e.target.checked)}/>
                         <div className='ms-2'>Remember me</div>
                     </label>
                     <button disabled={isButtonSignInSpin} className={`${isButtonSignInSpin && 'opacity-50'}`}>
@@ -149,9 +149,9 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input required type="text" placeholder="Username" name='username' onChange={e => setUserName(e.target.value)}/>
-                    <input required type="email" placeholder="Email" name='email' onChange={e => setEmail(e.target.value)}/>
-                    <input required type="password" placeholder="Password" name='password'onChange={e => setPassword(e.target.value)} />
+                    <input required type="text" defaultValue={username} placeholder="Username" name='username' onChange={e => setUserName(e.target.value)}/>
+                    <input required type="email" defaultValue={email} placeholder="Email" name='email' onChange={e => setEmail(e.target.value)}/>
+                    <input required type="password" defaultValue={password} placeholder="Password" name='password'onChange={e => setPassword(e.target.value)} />
                     <button disabled={isButtonSignUpSpin} className={`${isButtonSignUpSpin && 'opacity-50'}`}>
                         <i className={`${!isButtonSignUpSpin && 'd-none'} fa-solid fa-spinner animate-spin`}></i> Sign up</button>
                     <div className='flex mt-3.5 w-full justify-between'>
@@ -169,10 +169,10 @@ const Auth = (props) => {
                         <a href="/#" onClick={ev => ev.preventDefault()} className="social hover:bg-blue-500 hover:text-white border-solid border-2 border-blue-500 text-blue-500"><i className="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input required type="email" placeholder="Email" name="email" onChange={e => setEmail(e.target.value)}/>
-                    <input required type="password" placeholder="Password" name="password" onChange={e => setPassword(e.target.value)}/>
+                    <input required type="email" defaultValue={email} placeholder="Email" name="email" onChange={e => setEmail(e.target.value)}/>
+                    <input required type="password" defaultValue={password} placeholder="Password" name="password" onChange={e => setPassword(e.target.value)}/>
                     <label className='w-full flex justify-start items-center cursor-pointer'>
-                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked="checked" name="rememberMe" onChange={e => setRememberMe(e.target.checked)}/>
+                        <input className="w-auto m-0 cursor-pointer" type="checkbox" defaultChecked={rememberMe && "checked"} name="rememberMe" onChange={e => setRememberMe(e.target.checked)}/>
                         <div className='ms-2'>Remember me</div>
                     </label>
                     <button disabled={isButtonSignInSpin} className={`${isButtonSignInSpin && 'opacity-50'}`}>

@@ -63,44 +63,65 @@ const Header = (props) => {
                             }
                         </Nav.Link>
 
-                        {!_.isEmpty(user) && <Nav.Link
-                            className="cursor-pointer"
-                            as="span"
-                            active="active"
-                            onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}
-                        >
-                            {pathname.includes('/studyset/')
-                                ? <Badge pill bg="primary">Study set</Badge>
-                                : 'Study set'
-                            }
-                        </Nav.Link>}
+                        <Nav className="my-2 my-sm-0 user-droplist">
+                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset').removeAttribute("href")} id="navbarScrollingDropdown-studyset" align="start" className="header-user-dropList"
+                                title={<span>
+                                    {pathname.includes('/studyset/')
+                                    ? <Badge pill bg="primary">Study set</Badge>
+                                    : 'Study set'
+                                    }</span>}
+                                >
+                                <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span">
+                                    <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                {!_.isEmpty(user) && <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-folder"></i> My study sets</div>
+                                </NavDropdown.Item>}
+                            </NavDropdown>
+                        </Nav>
                     </Nav>
 
                     <Nav className="my-2 my-sm-0 d-sm-none d-block">
 
                         <Nav.Link
-                            className="cursor-pointer"
+                            className="cursor-pointer py-0 my-3"
                             as="span"
                             active={pathname === ROUTE_PATH.HOME && `active`}
                             onClick={() => History.push(ROUTE_PATH.HOME)}
                         >Home</Nav.Link>
 
                         <Nav.Link
-                            className="cursor-pointer"
+                            className="cursor-pointer py-0 my-3"
                             as="span"
                             active={pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL) && "active"}
                             onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/746c8e3a-f39f-4360-9df2-6f396062393a`)}
                         >Course</Nav.Link>
 
-                        {!_.isEmpty(user) && <Nav.Link
-                            className="cursor-pointer"
-                            as="span"
-                            active={pathname.includes('/studyset/') && "active"}
-                            onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}
-                        >Study set</Nav.Link>}
+                        <Nav className="my-3 my-sm-0 user-droplist">
+                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset-sm').removeAttribute("href")} id="navbarScrollingDropdown-studyset-sm" align="start" className="header-user-dropList"
+                                title={<span className={`${pathname.includes('/studyset/') && 'header-user-title'}`}>Study set</span>}
+                                >
+                                <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span">
+                                    <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                {!_.isEmpty(user) && <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-folder"></i> My study sets</div>
+                                </NavDropdown.Item>}
+                            </NavDropdown>
+                        </Nav>
                     </Nav>
 
-                    <Nav className="ms-auto my-2 my-sm-0 user-droplist">
+                    <Nav className="ms-auto my-3 my-sm-0 user-droplist">
                         {_.isEmpty(user) ?
                             <Nav className="my-2 my-sm-0">
                                 <Nav.Link

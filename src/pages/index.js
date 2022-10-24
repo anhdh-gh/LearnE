@@ -7,6 +7,7 @@ import ShowListStudyset from './ShowListStudyset'
 import CreateStudySet from './CreateStudySet'
 import EditStudySet from './EditStudySet'
 import ViewDetailStudySet from './ViewDetailStudySet'
+import TestStudySet from './TestStudySet'
 
 export {
     NotFound,
@@ -18,4 +19,5 @@ export {
     CreateStudySet,
     EditStudySet,
     ViewDetailStudySet,
+    TestStudySet,
 }

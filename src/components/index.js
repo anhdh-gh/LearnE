@@ -17,6 +17,8 @@ import Textarea from './Textarea'
 import WordCardSlide from './WordCardSlide'
 import WordCardList from './WordCardList'
 import AudioWord from './AudioWord'
+import MultipleChoiceQuestion from './MultipleChoiceQuestion'
+import MultipleChoiceTest from './MultipleChoiceTest'
 
 export {
     Toast,
@@ -38,4 +40,6 @@ export {
     WordCardSlide,
     WordCardList,
     AudioWord,
+    MultipleChoiceQuestion,
+    MultipleChoiceTest,
 }

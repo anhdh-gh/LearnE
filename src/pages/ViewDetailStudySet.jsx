@@ -6,11 +6,12 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
-import { STATUS_CODES } from '../constants'
+import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import _ from 'lodash'
 import { Notification } from '../utils'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { DictionaryApi } from '../api'
+import { History } from '../components/NavigateSetter'
 
 const ViewDetailStudySet = (props) => {
 
@@ -94,7 +95,7 @@ const ViewDetailStudySet = (props) => {
                                 </div>                                
                             </CopyToClipboard>
 
-                            <div className="test">
+                            <div className="test" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${responseGetStudysetById?.data?.id}`)}>
                                 <i className="fas fa-pencil-ruler"/> Test
                             </div>   
                         </div>

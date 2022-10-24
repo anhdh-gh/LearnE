@@ -2,7 +2,7 @@ import { ROUTE_PATH } from '../constants'
 import { 
     NotFound, Auth, Home, ShowCourseDetail, 
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
-    EditStudySet, ViewDetailStudySet
+    EditStudySet, ViewDetailStudySet, TestStudySet
 } from '../pages'
 
 const routes = {
@@ -23,6 +23,11 @@ const routes = {
         {
             path: `${ROUTE_PATH.STUDY_SET_EDIT}/:studysetId`, 
             element: <EditStudySet/>
+        }, 
+
+        {
+            path: `${ROUTE_PATH.STUDY_SET_TEST}/:studysetId`, 
+            element: <TestStudySet/>
         }, 
     ],
 

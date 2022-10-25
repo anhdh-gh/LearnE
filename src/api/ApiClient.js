@@ -25,7 +25,10 @@ const createAxios = () => {
 
             return config
         },
-        (error) => console.error(error) 
+        (error) => {
+            console.error(error) 
+            window.location.reload()
+        }
     )
     axiosInstant.interceptors.response.use(
         (response) => {
@@ -78,8 +81,10 @@ const createAxios = () => {
 
             // }
 
-            console.error(error)
-            throw error
+            // console.error(error)
+            // throw error
+
+            window.location.reload()
         }
     )
     return axiosInstant
@@ -88,7 +93,10 @@ const createAxios = () => {
 const handleResult = (api) => {
     return api
         .then(res => Promise.resolve(res?.data))
-        .catch(err => console.log(err))
+        .catch(err => {
+            // console.log(err)
+            window.location.reload()
+        })
 }
 
 const getAxios = createAxios()

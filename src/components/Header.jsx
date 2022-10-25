@@ -78,10 +78,10 @@ const Header = (props) => {
                                 <NavDropdown.Item as="span">
                                     <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
                                 </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                {!_.isEmpty(user) && <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
+                                
+                                {!_.isEmpty(user) && <><NavDropdown.Divider/><NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-folder"></i> My study sets</div>
-                                </NavDropdown.Item>}
+                                </NavDropdown.Item></>}
                             </NavDropdown>
                         </Nav>
                     </Nav>
@@ -113,10 +113,9 @@ const Header = (props) => {
                                 <NavDropdown.Item as="span">
                                     <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
                                 </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                {!_.isEmpty(user) && <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
+                                {!_.isEmpty(user) && <><NavDropdown.Divider /><NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-folder"></i> My study sets</div>
-                                </NavDropdown.Item>}
+                                </NavDropdown.Item></>}
                             </NavDropdown>
                         </Nav>
                     </Nav>

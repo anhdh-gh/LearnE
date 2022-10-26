@@ -1,12 +1,21 @@
 import { Form } from 'react-bootstrap'
+import { useRef, useEffect } from 'react'
 
 const MultipleChoiceQuestion = (props) => {
 
     const { id, question, correct, answers } = props.testItem
     const { showResult } = props
 
+    const formRef = useRef()
+
+    useEffect(() => {
+        if(!showResult) {
+            formRef?.current?.reset()
+        }
+    }, [showResult])
+
     return <div className="mb-3 white-space_pre-line">
-        <Form>
+        <Form ref={formRef}>
             <p className={`fw-bold text-break ${
                 showResult
                     ? correct === props.testItem.choice

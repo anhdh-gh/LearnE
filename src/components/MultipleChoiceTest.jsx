@@ -2,17 +2,30 @@ import '../assets/css/MultipleChoiceTest.css'
 import { useState } from 'react'
 import { MultipleChoiceQuestion } from './index'
 import { Button, ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import Timer from 'react-timer-wrapper'
+import Timecode from 'react-timecode'
 
 const MultipleChoiceTest = (props) => {
-    const { test } = props
+
+    console.log('dm')
+
+    const { test, handleTestResult, handleReTest } = props
     const [ showResult, setShowResult ] = useState(false)
+    const [ countUpTimer, setCountUpTimer ] = useState(0)
 
     const showTestScore = e => {
-        setShowResult([
-            test.reduce((acc, item) => item.choice === '' ? acc + 1 : acc, 0), // Số câu không làm
-            test.reduce((acc, item) => item.choice !== item.correct && item.choice !== '' ? acc + 1 : acc, 0), // Số câu sai
-            test.reduce((acc, item) => item.choice === item.correct ? acc + 1 : acc, 0) // Số câu đúng
-        ])
+        const numberQuestionEmpty = test.reduce((acc, item) => item.choice === '' ? acc + 1 : acc, 0) // Số câu không làm
+        const numberQuestionWrong = test.reduce((acc, item) => item.choice !== item.correct && item.choice !== '' ? acc + 1 : acc, 0) // Số câu sai
+        const numberQuestionCorrect = test.reduce((acc, item) => item.choice === item.correct ? acc + 1 : acc, 0) // Số câu đúng
+        const score = numberQuestionCorrect/test.length * 10
+        setShowResult([numberQuestionEmpty, numberQuestionWrong, numberQuestionCorrect])
+        handleTestResult(score, countUpTimer)
+    }
+
+    const resetTest = e => {
+        setShowResult(false)
+        setCountUpTimer(0)
+        handleReTest()
     }
 
     return <div className="MultipleChoiceTest-container p-2 p-sm-3 p-md-4">
@@ -27,9 +40,20 @@ const MultipleChoiceTest = (props) => {
             )
         }
 
-        {!showResult && <Button onClick={showTestScore} className="w-100 fw-bold">Check answers</Button>}
+        <div className="mt-5 flex justify-between">
+            {!showResult && <Button onClick={showTestScore} className="fw-bold">Submit</Button>}
 
-        {showResult && <ProgressBar className="fs-6 fw-bold">
+            {showResult && <Button onClick={resetTest} className="fw-bold">Retest</Button>}
+
+            <div className="flex justify-between items-end text-lime-500 fw-bold text-3xl">
+                {!showResult && <Timer active={true} duration={null} onTimeUpdate={({time}) => setCountUpTimer(time)}>
+                    <Timecode />
+                </Timer> }   
+                {showResult && <Timecode time={countUpTimer} />}            
+            </div>
+        </div>
+
+        {showResult && <><ProgressBar className="mt-5 fs-6 fw-bold">
             <ProgressBar max={test.length} variant="danger" now={showResult[0]} 
                 label={<OverlayTrigger
                     placement="bottom"
@@ -47,7 +71,7 @@ const MultipleChoiceTest = (props) => {
                     placement="bottom"
                     overlay={<Tooltip>Correct</Tooltip>}
             ><span>{`${showResult[2]}/${test.length}`}</span></OverlayTrigger>}/>
-        </ProgressBar>} 
+        </ProgressBar></>} 
     </div>
 }
 

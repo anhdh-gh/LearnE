@@ -3584,6 +3584,11 @@ clean-css@^5.2.2:
   dependencies:
     source-map "~0.6.0"
 
+clean-react-props@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/clean-react-props/-/clean-react-props-0.4.0.tgz#68642be5538a5fece380fed704a560de2db67954"
+  integrity sha512-8KKm9sC/cUax4SBWwSY5a3W44aJKOUQg39Bo3fRErp3/mF8D1kMN9xc1lvQGmvkK/AmpH2Xh/UYVZOJMcxoy9w==
+
 cliui@^7.0.2:
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-7.0.4.tgz#a0265ee655476fc807aea9df3df8df7783808b4f"
@@ -7837,7 +7842,7 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^4.0.0"
 
-prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8219,6 +8224,22 @@ react-speech-kit@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-speech-kit/-/react-speech-kit-3.0.1.tgz#8bd936adfe064be1c5a07e2992dfdfd772e80d14"
   integrity sha512-MXNOciISanhmnxpHJkBOev3M3NPDpW1T7nTc/eGw5pO9cXpoUccRxZkmr/IlpTPbPEneDNeTmbwri/YweyctZg==
+
+react-timecode@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-timecode/-/react-timecode-1.2.0.tgz#d48431f79892f930ce4169db1fc072f63a41eafe"
+  integrity sha512-nm8KCipv0HItTLYFc4VkPFgTbETDRCRnVN4NDAggQfEouW3XDduXcewJsCsdck/jv309z25EdxVPyGTtirIk2w==
+  dependencies:
+    clean-react-props "^0.4.0"
+    prop-types "^15.7.2"
+
+react-timer-wrapper@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-timer-wrapper/-/react-timer-wrapper-0.4.1.tgz#021a068797903b023d503a7f6f233e6b23a9acd5"
+  integrity sha512-8hG5Q02+73xlLzPneYnspZfhiQ7+9mJyoEdA9khkYuen6sWHMfpraOBGGAgRtTqHu/tp3dIwsr8Yfku2iFjKYw==
+  dependencies:
+    clean-react-props "^0.4.0"
+    prop-types "^15.5.10"
 
 react-toastify@^9.0.8:
   version "9.0.8"

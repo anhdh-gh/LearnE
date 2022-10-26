@@ -7,8 +7,6 @@ import Timecode from 'react-timecode'
 
 const MultipleChoiceTest = (props) => {
 
-    console.log('dm')
-
     const { test, handleTestResult, handleReTest } = props
     const [ showResult, setShowResult ] = useState(false)
     const [ countUpTimer, setCountUpTimer ] = useState(0)
@@ -23,8 +21,6 @@ const MultipleChoiceTest = (props) => {
     }
 
     const resetTest = e => {
-        setShowResult(false)
-        setCountUpTimer(0)
         handleReTest()
     }
 

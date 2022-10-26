@@ -1,5 +1,5 @@
 import { Form } from 'react-bootstrap'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 
 const MultipleChoiceQuestion = (props) => {
 
@@ -8,11 +8,14 @@ const MultipleChoiceQuestion = (props) => {
 
     const formRef = useRef()
 
-    useEffect(() => {
-        if(!showResult) {
+    const handleInputChange = (answer) => {
+        if(props?.testItem?.choice && props.testItem.choice === answer) {
+            props.testItem.choice = ""
             formRef?.current?.reset()
+        } else {
+            props.testItem.choice = answer
         }
-    }, [showResult])
+    }
 
     return <div className="mb-3 white-space_pre-line">
         <Form ref={formRef}>
@@ -35,7 +38,8 @@ const MultipleChoiceQuestion = (props) => {
                         <Form.Check.Input
                             type="radio"
                             name={`answer-${id}`}
-                            onChange={e => props.testItem.choice = answer}
+                            // onChange={e => handleInputChange(answer)}
+                            onClick={e => handleInputChange(answer)}
                             disabled={showResult}
                             style={{ cursor: 'pointer', opacity: '1', minWidth: "1rem"}}
                             className="text-primary"

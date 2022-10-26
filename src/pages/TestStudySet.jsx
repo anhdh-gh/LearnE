@@ -3,7 +3,7 @@ import { Header, Footer, UserInfo, MultipleChoiceTest } from "../components"
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import { STATUS_CODES } from '../constants'
@@ -17,7 +17,7 @@ const TestStudySet = (props) => {
     const { studysetId } = useParams()
     const dispatch = useDispatch()
 
-    const { data: responseGetStudysetById, isLoading, isFetching, isError } = useQuery(
+    const { data: responseGetStudysetById, isLoading, isFetching, isError, refetch: getStudysetById } = useQuery(
         ["getStudysetById"],
         () => StudysetApi.getStudysetById(studysetId),
         {
@@ -47,6 +47,10 @@ const TestStudySet = (props) => {
     const handleTestResult = (score, countUpTimer) => {
         score = score.toFixed(2)
         // StudysetApi.saveTestResult(responseGetStudysetById?.data?.id, )
+    }
+
+    const handleReTest = () => {
+        getStudysetById(studysetId)
     }
 
     const convertwordCardsToTest = (wordCards) => {
@@ -98,7 +102,7 @@ const TestStudySet = (props) => {
 
             <div className="content py-3 py-md-4">
                 <div className="container-xl test">
-                    {/* <MultipleChoiceTest test={convertwordCardsToTest(responseGetStudysetById?.data?.wordCards)}/> */}
+                    <MultipleChoiceTest handleTestResult={handleTestResult} handleReTest={handleReTest} test={convertwordCardsToTest(responseGetStudysetById?.data?.wordCards)}/>
                 </div>
             </div>
         </div>

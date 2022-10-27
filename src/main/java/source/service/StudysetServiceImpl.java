@@ -75,6 +75,7 @@ public class StudysetServiceImpl implements StudysetService {
 
         // Set dữ liệu để update
         Studyset studysetSave = modelMapper.map(request, Studyset.class);
+        studysetSave.setId(null);
         studysetSave.setWordCards(mapList(request.getWordCards(), WordCard.class));
         studysetSave.setCreateTime(studyset.getCreateTime());
         studysetSave.setUpdateTime(new Date());

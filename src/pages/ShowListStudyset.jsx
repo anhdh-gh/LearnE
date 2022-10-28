@@ -82,6 +82,7 @@ const ShowListStudyset = (props) => {
             <div className="studysets py-5">
                 <div className="container-xl">
                     <Pagination className="row"
+                        classNamePagination={`m-0 mt-3`}
                         hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) - 1}`}
                         hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) + 1}`}
                         hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}`}

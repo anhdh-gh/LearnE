@@ -8,14 +8,14 @@ const Pagination = (props) => {
         hrefNext, onClickNext,
         hrefCurrent, onClickCurrent,
         disabledPrev, disabledNext, 
-        page, hide, totalPages } = props
+        page, hide, totalPages, classNamePagination } = props
 
     return <div className={props?.className}>
         {props?.children}
 
-        <RbPagination className={`mt-3 justify-content-center ${hide && 'd-none'}`}>
+        <RbPagination className={`justify-content-center ${hide && 'd-none'} ${classNamePagination}`}>
             <RbPagination.Prev disabled={disabledPrev} href={hrefPrev} onClick={(e) => {e.preventDefault(); onClickPrev ? onClickPrev() : History.push(hrefPrev)}}/>
-            <RbPagination.Item href={hrefCurrent} onClick={(e) => {e.preventDefault(); onClickCurrent ? onClickCurrent() : History.push(hrefCurrent)}}>{`${page}/${totalPages}`}</RbPagination.Item>
+            <RbPagination.Item href={hrefCurrent} onClick={(e) => {e.preventDefault(); onClickCurrent ? onClickCurrent() : History.push(hrefCurrent)}}>{`${page ? page : ''}${totalPages ? `/${totalPages}` : ''}`}</RbPagination.Item>
             <RbPagination.Next disabled={disabledNext} href={hrefNext} onClick={(e) => {e.preventDefault(); onClickNext ? onClickNext() : History.push(hrefNext)}}/>
         </RbPagination>
     </div>

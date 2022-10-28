@@ -5,7 +5,7 @@ import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useDispatch } from "react-redux"
-import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
+import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
 import { STATUS_CODES } from '../constants'
 import _ from 'lodash'
 import { CommonUtil } from '../utils'
@@ -45,8 +45,15 @@ const TestStudySet = (props) => {
     }, [responseGetStudysetById, dispatch, isError, isFetching, isLoading])
 
     const handleTestResult = (score, countUpTimer) => {
-        score = score.toFixed(2)
-        // StudysetApi.saveTestResult(responseGetStudysetById?.data?.id, )
+        dispatch(showTopLoader())
+        StudysetApi.saveTestResult(responseGetStudysetById?.data?.id, countUpTimer, score)
+            .then(response => {
+                const { meta } = response
+                if(meta?.code === STATUS_CODES.SUCCESS) {
+                    dispatch(hideTopLoader())
+                }
+            })
+            .catch(() => dispatch(hideTopLoader()))
     }
 
     const handleReTest = () => {

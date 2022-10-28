@@ -19,6 +19,7 @@ import WordCardList from './WordCardList'
 import AudioWord from './AudioWord'
 import MultipleChoiceQuestion from './MultipleChoiceQuestion'
 import MultipleChoiceTest from './MultipleChoiceTest'
+import RankStudySet from './RankStudySet'
 
 export {
     Toast,
@@ -42,4 +43,5 @@ export {
     AudioWord,
     MultipleChoiceQuestion,
     MultipleChoiceTest,
+    RankStudySet,
 }

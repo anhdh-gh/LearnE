@@ -87,7 +87,8 @@ const ShowListStudyset = (props) => {
                         hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}`}
                         disabledPrev={responseGetAllByOwnerUserId?.data?.first}
                         disabledNext={responseGetAllByOwnerUserId?.data?.last}
-                        page={page}
+                        page={parseInt(page) + 1}
+                        totalPages={responseGetAllByOwnerUserId?.data?.totalPages}
                         hide={(responseGetAllByOwnerUserId?.data && (responseGetAllByOwnerUserId?.data?.totalElements <= size || _.isEmpty(responseGetAllByOwnerUserId?.data?.content))) ? true : false}
                     >
                         {

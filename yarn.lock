@@ -8151,6 +8151,11 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
+react-ribbons@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-ribbons/-/react-ribbons-1.0.6.tgz#7cda0a3b8c0453c4a71e9cab272928a7f94cdc51"
+  integrity sha512-FzgCLeifL9vrOgj6FJPiTPVgttCIqJpQXjPSGoOgBqb2KtmijhY+Kw6f6Yjo2R/pJkIo/qTtMCl3fjnHn1jG6g==
+
 react-router-dom@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.4.0.tgz#a7d7c394c9e730b045cdd4f5d6c2d1ccb9e26947"

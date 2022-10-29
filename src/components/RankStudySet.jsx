@@ -1,11 +1,13 @@
 import { UserInfo, Pagination, Loader } from "."
-import { Modal } from 'react-bootstrap'
+import { Modal, Accordion } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import { StudysetApi } from "../api"
 import { useState, useEffect } from "react"
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import _ from 'lodash'
 import { RibbonContainer, RightRibbon } from 'react-ribbons'
+import Timecode from 'react-timecode'
+import { CommonUtil } from '../utils'
 
 const RankStudySet = (props) => {
 
@@ -25,7 +27,7 @@ const RankStudySet = (props) => {
         getRankStudyset(page)
     }, [page, getRankStudyset])
 
-    return <Modal show={show} fullscreen='md-down' size="lg" centered onHide={onHide}>
+    return <Modal scrollable show={show} fullscreen='md-down' size="lg" centered onHide={onHide}>
         <Modal.Header closeButton>
             <Modal.Title>Rank</Modal.Title>
         </Modal.Header>
@@ -36,22 +38,29 @@ const RankStudySet = (props) => {
                     !_.isEmpty(responseGetRankStudyset?.data))
                     ? <Loader forComponent={true} />
                     : responseGetRankStudyset?.data?.content?.map((item, index) =>
-                        <div key={item?.id} className="py-3 border-bottom border-1 border-primary border-start-0 border-end-0 border-top-0">
-                            <div>
-                                <RibbonContainer className="min-h-min">
-                                    <RightRibbon backgroundColor="#014599" color="#f0f0f0">
-                                        <span className="font-bold">{parseInt(responseGetRankStudyset?.data?.pageable?.offset) + index + 1}</span>
-                                    </RightRibbon>
+                        <Accordion key={item?.id}>
+                            <Accordion.Item eventKey={item?.id} className={`border-start-0 border-end-0 border-top-0 rounded-none`}>
+                                <Accordion.Header className='d-flex ShowCourseDetail-accordion-header'>
+                                    <RibbonContainer className="min-h-min min-w-full">
+                                        <RightRibbon backgroundColor="#014599" color="#f0f0f0">
+                                            <span className="font-bold">{parseInt(responseGetRankStudyset?.data?.pageable?.offset) + index + 1}</span>
+                                        </RightRibbon>
+                                        <UserInfo limit={20} user={item?.user} />
+                                    </RibbonContainer>
+                                </Accordion.Header>
+                                <Accordion.Body>
                                     <div>
-                                        <UserInfo limit={50} user={item?.user} />
+                                        <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {item?.score}</div>
+                                        <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={item?.completionTime}/></div>
+                                        <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated on {CommonUtil.getDateStringFromMilliseconds(item?.updateTime || item?.createTime)}</div>
                                     </div>
-                                </RibbonContainer>
-                            </div>
-                        </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
                     )
             }
         </Modal.Body>
-        <Modal.Footer>
+        {parseInt(responseGetRankStudyset?.data?.totalPages) > 1 && <Modal.Footer>
             <Pagination
                 classNamePagination={`m-0`}
                 hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/${studysetId}`}
@@ -67,7 +76,7 @@ const RankStudySet = (props) => {
                 totalPages={responseGetRankStudyset?.data?.totalPages}
                 hide={(responseGetRankStudyset?.data && (responseGetRankStudyset?.data?.totalElements <= size || _.isEmpty(responseGetRankStudyset?.data?.content))) ? true : false}
             />
-        </Modal.Footer>
+        </Modal.Footer>}
     </Modal>
 }
 

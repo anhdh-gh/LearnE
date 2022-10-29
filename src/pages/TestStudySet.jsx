@@ -9,7 +9,6 @@ import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hide
 import { STATUS_CODES } from '../constants'
 import _ from 'lodash'
 import { CommonUtil } from '../utils'
-// import { History } from "../components/NavigateSetter"
 
 
 const TestStudySet = (props) => {

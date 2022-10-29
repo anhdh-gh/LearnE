@@ -21,16 +21,12 @@ const ShowListStudyset = (props) => {
     const [ isOwnerStudysets, setIsOwnerStudysets ] = useState()
 
     const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllByOwnerUserId } = useQuery(
-        ["getAllByOwnerUserId"],
+        ["getAllByOwnerUserId", page],
         () => StudysetApi.getAllByOwnerUserId(ownerUserId, page, size),
         {
             refetchOnWindowFocus: false,
         }
     )
-
-    useEffect(() => {
-        getAllByOwnerUserId(ownerUserId, page, size)
-    }, [ page, getAllByOwnerUserId, ownerUserId ])
 
     useEffect(() => {
         if (isLoading || isFetching) {
@@ -88,6 +84,7 @@ const ShowListStudyset = (props) => {
                         hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}`}
                         disabledPrev={responseGetAllByOwnerUserId?.data?.first}
                         disabledNext={responseGetAllByOwnerUserId?.data?.last}
+                        onClickCurrent={() => getAllByOwnerUserId(page)}
                         page={parseInt(page) + 1}
                         totalPages={responseGetAllByOwnerUserId?.data?.totalPages}
                         hide={(responseGetAllByOwnerUserId?.data && (responseGetAllByOwnerUserId?.data?.totalElements <= size || _.isEmpty(responseGetAllByOwnerUserId?.data?.content))) ? true : false}

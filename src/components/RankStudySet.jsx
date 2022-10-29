@@ -59,9 +59,10 @@ const RankStudySet = (props) => {
                 hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/${studysetId}`}
                 onClickNext={() => setPage(page + 1)}
                 hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/${studysetId}`}
-                onClickCurrent={() => setPage(page)}
-                disabledPrev={responseGetRankStudyset?.data?.first}
-                disabledNext={responseGetRankStudyset?.data?.last}
+                onClickCurrent={() => getRankStudyset(page)}
+                disabledPrev={_.isEmpty(responseGetRankStudyset) || isLoading || isFetching || isError || responseGetRankStudyset?.data?.first}
+                disabledNext={_.isEmpty(responseGetRankStudyset) || isLoading || isFetching || isError || responseGetRankStudyset?.data?.last}
+                disableCurrent={_.isEmpty(responseGetRankStudyset) || isLoading || isFetching || isError}
                 page={parseInt(page) + 1}
                 totalPages={responseGetRankStudyset?.data?.totalPages}
                 hide={(responseGetRankStudyset?.data && (responseGetRankStudyset?.data?.totalElements <= size || _.isEmpty(responseGetRankStudyset?.data?.content))) ? true : false}

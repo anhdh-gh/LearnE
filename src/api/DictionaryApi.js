@@ -6,7 +6,7 @@ const createAxios = () => {
     axiosInstant.interceptors.response.use(
         response => response,
         error => {
-            // console.clear()
+            console.clear()
         }
     )
     return axiosInstant

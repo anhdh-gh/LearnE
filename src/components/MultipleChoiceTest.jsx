@@ -1,6 +1,6 @@
 import '../assets/css/MultipleChoiceTest.css'
 import "chartjs-plugin-datalabels"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MultipleChoiceQuestion } from './index'
 import { Button, ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import Timer from 'react-timer-wrapper'
@@ -70,13 +70,14 @@ const data = {
     ]
 }
 
+let countUpTimer = 0
+
 
 const MultipleChoiceTest = (props) => {
 
     const { test, handleTestResult, handleReTest } = props
     const [ showResult, setShowResult ] = useState(false)
     const [ viewResult, setViewResult ] = useState(false)
-    const [ countUpTimer, setCountUpTimer ] = useState(0)
 
     const showTestScore = e => {
         const numberQuestionEmpty = test.reduce((acc, item) => item.choice === '' ? acc + 1 : acc, 0) // Số câu không làm
@@ -92,6 +93,10 @@ const MultipleChoiceTest = (props) => {
         handleReTest()
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [ showResult ])
+
     return <div className="MultipleChoiceTest-container p-2 p-sm-3 p-md-4">
         {!showResult && <>
             <h5 className="fw-bold pb-3 border-4 border-bottom border-danger border-start-0 border-end-0 border-top-0 d-inline-block">{`Multiple choice questions (${test.length})`}</h5>
@@ -101,6 +106,7 @@ const MultipleChoiceTest = (props) => {
                         testItem={item}
                         showResult={showResult}
                         key={item.id}
+                        totalQuestion={test.length}
                     />
                 )
             }
@@ -109,7 +115,7 @@ const MultipleChoiceTest = (props) => {
                 <Button onClick={showTestScore} className="fw-bold">Submit</Button>
 
                 <div className="flex justify-between items-end text-lime-500 fw-bold text-3xl">
-                    <Timer active={true} duration={null} onTimeUpdate={({ time }) => setCountUpTimer(time)}>
+                    <Timer active={true} duration={null} onTimeUpdate={({ time }) => countUpTimer = time}>
                         <Timecode />
                     </Timer>
                 </div>
@@ -171,6 +177,7 @@ const MultipleChoiceTest = (props) => {
                             testItem={item}
                             showResult={showResult}
                             key={item.id}
+                            totalQuestion={test.length}
                         />
                     )
                 }                

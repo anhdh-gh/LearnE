@@ -9,7 +9,7 @@ const AudioWord = (props) => {
     const { word } = props
 
     const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
-    const [phonetic, setPhonetic] = useState()
+    const [ phonetic, setPhonetic ] = useState()
 
     const getPhonetic = (info) => {
         return info?.map(info => info.phonetics)

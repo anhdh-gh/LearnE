@@ -74,13 +74,13 @@ const TestStudySet = (props) => {
                 question: wordCard.key,
                 correct: wordCard.value,
                 choice: '',
-                answers: CommonUtil.shuffle([
-                    wordCard.value,
-                    ...CommonUtil.getRandom_K_number_unique(
+                answers: CommonUtil.shuffle([ // Xáo trộn mảng các đáp án
+                    wordCard.value, // Mảng phải chứa đáp án đúng
+                    ...CommonUtil.getRandom_K_number_unique( // Mảng đáp án nhiễu
                         0, 
                         uniqueValues.length < numberOfAnswers ? wordCards.length-1 : uniqueValues.length-1, 
                         numberOfAnswers-1, 
-                        [uniqueValues.length < numberOfAnswers ? index : uniqueValues.indexOf(wordCard.value)], 
+                        [uniqueValues.length < numberOfAnswers ? index : uniqueValues.indexOf(wordCard.value)],
                         CommonUtil.getRandomIntInclusive
                     ).map(idx => uniqueValues.length < numberOfAnswers ? wordCards[idx].value : uniqueValues[idx])
                 ]) 

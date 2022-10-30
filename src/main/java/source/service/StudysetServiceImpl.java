@@ -173,12 +173,12 @@ public class StudysetServiceImpl implements StudysetService {
         });
 
         // Trả về kết quả
-        Map<String, Object> extraDate = new HashMap<>();
-        extraDate.put("ownerUser", userDto);
+        Map<String, Object> extraData = new HashMap<>();
+        extraData.put("ownerUser", userDto);
         return BaseResponse.ofSucceeded(
             request.getRequestId(),
             studysetDtosPage,
-            extraDate
+            extraData
         );
     }
 

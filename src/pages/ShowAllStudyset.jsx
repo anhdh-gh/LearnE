@@ -59,7 +59,7 @@ const ShowAllStudyset = (props) => {
                 <div className="container-xl">
                     <div className="row">
                         <div className="col-md">
-                            <UserInfo limit={30} user={user} />
+                            <UserInfo className="cursor-pointer" limit={30} user={user} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}/>
                         </div>
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
                             <SearchBox placeholder="Search" />
@@ -90,7 +90,6 @@ const ShowAllStudyset = (props) => {
                                     <CardStudySet
                                         studyset={studyset}
                                         showHeader={true}
-                                        showFooterPublic={true}
                                     />
                                 </div>
                             )

@@ -9,14 +9,14 @@ import { Notification } from '../utils'
 
 const CardStudySet = (props) => {
 
-    const { studyset, showHeader, showFooter, showFooterPublic, handleRemoveStudyset } = props
+    const { studyset, showHeader, showFooter, handleRemoveStudyset } = props
 
     const user = useSelector(state => state.user)
 
     return <>
         <Card className="card-study-set-container">
             {showHeader && <Card.Header>
-                <UserInfo user={studyset?.ownerUser} />
+                <UserInfo user={studyset?.ownerUser} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${studyset?.ownerUser?.id}/0`)}/>
             </Card.Header>}
 
             <Card.Body onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/${studyset?.id}`)}>
@@ -53,7 +53,7 @@ const CardStudySet = (props) => {
                 </OverlayTrigger>
             </Card.Footer>}
 
-            {showFooterPublic && <Card.Footer className="d-flex justify-content-between">
+            {!showFooter && <Card.Footer className="d-flex justify-content-between">
                 <OverlayTrigger placement="bottom" overlay={<Tooltip>Test</Tooltip>}>
                     <Badge bg="primary" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${studyset?.id}`)}>
                         <i className="fa-regular fa-pen-to-square fs-6"></i>

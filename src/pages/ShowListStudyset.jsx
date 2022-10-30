@@ -83,7 +83,7 @@ const ShowListStudyset = (props) => {
             })
     }
 
-    return !isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data) && <>
+    return !isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data) && !_.isEmpty(responseGetAllByOwnerUserId?.extraData) && <>
         <Header />
         <div className="study-set-page-container">
 
@@ -92,7 +92,7 @@ const ShowListStudyset = (props) => {
                 <div className="container-xl">
                     <div className="row">
                         <div className="col-md">
-                            <UserInfo limit={30} user={user} />
+                            <UserInfo className="cursor-pointer" limit={30} user={responseGetAllByOwnerUserId?.extraData?.ownerUser} onClick={refreshPage}/>
                         </div>
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
                             <SearchBox placeholder="Search" />

@@ -3,9 +3,9 @@ import AvatarIcon from '../assets/img/avatar-icon.jpg'
 
 const UserInfo = (props) => {
 
-    const { user, className, limit } = props
+    const { user, className, limit, onClick } = props
 
-    return <div className={`user-info-container ${className}`}>
+    return <div className={`user-info-container ${className}`} onClick={() => onClick && onClick()}>
         <img style={{"border": "1px solid #00B871"}} src={user?.avatar || AvatarIcon} alt='avatar' className="avatar"/>
         <div className="text-user-info overflow-hidden">
             <p className="display-name">

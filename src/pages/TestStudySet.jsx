@@ -6,9 +6,10 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
-import { STATUS_CODES } from '../constants'
+import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import _ from 'lodash'
 import { CommonUtil } from '../utils'
+import { History } from '../components/NavigateSetter'
 
 
 const TestStudySet = (props) => {
@@ -97,10 +98,10 @@ const TestStudySet = (props) => {
 
             <div className="container-xl info">
 
-                <p className="title">{`Test: ${responseGetStudysetById?.data?.title}`}</p>
+                <p className="title cursor-pointer" onClick={getStudysetById}>{`Test: ${responseGetStudysetById?.data?.title}`}</p>
 
                 <div className="border-top mt-4 py-4 author">
-                    <UserInfo limit={30} user={responseGetStudysetById?.data?.ownerUser}/>
+                <UserInfo className="cursor-pointer" limit={30} user={responseGetStudysetById?.data?.ownerUser} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${responseGetStudysetById?.data?.ownerUser?.id}/0`)}/>
                     <div className="description mt-3 text-break">{responseGetStudysetById?.data?.description}</div>
                 </div>              
 

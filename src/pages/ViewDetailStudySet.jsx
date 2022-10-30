@@ -19,7 +19,7 @@ const ViewDetailStudySet = (props) => {
     const dispatch = useDispatch()
     const [ showRank, setShowRank ] = useState(false);
 
-    const { data: responseGetStudysetById, isLoading, isFetching, isError } = useQuery(
+    const { data: responseGetStudysetById, isLoading, isFetching, isError, refetch: getStudysetById } = useQuery(
         ["getStudysetById"],
         async () => {
             const response = await StudysetApi.getStudysetById(studysetId)
@@ -78,7 +78,7 @@ const ViewDetailStudySet = (props) => {
         <div className="ViewStudySetPage-container">
 
             <div className="container-xl">
-                <p className="title">{responseGetStudysetById?.data?.title}</p>
+                <p className="title cursor-pointer" onClick={getStudysetById}>{responseGetStudysetById?.data?.title}</p>
 
                 <div className="row flex-column-reverse flex-md-row">
                     <div className="col-md-2">
@@ -112,7 +112,7 @@ const ViewDetailStudySet = (props) => {
                 </div>
 
                 <div className="border-top mt-4 py-4 author">
-                    <UserInfo limit={30} user={responseGetStudysetById?.data?.ownerUser} />
+                    <UserInfo className="cursor-pointer" limit={30} user={responseGetStudysetById?.data?.ownerUser} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${responseGetStudysetById?.data?.ownerUser?.id}/0`)}/>
                     <div className="description mt-3">{responseGetStudysetById?.data?.description}</div>
                 </div>
 

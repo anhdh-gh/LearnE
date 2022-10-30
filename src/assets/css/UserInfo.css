@@ -8,6 +8,7 @@
     overflow: auto;
     display: flex;
     align-items: center;
+    max-width: fit-content;
 }
 
 .user-info-container > .avatar {

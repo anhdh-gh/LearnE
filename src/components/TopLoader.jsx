@@ -19,7 +19,7 @@ const TopLoader = (props) => {
         }
     }, [ isShow, dispatch ])
 
-    return <LoadingBar color='#d30000' ref={ref} className={`${isDisplay ? '' : 'd-none'}`}/>
+    return <LoadingBar color='rgb(132, 204, 22)' ref={ref} className={`${isDisplay ? '' : 'd-none'}`}/>
 }
 
 export default TopLoader

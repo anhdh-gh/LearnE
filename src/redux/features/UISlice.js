@@ -20,6 +20,10 @@ const UISlice = createSlice({
             isDisplay: false
         },
 
+        ProgressTopLoader: {
+            percent: 0
+        },
+
         NotFound: {
             isShow: false
         },
@@ -131,6 +135,17 @@ const UISlice = createSlice({
                     ...state.TopLoader,
                     isShow: false,
                     isDisplay: false
+                }
+            }
+        },
+
+        
+        setPercentProgressTopLoader: (state, { payload }) => {
+            return {
+                ...state,
+                ProgressTopLoader: {
+                    ...state.ProgressTopLoader,
+                    percent: payload < 0 ? 0 : payload >= 100 ? 99.9999999999 : payload
                 }
             }
         },
@@ -345,6 +360,7 @@ export const {
     showNotFound, hideNotFound,
     initIsProcessingDone,
     fetchCourseProcessingDone,
+    setPercentProgressTopLoader,
 } = UISlice.actions
 
 export default UISlice.reducer

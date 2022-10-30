@@ -9,6 +9,8 @@ import { Pie } from "react-chartjs-2"
 import { Chart as ChartJS, ArcElement, Tooltip as TooltipJS, Legend, Title } from "chart.js"
 import ChartDataLabels from "chartjs-plugin-datalabels"
 import { CommonUtil } from '../utils'
+import { setPercentProgressTopLoader } from '../redux/actions'
+import { useDispatch } from 'react-redux'
 
 ChartJS.register(ArcElement, TooltipJS, Legend, ChartDataLabels, Title)
 
@@ -78,6 +80,7 @@ const MultipleChoiceTest = (props) => {
     const { test, handleTestResult, handleReTest } = props
     const [ showResult, setShowResult ] = useState(false)
     const [ viewResult, setViewResult ] = useState(false)
+    const dispatch = useDispatch()
 
     const showTestScore = e => {
         const numberQuestionEmpty = test.reduce((acc, item) => item.choice === '' ? acc + 1 : acc, 0) // Số câu không làm
@@ -87,10 +90,12 @@ const MultipleChoiceTest = (props) => {
         setShowResult([numberQuestionEmpty, numberQuestionWrong, numberQuestionCorrect])
         data.datasets[0].data = [numberQuestionEmpty / test.length, numberQuestionWrong / test.length, numberQuestionCorrect / test.length]
         handleTestResult(score, countUpTimer)
+        dispatch(setPercentProgressTopLoader(0))
     }
 
     const resetTest = e => {
         handleReTest()
+        dispatch(setPercentProgressTopLoader(0))
     }
 
     useEffect(() => {

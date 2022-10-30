@@ -1,7 +1,8 @@
 import { Form } from 'react-bootstrap'
 import { useRef } from 'react'
 import { AudioWord } from '.'
-import { useEffect } from 'react'
+import { setPercentProgressTopLoader } from '../redux/actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 const MultipleChoiceQuestion = (props) => {
 
@@ -9,17 +10,23 @@ const MultipleChoiceQuestion = (props) => {
     const { id, question, correct, answers } = props.testItem
     const { showResult } = props
 
+    const dispatch = useDispatch()
+    const { percent } = useSelector(state =>  state.UI.ProgressTopLoader)
+
     const formRef = useRef()
 
     const handleInputChange = (answer) => {
         if (props?.testItem?.choice && props.testItem.choice === answer) {
             props.testItem.choice = ""
             formRef?.current?.reset()
+            dispatch(setPercentProgressTopLoader(percent - 100/totalQuestion))
         } else {
+            if(props.testItem.choice === "") {
+                dispatch(setPercentProgressTopLoader(percent + 100/totalQuestion))
+            }
             props.testItem.choice = answer
         }
     }
-
 
     return <div className="mb-3 white-space_pre-line">
         <Form ref={formRef} className="card shadow-md my-5">
@@ -45,7 +52,7 @@ const MultipleChoiceQuestion = (props) => {
                     }`}>{`${question}`}</p>
 
                 <div className="">
-                    <div className="mx-2 pt-4">Choose matching definition</div>
+                    <div className="mx-2 pt-4 text-slate-500">Choose matching definition</div>
 
                     <div className="flex flex-wrap">
                         {

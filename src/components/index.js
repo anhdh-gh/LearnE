@@ -20,6 +20,7 @@ import AudioWord from './AudioWord'
 import MultipleChoiceQuestion from './MultipleChoiceQuestion'
 import MultipleChoiceTest from './MultipleChoiceTest'
 import RankStudySet from './RankStudySet'
+import ProgressTopLoader from './ProgressTopLoader'
 
 export {
     Toast,
@@ -44,4 +45,5 @@ export {
     MultipleChoiceQuestion,
     MultipleChoiceTest,
     RankStudySet,
+    ProgressTopLoader,
 }

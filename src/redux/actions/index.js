@@ -13,6 +13,7 @@ import {
     showNotFound, hideNotFound,
     initIsProcessingDone,
     fetchCourseProcessingDone,
+    setPercentProgressTopLoader,
 } from '../features/UISlice'
 
 // Common
@@ -41,6 +42,7 @@ export {
     showNotFound, hideNotFound,
     initIsProcessingDone,
     fetchCourseProcessingDone,
+    setPercentProgressTopLoader,
 
     // Common
     initInfo,

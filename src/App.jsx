@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "react-toastify/dist/ReactToastify.css"
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import { Toast, Loader, ToastModal, TopLoader } from "./components"
+import { Toast, Loader, ToastModal, TopLoader, ProgressTopLoader } from "./components"
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initInfo } from './redux/actions'
@@ -27,6 +27,7 @@ const App = () => {
   return <div className="App select-none">
     <Toast />
     <TopLoader />
+    <ProgressTopLoader />
     <ToastModal />
     <AppNavigator>
       <Loader useStateLoader={true}>

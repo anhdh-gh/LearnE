@@ -142,6 +142,7 @@ public class StudysetServiceImpl implements StudysetService {
             TestResult testResultUpdate = optionalTestResultDto.get();
             testResultUpdate.setScore(request.getScore());
             testResultUpdate.setCompletionTime(request.getCompletionTime());
+            testResultUpdate.setUpdateTime(new Date());
             testResultResponse = testResultRepository.save(testResultUpdate);
         }
 

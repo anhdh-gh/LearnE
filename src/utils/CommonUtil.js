@@ -25,7 +25,7 @@ const CommonUtil = {
     getDateStringFromMilliseconds(milliseconds) {
         const monthString = ["January","February","March","April","May","June","July","August","September","October","November","December"]
         const d = new Date(milliseconds)
-        return `${monthString[d.getMonth()]} ${d.getDay()}, ${d.getFullYear()}`
+        return `${monthString[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
     } ,
 
     capitalizeFirstLetter: string => string && typeof string ? string?.charAt(0)?.toUpperCase() + string?.slice(1) : '',

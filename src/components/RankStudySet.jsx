@@ -81,3 +81,11 @@ const RankStudySet = (props) => {
 }
 
 export default RankStudySet
+
+/*
+- Khi người dùng click lại vào nút ranh thì có nên load lại trạng thái ban đầu là page = 0 không.
+- Hiện tại:
+    - Nếu người dùng đang click và xem page rank thứ n.
+    - Rồi tắt modal đi
+    - Khi clcik lại thì nó vẫn hiển thị page rank thứ n (chứ không phải là load lại thành page = 0)
+*/

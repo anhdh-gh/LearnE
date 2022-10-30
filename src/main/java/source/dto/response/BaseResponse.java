@@ -29,6 +29,7 @@ public class BaseResponse<T> {
     public static final Integer OK_CODE = 200;
     private T data;
     private Metadata meta = new Metadata();
+    private Map<String, Object> extraData;
 
     public static <T> BaseResponse<T> ofSucceeded(T data) {
         BaseResponse<T> response = new BaseResponse<>();
@@ -67,6 +68,13 @@ public class BaseResponse<T> {
     public static <T> BaseResponse<T> ofSucceeded(String requestId, T data) {
         BaseResponse<T> response = ofSucceeded(data);
         response.meta.requestId = requestId;
+        return response;
+    }
+
+    public static <T> BaseResponse<T> ofSucceeded(String requestId, T data, Map<String, Object> extraData) {
+        BaseResponse<T> response = ofSucceeded(data);
+        response.meta.requestId = requestId;
+        response.extraData = extraData;
         return response;
     }
 

@@ -37,6 +37,7 @@ const RankStudySet = (props) => {
                     responseGetRankStudyset?.meta?.code === STATUS_CODES.SUCCESS &&
                     !_.isEmpty(responseGetRankStudyset?.data))
                     ? <Loader forComponent={true} />
+                    : _.isEmpty(responseGetRankStudyset?.data?.content) ? <div className="text-center">Empty data</div>
                     : responseGetRankStudyset?.data?.content?.map((item, index) =>
                         <Accordion key={item?.id}>
                             <Accordion.Item eventKey={item?.id} className={`border-start-0 border-end-0 border-top-0 rounded-none`}>

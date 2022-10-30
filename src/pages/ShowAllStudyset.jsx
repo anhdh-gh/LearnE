@@ -1,8 +1,8 @@
 import '../assets/css/StudySetPage.css'
-import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination, ModalConfirm } from '../components'
+import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination } from '../components'
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
@@ -10,21 +10,18 @@ import { useSelector, useDispatch } from "react-redux"
 import { Button } from 'react-bootstrap'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { History } from '../components/NavigateSetter'
-import { Notification } from '../utils'
 
-const ShowListStudyset = (props) => {
+const ShowAllStudyset = (props) => {
 
-    const { ownerUserId, page } = useParams()
+    const { page } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    const [studysetRemove, setStudysetRemove] = useState(false)
 
     const size = 9
-    const [isOwnerStudysets, setIsOwnerStudysets] = useState()
 
     const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllByOwnerUserId } = useQuery(
         ["getAllByOwnerUserId", page],
-        () => StudysetApi.getAllByOwnerUserId(ownerUserId, page, size),
+        () => StudysetApi.getAll(page, size),
         {
             refetchOnWindowFocus: false,
         }
@@ -53,36 +50,6 @@ const ShowListStudyset = (props) => {
         }
     }, [responseGetAllByOwnerUserId, dispatch, page, isError, isFetching, isLoading])
 
-    useEffect(() => {
-        if (!isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data)) {
-            if (responseGetAllByOwnerUserId?.data?.content?.every(studyset => studyset?.ownerUser?.id === user?.id)) {
-                setIsOwnerStudysets(true)
-            }
-        }
-    }, [responseGetAllByOwnerUserId, dispatch, isError, isFetching, isLoading, user?.id])
-
-
-    const handleRemoveStudyset = (studyset) => {
-        setStudysetRemove(studyset)
-    }
-
-    const processRemoveStudyset = () => {
-        dispatch(showLoader())
-        StudysetApi.deleteById(studysetRemove?.id)
-            .then(response => {
-                setStudysetRemove(false)
-                const { meta } = response
-                if (meta.code === STATUS_CODES.SUCCESS) {
-                    dispatch(hideLoader())
-                    Notification.success('Successful removal!')
-                    refreshPage()
-                } else {
-                    dispatch(hideLoader())
-                    Notification.error('Error, try again!')
-                }
-            })
-    }
-
     return !isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data) && <>
         <Header />
         <div className="study-set-page-container">
@@ -107,9 +74,9 @@ const ShowListStudyset = (props) => {
                 <div className="container-xl">
                     <Pagination className="row"
                         classNamePagination={`m-0 mt-3`}
-                        hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) - 1}`}
-                        hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) + 1}`}
-                        hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}`}
+                        hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW}/${parseInt(page) - 1}`}
+                        hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW}/${parseInt(page) + 1}`}
+                        hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${parseInt(page)}`}
                         disabledPrev={responseGetAllByOwnerUserId?.data?.first}
                         disabledNext={responseGetAllByOwnerUserId?.data?.last}
                         onClickCurrent={refreshPage}
@@ -122,8 +89,8 @@ const ShowListStudyset = (props) => {
                                 <div className="col-md-6 col-lg-4 mb-3" key={studyset.id}>
                                     <CardStudySet
                                         studyset={studyset}
-                                        handleRemoveStudyset={handleRemoveStudyset}
-                                        showFooter={isOwnerStudysets}
+                                        showHeader={true}
+                                        showFooterPublic={true}
                                     />
                                 </div>
                             )
@@ -133,16 +100,7 @@ const ShowListStudyset = (props) => {
             </div>
         </div>
         <Footer />
-
-        <ModalConfirm
-            show={studysetRemove ? true : false}
-            setShow={setStudysetRemove}
-            title="Confirm"
-            message={`Are you sure you want to delete study set "${studysetRemove?.title}"?`}
-            handleNo={() => setStudysetRemove(false)}
-            handleYes={processRemoveStudyset}
-        />
     </>
 }
 
-export default ShowListStudyset
+export default ShowAllStudyset

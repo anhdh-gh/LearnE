@@ -75,7 +75,7 @@ const Header = (props) => {
                                     <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item as="span">
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
                                 </NavDropdown.Item>
                                 
@@ -110,7 +110,7 @@ const Header = (props) => {
                                     <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item as="span">
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
                                 </NavDropdown.Item>
                                 {!_.isEmpty(user) && <><NavDropdown.Divider /><NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>

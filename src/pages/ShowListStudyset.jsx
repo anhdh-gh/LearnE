@@ -1,5 +1,5 @@
 import '../assets/css/StudySetPage.css'
-import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination } from '../components'
+import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination, ModalConfirm } from '../components'
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
 import { useState, useEffect } from 'react'
@@ -10,15 +10,17 @@ import { useSelector, useDispatch } from "react-redux"
 import { Button } from 'react-bootstrap'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { History } from '../components/NavigateSetter'
+import { Notification } from '../utils'
 
 const ShowListStudyset = (props) => {
 
     const { ownerUserId, page } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
+    const [studysetRemove, setStudysetRemove] = useState(false)
 
     const size = 9
-    const [ isOwnerStudysets, setIsOwnerStudysets ] = useState()
+    const [isOwnerStudysets, setIsOwnerStudysets] = useState()
 
     const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllByOwnerUserId } = useQuery(
         ["getAllByOwnerUserId", page],
@@ -28,6 +30,10 @@ const ShowListStudyset = (props) => {
         }
     )
 
+    const refreshPage = () => {
+        getAllByOwnerUserId(page)
+    }
+
     useEffect(() => {
         if (isLoading || isFetching) {
             dispatch(showLoader())
@@ -35,7 +41,7 @@ const ShowListStudyset = (props) => {
             dispatch(hideLoader())
         }
 
-        if (isError || (responseGetAllByOwnerUserId?.meta && responseGetAllByOwnerUserId?.meta?.code !== STATUS_CODES.SUCCESS ) || parseInt(page) < 0) {
+        if (isError || (responseGetAllByOwnerUserId?.meta && responseGetAllByOwnerUserId?.meta?.code !== STATUS_CODES.SUCCESS) || parseInt(page) < 0) {
             dispatch(showNotFound())
         } else {
             dispatch(hideNotFound())
@@ -48,12 +54,34 @@ const ShowListStudyset = (props) => {
     }, [responseGetAllByOwnerUserId, dispatch, page, isError, isFetching, isLoading])
 
     useEffect(() => {
-        if(!isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data)) {
-            if(responseGetAllByOwnerUserId?.data?.content?.every(studyset => studyset?.ownerUser?.id === user?.id)) {
+        if (!isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data)) {
+            if (responseGetAllByOwnerUserId?.data?.content?.every(studyset => studyset?.ownerUser?.id === user?.id)) {
                 setIsOwnerStudysets(true)
             }
         }
     }, [responseGetAllByOwnerUserId, dispatch, isError, isFetching, isLoading, user?.id])
+
+
+    const handleRemoveStudyset = (studyset) => {
+        setStudysetRemove(studyset)
+    }
+
+    const processRemoveStudyset = () => {
+        dispatch(showLoader())
+        StudysetApi.deleteById(studysetRemove?.id)
+            .then(response => {
+                setStudysetRemove(false)
+                const { meta } = response
+                if (meta.code === STATUS_CODES.SUCCESS) {
+                    dispatch(hideLoader())
+                    Notification.success('Successful removal!')
+                    refreshPage()
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error('Error, try again!')
+                }
+            })
+    }
 
     return !isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data) && <>
         <Header />
@@ -64,7 +92,7 @@ const ShowListStudyset = (props) => {
                 <div className="container-xl">
                     <div className="row">
                         <div className="col-md">
-                            <UserInfo limit={30} user={responseGetAllByOwnerUserId?.data?.content[0]?.ownerUser || user}/>
+                            <UserInfo limit={30} user={responseGetAllByOwnerUserId?.data?.content[0]?.ownerUser || user} />
                         </div>
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
                             <SearchBox placeholder="Search" />
@@ -84,7 +112,7 @@ const ShowListStudyset = (props) => {
                         hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}`}
                         disabledPrev={responseGetAllByOwnerUserId?.data?.first}
                         disabledNext={responseGetAllByOwnerUserId?.data?.last}
-                        onClickCurrent={() => getAllByOwnerUserId(page)}
+                        onClickCurrent={refreshPage}
                         page={parseInt(page) + 1}
                         totalPages={responseGetAllByOwnerUserId?.data?.totalPages}
                         hide={(responseGetAllByOwnerUserId?.data && (responseGetAllByOwnerUserId?.data?.totalElements <= size || _.isEmpty(responseGetAllByOwnerUserId?.data?.content))) ? true : false}
@@ -94,6 +122,7 @@ const ShowListStudyset = (props) => {
                                 <div className="col-md-6 col-lg-4 mb-3" key={studyset.id}>
                                     <CardStudySet
                                         studyset={studyset}
+                                        handleRemoveStudyset={handleRemoveStudyset}
                                         showFooter={isOwnerStudysets}
                                     />
                                 </div>
@@ -104,6 +133,15 @@ const ShowListStudyset = (props) => {
             </div>
         </div>
         <Footer />
+
+        <ModalConfirm
+            show={studysetRemove ? true : false}
+            setShow={setStudysetRemove}
+            title="Confirm"
+            message={`Are you sure you want to delete study set "${studysetRemove?.title}"?`}
+            handleNo={() => setStudysetRemove(false)}
+            handleYes={processRemoveStudyset}
+        />
     </>
 }
 

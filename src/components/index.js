@@ -21,6 +21,7 @@ import MultipleChoiceQuestion from './MultipleChoiceQuestion'
 import MultipleChoiceTest from './MultipleChoiceTest'
 import RankStudySet from './RankStudySet'
 import ProgressTopLoader from './ProgressTopLoader'
+import ModalConfirm from './ModalConfirm'
 
 export {
     Toast,
@@ -46,4 +47,5 @@ export {
     MultipleChoiceTest,
     RankStudySet,
     ProgressTopLoader,
+    ModalConfirm,
 }

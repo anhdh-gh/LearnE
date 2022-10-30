@@ -7,7 +7,7 @@ import { ROUTE_PATH } from '../constants'
 
 const CardStudySet = (props) => {
 
-    const { studyset, showHeader, showFooter } = props
+    const { studyset, showHeader, showFooter, handleRemoveStudyset } = props
 
     const user = useSelector(state => state.user)
 
@@ -45,7 +45,7 @@ const CardStudySet = (props) => {
                 </OverlayTrigger>
 
                 <OverlayTrigger placement="bottom" overlay={<Tooltip>Remove</Tooltip>}>
-                    <Badge bg="danger">
+                    <Badge bg="danger" onClick={() => handleRemoveStudyset(studyset)}>
                         <i className="fas fa-trash-alt fs-6"/>
                     </Badge>            
                 </OverlayTrigger>

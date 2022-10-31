@@ -2,7 +2,7 @@ import '../assets/css/StudySetPage.css'
 import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination } from '../components'
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
@@ -10,26 +10,34 @@ import { useSelector, useDispatch } from "react-redux"
 import { Button } from 'react-bootstrap'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { History } from '../components/NavigateSetter'
+import { useSearchParams } from 'react-router-dom'
+import { useDebounce } from 'use-debounce'
 
 const ShowAllStudyset = (props) => {
 
     const { page } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
+    const [ searchParams, setSearchParams ] = useSearchParams()
+    const [ titleSearch ] = useDebounce(searchParams.get('title'), 1000)
 
     const size = 9
 
-    const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllByOwnerUserId } = useQuery(
-        ["getAllByOwnerUserId", page],
-        () => StudysetApi.getAll(page, size),
+    const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllStudyset } = useQuery(
+        ["getAllStudyset", page],
+        () => _.isEmpty(searchParams.get('title')) ? StudysetApi.getAll(page, size) : StudysetApi.searchAll(searchParams.get('title'), page, size),
         {
             refetchOnWindowFocus: false,
         }
     )
 
-    const refreshPage = () => {
-        getAllByOwnerUserId(page)
-    }
+    const refreshPage = useCallback(() => {
+        getAllStudyset(page)
+    }, [ getAllStudyset, page ])
+
+    useEffect(() => {
+        refreshPage()
+    }, [ titleSearch, refreshPage ])
 
     useEffect(() => {
         if (isLoading || isFetching) {
@@ -59,10 +67,10 @@ const ShowAllStudyset = (props) => {
                 <div className="container-xl">
                     <div className="row">
                         <div className="col-md">
-                            <UserInfo className="cursor-pointer" limit={30} user={user} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}/>
+                            <UserInfo className="cursor-pointer" limit={30} user={_.isEmpty(user) ? responseGetAllByOwnerUserId?.data?.content[0]?.ownerUser : user} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}/>
                         </div>
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                            <SearchBox placeholder="Search" />
+                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value.trim() })}/>
                             <Button onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Create</Button>
                         </div>
                     </div>

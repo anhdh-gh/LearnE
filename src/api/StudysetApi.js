@@ -6,6 +6,8 @@ const ROUTE_PATH = {
     STUDYSET_SAVE_TEST_RESULT: '/studyset/test-result/save',
     STUDYSET_GET_ALL_BY_OWNER_USER_ID: '/studyset/get-all-studyset-by-owner-user-id',
     STUDYSET_GET_ALL: '/studyset/get-all-studyset',
+    STUDYSET_SEARCH_ALL_BY_OWNER_USER_ID: '/studyset/search-all-studyset-by-owner-user-id',
+    STUDYSET_SEARCH_ALL: '/studyset/search-all-studyset',
     STUDYSET_GET_RANK: '/studyset/rank',
     STUDYSET_GET_BY_ID: '/studyset/get-by-id',
     STUDYSET_DELETE_BY_ID: '/studyset/delete-by-id',
@@ -65,6 +67,18 @@ const StudysetApi = {
     getAll(page, size) {
         return ApiClient.post(ROUTE_PATH.STUDYSET_GET_ALL, {
             page, size
+        })
+    },
+
+    searchAllByOwnerUserId(titleSearch, ownerUserId, page, size) {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_SEARCH_ALL_BY_OWNER_USER_ID, {
+            titleSearch, ownerUserId, page, size
+        })
+    },
+
+    searchAll(titleSearch, page, size) {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_SEARCH_ALL, {
+            titleSearch, page, size
         })
     },
 

@@ -211,6 +211,64 @@ public class StudysetServiceImpl implements StudysetService {
     }
 
     @Override
+    public BaseResponse searchAllStudyset(SearchAllStudysetRequestDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+        Page<Studyset> studysetsPage = studysetRepository.findAllByTitleContainingIgnoreCase(request.getTitleSearch(), pageRequest);
+
+        // Lấy ra một list user theo userIds
+        Set<String> userIds = studysetsPage.toList().stream().map(Studyset::getOwnerUserId).collect(Collectors.toSet());
+        Map<String, UserDto> userDtosMap = getListUserByUserIds(request, userIds).stream().collect(Collectors.toMap(UserDto::getId, userDto -> userDto));
+
+        // Set thêm owner User để trả về
+        Page<StudysetDto> studysetDtosPage = studysetsPage.map(studyset -> {
+            StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
+            studysetDto.setOwnerUser(userDtosMap.get(studysetDto.getOwnerUserId()));
+            return studysetDto;
+        });
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(
+            request.getRequestId(),
+            studysetDtosPage
+        );
+    }
+
+    @Override
+    public BaseResponse searchAllStudysetByOwnerUserId(SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        // Kiểm tra user có tồn tại không
+        UserDto userDto = checkUserExits(request, request.getOwnerUserId());
+
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+        Page<Studyset> studysetsPage = studysetRepository.findAllByOwnerUserIdAndTitleContainingIgnoreCase(request.getOwnerUserId(), request.getTitleSearch(), pageRequest);
+
+        // Set thêm owner User để trả về
+        Page<StudysetDto> studysetDtosPage = studysetsPage.map(studyset -> {
+            StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
+            studysetDto.setOwnerUser(userDto);
+            return studysetDto;
+        });
+
+        // Trả về kết quả
+        Map<String, Object> extraData = new HashMap<>();
+        extraData.put("ownerUser", userDto);
+        return BaseResponse.ofSucceeded(
+            request.getRequestId(),
+            studysetDtosPage,
+            extraData
+        );
+    }
+
+    @Override
     public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
         // Kiểm tra studyset có tồn tại hay không
         Studyset studyset = checkStudysetExits(request.getStudysetId());

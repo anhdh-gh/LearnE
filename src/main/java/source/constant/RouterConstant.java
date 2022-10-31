@@ -16,6 +16,10 @@ public class RouterConstant {
 
     public static final String GET_ALL_STUDYSET = "/studyset/get-all-studyset";
 
+    public static final String SEARCH_ALL_STUDYSET_BY_OWNER_USER_ID = "/studyset/search-all-studyset-by-owner-user-id";
+
+    public static final String SEARCH_ALL_STUDYSET = "/studyset/search-all-studyset";
+
     public static final String DELETE_STUDYSET_BY_ID = "/studyset/delete-by-id";
 
     public static final String GET_RANK_STUDYSET = "/studyset/rank";

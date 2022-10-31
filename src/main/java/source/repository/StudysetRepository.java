@@ -13,4 +13,8 @@ public interface StudysetRepository extends JpaRepository<Studyset, String> {
 
     // https://www.baeldung.com/spring-data-jpa-pagination-sorting
     Page<Studyset> findAllByOwnerUserId(String ownerUserId, Pageable pageable);
+
+    Page<Studyset> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
+
+    Page<Studyset> findAllByOwnerUserIdAndTitleContainingIgnoreCase(String ownerUserId, String title, Pageable pageable);
 }

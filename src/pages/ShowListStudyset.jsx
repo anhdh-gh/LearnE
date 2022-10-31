@@ -57,6 +57,8 @@ const ShowListStudyset = (props) => {
         if (!isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data)) {
             if (responseGetAllByOwnerUserId?.data?.content?.every(studyset => studyset?.ownerUser?.id === user?.id)) {
                 setIsOwnerStudysets(true)
+            } else {
+                setIsOwnerStudysets(false)
             }
         }
     }, [responseGetAllByOwnerUserId, dispatch, isError, isFetching, isLoading, user?.id])

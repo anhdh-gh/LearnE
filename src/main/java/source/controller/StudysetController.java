@@ -48,6 +48,18 @@ public class StudysetController {
         return studysetService.getAllStudyset(request);
     }
 
+    @PostMapping(RouterConstant.SEARCH_ALL_STUDYSET_BY_OWNER_USER_ID)
+    @LogsActivityAnnotation
+    public BaseResponse searchAllStudysetByOwnerUserId(@RequestBody SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return studysetService.searchAllStudysetByOwnerUserId(request);
+    }
+
+    @PostMapping(RouterConstant.SEARCH_ALL_STUDYSET)
+    @LogsActivityAnnotation
+    public BaseResponse searchAllStudyset(@RequestBody SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return studysetService.searchAllStudyset(request);
+    }
+
     @PostMapping(RouterConstant.DELETE_STUDYSET_BY_ID)
     @LogsActivityAnnotation
     public BaseResponse deleteStudyset(@RequestBody DeleteStudysetByIdRequestDto request) throws Exception {

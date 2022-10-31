@@ -48,6 +48,16 @@ public class StudysetServiceImpl implements StudysetService {
     }
 
     @Override
+    public BaseResponse searchAllStudysetByOwnerUserId(SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return studysetServiceThirdParty.searchAllStudysetByOwnerUserId(request);
+    }
+
+    @Override
+    public BaseResponse searchAllStudyset(SearchAllStudysetRequestDto request) throws Exception {
+        return studysetServiceThirdParty.searchAllStudyset(request);
+    }
+
+    @Override
     public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
         return studysetServiceThirdParty.getRankStudyset(request);
     }

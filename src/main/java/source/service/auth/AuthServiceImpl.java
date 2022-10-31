@@ -124,6 +124,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public BaseResponse searchAllStudysetByOwnerUserId(SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        return authServiceThirdParty.searchAllStudysetByOwnerUserId(request);
+    }
+
+    @Override
+    public BaseResponse searchAllStudyset(SearchAllStudysetRequestDto request) throws Exception {
+        return authServiceThirdParty.searchAllStudyset(request);
+    }
+
+    @Override
     public BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception {
         return authServiceThirdParty.getRankStudyset(request);
     }

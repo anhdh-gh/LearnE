@@ -11,7 +11,6 @@ public interface AuthService {
 
     BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception;
 
-
     BaseResponse updateUser(UserUpdateRequestDto request) throws Exception;
 
     BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception;
@@ -49,6 +48,10 @@ public interface AuthService {
     BaseResponse getAllStudysetByOwnerUserId(GetAllStudysetByOwnerUserIdRequestDto request) throws Exception;
 
     BaseResponse getAllStudyset(GetAllStudysetRequestDto request) throws Exception;
+
+    BaseResponse searchAllStudysetByOwnerUserId(SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception;
+
+    BaseResponse searchAllStudyset(SearchAllStudysetRequestDto request) throws Exception;
 
     BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception;
 

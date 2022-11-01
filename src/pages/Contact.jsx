@@ -3,12 +3,12 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap'
 import avata from '../assets/img/my-avata.jpg'
 import { Notification } from '../utils'
 import { useState, useEffect } from 'react'
-import { MessengerChat, showMessenger, hideMessenger } from "react-messenger-chat-plugin"
 import { Header, Footer } from '../components'
 
 const Contact = (props) => {
 
     const [sending, setSending] = useState(false)
+
 
     function sendEmail(e) {
         e.preventDefault()
@@ -27,8 +27,23 @@ const Contact = (props) => {
     }
 
     useEffect(() => {
-        showMessenger(true)
-        return () => hideMessenger()
+        window.fbAsyncInit = () => {
+            window.FB.init({
+                xfbml: true,
+                version: 'v15.0'
+            })
+        }
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0]
+            if (d.getElementById(id)) {
+                return
+            }
+            js = d.createElement(s)
+            js.id = id
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'
+            fjs.parentNode.insertBefore(js, fjs)
+        }(document, 'script', 'facebook-jssdk'))
     }, [])
 
     return <>
@@ -171,7 +186,8 @@ const Contact = (props) => {
                 </Row>
             </Container>
 
-            <MessengerChat pageId="104997555249635" />
+            <div id="fb-root"></div>
+            <div id="fb-customer-chat" className="fb-customerchat" page_id="104997555249635" attribution="biz_inbox"></div>
         </div>
 
         <Footer />

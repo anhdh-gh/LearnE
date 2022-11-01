@@ -13,7 +13,6 @@ public class AuthenticationConfiguration {
         FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AuthenticationFilter());
         registrationBean.addUrlPatterns(
-            RouterConstant.USER_GET_ALL,
             RouterConstant.USER_DELETE,
             RouterConstant.USER_UPDATE,
             RouterConstant.USER_GET_INFO,

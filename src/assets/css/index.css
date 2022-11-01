@@ -45,3 +45,56 @@ body {
     display: flex;
     align-items: center;
 }
+
+div.button, a.button, button.button{
+    display: inline-block;
+}
+
+div.button-dark, a.button-dark, button.button-dark{
+    background-color: black;
+    color: white;
+    transition: all 0.5s
+}
+
+div.button-dark:hover, a.button-dark:hover, button.button-dark:hover{
+    background-color: white;
+    color: black;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+}
+
+div.button-light, a.button-light, button.button-light {
+    background-color: white;
+    color: black;
+    transition: all 0.5s
+}
+
+div.button-light:hover, a.button-light:hover, button.button-light:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+}
+
+div.button-dark:active, a.button-dark:active, button.button-dark:active,
+div.button-light:active, a.button-light:active, button.button-light:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* .zoom-in {
+    transition: all .3s linear;
+}
+
+.zoom-in:hover {
+    box-shadow: 0 5px 15px rgb(0 0 0 / 30%);
+    transform: scale(1.005);
+} */
+
+.active-success {
+    color: #65c178 !important;
+}

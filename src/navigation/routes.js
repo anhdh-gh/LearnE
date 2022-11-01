@@ -2,7 +2,8 @@ import { ROUTE_PATH } from '../constants'
 import { 
     NotFound, Auth, Home, ShowCourseDetail, 
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
-    EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset
+    EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
+    Contact
 } from '../pages'
 
 const routes = {
@@ -61,6 +62,12 @@ const routes = {
             path: ROUTE_PATH.SIGN_UP, 
             element: <Auth isSignUp={true}/>
         },   
+
+        {
+            path: ROUTE_PATH.CONTACT, 
+            element: <Contact/>
+        },   
+
         {
             path: ROUTE_PATH.SIGN_IN, 
             element: <Auth isSignIn={true}/>

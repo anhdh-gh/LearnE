@@ -9,6 +9,7 @@ import EditStudySet from './EditStudySet'
 import ViewDetailStudySet from './ViewDetailStudySet'
 import TestStudySet from './TestStudySet'
 import ShowAllStudyset from './ShowAllStudyset'
+import Contact from './Contact'
 
 export {
     NotFound,
@@ -22,4 +23,5 @@ export {
     ViewDetailStudySet,
     TestStudySet,
     ShowAllStudyset,
+    Contact,
 }

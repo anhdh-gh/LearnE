@@ -49,12 +49,38 @@ const Notification = {
 
     loading: message => {
         toast.dismiss()
-        const id = toast.loading(message)
+        const id = toast.loading(message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            newestOnTop: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+            progress: undefined,
+            closeButton: true,           
+        })
         return id
     },
 
-    update: (id, message) => {
-        toast.update(id, {render: message})
+    update: (id, message, type, isLoading) => {
+        toast.update(id, {render: message, type, isLoading,
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            newestOnTop: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            theme: "light",
+            progress: undefined,
+            closeButton: true,
+        })
     }
 }
 

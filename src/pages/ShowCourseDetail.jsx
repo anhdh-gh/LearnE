@@ -59,7 +59,7 @@ const ShowCourseDetail = (props) => {
                         <h2 className='mb-3 text-2xl font-bold'>What will you learn?</h2>
                         <div className="row">
                             {
-                                course?.targets.map((target, index) => <div className="col-md-6 mb-4 text-gray-500 d-flex" key={target.id}>
+                                course?.targets?.slice().sort((target1, target2) => target1?.text?.length - target2?.text?.length).map((target, index) => <div className="col-md-6 mb-4 text-gray-500 d-flex" key={target.id}>
                                     <i className="fa-solid fa-check text-orange-500 leading-4 me-2"></i> <span className='leading-4'>{target.text}</span>
                                 </div>)
                             }

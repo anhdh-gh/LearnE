@@ -84,6 +84,18 @@ const Header = (props) => {
                                 </NavDropdown.Item></>}
                             </NavDropdown>
                         </Nav>
+
+                        <Nav.Link
+                            className="cursor-pointer"
+                            as="span"
+                            active="active"
+                            onClick={() => History.push(ROUTE_PATH.CONTACT)}
+                        >
+                            {pathname === ROUTE_PATH.CONTACT
+                                ? <><Badge pill bg="primary">Contact</Badge></>
+                                : 'Contact'
+                            }
+                        </Nav.Link>
                     </Nav>
 
                     <Nav className="my-2 my-sm-0 d-sm-none d-block">
@@ -118,6 +130,13 @@ const Header = (props) => {
                                 </NavDropdown.Item></>}
                             </NavDropdown>
                         </Nav>
+
+                        <Nav.Link
+                            className="cursor-pointer py-0 my-3"
+                            as="span"
+                            active={pathname === ROUTE_PATH.CONTACT && `active`}
+                            onClick={() => History.push(ROUTE_PATH.CONTACT)}
+                        >Contact</Nav.Link>
                     </Nav>
 
                     <Nav className="ms-auto my-3 my-sm-0 user-droplist">

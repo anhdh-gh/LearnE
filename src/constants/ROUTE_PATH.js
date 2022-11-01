@@ -10,6 +10,8 @@ const ROUTE_PATH = {
     // Public routers
     HOME: "/",
 
+    CONTACT: "/contact",
+
     SIGN_IN: "/signin",
     SIGN_UP: "/signup",
 

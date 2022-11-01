@@ -2,7 +2,8 @@ import emailjs from 'emailjs-com'
 import { Container, Row, Col, Spinner } from 'react-bootstrap'
 import avata from '../assets/img/my-avata.jpg'
 import { Notification } from '../utils'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { MessengerChat, showMessenger, hideMessenger } from "react-messenger-chat-plugin"
 import { Header, Footer } from '../components'
 
 const Contact = (props) => {
@@ -24,6 +25,11 @@ const Contact = (props) => {
                 })
         }
     }
+
+    useEffect(() => {
+        showMessenger(true)
+        return () => hideMessenger()
+    }, [])
 
     return <>
         <Header />
@@ -165,8 +171,7 @@ const Contact = (props) => {
                 </Row>
             </Container>
 
-            <div id="fb-root"></div>
-            <div id="fb-customer-chat" className="fb-customerchat" page_id="104997555249635" attribution="biz_inbox"></div>
+            <MessengerChat pageId="104997555249635" />
         </div>
 
         <Footer />

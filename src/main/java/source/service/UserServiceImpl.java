@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -125,12 +126,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public BaseResponse getAllUser(UserGetAllRequestDto dataRequest) throws Exception {
-        PageRequest pageRequest = PageRequest.of(dataRequest.getPage(), dataRequest.getSize());
+    public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
 
+        // Trả về kết quả
         Page<User> allUsers = userRepository.findAll(pageRequest);
-
-        return BaseResponse.ofSucceeded(dataRequest.getRequestId(), allUsers);
+        return BaseResponse.ofSucceeded(request.getRequestId(), allUsers);
     }
 
     @Override

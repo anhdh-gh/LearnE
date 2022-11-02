@@ -101,7 +101,7 @@ const ShowCourseDetail = (props) => {
                     </div>
 
                     {course?.requests && course.requests.length > 0 && <div className='mt-5'>
-                        <h2 className='mb-3 text-2xl font-bold'>Request</h2>
+                        <h2 className='mb-3 text-2xl font-bold'>Requirements</h2>
                         <div>
                             {
                                 course.requests.map((request, index) => <div className="mb-4 text-gray-500 d-flex" key={request.id}>

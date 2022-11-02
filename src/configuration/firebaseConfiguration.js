@@ -4,14 +4,14 @@ import { getDatabase } from "firebase/database"
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDIeSr_V2SNfeql7kdj6m3boQKNVffrXvc",
-    authDomain: "learne-bfb9c.firebaseapp.com",
-    databaseURL: "https://learne-bfb9c-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "learne-bfb9c",
-    storageBucket: "learne-bfb9c.appspot.com",
-    messagingSenderId: "95824143039",
-    appId: "1:95824143039:web:746440bdf662eae86c5c0a",
-    measurementId: "G-VMC54VX31Z"
+    apiKey: "AIzaSyBFflIeftc5O-m9TotdYgyVcLEFbXGskqQ",
+    authDomain: "learne-41d47.firebaseapp.com",
+    databaseURL: "https://learne-41d47-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "learne-41d47",
+    storageBucket: "learne-41d47.appspot.com",
+    messagingSenderId: "355681462174",
+    appId: "1:355681462174:web:429db443ce8d93ea3a588f",
+    measurementId: "G-0NYW3YPPC8"
 }
 
 // Initialize Firebase

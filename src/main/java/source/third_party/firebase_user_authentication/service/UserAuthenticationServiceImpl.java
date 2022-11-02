@@ -28,7 +28,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
     public UserAuthenticationServiceImpl() {
         stringUtility = new StringUtility();
-        this.firebaseWebApiKey = "AIzaSyDIeSr_V2SNfeql7kdj6m3boQKNVffrXvc";
+        this.firebaseWebApiKey = "AIzaSyBFflIeftc5O-m9TotdYgyVcLEFbXGskqQ";
 
     }
 

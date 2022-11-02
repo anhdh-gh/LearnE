@@ -1,10 +1,18 @@
 service:
   user:
-    baseurl: https://learneserviceuser.herokuapp.com
+    baseurl: https://learneuser.herokuapp.com
   gateway:
-    baseurl: https://learneservicegateway.herokuapp.com
-
+    baseurl: https://learnegateway.herokuapp.com
+  question-bank:
+    baseurl: https://learnequestionbank.herokuapp.com
+  course:
+    baseurl: https://learnecourse.herokuapp.com
+  studyset:
+    baseurl: https://learnestudyset.herokuapp.com
 # Database Firebase
 firebase:
   service-account-filename: classpath:firebase-service-accounts.json
-  realtime-database-url: https://learne-bfb9c-default-rtdb.asia-southeast1.firebasedatabase.app
+  realtime-database-url: https://learne-41d47-default-rtdb.asia-southeast1.firebasedatabase.app
+
+app:
+  name: service-auth

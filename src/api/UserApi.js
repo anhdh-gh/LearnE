@@ -2,6 +2,7 @@ import ApiClient from './ApiClient'
 
 const ROUTE_PATH = {
     SIGN_IN: '/user/signin',
+    GET_ALL_USERS: '/user/all',
     GET_USER_INFO: "/user/information",
     REFRESH_TOKEN: "/user/refreshtoken",
     SIGN_UP: '/user/signup',
@@ -24,6 +25,10 @@ const UserApi = {
     
     handleSignUp: (email, password, username) => {
         return () => ApiClient.post(ROUTE_PATH.SIGN_UP, {email, password, username})
+    },
+
+    getAllUsers: (page, size) => {
+        return ApiClient.post(ROUTE_PATH.GET_ALL_USERS, {page, size})
     }
 }
 

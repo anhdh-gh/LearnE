@@ -104,7 +104,7 @@ const MultipleChoiceTest = (props) => {
 
     return <div className="MultipleChoiceTest-container p-2 p-sm-3 p-md-4">
         {!showResult && <>
-            <h5 className="fw-bold pb-3 border-4 border-bottom border-danger border-start-0 border-end-0 border-top-0 d-inline-block">{`Multiple choice questions (${test.length})`}</h5>
+            <h5 className="fw-bold pb-3 border-3 border-bottom border-danger border-start-0 border-end-0 border-top-0 d-inline-block">{`Multiple choice questions (${test.length})`}</h5>
             {
                 test.map((item, index) =>
                     <MultipleChoiceQuestion
@@ -128,7 +128,7 @@ const MultipleChoiceTest = (props) => {
         </>}
 
         {showResult && <>
-            <h5 className="fw-bold pb-3 border-4 border-bottom border-danger border-start-0 border-end-0 border-top-0 d-inline-block">Test result</h5>
+            <h5 className="fw-bold pb-3 border-3 border-bottom border-danger border-start-0 border-end-0 border-top-0 d-inline-block">Test result</h5>
 
             <div className='row mt-4'>
                 <div className="col-md-6">

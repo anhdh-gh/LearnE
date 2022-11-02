@@ -20,8 +20,8 @@ const ShowListStudyset = (props) => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
     const [studysetRemove, setStudysetRemove] = useState(false)
-    const [ searchParams, setSearchParams ] = useSearchParams()
-    const [ titleSearch ] = useDebounce(searchParams.get('title'), 1000)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [titleSearch] = useDebounce(searchParams.get('title'), 1000)
 
     const size = 9
     const [isOwnerStudysets, setIsOwnerStudysets] = useState()
@@ -36,11 +36,11 @@ const ShowListStudyset = (props) => {
 
     const refreshPage = useCallback(() => {
         getAllByOwnerUserId(page)
-    }, [ getAllByOwnerUserId, page ])
+    }, [getAllByOwnerUserId, page])
 
     useEffect(() => {
         refreshPage()
-    }, [ titleSearch, refreshPage ])
+    }, [titleSearch, refreshPage])
 
     useEffect(() => {
         if (isLoading || isFetching) {
@@ -101,11 +101,11 @@ const ShowListStudyset = (props) => {
             <div className="navigation">
                 <div className="container-xl">
                     <div className="row">
-                        <div className="col-md">
-                            <UserInfo className="cursor-pointer" limit={30} user={responseGetAllByOwnerUserId?.extraData?.ownerUser} onClick={refreshPage}/>
-                        </div>
+                        {responseGetAllByOwnerUserId?.extraData?.ownerUser && <div className="col-md">
+                            <UserInfo className="cursor-pointer" limit={30} user={responseGetAllByOwnerUserId?.extraData?.ownerUser} onClick={refreshPage} />
+                        </div>}
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value.trim() })}/>
+                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value.trim() })} />
                             <Button onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Create</Button>
                         </div>
                     </div>

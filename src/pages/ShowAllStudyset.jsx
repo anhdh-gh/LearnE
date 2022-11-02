@@ -18,12 +18,12 @@ const ShowAllStudyset = (props) => {
     const { page } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    const [ searchParams, setSearchParams ] = useSearchParams()
-    const [ titleSearch ] = useDebounce(searchParams.get('title'), 1000)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [titleSearch] = useDebounce(searchParams.get('title'), 1000)
 
     const size = 9
 
-    const { data: responseGetAllByOwnerUserId, isLoading, isFetching, isError, refetch: getAllStudyset } = useQuery(
+    const { data: responseGetAllStudyset, isLoading, isFetching, isError, refetch: getAllStudyset } = useQuery(
         ["getAllStudyset", page],
         () => _.isEmpty(searchParams.get('title')) ? StudysetApi.getAll(page, size) : StudysetApi.searchAll(searchParams.get('title'), page, size),
         {
@@ -33,11 +33,11 @@ const ShowAllStudyset = (props) => {
 
     const refreshPage = useCallback(() => {
         getAllStudyset(page)
-    }, [ getAllStudyset, page ])
+    }, [getAllStudyset, page])
 
     useEffect(() => {
         refreshPage()
-    }, [ titleSearch, refreshPage ])
+    }, [titleSearch, refreshPage])
 
     useEffect(() => {
         if (isLoading || isFetching) {
@@ -46,7 +46,7 @@ const ShowAllStudyset = (props) => {
             dispatch(hideLoader())
         }
 
-        if (isError || (responseGetAllByOwnerUserId?.meta && responseGetAllByOwnerUserId?.meta?.code !== STATUS_CODES.SUCCESS) || parseInt(page) < 0) {
+        if (isError || (responseGetAllStudyset?.meta && responseGetAllStudyset?.meta?.code !== STATUS_CODES.SUCCESS) || parseInt(page) < 0) {
             dispatch(showNotFound())
         } else {
             dispatch(hideNotFound())
@@ -56,9 +56,9 @@ const ShowAllStudyset = (props) => {
             dispatch(hideLoader())
             dispatch(hideNotFound())
         }
-    }, [responseGetAllByOwnerUserId, dispatch, page, isError, isFetching, isLoading])
+    }, [responseGetAllStudyset, dispatch, page, isError, isFetching, isLoading])
 
-    return !isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data) && <>
+    return !isLoading && !isFetching && !isError && responseGetAllStudyset?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllStudyset?.data) && <>
         <Header />
         <div className="study-set-page-container">
 
@@ -66,11 +66,11 @@ const ShowAllStudyset = (props) => {
             <div className="navigation">
                 <div className="container-xl">
                     <div className="row">
-                        <div className="col-md">
-                            <UserInfo className="cursor-pointer" limit={30} user={_.isEmpty(user) ? responseGetAllByOwnerUserId?.data?.content[0]?.ownerUser : user} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}/>
-                        </div>
+                        {(!_.isEmpty(user) || responseGetAllStudyset?.data?.content[0]?.ownerUser) && <div className="col-md">
+                            <UserInfo className="cursor-pointer" limit={30} user={_.isEmpty(user) ? responseGetAllStudyset?.data?.content[0]?.ownerUser : user} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)} />
+                        </div>}
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value.trim() })}/>
+                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value.trim() })} />
                             <Button onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Create</Button>
                         </div>
                     </div>
@@ -85,15 +85,15 @@ const ShowAllStudyset = (props) => {
                         hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW}/${parseInt(page) - 1}`}
                         hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW}/${parseInt(page) + 1}`}
                         hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${parseInt(page)}`}
-                        disabledPrev={responseGetAllByOwnerUserId?.data?.first}
-                        disabledNext={responseGetAllByOwnerUserId?.data?.last}
+                        disabledPrev={responseGetAllStudyset?.data?.first}
+                        disabledNext={responseGetAllStudyset?.data?.last}
                         onClickCurrent={refreshPage}
                         page={parseInt(page) + 1}
-                        totalPages={responseGetAllByOwnerUserId?.data?.totalPages}
-                        hide={(responseGetAllByOwnerUserId?.data && (responseGetAllByOwnerUserId?.data?.totalElements <= size || _.isEmpty(responseGetAllByOwnerUserId?.data?.content))) ? true : false}
+                        totalPages={responseGetAllStudyset?.data?.totalPages}
+                        hide={(responseGetAllStudyset?.data && (responseGetAllStudyset?.data?.totalElements <= size || _.isEmpty(responseGetAllStudyset?.data?.content))) ? true : false}
                     >
                         {
-                            responseGetAllByOwnerUserId?.data?.content?.map((studyset, index) =>
+                            responseGetAllStudyset?.data?.content?.map((studyset, index) =>
                                 <div className="col-md-6 col-lg-4 mb-3" key={studyset.id}>
                                     <CardStudySet
                                         studyset={studyset}

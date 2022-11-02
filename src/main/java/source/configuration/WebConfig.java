@@ -21,7 +21,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "http://localhost:3000",
                         "https://learnefrontend.vercel.app",
-                        "https://learnefrontend.herokuapp.com"
+                        "https://learnefrontend.herokuapp.com",
+                        "https://learne-41d47.web.app",
+                        "https://learne-41d47.firebaseapp.com"
                 );
             }
         };

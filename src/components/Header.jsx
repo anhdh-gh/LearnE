@@ -1,7 +1,7 @@
 import '../assets/css/Header.css'
 import AvatarIcon from '../assets/img/avatar-icon.jpg'
 import { Navbar, Container, Nav, NavDropdown, Badge } from 'react-bootstrap'
-import { ROUTE_PATH } from '../constants'
+import { ROUTE_PATH, ROLE } from '../constants'
 import { useLocation, Link } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
@@ -96,6 +96,18 @@ const Header = (props) => {
                                 : 'Contact'
                             }
                         </Nav.Link>
+
+                        {!_.isEmpty(user) && user?.role === ROLE.ADMIN && <Nav.Link
+                            className="cursor-pointer"
+                            as="span"
+                            active="active"
+                            onClick={() => History.push(ROUTE_PATH.ADMIN_USER_VIEW)}
+                        >
+                            {pathname.includes('/dashboard/')
+                                ? <><Badge pill bg="primary">Dashboard</Badge></>
+                                : 'Dashboard'
+                            }
+                        </Nav.Link>}
                     </Nav>
 
                     <Nav className="my-2 my-md-0 d-md-none d-block">
@@ -137,6 +149,13 @@ const Header = (props) => {
                             active={pathname === ROUTE_PATH.CONTACT && `active`}
                             onClick={() => History.push(ROUTE_PATH.CONTACT)}
                         >Contact</Nav.Link>
+
+                        {!_.isEmpty(user) && user?.role === ROLE.ADMIN && <Nav.Link
+                            className="cursor-pointer py-0 my-3"
+                            as="span"
+                            active={pathname.includes('/dashboard/') && `active`}
+                            onClick={() => History.push(ROUTE_PATH.ADMIN_USER_VIEW)}
+                        >Dashboard</Nav.Link>}
                     </Nav>
 
                     <Nav className="ms-auto my-3 my-md-0 user-droplist">

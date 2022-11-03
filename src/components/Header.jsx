@@ -25,7 +25,7 @@ const Header = (props) => {
     }, [dispatch])
 
     return <>
-        <Navbar ref={refHeader} collapseOnSelect expand="sm" variant="dark" fixed="top" className="header-container">
+        <Navbar ref={refHeader} collapseOnSelect expand="md" variant="dark" fixed="top" className="header-container">
             <Container fluid>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer"
@@ -37,7 +37,7 @@ const Header = (props) => {
                 <Navbar.Toggle aria-controls="navbarScroll" />
 
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="my-2 my-sm-0 d-none d-sm-flex">
+                    <Nav className="my-2 my-md-0 d-none d-md-flex">
 
                         <Nav.Link
                             className="cursor-pointer"
@@ -63,7 +63,7 @@ const Header = (props) => {
                             }
                         </Nav.Link>
 
-                        <Nav className="my-2 my-sm-0 user-droplist">
+                        <Nav className="my-2 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset').removeAttribute("href")} id="navbarScrollingDropdown-studyset" align="start" className="header-user-dropList"
                                 title={<span>
                                     {pathname.includes('/studyset/')
@@ -98,7 +98,7 @@ const Header = (props) => {
                         </Nav.Link>
                     </Nav>
 
-                    <Nav className="my-2 my-sm-0 d-sm-none d-block">
+                    <Nav className="my-2 my-md-0 d-md-none d-block">
 
                         <Nav.Link
                             className="cursor-pointer py-0 my-3"
@@ -114,8 +114,8 @@ const Header = (props) => {
                             onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/746c8e3a-f39f-4360-9df2-6f396062393a`)}
                         >Course</Nav.Link>
 
-                        <Nav className="my-3 my-sm-0 user-droplist">
-                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset-sm').removeAttribute("href")} id="navbarScrollingDropdown-studyset-sm" align="start" className="header-user-dropList"
+                        <Nav className="my-3 my-md-0 user-droplist">
+                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset-md').removeAttribute("href")} id="navbarScrollingDropdown-studyset-md" align="start" className="header-user-dropList"
                                 title={<span className={`${pathname.includes('/studyset/') && 'header-user-title'}`}>Study set</span>}
                                 >
                                 <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)}>
@@ -139,9 +139,9 @@ const Header = (props) => {
                         >Contact</Nav.Link>
                     </Nav>
 
-                    <Nav className="ms-auto my-3 my-sm-0 user-droplist">
+                    <Nav className="ms-auto my-3 my-md-0 user-droplist">
                         {_.isEmpty(user) ?
-                            <Nav className="my-2 my-sm-0">
+                            <Nav className="my-2 my-md-0">
                                 <Nav.Link
                                     as="span"
                                     active="active"
@@ -152,13 +152,13 @@ const Header = (props) => {
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown').removeAttribute("href")} active="active" id="navbarScrollingDropdown" align="end" className="header-user-dropList"
                                 title={
                                     <span className="header-user-title">
-                                        <img src={user?.avatar || AvatarIcon} alt='' className="d-sm-block d-none me-2" style={{ "border": "1px solid #00B871" }} />
-                                        <span className='d-none d-sm-block'>{user?.userName?.length > 15
+                                        <img src={user?.avatar || AvatarIcon} alt='' className="d-md-block d-none me-2" style={{ "border": "1px solid #00B871" }} />
+                                        <span className='d-none d-md-block'>{user?.userName?.length > 15
                                             ? user?.userName.substring(0, 15).concat('...')
                                             : user?.userName || 'Username'}
                                         </span>
 
-                                        <span className='d-sm-none d-block'>{user?.userName?.length > 20
+                                        <span className='d-md-none d-block'>{user?.userName?.length > 20
                                             ? user?.userName.substring(0, 20).concat('...')
                                             : user?.userName || 'Username'}
                                         </span>

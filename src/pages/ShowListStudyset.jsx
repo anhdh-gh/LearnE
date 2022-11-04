@@ -2,7 +2,7 @@ import '../assets/css/StudySetPage.css'
 import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination, ModalConfirm } from '../components'
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useLayoutEffect , useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
@@ -38,11 +38,11 @@ const ShowListStudyset = (props) => {
         getAllByOwnerUserId(page)
     }, [getAllByOwnerUserId, page])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         refreshPage()
     }, [titleSearch, refreshPage])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (isLoading || isFetching) {
             dispatch(showLoader())
         } else {
@@ -61,7 +61,7 @@ const ShowListStudyset = (props) => {
         }
     }, [responseGetAllByOwnerUserId, dispatch, page, isError, isFetching, isLoading])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (!isLoading && !isFetching && !isError && responseGetAllByOwnerUserId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllByOwnerUserId?.data)) {
             if (responseGetAllByOwnerUserId?.data?.content?.every(studyset => studyset?.ownerUser?.id === user?.id)) {
                 setIsOwnerStudysets(true)

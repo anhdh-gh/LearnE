@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useLayoutEffect  } from "react"
 import { useLocation } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { setUrl, hideNotFound } from "../redux/actions"
@@ -8,7 +8,7 @@ const ScrollToTop = () => {
     const { pathname } = useLocation()
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         window.scrollTo(0, 0)
 
         dispatch(setUrl(pathname))

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { UserInfo } from '../components'
 import { History } from '../components/NavigateSetter'
-import { useRef, useEffect } from 'react'
+import { useRef, useLayoutEffect  } from 'react'
 import { setHeightHeader, signOut } from '../redux/actions'
 
 const Header = (props) => {
@@ -20,7 +20,7 @@ const Header = (props) => {
 
     const refHeader = useRef(null)
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         dispatch(setHeightHeader(refHeader.current.clientHeight))
     }, [dispatch])
 
@@ -101,9 +101,9 @@ const Header = (props) => {
                             className="cursor-pointer"
                             as="span"
                             active="active"
-                            onClick={() => History.push(ROUTE_PATH.ADMIN_USER_VIEW)}
+                            onClick={() => History.push(ROUTE_PATH.ADMIN_HOME)}
                         >
-                            {pathname.includes('/dashboard/')
+                            {pathname.includes('/dashboard')
                                 ? <><Badge pill bg="primary">Dashboard</Badge></>
                                 : 'Dashboard'
                             }
@@ -153,8 +153,8 @@ const Header = (props) => {
                         {!_.isEmpty(user) && user?.role === ROLE.ADMIN && <Nav.Link
                             className="cursor-pointer py-0 my-3"
                             as="span"
-                            active={pathname.includes('/dashboard/') && `active`}
-                            onClick={() => History.push(ROUTE_PATH.ADMIN_USER_VIEW)}
+                            active={pathname.includes('/dashboard') && `active`}
+                            onClick={() => History.push(ROUTE_PATH.ADMIN_HOME)}
                         >Dashboard</Nav.Link>}
                     </Nav>
 

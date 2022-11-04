@@ -2,7 +2,7 @@ import emailjs from 'emailjs-com'
 import { Container, Row, Col, Spinner } from 'react-bootstrap'
 import avata from '../assets/img/my-avata.jpg'
 import { Notification } from '../utils'
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect  } from 'react'
 import { MessengerChat, showMessenger, hideMessenger } from "react-messenger-chat-plugin"
 import { Header, Footer } from '../components'
 
@@ -26,7 +26,7 @@ const Contact = (props) => {
         }
     }
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         showMessenger(true)
         return () => hideMessenger()
     }, [])

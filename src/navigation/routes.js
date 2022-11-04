@@ -9,7 +9,11 @@ import {
 const routes = {
     privateAdminoute: [
         {
-            path: `${ROUTE_PATH.ADMIN_USER_VIEW}`, 
+            path: `${ROUTE_PATH.ADMIN_HOME}`, 
+            element: <AdminUserViewAll/>
+        }, 
+        {
+            path: `${ROUTE_PATH.ADMIN_USER_VIEW_ALL}`, 
             element: <AdminUserViewAll/>
         }, 
     ],

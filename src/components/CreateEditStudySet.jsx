@@ -2,7 +2,7 @@ import '../assets/css/CreateEditStudySet.css'
 import { Textarea } from '../components'
 import { Button, OverlayTrigger, Tooltip, Badge } from 'react-bootstrap'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useLayoutEffect , useRef, useCallback } from "react"
 import _ from "lodash"
 import { v4 as uuidv4 } from "uuid"
 import { GoogleTranslateApi } from '../api'
@@ -119,7 +119,7 @@ const CreateEditStudySet = (props) => {
         setStudyset({...studyset, wordCards: newwordCards})
     }
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if(y === 0) {
             strickyRef.current.style.boxShadow = "none"
             strickyRef.current.style.zIndex = "1000"
@@ -135,7 +135,7 @@ const CreateEditStudySet = (props) => {
         setY(window.scrollY)
     }, [])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
     }, [handleScroll])

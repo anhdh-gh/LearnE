@@ -1,6 +1,6 @@
 import '../assets/css/MultipleChoiceTest.css'
 import "chartjs-plugin-datalabels"
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect  } from 'react'
 import { MultipleChoiceQuestion } from './index'
 import { Button, ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import Timer from 'react-timer-wrapper'
@@ -98,7 +98,7 @@ const MultipleChoiceTest = (props) => {
         dispatch(setPercentProgressTopLoader(0))
     }
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         window.scrollTo(0, 0)
     }, [ showResult ])
 

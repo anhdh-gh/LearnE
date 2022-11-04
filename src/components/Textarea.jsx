@@ -1,12 +1,12 @@
 import '../assets/css/Textarea.css'
 import autosize from "autosize"
-import { useRef, useEffect } from 'react'
+import { useRef, useLayoutEffect  } from 'react'
 
 const Textarea = (props) => {
     const { title, value, placeholder, maxLength, enter, onChange, error } = props
     const texareaRef = useRef(null)
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         autosize(texareaRef.current)
     }, [])
 

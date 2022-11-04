@@ -2,7 +2,7 @@ import '../assets/css/StudySetPage.css'
 import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination } from '../components'
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
-import { useEffect, useCallback } from 'react'
+import { useLayoutEffect , useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
@@ -35,11 +35,11 @@ const ShowAllStudyset = (props) => {
         getAllStudyset(page)
     }, [getAllStudyset, page])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         refreshPage()
     }, [titleSearch, refreshPage])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (isLoading || isFetching) {
             dispatch(showLoader())
         } else {

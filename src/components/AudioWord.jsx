@@ -1,7 +1,7 @@
 import '../assets/css/Audio.css'
 import { useSpeechSynthesis } from 'react-speech-kit'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect  } from 'react'
 import { DictionaryApi } from '../api'
 
 const AudioWord = (props) => {
@@ -22,7 +22,7 @@ const AudioWord = (props) => {
         .shift()
     }
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         // Trích xuất phiên âm
         if (word?.info) {
             setPhonetic(getPhonetic(word?.info))

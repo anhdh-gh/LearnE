@@ -2,7 +2,7 @@ import { UserInfo, Pagination, Loader } from "."
 import { Modal, Accordion } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import { StudysetApi } from "../api"
-import { useState, useEffect } from "react"
+import { useState, useLayoutEffect  } from "react"
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import _ from 'lodash'
 import { RibbonContainer, RightRibbon } from 'react-ribbons'
@@ -23,7 +23,7 @@ const RankStudySet = (props) => {
         }
     )
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         getRankStudyset(page)
     }, [page, getRankStudyset])
 

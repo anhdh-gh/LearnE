@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useLayoutEffect  } from 'react'
 import LoadingBar from 'react-top-loading-bar'
 import { useSelector, useDispatch } from 'react-redux'
 import { offDisplayTopLoader } from '../redux/actions'
@@ -10,7 +10,7 @@ const TopLoader = (props) => {
 
     const ref = useRef(null)
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if(isShow) {
             ref.current.continuousStart()
         } else {

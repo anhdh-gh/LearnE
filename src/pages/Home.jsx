@@ -8,7 +8,7 @@ import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/act
 import { useDispatch } from "react-redux"
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { UserApi, StudysetApi } from '../api'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect , useState } from 'react'
 
 const Home = (props) => {
 
@@ -32,7 +32,7 @@ const Home = (props) => {
         }
     )
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (isLoadingGetAllUsers || isFetchingGetAllUsers || isLoadingGetAllStudyset || isFetchingGetAllStudyset) {
             dispatch(showLoader())
         } else {
@@ -53,7 +53,7 @@ const Home = (props) => {
     }, [responseGetAllUsers, dispatch, isErrorGetAllUsers, isFetchingGetAllUsers, isLoadingGetAllUsers, isErrorGetAllStudyset,
         isFetchingGetAllStudyset, isLoadingGetAllStudyset, responseGetAllStudyset])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         getAllStudyset(pageStudyset)
     }, [ pageStudyset, getAllStudyset ])
 

@@ -1,7 +1,7 @@
 import '../assets/css/ShowCourseDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Header, Footer, Loader } from '../components'
-import { useEffect, useCallback } from 'react'
+import { useLayoutEffect , useCallback } from 'react'
 import { getCourseById } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,13 +30,13 @@ const ShowCourseDetail = (props) => {
         }
     }, [ course?.lessonCurrentProcessing?.id, courseId, user ])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if(_.isEmpty(course)) {
             dispatch(getCourseById(courseId))
         }
     }, [ dispatch, course , courseId ])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if(course && course?.status && course.status !== STATUS_TYPE.UNFINISHED && !_.isEmpty(user)) {
             redirectToLessonDetail()        
         } 

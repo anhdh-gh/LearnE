@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux'
 import { History } from '../components/NavigateSetter'
 import { showLoader, hideLoader } from '../redux/actions'
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
-import { useEffect } from 'react'
+import { useLayoutEffect  } from 'react'
 
 const CreateStudySet = (props) => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         window.scrollTo(0, 0)
     }, [])
 

@@ -3,7 +3,7 @@ import { Header, Footer, UserInfo, WordCardSlide, WordCardList, RankStudySet } f
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect , useState } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
@@ -53,7 +53,7 @@ const ViewDetailStudySet = (props) => {
         }
     )
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (isLoading || isFetching) {
             dispatch(showLoader())
         } else {

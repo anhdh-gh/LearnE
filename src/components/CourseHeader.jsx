@@ -1,7 +1,7 @@
 import { Navbar, Container } from 'react-bootstrap'
 import { History } from '../components/NavigateSetter'
 import { CircularProgressBar } from '../components'
-import { useRef, useEffect } from 'react'
+import { useRef, useLayoutEffect  } from 'react'
 import { setHeightCourseHeader } from '../redux/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { ROUTE_PATH } from '../constants'
@@ -14,7 +14,7 @@ const  CourseHeader = (props) => {
     const dispatch = useDispatch()
     const height = useSelector(state => state.UI.CourseHeader.height)
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         dispatch(setHeightCourseHeader(refHeader.current.clientHeight))
     }, [dispatch])
 

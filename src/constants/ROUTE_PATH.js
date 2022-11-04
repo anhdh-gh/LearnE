@@ -1,6 +1,7 @@
 const ROUTE_PATH = {
     // Private admin routers
-    ADMIN_USER_VIEW: "/dashboard/user/view/all",
+    ADMIN_HOME: "/dashboard",
+    ADMIN_USER_VIEW_ALL: "/dashboard/user/view/all",
 
     // Private user routers
     SHOW_LESSON_DETAIL: "/course/lesson",

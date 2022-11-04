@@ -1,7 +1,7 @@
 import '../assets/css/ShowLessonDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
 import { Loader, CourseHeader } from '../components'
-import { useEffect, useState, useRef } from 'react'
+import { useLayoutEffect , useState, useRef } from 'react'
 import { getCourseById, updateLessonStatus, showNotFound, hideNotFound } from '../redux/actions'
 import { ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { useSelector, useDispatch } from 'react-redux'
@@ -25,14 +25,14 @@ const ShowLessonDetail = (props) => {
     const dispatch = useDispatch()
     const course = useSelector(state => state.course)
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if(!lessonId) {
             dispatch(showNotFound())
         }
 
     }, [ dispatch, lessonId ])
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if(_.isEmpty(course)) {
             dispatch(getCourseById(courseId))
         }
@@ -55,7 +55,7 @@ const ShowLessonDetail = (props) => {
 
     const removeScrollBody = () => document.body.classList.remove("overflow-hidden")
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (course) {
             const isLessonExist = course?.lessons?.some((lesson, indexLesson, lessons) => {
 

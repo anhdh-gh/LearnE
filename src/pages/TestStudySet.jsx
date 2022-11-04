@@ -3,7 +3,7 @@ import { Header, Footer, UserInfo, MultipleChoiceTest } from "../components"
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useLayoutEffect  } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
@@ -25,7 +25,7 @@ const TestStudySet = (props) => {
         }
     )
 
-    useEffect(() => {
+    useLayoutEffect (() => {
         if (isLoading || isFetching) {
             dispatch(showLoader())
         } else {

@@ -15,4 +15,4 @@ firebase:
   realtime-database-url: https://learne-41d47-default-rtdb.asia-southeast1.firebasedatabase.app
 
 app:
-  name: service-auth
+  name: multimedia

@@ -62,9 +62,11 @@ CREATE TABLE `question`
 (
     `Id`           varchar(255) NOT NULL,
     `QuestionType` varchar(255) NOT NULL,
+    `Header`       longtext,
     `Text`         longtext     NOT NULL,
-    `Image`        varchar(255) DEFAULT NULL,
-    `Audio`        varchar(255) DEFAULT NULL,
+    `Image`        varchar(2500) DEFAULT NULL,
+    `Audio`        varchar(2500) DEFAULT NULL,
+    `GroupId`      varchar(255) NOT NULL,
     `UpdateTime`   datetime     DEFAULT NULL,
     `CreateTime`   datetime     DEFAULT NULL,
     PRIMARY KEY (`Id`)

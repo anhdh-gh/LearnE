@@ -15,12 +15,6 @@ public class QuestionBankController {
     private QuestionBankService questionBankService;
 
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_CREATE)
-    public BaseResponse createQuestion(@RequestBody CreateQuestionRequestDto request) throws Exception {
-        return questionBankService.createQuestion(request);
-    }
-
-    @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
     public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
         return questionBankService.getQuestionByQuestionId(request);

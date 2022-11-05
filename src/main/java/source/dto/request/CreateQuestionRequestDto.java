@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Data
@@ -28,6 +29,12 @@ public class CreateQuestionRequestDto extends BasicRequest {
 
     @JsonProperty("audio")
     private String audio;
+
+    @JsonProperty("header")
+    private String header;
+
+    @JsonProperty("groupId")
+    private String groupId;
 
     @JsonProperty("answers")
     private List<AnswerRequestDto> answers;

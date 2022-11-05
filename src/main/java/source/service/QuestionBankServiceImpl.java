@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
+import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
@@ -15,12 +15,11 @@ import source.entity.Question;
 import source.entity.enumeration.QuestionType;
 import source.exception.BusinessException;
 import source.repository.QuestionRepository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,13 +42,6 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         }
     }
 
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Throwable.class})
-    public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception {
-        Question questionSave = saveQuestion(request);
-        return BaseResponse.ofSucceeded(request.getRequestId(), questionSave);
-    }
-
     private Question saveQuestion(CreateQuestionRequestDto request) throws Exception {
         return questionRepository.save(Question
             .builder()
@@ -58,6 +50,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             .text(request.getText())
             .image(request.getImage())
             .audio(request.getAudio())
+            .groupId(request.getGroupId())
+            .header(request.getHeader())
             .answers(request.getAnswers()
                 .stream()
                 .map(answerRequestDto -> Answer
@@ -74,12 +68,14 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Override
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception {
-        Set<String> ids = new HashSet<>();
+        List<Question> questions = new ArrayList<>();
+        String groupId = UUID.randomUUID().toString();
         for(CreateQuestionRequestDto questionRequestDto : request.getQuestions()) {
+            questionRequestDto.setGroupId(groupId);
             Question questionSave = saveQuestion(questionRequestDto);
-            ids.add(questionSave.getId());
+            questions.add(questionSave);
         }
-        return getQuestionByQuestionIds(QuestionGetByIdsRequestDto.builder().questionIds(ids).build());
+        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
     }
 
     @Override

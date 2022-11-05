@@ -2,9 +2,11 @@ CREATE TABLE question
 (
     Id           varchar(255) NOT NULL,
     QuestionType varchar(255) NOT NULL,
+    Header       text,
     Text         text         NOT NULL,
-    Image        varchar(255),
-    Audio        varchar(255),
+    GroupId      varchar(255) NOT NULL,
+    Image        varchar(2500),
+    Audio        varchar(2500),
     UpdateTime   timestamp(7),
     CreateTime   timestamp(7)
 );

@@ -15,6 +15,6 @@ public class UserUploadAvatarRequestDto extends BasicRequest {
 
     private String userId;
 
-    @ValidFileSize()
+//    @ValidFileSize()
     private MultipartFile avatar;
 }

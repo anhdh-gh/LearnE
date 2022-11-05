@@ -11,3 +11,6 @@ server:
 firebase:
   service-account-filename: classpath:firebase-service-accounts.json
   realtime-database-url: https://learne-bfb9c-default-rtdb.asia-southeast1.firebasedatabase.app
+
+multipart:
+  enabled: true

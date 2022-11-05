@@ -1,12 +1,14 @@
 package source.constant;
 
-import org.apache.tomcat.util.http.parser.Authorization;
-
 public class RequestKeyConstant {
 
     private RequestKeyConstant() {}
 
-    public static final String USER = "user";
+    public static final String USER_AUTH = "user_auth";
+
+    public static final String USER_AUTH_ID = "user_auth_id";
+
+    public static final String USER_AUTH_ROLE = "user_auth_role";
 
     public static final String REQUEST_ID = "request_id";
 
@@ -15,7 +17,4 @@ public class RequestKeyConstant {
     public static final String X_REQUEST_ID = "X-Request-ID";
 
     public static final String CONTENT_TYPE = "Content-Type";
-
-    public static final String AUTHORIZATION = "Authorization";
 }
-

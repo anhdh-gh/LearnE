@@ -30,4 +30,10 @@ public class BasicRequest implements Serializable {
 
     @JsonProperty("uri")
     private String uri;
+
+    @JsonProperty("user_auth_id")
+    private String userAuthId;
+
+    @JsonProperty("user_auth_role")
+    private String userAuthRole;
 }

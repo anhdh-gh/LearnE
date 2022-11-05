@@ -42,8 +42,7 @@ public class LogsActivityAOPHandler {
     @Around("execution(* *(..)) && @annotation(logsActivityAnnotation)")
 
     @SneakyThrows
-    public Object logsActivityAnnotation(ProceedingJoinPoint point,
-                                         LogsActivityAnnotation logsActivityAnnotation) {
+    public Object logsActivityAnnotation(ProceedingJoinPoint point, LogsActivityAnnotation logsActivityAnnotation) {
 
         Object objectRequest = point.getArgs()[0];
         Map<String, Object> mapCustomizeLog = new HashMap<>();

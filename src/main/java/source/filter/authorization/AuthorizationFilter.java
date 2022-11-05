@@ -2,15 +2,12 @@ package source.filter.authorization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import source.constant.JwtTokenTypeConstant;
 import source.constant.RequestKeyConstant;
 import source.dto.response.BaseResponse;
 import source.entity.User;
 import source.entity.enumeration.Role;
 import source.exception.BusinessErrors;
-import source.util.JwtUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,7 +24,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            User user = (User) request.getAttribute(RequestKeyConstant.USER);
+            User user = (User) request.getAttribute(RequestKeyConstant.USER_AUTH);
             if(user != null && user.getRole().equals(Role.ADMIN)) {
                 filterChain.doFilter(request, response);
             } else {

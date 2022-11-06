@@ -101,7 +101,7 @@ const Header = (props) => {
                             className="cursor-pointer"
                             as="span"
                             active="active"
-                            onClick={() => History.push(ROUTE_PATH.ADMIN_HOME)}
+                            onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}
                         >
                             {pathname.includes('/dashboard')
                                 ? <><Badge pill bg="primary">Dashboard</Badge></>
@@ -154,7 +154,7 @@ const Header = (props) => {
                             className="cursor-pointer py-0 my-3"
                             as="span"
                             active={pathname.includes('/dashboard') && `active`}
-                            onClick={() => History.push(ROUTE_PATH.ADMIN_HOME)}
+                            onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}
                         >Dashboard</Nav.Link>}
                     </Nav>
 

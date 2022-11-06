@@ -1,7 +1,6 @@
 import '../assets/css/Sider.css'
 import { History } from './NavigateSetter'
-import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar'
-import { useState } from 'react'
+import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar'
 import { ROUTE_PATH } from '../constants'
 import { useSelector } from 'react-redux'
 import { useWindowSize } from '../hooks'
@@ -12,7 +11,7 @@ const Sider = (props) => {
 
     const { pathname } = useLocation()
     const headerHeight = useSelector(state => state.UI.Header.height)
-    const [widthWindow, heightWindow] = useWindowSize()
+    const [ widthWindow ] = useWindowSize()
     const { collapseSidebar, toggleSidebar, collapsed, toggled, broken } = useProSidebar()
 
     return <div className='flex'>
@@ -25,7 +24,7 @@ const Sider = (props) => {
                 </MenuItem>
 
                 <OverlayTrigger overlay={collapsed ? <Tooltip>User</Tooltip> : <></>} placement="right">
-                    <MenuItem icon={<i className="fa-solid fa-user"></i>} label="Users" className={`hover:bg-indigo-700 ${pathname === ROUTE_PATH.ADMIN_USER_VIEW_ALL || pathname === ROUTE_PATH.ADMIN_HOME ? 'bg-red-900' : ''}`} onClick={() => History.push(ROUTE_PATH.ADMIN_USER_VIEW_ALL)}>
+                    <MenuItem icon={<i className="fa-solid fa-user"></i>} label="Users" className={`hover:bg-indigo-700 ${pathname === ROUTE_PATH.ADMIN_USER_VIEW_ALL || pathname.includes(ROUTE_PATH.ADMIN_HOME) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}\0`)}>
                         Users
                     </MenuItem>
                 </OverlayTrigger>

@@ -1,14 +1,54 @@
 import '../assets/css/UserManagementPage.css'
 import { Header, Footer, Sider } from "../components"
-import { ROUTE_PATH } from '../constants'
+import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Button } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
 import { useSelector } from 'react-redux'
 import { History } from '../components/NavigateSetter'
+import { UserApi } from '../api'
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router'
+import { useLayoutEffect } from 'react'
+import { useDispatch } from "react-redux"
+import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 
 const UserManagement = (props) => {
     
+    const dispatch = useDispatch()
+    const { page } = useParams()
     const user = useSelector(state => state.user)
+    const size = 9
+
+    const { data: responseGetAllUsers, isLoading: isLoadingGetAllUsers, isFetching: isFetchingGetAllUsers, isError: isErrorGetAllUsers, refetch: getAllUsers } = useQuery(
+        ["getAllUsers", page],
+        () => UserApi.getAllUsers(page, size),
+        {
+            refetchOnWindowFocus: false,
+        }
+    )
+
+    useLayoutEffect (() => {
+        if (isLoadingGetAllUsers || isFetchingGetAllUsers) {
+            dispatch(showLoader())
+        } else {
+            dispatch(hideLoader())
+        }
+
+        if (isErrorGetAllUsers || (responseGetAllUsers?.meta && responseGetAllUsers?.meta?.code !== STATUS_CODES.SUCCESS)) {
+            dispatch(showNotFound())
+        } else {
+            dispatch(hideNotFound())
+        }
+
+        return () => {
+            dispatch(hideLoader())
+            dispatch(hideNotFound())
+        }
+    }, [responseGetAllUsers, dispatch, isErrorGetAllUsers, isFetchingGetAllUsers, isLoadingGetAllUsers])
+
+    useLayoutEffect (() => {
+        getAllUsers(page)
+    }, [ page, getAllUsers ])
 
     return <>
         <Header />

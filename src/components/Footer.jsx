@@ -1,10 +1,20 @@
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { useRef, useLayoutEffect  } from 'react'
+import { setHeightFooter } from '../redux/actions'
+import { useDispatch } from 'react-redux'
 
 const Footer = (props) => {
 
     const { className } = props
+    
+    const dispatch = useDispatch()
+    const refFooter = useRef(null)
 
-    return <div className={`
+    useLayoutEffect (() => {
+        dispatch(setHeightFooter(refFooter.current.clientHeight))
+    }, [ dispatch ])
+
+    return <div ref={refFooter} className={`
     border-bottom border-3 border-primary border-start-0 border-end-0 border-top-0
     d-flex flex-column align-items-center justify-content-around 
     p-2 py-3 bg-indigo-100 ${className}`}

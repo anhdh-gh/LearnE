@@ -1,5 +1,5 @@
-a:hover,
-.lkTtqM:hover {
+.sider-component a:hover,
+.sider-component .lkTtqM:hover {
     background-color: inherit !important;
     color: inherit !important;
 }

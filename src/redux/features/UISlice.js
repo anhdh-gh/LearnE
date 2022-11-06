@@ -50,6 +50,10 @@ const UISlice = createSlice({
             height: 0
         },
 
+        Footer: {
+            height: 0
+        },
+
         CourseHeader: {
             height: 0
         },
@@ -319,6 +323,16 @@ const UISlice = createSlice({
             }
         },
 
+        setHeightFooter: (state, { payload }) => {
+            return {
+                ...state,
+                Footer: {
+                    ...state.Footer,
+                    height: payload !== 0 ? payload : state.Footer.height
+                }
+            }
+        },
+
         setHeightCourseHeader: (state, { payload }) => {
             return {
                 ...state,
@@ -353,7 +367,7 @@ export const {
     setUrl, 
     showAuthSignUpIsPageSignUp,hideAuthSignUpIsPageSignUp, 
     showAuthSignInIsPageSignIn, hideAuthSignInIsPageSignIn, 
-    setHeightHeader,
+    setHeightHeader, setHeightFooter,
     setHeightCourseHeader, 
     setDimensionBrowserWindow, 
     showTopLoader, hideTopLoader, offDisplayTopLoader,

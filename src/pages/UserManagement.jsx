@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
 import AvatarIcon from '../assets/img/avatar-icon.jpg'
-import { CommonUtil } from '../utils'
+import { CommonUtil, Notification } from '../utils'
 
 const UserManagement = (props) => {
 
@@ -23,6 +23,7 @@ const UserManagement = (props) => {
     const size = 8
     const [showVEUser, setShowVEUser] = useState({ show: false })
     const [userRemove, setUserRemove] = useState(false)
+    const [userUpdate, setUserUpdate] = useState(false)
 
     const { data: responseGetAllUsers, isLoading: isLoadingGetAllUsers, isFetching: isFetchingGetAllUsers, isError: isErrorGetAllUsers, refetch: getAllUsers } = useQuery(
         ["getAllUsers", page],
@@ -58,6 +59,25 @@ const UserManagement = (props) => {
     useLayoutEffect(() => {
         refreshPage()
     }, [refreshPage])
+
+    const handleUpdateUser = () => {
+        dispatch(showLoader())
+        UserApi.updateUser(userUpdate?.id, userUpdate?.role)
+        .then(res => {
+            const { meta } = res
+            if(meta.code === STATUS_CODES.SUCCESS) {
+                // const { data: user } = res
+                dispatch(hideLoader()) 
+                refreshPage()
+                setShowVEUser({ show: false })
+                setUserUpdate(false)
+                Notification.success("Updated successfully!")
+            } else {
+                dispatch(hideLoader())
+                Notification.error('Error, try again!')
+            }
+        })
+    } 
 
     return !isLoadingGetAllUsers && !isFetchingGetAllUsers && !isErrorGetAllUsers && responseGetAllUsers?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllUsers?.data) && <>
         <Header />
@@ -157,7 +177,7 @@ const UserManagement = (props) => {
                                 <td className="fw-bold">Role</td>
                                 <td>
                                     {showVEUser?.type === 'update'
-                                        ? <Form.Select style={{ cursor: 'pointer' }} size="sm" defaultValue={showVEUser?.role}>
+                                        ? <Form.Select onChange={e => setUserUpdate({...showVEUser, role: e.target.value})} style={{ cursor: 'pointer' }} size="sm" defaultValue={showVEUser?.role}>
                                             <option value="ADMIN">ADMIN</option>
                                             <option value="USER">USER</option>
                                         </Form.Select>
@@ -205,7 +225,8 @@ const UserManagement = (props) => {
                     </table>
                     {showVEUser?.type === 'update' &&
                         <Button
-                            // onClick={handleUpdate}
+                            onClick={handleUpdateUser}
+                            disabled={userUpdate ? false : true}
                             className="btn btn-primary w-100 fw-bold mt-3">
                             Update
                         </Button>

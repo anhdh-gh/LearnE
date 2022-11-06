@@ -7,6 +7,7 @@ const ROUTE_PATH = {
     REFRESH_TOKEN: "/user/refreshtoken",
     SIGN_UP: '/user/signup',
     GET_COURSE_DETAIL_FOR_USER: '/course/get-course-detail-for-user',
+    UPDATE: '/user/update',
 }
 
 const UserApi = {
@@ -25,6 +26,10 @@ const UserApi = {
     
     handleSignUp: (email, password, username) => {
         return () => ApiClient.post(ROUTE_PATH.SIGN_UP, {email, password, username})
+    },
+
+    updateUser: (id, role) => {
+        return ApiClient.post(ROUTE_PATH.UPDATE, {id, role})
     },
 
     getAllUsers: (page, size) => {

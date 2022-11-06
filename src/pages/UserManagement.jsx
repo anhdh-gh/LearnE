@@ -149,12 +149,12 @@ const UserManagement = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {showVEUser?.id && <tr className="fw-bold">
-                                <td>Id</td>
+                            {showVEUser?.id && <tr>
+                                <td className="fw-bold">Id</td>
                                 <td>{showVEUser?.id}</td>
                             </tr>}
-                            {showVEUser?.role && <tr className="fw-bold">
-                                <td>Role</td>
+                            {showVEUser?.role && <tr>
+                                <td className="fw-bold">Role</td>
                                 <td>
                                     {showVEUser?.type === 'update'
                                         ? <Form.Select style={{ cursor: 'pointer' }} size="sm" defaultValue={showVEUser?.role}>
@@ -165,40 +165,40 @@ const UserManagement = (props) => {
                                     }
                                 </td>
                             </tr>}
-                            {showVEUser?.email && <tr className="fw-bold">
-                                <td>Gender</td>
+                            {showVEUser?.email && <tr>
+                                <td className="fw-bold">Gender</td>
                                 <td>{showVEUser?.email}</td>
                             </tr>}
-                            {showVEUser?.userName && <tr className="fw-bold">
-                                <td>Username</td>
+                            {showVEUser?.userName && <tr>
+                                <td className="fw-bold">Username</td>
                                 <td>{showVEUser?.userName}</td>
                             </tr>}
-                            {showVEUser?.dateOfBirth && <tr className="fw-bold">
-                                <td>Date of birth</td>
+                            {showVEUser?.dateOfBirth && <tr>
+                                <td className="fw-bold">Date of birth</td>
                                 <td>{showVEUser?.dateOfBirth}</td>
                             </tr>}
-                            {showVEUser?.phoneNumber && <tr className="fw-bold">
-                                <td>Phone number</td>
+                            {showVEUser?.phoneNumber && <tr>
+                                <td className="fw-bold">Phone number</td>
                                 <td>{showVEUser?.phoneNumber}</td>
                             </tr>}
-                            {showVEUser?.account?.email && <tr className="fw-bold">
-                                <td>Email</td>
+                            {showVEUser?.account?.email && <tr>
+                                <td className="fw-bold">Email</td>
                                 <td>{showVEUser?.account?.email}</td>
                             </tr>}
-                            {showVEUser?.address && <tr className="fw-bold">
-                                <td>Address</td>
+                            {showVEUser?.address && <tr>
+                                <td className="fw-bold">Address</td>
                                 <td>{showVEUser?.address}</td>
                             </tr>}
-                            {showVEUser?.fullName && <tr className="fw-bold">
-                                <td>FullName</td>
+                            {showVEUser?.fullName && <tr>
+                                <td className="fw-bold">FullName</td>
                                 <td>{showVEUser?.fullName}</td>
                             </tr>}
-                            {showVEUser?.createTime && <tr className="fw-bold">
-                                <td>Create time</td>
+                            {showVEUser?.createTime && <tr>
+                                <td className="fw-bold">Create time</td>
                                 <td>{CommonUtil.getDateStringFromMilliseconds(showVEUser?.createTime)}</td>
                             </tr>}
-                            {showVEUser?.updateTime && <tr className="fw-bold">
-                                <td>Update time</td>
+                            {showVEUser?.updateTime && <tr>
+                                <td className="fw-bold">Update time</td>
                                 <td>{CommonUtil.getDateStringFromMilliseconds(showVEUser?.updateTime)}</td>
                             </tr>}
                         </tbody>

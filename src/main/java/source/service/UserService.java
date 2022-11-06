@@ -6,17 +6,17 @@ import source.dto.response.BaseResponse;
 
 public interface UserService {
 
-    public BaseResponse createUser(UserCreateRequestDto request) throws Exception;
+    BaseResponse createUser(UserCreateRequestDto request) throws Exception;
 
-    public BaseResponse comparePassword(UserComparePasswordRequestDto userComparePasswordRequestDto) throws Exception;
+    BaseResponse comparePassword(UserComparePasswordRequestDto userComparePasswordRequestDto) throws Exception;
 
-    public BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception;
+    BaseResponse getUserById(UserGetByIdRequestDto userGetByIdRequestDto) throws Exception;
 
-    public BaseResponse getAllUser(UserGetAllRequestDto userGetAllRequestDto) throws Exception;
+    BaseResponse getAllUser(UserGetAllRequestDto userGetAllRequestDto) throws Exception;
 
-    public BaseResponse updateUser(UserUpdateRequestDto userGetAllRequestDto) throws Exception;
+    BaseResponse updateUser(UserUpdateRequestDto userGetAllRequestDto) throws Exception;
 
-    public BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
+    BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
 
     BaseResponse getUserByUserIds(UserGetListByIdsRequestDto request) throws Exception;
 }

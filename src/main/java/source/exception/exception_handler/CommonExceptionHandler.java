@@ -1,6 +1,5 @@
 package source.exception.exception_handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

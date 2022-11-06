@@ -10,7 +10,7 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    public User findByUserName(String userName);
+    User findByUserName(String userName);
 
     List<User> findByIdIn(Set<String> id);
 }

@@ -6,5 +6,5 @@ import source.entity.Account;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String> {
-    public Account findByEmail(String email);
+    Account findByEmail(String email);
 }

@@ -1,7 +1,7 @@
 package source.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.CaseFormat;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,6 @@ import source.repository.UserRepository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService{
     private Environment environment;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private ModelMapper modelMapper;
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
@@ -78,9 +77,8 @@ public class UserServiceImpl implements UserService{
             .build();
 
         userSave = userRepository.save(userSave);
-        userSave = objectMapper.readValue(objectMapper.writeValueAsString(userSave), User.class);
 
-        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(userSave));
+        return BaseResponse.ofSucceeded(request.getRequestId(), userSave);
     }
 
     @Override
@@ -104,7 +102,7 @@ public class UserServiceImpl implements UserService{
         return BaseResponse.ofSucceeded(request.getRequestId(), new UserComparePasswordResponseDto(isCorrect));
     }
 
-    private User checkUserIsExist(String id){
+    private User checkUserIsExist(String id) {
         Optional<User> userOptional = userRepository.findById(id);
         return userOptional.orElse(null);
     }
@@ -142,8 +140,24 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        User userUpdate = checkUserIsExist(request.getId());
+        if(userUpdate == null) {
+            return BaseResponse.ofFailed(
+                request.getRequestId(),
+                BusinessErrors.INVALID_PARAMETERS,
+                environment.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        }
+
+        modelMapper.map(request, userUpdate);
+        userUpdate = userRepository.save(userUpdate);
+        return BaseResponse.ofSucceeded(request.getRequestId(), userUpdate);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
+    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
         User user = checkUserIsExist(request.getId());
-        if(user == null){
+        if(user == null) {
             int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
             return BaseResponse.ofFailed(request.getRequestId(),
                 new BusinessError(
@@ -151,28 +165,6 @@ public class UserServiceImpl implements UserService{
                     environment.getProperty(String.valueOf(errorCode)),
                     HttpStatus.BAD_REQUEST));
         } else {
-            user.setGender(Objects.nonNull(request.getGender()) ? request.getGender() : user.getGender());
-            user.setAddress(Objects.nonNull(request.getAddress()) ? request.getAddress() : user.getAddress());
-            user.setAvatar(Objects.nonNull(request.getAvatar()) ? request.getAvatar() : user.getAvatar());
-            user.setDateOfBirth(Objects.nonNull(request.getDateOfBirth()) ? request.getDateOfBirth() : user.getDateOfBirth());
-            user.setPhoneNumber(Objects.nonNull(request.getPhoneNumber()) ? request.getPhoneNumber() : user.getPhoneNumber());
-            user.setFullName(Objects.nonNull(request.getFullName()) ? request.getFullName() : user.getFullName());
-        }
-        return BaseResponse.ofSucceeded(request.getRequestId(), maskPassword(objectMapper.readValue(objectMapper.writeValueAsString(userRepository.save(user)), User.class)));
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Throwable.class})
-    public BaseResponse deleteUser(UserDeleteRequestDto request) throws Exception {
-        User user = checkUserIsExist(request.getId());
-        if(user == null){
-            int errorCode = Integer.parseInt(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011);
-            return BaseResponse.ofFailed(request.getRequestId(),
-                new BusinessError(
-                    errorCode,
-                    environment.getProperty(String.valueOf(errorCode)),
-                    HttpStatus.BAD_REQUEST));
-        } else{
             userRepository.delete(user);
             return BaseResponse.ofSucceeded(request.getRequestId(), user);
         }
@@ -186,11 +178,5 @@ public class UserServiceImpl implements UserService{
             throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
         }
         return BaseResponse.ofSucceeded(request.getRequestId(), users);
-    }
-
-    private User maskPassword(User user){
-        if(Objects.nonNull(user))
-            user.getAccount().setPassword(null);
-        return user;
     }
 }

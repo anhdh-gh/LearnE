@@ -1,11 +1,10 @@
 package source.entity;
 
-import javax.persistence.*;
-
 import lombok.*;
 import source.entity.enumeration.Gender;
 import source.entity.enumeration.Role;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data

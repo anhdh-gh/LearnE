@@ -3,18 +3,18 @@ import {
     NotFound, Auth, Home, ShowCourseDetail, 
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
     EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
-    Contact, AdminUserViewAll
+    Contact, UserManagement
 } from '../pages'
 
 const routes = {
     privateAdminoute: [
         {
             path: `${ROUTE_PATH.ADMIN_HOME}`, 
-            element: <AdminUserViewAll/>
+            element: <UserManagement/>
         }, 
         {
             path: `${ROUTE_PATH.ADMIN_USER_VIEW_ALL}`, 
-            element: <AdminUserViewAll/>
+            element: <UserManagement/>
         }, 
     ],
 

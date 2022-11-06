@@ -39,7 +39,7 @@ const Sider = (props) => {
             <i className={`fa-solid fa-angle-right`}></i>
         </div>}
 
-        <main>
+        <main className='grow'>
             {props?.children}
         </main>
     </div>

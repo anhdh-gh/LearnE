@@ -10,7 +10,7 @@ import ViewDetailStudySet from './ViewDetailStudySet'
 import TestStudySet from './TestStudySet'
 import ShowAllStudyset from './ShowAllStudyset'
 import Contact from './Contact'
-import AdminUserViewAll from './AdminUserViewAll'
+import UserManagement from './UserManagement'
 
 export {
     NotFound,
@@ -25,5 +25,5 @@ export {
     TestStudySet,
     ShowAllStudyset,
     Contact,
-    AdminUserViewAll,
+    UserManagement,
 }

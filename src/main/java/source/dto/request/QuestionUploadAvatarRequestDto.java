@@ -8,18 +8,17 @@ import org.springframework.web.multipart.MultipartFile;
 import source.anotation.ValidFile;
 import source.anotation.ValidFileSize;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class UserUploadAvatarRequestDto extends BasicRequest {
+public class QuestionUploadAvatarRequestDto extends BasicRequest {
 
-    private String userId;
-
-    @NotNull
-    @ValidFileSize()
+    @ValidFileSize(maxSize = 10000)
     @ValidFile()
-    private MultipartFile avatar;
+    private MultipartFile image;
+
+    @ValidFileSize(maxSize = 10000)
+    @ValidFile(type = ValidFile.AUDIO)
+    private MultipartFile audio;
 }

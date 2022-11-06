@@ -3,7 +3,6 @@ package source.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import source.constant.FirebaseStorageConstant;
 import source.dto.request.UserDeleteAvatarRequestDto;
 import source.dto.request.UserDownloadAvatarRequestDto;
@@ -18,14 +17,8 @@ import source.third_party.firebase_storage.dto.request.FirebaseUploadFileRequest
 import source.third_party.firebase_storage.dto.response.FirebaseUploadFileResponseDto;
 import source.third_party.firebase_storage.service.FirebaseStorageService;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
 @Service
-public class UserMultimediaServiceImpl implements UserMultimediaService {
-
-    @Autowired
-    private FirebaseStorageService firebaseStorageService;
+public class UserMultimediaServiceImpl extends BaseService implements UserMultimediaService {
 
     @Autowired
     private UserRepository userRepository;
@@ -67,17 +60,5 @@ public class UserMultimediaServiceImpl implements UserMultimediaService {
     public ResponseEntity<Object> downloadAvatar(UserDownloadAvatarRequestDto request) throws Exception {
         User user = userRepository.get(request.getUserId());
         return firebaseStorageService.downloadFile(FirebaseStorageRequestDto.builder().requestId(request.getRequestId()).folder(FirebaseStorageConstant.BASE_PATH_USER_AVATAR).fileName(request.getUserId() + "." + getExtensionByUrl(user.getAvatar())).build());
-    }
-
-    private String getExtensionByUrl(String avatarUrl) {
-        String fileName =
-            replaceLast(avatarUrl, "\\?alt=media", "")
-            .replaceFirst("https://firebasestorage.googleapis.com/v0/b/" + FirebaseStorageConstant.BUCKET + "/o/", "");
-
-        return StringUtils.getFilenameExtension(fileName);
-    }
-
-    public String replaceLast(String text, String regex, String replacement) {
-        return text.replaceFirst("(?s)(.*)" + regex, "$1" + replacement);
     }
 }

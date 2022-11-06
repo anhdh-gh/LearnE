@@ -1,6 +1,7 @@
-package source.anotation;
+package source.anotation.handler;
 
 import org.springframework.web.multipart.MultipartFile;
+import source.anotation.ValidFileSize;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -16,7 +17,10 @@ public class FileSizeValidator implements ConstraintValidator<ValidFileSize, Mul
 
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
-        if (file.getSize() * 0.001 <= fileSize) return true;
-        return false;
+        if(file == null) {
+            return true;
+        }
+
+        return file.getSize() * 0.001 <= fileSize;
     }
 }

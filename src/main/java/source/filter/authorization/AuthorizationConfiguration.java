@@ -8,12 +8,14 @@ import source.constant.RouterConstant;
 @Configuration
 public class AuthorizationConfiguration {
 
-//    @Bean
-//    public FilterRegistrationBean<AuthorizationFilter> authorizationFilter() {
-//        FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
-//        registrationBean.setFilter(new AuthorizationFilter());
-//        registrationBean.addUrlPatterns();
-//        registrationBean.setOrder(2);
-//        return registrationBean;
-//    }
+    @Bean
+    public FilterRegistrationBean<AuthorizationFilter> authorizationFilter() {
+        FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new AuthorizationFilter());
+        registrationBean.addUrlPatterns(
+            RouterConstant.QUESTION_UPLOAD
+        );
+        registrationBean.setOrder(2);
+        return registrationBean;
+    }
 }

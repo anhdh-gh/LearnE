@@ -5,15 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
-import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.response.BaseResponse;
-import source.entity.User;
 import source.service.course_service.CourseService;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class CourseController {

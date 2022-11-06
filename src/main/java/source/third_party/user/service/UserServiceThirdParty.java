@@ -1,11 +1,11 @@
-package source.third_party.user_service.service;
+package source.third_party.user.service;
 
 import source.dto.request.UserDeleteRequestDto;
 import source.dto.request.UserGetAllRequestDto;
 import source.dto.request.UserGetInfoRequestDto;
 import source.dto.request.UserUpdateRequestDto;
 import source.dto.response.BaseResponse;
-import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
+import source.third_party.user.dto.request.UserSignUpThirdPartyRequestDto;
 
 public interface UserServiceThirdParty {
 

@@ -1,4 +1,4 @@
-package source.third_party.user_service.constant;
+package source.third_party.user.constant;
 
 public class RouterUserServiceConstant {
 

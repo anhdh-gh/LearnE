@@ -1,15 +1,13 @@
 package source.util;
 
-import java.util.Date;
-
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.*;
 import source.entity.User;
 import source.entity.enumeration.Role;
+
+import java.util.Date;
 
 // https://www.bezkoder.com/spring-boot-refresh-token-jwt/
 @Component

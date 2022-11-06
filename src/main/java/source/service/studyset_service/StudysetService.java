@@ -1,4 +1,4 @@
-package source.service.studyset;
+package source.service.studyset_service;
 
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;

@@ -1,17 +1,15 @@
 package source.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
-import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
-import source.entity.User;
 import source.service.refresh_token_service.RefreshTokenService;
 import source.service.user_service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController {
@@ -24,14 +22,14 @@ public class UserController {
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.SIGN_UP)
-    public BaseResponse signUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
-        return userService.signUp(userSignUpRequestDto);
+    public BaseResponse signUp(@RequestBody UserSignUpRequestDto request) throws Exception {
+        return userService.signUp(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.SIGN_IN)
-    public BaseResponse signIn(@RequestBody UserSignInRequestDto userSignInRequestDto) throws Exception {
-        return userService.signIn(userSignInRequestDto);
+    public BaseResponse signIn(@RequestBody UserSignInRequestDto request) throws Exception {
+        return userService.signIn(request);
     }
 
     @LogsActivityAnnotation
@@ -48,34 +46,33 @@ public class UserController {
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_UPDATE)
-    public BaseResponse updateUser(@RequestBody UserUpdateRequestDto userUpdateRequestDto, HttpServletRequest request) throws Exception {
-        userUpdateRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER_AUTH)).getId());
-        return userService.updateUser(userUpdateRequestDto);
+    public BaseResponse updateUser(@RequestBody UserUpdateRequestDto request) throws Exception {
+        return userService.updateUser(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_DELETE)
-    public BaseResponse deleteUser(@RequestBody UserDeleteRequestDto userDeleteRequestDto, HttpServletRequest request) throws Exception {
-        userDeleteRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER_AUTH)).getId());
-        return userService.deleteUser(userDeleteRequestDto);
+    public BaseResponse deleteUser(@RequestBody UserDeleteRequestDto request) throws Exception {
+        request.setId(request.getUserAuthId());
+        return userService.deleteUser(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_GET_INFO)
-    public BaseResponse getUserInformation(@RequestBody UserGetInfoRequestDto userGetInfoRequestDto, HttpServletRequest request) throws Exception {
-        userGetInfoRequestDto.setId(((User) request.getAttribute(RequestKeyConstant.USER_AUTH)).getId());
-        return userService.getUserInfo(userGetInfoRequestDto);
+    public BaseResponse getUserInformation(@RequestBody UserGetInfoRequestDto request) throws Exception {
+        request.setId(request.getUserAuthId());
+        return userService.getUserInfo(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.USER_GET_BY_ID)
-    public BaseResponse getUserById(@RequestBody UserGetInfoRequestDto userGetInfoRequestDto, HttpServletRequest request) throws Exception {
-        return userService.getUserInfo(userGetInfoRequestDto);
+    public BaseResponse getUserById(@RequestBody UserGetInfoRequestDto request) throws Exception {
+        return userService.getUserInfo(request);
     }
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.ADMIN_DELETE_USER)
-    public BaseResponse deleteUserById(@RequestBody UserDeleteRequestDto userDeleteRequestDto) throws Exception {
-      return userService.deleteUser(userDeleteRequestDto);
+    public BaseResponse deleteUserById(@RequestBody UserDeleteRequestDto request) throws Exception {
+      return userService.deleteUser(request);
     }
 }

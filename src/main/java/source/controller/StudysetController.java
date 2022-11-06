@@ -8,7 +8,7 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
-import source.service.studyset.StudysetService;
+import source.service.studyset_service.StudysetService;
 
 @RestController
 public class StudysetController {

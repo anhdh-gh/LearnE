@@ -1,4 +1,4 @@
-package source.third_party.user_service.dto.request;
+package source.third_party.user.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

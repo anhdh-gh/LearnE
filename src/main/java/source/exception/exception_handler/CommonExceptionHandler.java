@@ -12,15 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.exception.BusinessError;
 import source.exception.BusinessErrors;
 import source.exception.BusinessException;
-import source.util.JsonUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

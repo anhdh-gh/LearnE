@@ -1,4 +1,4 @@
-package source.third_party.user_service.dto.response;
+package source.third_party.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

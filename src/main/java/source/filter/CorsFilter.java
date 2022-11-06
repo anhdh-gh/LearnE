@@ -1,6 +1,7 @@
 package source.filter;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -8,12 +9,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.json.simple.parser.JSONParser;
 import source.constant.ContentTypeConstant;
 import source.constant.JwtTokenTypeConstant;
 import source.constant.RequestKeyConstant;
 import source.entity.User;
-import source.util.JsonUtil;
 import source.util.JwtUtil;
 
 import javax.servlet.*;

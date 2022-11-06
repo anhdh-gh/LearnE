@@ -1,21 +1,20 @@
-package source.third_party.user_service.service;
+package source.third_party.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import source.constant.RequestKeyConstant;
-import source.dto.request.*;
+import source.dto.request.UserDeleteRequestDto;
+import source.dto.request.UserGetAllRequestDto;
+import source.dto.request.UserGetInfoRequestDto;
+import source.dto.request.UserUpdateRequestDto;
 import source.dto.response.BaseResponse;
-import source.third_party.user_service.constant.RouterUserServiceConstant;
-import source.third_party.user_service.dto.request.UserGetByIdThirdPartyRequestDto;
-import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
+import source.third_party.user.constant.RouterUserServiceConstant;
+import source.third_party.user.dto.request.UserSignUpThirdPartyRequestDto;
 import source.util.JsonUtil;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 
 import static source.util.HttpUtil.getHeader;
 
@@ -53,10 +52,10 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
     @Override
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterUserServiceConstant.UPDATE_USER),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {});
+            String.format("%s%s", baseUrl, RouterUserServiceConstant.UPDATE_USER),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }

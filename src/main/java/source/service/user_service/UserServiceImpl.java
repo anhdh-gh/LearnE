@@ -12,17 +12,18 @@ import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;
+import source.entity.RefreshToken;
 import source.entity.User;
+import source.entity.enumeration.Role;
 import source.exception.BusinessErrors;
 import source.exception.firebase.auth.FirebaseAuthException;
-import source.entity.RefreshToken;
 import source.repository.UserRepository;
 import source.service.refresh_token_service.RefreshTokenService;
 import source.third_party.firebase_user_authentication.bean.FirebaseSignInSignUpResponseBean;
 import source.third_party.firebase_user_authentication.exception.HttpBadRequestException;
 import source.third_party.firebase_user_authentication.service.UserAuthenticationServiceImpl;
-import source.third_party.user_service.dto.request.UserSignUpThirdPartyRequestDto;
-import source.third_party.user_service.service.UserServiceThirdParty;
+import source.third_party.user.dto.request.UserSignUpThirdPartyRequestDto;
+import source.third_party.user.service.UserServiceThirdParty;
 import source.util.JsonUtil;
 import source.util.JwtUtil;
 
@@ -146,8 +147,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BaseResponse updateUser(UserUpdateRequestDto userUpdateRequestDto) throws Exception {
-        return userServiceThirdParty.updateUser(userUpdateRequestDto);
+    public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
+        // Kiểm tra xem có phải là admin không, nếu không thì set một số trường là null
+        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+            request.setId(request.getUserAuthId());
+            request.setRole(null);
+        }
+
+        BaseResponse response = userServiceThirdParty.updateUser(request);
+        if(!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
+            return response;
+        }
+
+        // Update in firebase
+        User user = JsonUtil.getGenericObject(response.getData(), User.class);
+        user = userRepository.set(user);
+
+        // Trả về kết quả
+        return response;
     }
 
     @Override

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import source.constant.ErrorCodeConstant;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor

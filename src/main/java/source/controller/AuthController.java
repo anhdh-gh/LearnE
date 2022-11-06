@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
-import source.dto.request.UserGetUserInformationRequestDto;
 import source.dto.request.*;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;

@@ -33,6 +33,8 @@ public interface AuthService {
 
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
 
+    BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
+
     BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception;
 
     BaseResponse createStudyset(StudysetDto request) throws Exception;

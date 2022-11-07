@@ -104,6 +104,12 @@ public class AuthController {
     }
 
     @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_GET_ALL)
+    public BaseResponse getAllCourse(@Valid @RequestBody GetAllCourseRequestDto request) throws Exception {
+        return authService.getAllCourse(request);
+    }
+
+    @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
     public BaseResponse getCourseDetailForUser(@Valid @RequestBody UpdateLessonStatusRequestDto request) throws Exception {
         return authService.updateLessonStatus(request);

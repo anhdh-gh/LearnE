@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.entity.Course;
+import source.entity.enumeration.StatusType;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public class GetCourseDetailForUserResponseDto extends Course {
 
     @JsonProperty("chapters")
     private List<ChapterDto> chapterDtos;
+
+    private StatusType status;
 }

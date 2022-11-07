@@ -19,4 +19,12 @@ public interface LessonStatusRepository extends JpaRepository<LessonStatus, Stri
     Long countDistinctUserId(String courseId);
 
     Optional<LessonStatus> findLessonStatusByUserIdAndLessonId(String userId, Long lessonId);
+
+    @Query(value =
+        "select count(*) from lessonstatus " +
+        "inner join lesson on lesson.Id = lessonstatus.LessonId " +
+        "inner join chapter on chapter.Id = lesson.ChapterId " +
+        "inner join course on course.Id = chapter.CourseId " +
+        "where course.Id = ?1 and lessonstatus.UserId = ?2", nativeQuery = true)
+    Long countByCourseIdAndUserId(String courseId, String userId);
 }

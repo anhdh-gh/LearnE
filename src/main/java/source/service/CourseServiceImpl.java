@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
+import source.dto.request.BasicRequest;
 import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
@@ -141,11 +142,36 @@ public class CourseServiceImpl implements CourseService {
             request.getSize(),
             Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
         );
-
         Page<Course> coursesPage = courseRepository.findAll(pageRequest);
 
+        // Convert sang DTO
+        Page<GetCourseDetailForUserResponseDto> response = coursesPage.map(course -> {
+            GetCourseDetailForUserResponseDto responseDto = modelMapper.map(course, GetCourseDetailForUserResponseDto.class);
+            responseDto.setNumberOfPeople(lessonStatusRepository.countDistinctUserId(course.getId()));
+            responseDto.setStatus(StatusType.UNFINISHED);
+            if(request.getUserId() != null) {
+                // Kiểm tra user xem có tồn tại hay không
+                try {
+                    BaseResponse responseGetUserById = getUserById(request, request.getUserId());
+                    if(responseGetUserById.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+                        Long countStatus = lessonStatusRepository.countByCourseIdAndUserId(course.getId(), request.getUserId());
+                        responseDto.setStatus(
+                            countStatus == null || countStatus == 0
+                                ? StatusType.UNFINISHED
+                                : countStatus == lessonRepository.countByCourseId(course.getId())
+                                    ? StatusType.FINISHED
+                                    : StatusType.PROCESSING
+                        );
+                    }
+                } catch (Exception ex) {
+                    BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, ex.getMessage());
+                }
+            }
+            return responseDto;
+        });
+
         // Trả về kết quả
-        return BaseResponse.ofSucceeded(request.getRequestId(), coursesPage);
+        return BaseResponse.ofSucceeded(request.getRequestId(), response);
     }
 
     @Override
@@ -162,14 +188,9 @@ public class CourseServiceImpl implements CourseService {
 
         // Kiểm tra user xem có tồn tại hay không
         if(request.getUserId() != null) {
-            BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
-                .builder()
-                .requestId(request.getRequestId())
-                .id(request.getUserId())
-                .build()
-            );
-            if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
-                return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+            BaseResponse responseGetUserById = getUserById(request, request.getUserId());
+            if(!responseGetUserById.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+                return responseGetUserById;
             }
         }
 
@@ -266,15 +287,12 @@ public class CourseServiceImpl implements CourseService {
                 .ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.LESSON_IS_NOT_FOUND_400034));
         }
 
-        // Kiểm tra xem UserId có tồn tại hay không
-        BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
-            .builder()
-            .requestId(request.getRequestId())
-            .id(request.getUserId())
-            .build()
-        );
-        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
-            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        // Kiểm tra user xem có tồn tại hay không
+        if(request.getUserId() != null) {
+            BaseResponse responseGetUserById = getUserById(request, request.getUserId());
+            if(!responseGetUserById.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+                return responseGetUserById;
+            }
         }
 
         // Thực hiện update status lesson
@@ -303,5 +321,21 @@ public class CourseServiceImpl implements CourseService {
             .stream()
             .map(element -> modelMapper.map(element, targetClass))
             .collect(Collectors.toList());
+    }
+
+    private BaseResponse getUserById(BasicRequest request, String userId) throws Exception {
+        // Kiểm tra user xem có tồn tại hay không
+        BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
+            .builder()
+            .requestId(request.getRequestId())
+            .id(userId)
+            .build());
+
+        // Trả về kết quả
+        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        }
+
+        return baseResponse;
     }
 }

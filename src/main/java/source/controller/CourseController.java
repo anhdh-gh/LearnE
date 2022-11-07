@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
+import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.create_course.CreateCourseRequestDto;
@@ -35,5 +36,11 @@ public class CourseController {
     @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
     public BaseResponse updateLessonStatus(@RequestBody UpdateLessonStatusRequestDto request) throws Exception {
         return courseService.updateLessonStatus(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_GET_ALL)
+    public BaseResponse getAllCourse(@RequestBody GetAllCourseRequestDto request) throws Exception {
+        return courseService.getAllCourse(request);
     }
 }

@@ -3,9 +3,13 @@ package source.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
+import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.create_course.CreateCourseRequestDto;
@@ -127,6 +131,21 @@ public class CourseServiceImpl implements CourseService {
         courseSave = courseRepository.save(courseSave);
 
         return BaseResponse.ofSucceeded(request.getRequestId(), courseSave);
+    }
+
+    @Override
+    public BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+
+        Page<Course> coursesPage = courseRepository.findAll(pageRequest);
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), coursesPage);
     }
 
     @Override

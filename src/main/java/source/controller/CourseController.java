@@ -35,6 +35,7 @@ public class CourseController {
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_ALL)
     public BaseResponse getAllCourse(@RequestBody GetAllCourseRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return courseService.getAllCourse(request);
     }
 }

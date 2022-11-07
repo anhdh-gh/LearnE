@@ -55,9 +55,9 @@ const Header = (props) => {
                             className="cursor-pointer"
                             as="span"
                             active="active"
-                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/746c8e3a-f39f-4360-9df2-6f396062393a`)}
+                            onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
                         >
-                            {pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL)
+                            {pathname.includes('/course')
                                 ? <Badge pill bg="primary">Course</Badge>
                                 : 'Course'
                             }
@@ -122,8 +122,8 @@ const Header = (props) => {
                         <Nav.Link
                             className="cursor-pointer py-0 my-3"
                             as="span"
-                            active={pathname.includes(ROUTE_PATH.SHOW_COURSE_DETAIL) && "active"}
-                            onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/746c8e3a-f39f-4360-9df2-6f396062393a`)}
+                            active={pathname.includes('/course') && "active"}
+                            onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
                         >Course</Nav.Link>
 
                         <Nav className="my-3 my-md-0 user-droplist">

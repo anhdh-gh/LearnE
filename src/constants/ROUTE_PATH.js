@@ -17,6 +17,8 @@ const ROUTE_PATH = {
     SIGN_IN: "/signin",
     SIGN_UP: "/signup",
 
+    SHOW_ALL_COURSE: "/course/show/all",
+
     SHOW_COURSE_DETAIL: "/course/detail",
 
     STUDY_SET_VIEW: '/studyset/view',

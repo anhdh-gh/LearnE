@@ -23,13 +23,13 @@ const  CourseHeader = (props) => {
             <Container fluid className="justify-start">
                 <Navbar.Brand
                     className="fw-bold cursor-pointer me-2 py-0"
-                onClick={() => History.push(ROUTE_PATH.HOME)}
+                onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
                 >
                     <i className="fa-solid fa-chevron-left px-3" />
                 </Navbar.Brand>
                 <Navbar.Brand
                     className="fw-bold cursor-pointer me-2 d-none d-sm-block py-0"
-                onClick={() => History.push(ROUTE_PATH.HOME)}
+                onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
                 >
                     <i className="fas fa-book-reader px-2" />
                 </Navbar.Brand>

@@ -3,7 +3,7 @@ import {
     NotFound, Auth, Home, ShowCourseDetail, 
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
     EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
-    Contact, UserManagement
+    Contact, UserManagement, ShowAllCourse
 } from '../pages'
 
 const routes = {
@@ -56,6 +56,11 @@ const routes = {
             path: `${ROUTE_PATH.STUDY_SET_VIEW_DETAIL}/:studysetId`, 
             element: <ViewDetailStudySet/>
         }, 
+
+        {
+            path: `${ROUTE_PATH.SHOW_ALL_COURSE}/:page`, 
+            element: <ShowAllCourse/>
+        },  
 
         {
             path: `${ROUTE_PATH.SHOW_COURSE_DETAIL}/:courseId`, 

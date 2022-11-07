@@ -154,7 +154,7 @@ const UserManagement = (props) => {
                 handleYes={() => setUserRemove(false)}
             />
 
-            {showVEUser?.show && <Offcanvas placement="end" show={showVEUser?.show} onHide={() => setShowVEUser({ show: false })}>
+            {showVEUser?.show && <Offcanvas placement="end" show={showVEUser?.show} onHide={() => {setUserUpdate(false); setShowVEUser({ show: false })}}>
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title>
                         {showVEUser?.type === 'update' ? 'Update user' : 'View user'}

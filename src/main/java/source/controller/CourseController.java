@@ -21,7 +21,9 @@ public class CourseController {
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_DETAIL_FOR_USER)
     public BaseResponse getCourseDetailForUser(@RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
-        request.setUserId(request.getUserAuthId());
+        if(request.getUserId() == null) {
+            request.setUserId(request.getUserAuthId());
+        }
         return courseService.getCourseDetailForUserRequestDto(request);
     }
 

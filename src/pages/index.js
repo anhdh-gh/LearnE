@@ -12,6 +12,7 @@ import ShowAllStudyset from './ShowAllStudyset'
 import Contact from './Contact'
 import UserManagement from './UserManagement'
 import ShowAllCourse from './ShowAllCourse'
+import CourseManagement from './CourseManagement'
 
 export {
     NotFound,
@@ -28,4 +29,5 @@ export {
     Contact,
     UserManagement,
     ShowAllCourse,
+    CourseManagement,
 }

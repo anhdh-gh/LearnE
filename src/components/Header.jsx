@@ -57,7 +57,7 @@ const Header = (props) => {
                             active="active"
                             onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
                         >
-                            {pathname.includes('/course')
+                            {pathname.includes('/course') && !pathname.includes('/dashboard')
                                 ? <Badge pill bg="primary">Course</Badge>
                                 : 'Course'
                             }
@@ -122,7 +122,7 @@ const Header = (props) => {
                         <Nav.Link
                             className="cursor-pointer py-0 my-3"
                             as="span"
-                            active={pathname.includes('/course') && "active"}
+                            active={pathname.includes('/course') && !pathname.includes('/dashboard') && "active"}
                             onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
                         >Course</Nav.Link>
 

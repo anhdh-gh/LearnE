@@ -1,6 +1,6 @@
 import '../assets/css/Sider.css'
 import { History } from './NavigateSetter'
-import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar'
+import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from 'react-pro-sidebar'
 import { ROUTE_PATH } from '../constants'
 import { useSelector } from 'react-redux'
 import { useWindowSize } from '../hooks'
@@ -24,10 +24,24 @@ const Sider = (props) => {
                 </MenuItem>
 
                 <OverlayTrigger overlay={collapsed ? <Tooltip>User</Tooltip> : <></>} placement="right">
-                    <MenuItem icon={<i className="fa-solid fa-user"></i>} label="Users" className={`hover:bg-indigo-700 ${pathname.includes(ROUTE_PATH.ADMIN_USER_VIEW_ALL) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}>
+                    <MenuItem icon={<i className="fa-solid fa-user"></i>} label="Users" className={`bg-inherit hover:bg-indigo-700 ${pathname.includes(ROUTE_PATH.ADMIN_USER_VIEW_ALL) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}>
                         Users
                     </MenuItem>
                 </OverlayTrigger>
+
+                <OverlayTrigger overlay={collapsed ? <Tooltip>Courses</Tooltip> : <></>} placement="right">
+                    <MenuItem icon={<i className="fa-solid fa-chalkboard"></i>} label="Courses" className={`bg-inherit hover:bg-indigo-700 ${pathname.includes(ROUTE_PATH.ADMIN_COURSE_VIEW_ALL) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/0`)}>
+                        Courses
+                    </MenuItem>
+                </OverlayTrigger>
+
+                {/* <OverlayTrigger overlay={collapsed ? <Tooltip>Courses</Tooltip> : <></>} placement="right">
+                    <SubMenu className='bg-inherit' label="Courses" icon={<i className="fa-solid fa-chalkboard"></i>} onOpenChange={(open) => console.log(open)}>
+                        <MenuItem label="Courses" className={`bg-indigo-900 hover:bg-indigo-700 ${pathname.includes(ROUTE_PATH.ADMIN_COURSE_VIEW_ALL) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/0`)}>
+                            View courses
+                        </MenuItem>
+                    </SubMenu>                    
+                </OverlayTrigger> */}
             </Menu>
         </Sidebar>
 

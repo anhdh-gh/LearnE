@@ -3,7 +3,7 @@ import {
     NotFound, Auth, Home, ShowCourseDetail, 
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
     EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
-    Contact, UserManagement, ShowAllCourse
+    Contact, UserManagement, ShowAllCourse, CourseManagement
 } from '../pages'
 
 const routes = {
@@ -11,6 +11,11 @@ const routes = {
         {
             path: `${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/:page`, 
             element: <UserManagement/>
+        }, 
+
+        {
+            path: `${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/:page`, 
+            element: <CourseManagement/>
         }, 
     ],
 

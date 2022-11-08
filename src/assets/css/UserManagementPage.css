@@ -4,6 +4,7 @@
 
 .UserManagementPage-container .content {
     background-color: #f6f7fb;
+    min-height: 100vh;
 }
 
 .UserManagementPage-container .card-user {

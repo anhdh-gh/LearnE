@@ -95,7 +95,7 @@ const ShowAllCourse = (props) => {
                                     <Card className="card-study-set-container cursor-default">
                                         <Card.Img variant="top" src={course?.image || PagesImage} className='border-b'/>
                                         <Card.Body>
-                                            <Card.Title className="title">{course?.name || PagesImage}</Card.Title>
+                                            <Card.Title className="title">{course?.name}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 <Badge pill bg="warning" text="dark">{course?.price}</Badge>
                                             </Card.Subtitle>

@@ -12,4 +12,6 @@ import lombok.experimental.SuperBuilder;
 public class GetCourseDetailForUserRequestDto extends BasicRequest {
 
     private String courseId;
+
+    private String userId;
 }

@@ -9,10 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
-import source.dto.request.BasicRequest;
-import source.dto.request.GetAllCourseRequestDto;
-import source.dto.request.GetCourseDetailForUserRequestDto;
-import source.dto.request.UpdateLessonStatusRequestDto;
+import source.dto.request.*;
 import source.dto.request.create_course.CreateCourseRequestDto;
 import source.dto.request.create_course.LessonQuestionDto;
 import source.dto.response.BaseResponse;
@@ -273,6 +270,67 @@ public class CourseServiceImpl implements CourseService {
                         .setIsChoice(lessonQuestionHistoryRepository
                             .checkAnswerOfUser(lessonQuestionDto.getId(), answerDto.getId())));
             }
+        });
+
+        return BaseResponse.ofSucceeded(request.getRequestId(), response);
+    }
+
+    @Override
+    public BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception {
+        Optional<Course> courseOptional = courseRepository.findById(request.getCourseId());
+        if(!courseOptional.isPresent()) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.COURSE_NOT_FOUND_400033));
+        }
+
+        GetCourseDetailForUserResponseDto response = modelMapper.map(courseOptional.get(), GetCourseDetailForUserResponseDto.class);
+
+        // Set info for chapterDtos
+        response.setChapterDtos(mapList(response.getChapters(), ChapterDto.class));
+        List<ChapterDto> chapterDtos = response.getChapterDtos();
+
+        // Set info for lessonDtos
+        List<Lesson> lessons = new ArrayList<>();
+        List<LessonDto> lessonDtos = new ArrayList<>();
+        for(int i = 0 ; i < chapterDtos.size() ; i++) {
+            chapterDtos.get(i).setLessonDtos(mapList(response.getChapters().get(i).getLessons(), LessonDto.class));
+            lessonDtos.addAll(chapterDtos.get(i).getLessonDtos());
+            lessons.addAll(response.getChapters().get(i).getLessons());
+        }
+
+        // Set info for lessonExercises
+        List<LessonExercise> lessonExercises = new ArrayList<>();
+        List<LessonExerciseDto> lessonExerciseDtos = new ArrayList<>();
+        for(int i = 0 ; i < lessonDtos.size() ; i++) {
+            lessonDtos.get(i).setLessonExerciseDtos(mapList(lessons.get(i).getLessonExercises(), LessonExerciseDto.class));
+            lessonExerciseDtos.addAll(lessonDtos.get(i).getLessonExerciseDtos());
+            lessonExercises.addAll(lessons.get(i).getLessonExercises());
+        }
+
+        // Set info for lessonQuestions
+        List<source.dto.response.get_course_detail_for_user.LessonQuestionDto> lessonQuestionDtos = new ArrayList<>();
+        for(int i = 0 ; i < lessonExerciseDtos.size() ; i++) {
+            lessonExerciseDtos.get(i).setLessonQuestionDtos(mapList(lessonExercises.get(i).getLessonQuestions(), source.dto.response.get_course_detail_for_user.LessonQuestionDto.class));
+            lessonQuestionDtos.addAll(lessonExerciseDtos.get(i).getLessonQuestionDtos());
+        }
+        Set<String> questionIds = lessonQuestionDtos.stream().map(LessonQuestion::getQuestionId).collect(Collectors.toSet());
+        BaseResponse baseResponse = questionBankThirdPartyService.getQuestionByQuestionIds(
+            QuestionGetByIdsRequestDto
+                .builder()
+                .requestId(request.getRequestId())
+                .questionIds(questionIds)
+                .build()
+        );
+        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031));
+        }
+        List questionBanksRaw = JsonUtil.getGenericObject(baseResponse.getData(), List.class);
+        Map<String, QuestionDto> map = new HashMap<>();
+        questionBanksRaw.forEach(questionBankRaw -> {
+            QuestionDto questionDto = JsonUtil.getGenericObject(questionBankRaw, QuestionDto.class);
+            map.put(questionDto.getId(), questionDto);
+        });
+        lessonQuestionDtos.forEach(lessonQuestionDto -> {
+            lessonQuestionDto.setQuestion(map.get(lessonQuestionDto.getQuestionId()));
         });
 
         return BaseResponse.ofSucceeded(request.getRequestId(), response);

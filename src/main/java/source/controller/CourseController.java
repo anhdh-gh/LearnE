@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.GetAllCourseRequestDto;
+import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.create_course.CreateCourseRequestDto;
 import source.dto.response.BaseResponse;
-import source.dto.response.get_course_detail_for_user.GetCourseDetailForUserResponseDto;
 import source.service.CourseService;
 
 @RestController
@@ -30,6 +30,12 @@ public class CourseController {
     @PostMapping(RouterConstant.COURSE_GET_DETAIL_FOR_USER)
     public BaseResponse getCourseDetailForUser(@RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
         return courseService.getCourseDetailForUserRequestDto(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_GET_BY_ID)
+    public BaseResponse getCourseById(@RequestBody GetCourseByIdRequestDto request) throws Exception {
+        return courseService.getCourseById(request);
     }
 
     @LogsActivityAnnotation

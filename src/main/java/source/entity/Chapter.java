@@ -1,14 +1,14 @@
 package source.entity;
 
-import java.util.List;
-
-import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -17,6 +17,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "chapter", schema = "public")
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Chapter extends AutoIncrementIdBaseEntity {
 
     @Column(name = "name")

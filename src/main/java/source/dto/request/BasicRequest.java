@@ -1,5 +1,6 @@
 package source.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BasicRequest implements Serializable {
 
   /** The Constant serialVersionUID. */

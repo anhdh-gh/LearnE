@@ -1,5 +1,6 @@
 package source.third_party.question_bank.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateListQuestionsRequestDto extends BasicRequest {
 
     private List<LessonQuestionDto> questions;

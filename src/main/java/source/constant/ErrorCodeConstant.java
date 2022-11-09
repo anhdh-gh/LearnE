@@ -1,7 +1,5 @@
 package source.constant;
 
-import source.entity.Lesson;
-
 public class ErrorCodeConstant {
 
     private ErrorCodeConstant() {}

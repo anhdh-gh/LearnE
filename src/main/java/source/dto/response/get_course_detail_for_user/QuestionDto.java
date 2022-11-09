@@ -1,17 +1,19 @@
 package source.dto.response.get_course_detail_for_user;
 
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.entity.UidBaseEntity;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class QuestionDto extends UidBaseEntity {
 
     private QuestionType questionType;

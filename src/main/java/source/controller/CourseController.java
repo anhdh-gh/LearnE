@@ -30,7 +30,7 @@ public class CourseController {
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_BY_ID)
-    public BaseResponse getCourseDetailForUser(@RequestBody GetCourseByIdRequestDto request) throws Exception {
+    public BaseResponse getCourseById(@RequestBody GetCourseByIdRequestDto request) throws Exception {
         return courseService.getCourseById(request);
     }
 

@@ -10,6 +10,7 @@ import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
+import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.course_service.CourseService;
 
@@ -46,5 +47,11 @@ public class CourseController {
     public BaseResponse getAllCourse(@RequestBody GetAllCourseRequestDto request) throws Exception {
         request.setUserId(request.getUserAuthId());
         return courseService.getAllCourse(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_CREATE)
+    public BaseResponse createCourse(@RequestBody CreateCourseRequestDto request) throws Exception {
+        return courseService.createCourse(request);
     }
 }

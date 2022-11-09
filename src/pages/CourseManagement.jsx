@@ -1,8 +1,11 @@
 import '../assets/css/UserManagementPage.css'
+import '../assets/css/CourseManagement.css'
+import 'jsoneditor-react/es/editor.min.css'
+import { JsonEditor as Editor } from 'jsoneditor-react'
 import PagesImage from '../assets/img/pages-image.png'
 import { Header, Footer, Sider, Pagination, ModalConfirm } from "../components"
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
-import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas, Form } from 'react-bootstrap'
+import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
 import { useSelector } from 'react-redux'
 import { History } from '../components/NavigateSetter'
@@ -13,7 +16,7 @@ import { useLayoutEffect, useCallback, useState } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
-import { CommonUtil, Notification } from '../utils'
+// import { Notification } from '../utils'
 
 const CourseManagement = (props) => {
 
@@ -60,24 +63,43 @@ const CourseManagement = (props) => {
         refreshPage()
     }, [refreshPage])
 
-    // const handleUpdateUser = () => {
-    //     dispatch(showLoader())
-    //     UserApi.updateUser(userUpdate?.id, userUpdate?.role)
-    //     .then(res => {
-    //         const { meta } = res
-    //         if(meta.code === STATUS_CODES.SUCCESS) {
-    //             // const { data: user } = res
-    //             dispatch(hideLoader()) 
-    //             refreshPage()
-    //             setShowVECourse({ show: false })
-    //             setUserUpdate(false)
-    //             Notification.success("Updated successfully!")
-    //         } else {
-    //             dispatch(hideLoader())
-    //             Notification.error('Error, try again!')
-    //         }
-    //     })
-    // } 
+    useLayoutEffect(() => {
+        if(showVECourse?.show === true && _.isEmpty(showVECourse?.data?.chapters)) {
+            dispatch(showLoader())
+            CourseApi.handleGetCourseById(showVECourse?.data?.id)
+            .then(res => {
+                const { meta } = res
+                if(meta.code === STATUS_CODES.SUCCESS) {
+                    const { data: course } = res
+                    setShowVECourse(previousShowVECourse => ({...previousShowVECourse, data: course}))
+                    dispatch(hideLoader()) 
+                } else {
+                    setShowVECourse({show: false})
+                    dispatch(hideLoader())
+                }
+            })            
+        }
+
+    }, [showVECourse, dispatch])
+
+    const handleUpdatCoursae = () => {
+        // dispatch(showLoader())
+        // CourseApi.updateUser(userUpdate?.id, userUpdate?.role)
+        // .then(res => {
+        //     const { meta } = res
+        //     if(meta.code === STATUS_CODES.SUCCESS) {
+        //         // const { data: user } = res
+        //         dispatch(hideLoader()) 
+        //         refreshPage()
+        //         setShowVECourse({ show: false })
+        //         setUserUpdate(false)
+        //         Notification.success("Updated successfully!")
+        //     } else {
+        //         dispatch(hideLoader())
+        //         Notification.error('Error, try again!')
+        //     }
+        // })
+    }
 
     return !isLoadingGetAllCourses && !isFetchingGetAllCourses && !isErrorGetAllCourses && responseGetAllCourses?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllCourses?.data) && <>
         <Header />
@@ -115,8 +137,8 @@ const CourseManagement = (props) => {
                             {
                                 responseGetAllCourses?.data?.content?.map(course => <div key={course?.id} className="col-sm-6 col-md-4 col-lg-3 mt-3">
                                     <Card className="card-user cursor-default">
-                                        <Card.Img variant="top" src={course?.image || PagesImage} className='border-b'/>
-                                        <Card.Body>
+                                        <Card.Img className='cursor-pointer border-b' variant="top" src={course?.image || PagesImage} onClick={() => setShowVECourse({ type: 'view', data: _.cloneDeep(course), show: true })} />
+                                        <Card.Body className='cursor-pointer' onClick={() => setShowVECourse({ type: 'view', data: _.cloneDeep(course), show: true })}>
                                             <Card.Title className="title">{course?.name}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 <Badge pill bg="warning" text="dark">{course?.price}</Badge>
@@ -134,13 +156,13 @@ const CourseManagement = (props) => {
 
                                         <Card.Footer className="d-flex justify-content-between">
                                             <OverlayTrigger placement="bottom" overlay={<Tooltip>Edit</Tooltip>}>
-                                                <Badge bg="primary cursor-pointer" onClick={() => setShowVECourse({ ...course, show: true, type: 'update' })}>
+                                                <Badge bg="primary" className='cursor-pointer' onClick={() => { setShowVECourse({ data: _.cloneDeep(course), show: true, type: 'update' }) }}>
                                                     <i className="fas fa-edit fs-6" />
                                                 </Badge>
                                             </OverlayTrigger>
 
                                             <OverlayTrigger placement="bottom" overlay={<Tooltip>Remove</Tooltip>}>
-                                                <Badge bg="danger cursor-pointer" onClick={() => setCourseRemove({...course})}>
+                                                <Badge bg="danger" className='cursor-pointer' onClick={() => setCourseRemove({ ...course })}>
                                                     <i className="fas fa-trash-alt fs-6" />
                                                 </Badge>
                                             </OverlayTrigger>
@@ -162,85 +184,47 @@ const CourseManagement = (props) => {
                 handleYes={() => setCourseRemove(false)}
             />
 
-            {/* {showVEUser?.show && <Offcanvas placement="end" show={showVEUser?.show} onHide={() => {setUserUpdate(false); setShowVECourse({ show: false })}}>
+            {showVECourse?.show && <Offcanvas placement="start" className="w-full" show={showVECourse?.show} onHide={() => { setCourseUpdate(false); setShowVECourse({ show: false }) }}>
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title>
-                        {showVEUser?.type === 'update' ? 'Update user' : 'View user'}
+                        {showVECourse?.type === 'update' ? 'Update course' : 'View course'}
                     </Offcanvas.Title>
                 </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <img src={showVEUser?.avatar || AvatarIcon} alt="avata" className="w-100" />
-                    <table className="table table-bordered table-container h-auto">
-                        <thead className="title-table align-middle">
-                            <tr>
-                                <th scope="col" colSpan="2">User information</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {showVEUser?.id && <tr>
-                                <td className="fw-bold">Id</td>
-                                <td>{showVEUser?.id}</td>
-                            </tr>}
-                            {showVEUser?.role && <tr>
-                                <td className="fw-bold">Role</td>
-                                <td>
-                                    {showVEUser?.type === 'update'
-                                        ? <Form.Select onChange={e => setUserUpdate({...showVEUser, role: e.target.value})} style={{ cursor: 'pointer' }} size="sm" defaultValue={showVEUser?.role}>
-                                            <option value="ADMIN">ADMIN</option>
-                                            <option value="USER">USER</option>
-                                        </Form.Select>
-                                        : showVEUser?.role
-                                    }
-                                </td>
-                            </tr>}
-                            {showVEUser?.email && <tr>
-                                <td className="fw-bold">Gender</td>
-                                <td>{showVEUser?.email}</td>
-                            </tr>}
-                            {showVEUser?.userName && <tr>
-                                <td className="fw-bold">Username</td>
-                                <td>{showVEUser?.userName}</td>
-                            </tr>}
-                            {showVEUser?.dateOfBirth && <tr>
-                                <td className="fw-bold">Date of birth</td>
-                                <td>{showVEUser?.dateOfBirth}</td>
-                            </tr>}
-                            {showVEUser?.phoneNumber && <tr>
-                                <td className="fw-bold">Phone number</td>
-                                <td>{showVEUser?.phoneNumber}</td>
-                            </tr>}
-                            {showVEUser?.account?.email && <tr>
-                                <td className="fw-bold">Email</td>
-                                <td>{showVEUser?.account?.email}</td>
-                            </tr>}
-                            {showVEUser?.address && <tr>
-                                <td className="fw-bold">Address</td>
-                                <td>{showVEUser?.address}</td>
-                            </tr>}
-                            {showVEUser?.fullName && <tr>
-                                <td className="fw-bold">FullName</td>
-                                <td>{showVEUser?.fullName}</td>
-                            </tr>}
-                            {showVEUser?.createTime && <tr>
-                                <td className="fw-bold">Create time</td>
-                                <td>{CommonUtil.getDateStringFromMilliseconds(showVEUser?.createTime)}</td>
-                            </tr>}
-                            {showVEUser?.updateTime && <tr>
-                                <td className="fw-bold">Update time</td>
-                                <td>{CommonUtil.getDateStringFromMilliseconds(showVEUser?.updateTime)}</td>
-                            </tr>}
-                        </tbody>
-                    </table>
-                    {showVEUser?.type === 'update' &&
+                <Offcanvas.Body className='flex flex-col'>
+                    {/* {
+                        !isLoadingGetCourseDetail && !isFetchingGetCourseDetail && !isErrorGetCourseDetail && responseGetCourseDetail?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetCourseDetail?.data)
+                            ? <>
+                                <Editor
+                                    value={responseGetCourseDetail?.data}
+                                    onChange={value => showVECourse?.type === 'update' && setCourseUpdate(value)}
+                                />
+
+                                {showVECourse?.type === 'update' &&
+                                    <Button
+                                        onClick={handleUpdatCoursae}
+                                        disabled={courseUpdate ? false : true}
+                                        className="btn btn-primary w-100 fw-bold mt-3">
+                                        Update
+                                    </Button>
+                                }
+                            </> : <Loader forComponent={true}></Loader>
+                    } */}
+
+                    {showVECourse?.show === true && !_.isEmpty(showVECourse?.data?.chapters) && <Editor
+                        value={showVECourse?.data}
+                        onChange={value => showVECourse?.type === 'update' && setCourseUpdate(value)}
+                    />}
+
+                    {showVECourse?.type === 'update' &&
                         <Button
-                            onClick={handleUpdateUser}
-                            disabled={userUpdate ? false : true}
+                            onClick={handleUpdatCoursae}
+                            disabled={courseUpdate ? false : true}
                             className="btn btn-primary w-100 fw-bold mt-3">
                             Update
                         </Button>
                     }
                 </Offcanvas.Body>
-            </Offcanvas>} */}
+            </Offcanvas>}
 
             <Footer />
         </Sider>

@@ -1,6 +1,6 @@
 import '../assets/css/Sider.css'
 import { History } from './NavigateSetter'
-import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from 'react-pro-sidebar'
+import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar'
 import { ROUTE_PATH } from '../constants'
 import { useSelector } from 'react-redux'
 import { useWindowSize } from '../hooks'

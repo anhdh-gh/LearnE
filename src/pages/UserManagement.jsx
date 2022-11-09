@@ -114,9 +114,9 @@ const UserManagement = (props) => {
                         >
                             {
                                 responseGetAllUsers?.data?.content?.map(user => <div key={user?.id} className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                    <Card className="card-user">
-                                        <Card.Img variant="top" src={user?.avatar || AvatarIcon} onClick={() => setShowVEUser({ type: 'view', ...user, show: true })} />
-                                        <Card.Body onClick={() => setShowVEUser({ type: 'view', ...user, show: true })}>
+                                    <Card className="card-user cursor-default">
+                                        <Card.Img variant="top" src={user?.avatar || AvatarIcon} className='cursor-pointer border-b' onClick={() => setShowVEUser({ type: 'view', ...user, show: true })} />
+                                        <Card.Body onClick={() => setShowVEUser({ type: 'view', ...user, show: true })} className='cursor-pointer'>
                                             <Card.Title className="title">{user?.userName}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 <Badge pill bg="warning" text="dark">{user?.role?.toUpperCase()}</Badge>
@@ -126,13 +126,13 @@ const UserManagement = (props) => {
 
                                         <Card.Footer className="d-flex justify-content-between">
                                             <OverlayTrigger placement="bottom" overlay={<Tooltip>Edit</Tooltip>}>
-                                                <Badge bg="primary" onClick={() => setShowVEUser({ ...user, show: true, type: 'update' })}>
+                                                <Badge bg="primary" className='cursor-pointer' onClick={() => setShowVEUser({ ...user, show: true, type: 'update' })}>
                                                     <i className="fas fa-edit fs-6" />
                                                 </Badge>
                                             </OverlayTrigger>
 
                                             <OverlayTrigger placement="bottom" overlay={<Tooltip>Remove</Tooltip>}>
-                                                <Badge bg="danger" onClick={() => setUserRemove({...user})}>
+                                                <Badge bg="danger" className='cursor-pointer' onClick={() => setUserRemove({...user})}>
                                                     <i className="fas fa-trash-alt fs-6" />
                                                 </Badge>
                                             </OverlayTrigger>

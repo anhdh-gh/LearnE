@@ -1,0 +1,3 @@
+body > div.w-full.offcanvas.offcanvas-start.show > div.flex.flex-col.offcanvas-body > div {
+    flex-grow: 1;
+}

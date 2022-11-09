@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.*;
+import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
@@ -107,6 +108,12 @@ public class AuthController {
     @PostMapping(RouterConstant.COURSE_GET_BY_ID)
     public BaseResponse getCourseById(@Valid @RequestBody GetCourseByIdRequestDto request) throws Exception {
         return authService.getCourseById(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_CREATE)
+    public BaseResponse createCourse(@Valid @RequestBody CreateCourseRequestDto request) throws Exception {
+        return authService.createCourse(request);
     }
 
     @LogsActivityAnnotation

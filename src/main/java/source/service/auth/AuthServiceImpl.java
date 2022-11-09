@@ -3,6 +3,7 @@ package source.service.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.*;
+import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.service.AuthServiceThirdParty;
@@ -91,6 +92,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception {
         return authServiceThirdParty.getCourseById(request);
+    }
+
+    @Override
+    public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
+        return authServiceThirdParty.createCourse(request);
     }
 
     @Override

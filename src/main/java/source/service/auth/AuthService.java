@@ -1,6 +1,7 @@
 package source.service.auth;
 
 import source.dto.request.*;
+import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 
@@ -36,6 +37,8 @@ public interface AuthService {
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
 
     BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception;
+
+    BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
 
     BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception;
 

@@ -1,6 +1,7 @@
 package source.third_party.auth.service;
 
 import source.dto.request.*;
+import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 
@@ -35,6 +36,8 @@ public interface AuthServiceThirdParty {
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
 
     BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception;
+
+    BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
 
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
 

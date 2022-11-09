@@ -3,6 +3,7 @@ package source.service.course_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.GetAllCourseRequestDto;
+import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.response.BaseResponse;
@@ -27,5 +28,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception {
         return courseServiceThirdParty.getAllCourse(request);
+    }
+
+    @Override
+    public BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception {
+        return courseServiceThirdParty.getCourseById(request);
     }
 }

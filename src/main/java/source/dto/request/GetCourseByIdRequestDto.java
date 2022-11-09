@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class GetCourseDetailForUserRequestDto extends GetCourseByIdRequestDto {
+public class GetCourseByIdRequestDto extends BasicRequest {
 
-    private String userId;
+    private String courseId;
 }

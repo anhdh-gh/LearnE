@@ -104,6 +104,12 @@ public class AuthController {
     }
 
     @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_GET_BY_ID)
+    public BaseResponse getCourseById(@Valid @RequestBody GetCourseByIdRequestDto request) throws Exception {
+        return authService.getCourseById(request);
+    }
+
+    @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_ALL)
     public BaseResponse getAllCourse(@Valid @RequestBody GetAllCourseRequestDto request) throws Exception {
         return authService.getAllCourse(request);

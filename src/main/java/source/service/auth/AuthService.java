@@ -35,6 +35,8 @@ public interface AuthService {
 
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
 
+    BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception;
+
     BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception;
 
     BaseResponse createStudyset(StudysetDto request) throws Exception;

@@ -37,6 +37,8 @@ public class RouterAuthServiceConstant {
 
     public static final String COURSE_GET_ALL = "/course/get/all";
 
+    public static final String COURSE_GET_BY_ID = "/course/get-by-id";
+
     public static final String COURSE_UPDATE_LESSON_STATUS = "/course/update-lesson-status";
 
     public static final String CREATE_STUDYSET = "/studyset/cteate";

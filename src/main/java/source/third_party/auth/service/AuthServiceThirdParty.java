@@ -34,6 +34,8 @@ public interface AuthServiceThirdParty {
 
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
 
+    BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception;
+
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
 
     BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception;

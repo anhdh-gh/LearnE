@@ -155,6 +155,24 @@ const CourseManagement = (props) => {
         })
     }
 
+    const handleDeleteCourse = () => {
+        dispatch(showLoader())
+        CourseApi.deleteCourse(courseRemove?.id)
+        .then(res => {
+            const { meta } = res
+            if(meta.code === STATUS_CODES.SUCCESS) {
+                // const { data: course } = res
+                dispatch(hideLoader()) 
+                refreshPage()
+                setCourseRemove(false)
+                Notification.success("Remove successfully!")
+            } else {
+                dispatch(hideLoader())
+                Notification.error(meta?.message)
+            }
+        })
+    }
+
     return !isLoadingGetAllCourses && !isFetchingGetAllCourses && !isErrorGetAllCourses && responseGetAllCourses?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllCourses?.data) && <>
         <Header />
         <Sider>
@@ -242,7 +260,7 @@ const CourseManagement = (props) => {
                 title="Confirm"
                 message={`Are you sure you want to remove course: "${courseRemove?.name}"?`}
                 handleNo={() => setCourseRemove(false)}
-                handleYes={() => setCourseRemove(false)}
+                handleYes={handleDeleteCourse}
             />
 
             {showCVECourse?.show && <Offcanvas placement="start" className="w-full" show={showCVECourse?.show} onHide={() => { setCourseCreateUpdate(false); setShowCVECourse({ show: false }) }}>
@@ -252,25 +270,6 @@ const CourseManagement = (props) => {
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body className='flex flex-col'>
-                    {/* {
-                        !isLoadingGetCourseDetail && !isFetchingGetCourseDetail && !isErrorGetCourseDetail && responseGetCourseDetail?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetCourseDetail?.data)
-                            ? <>
-                                <Editor
-                                    value={responseGetCourseDetail?.data}
-                                    onChange={value => showCVECourse?.type === 'update' && setCourseCreateUpdate(value)}
-                                />
-
-                                {showCVECourse?.type === 'update' &&
-                                    <Button
-                                        onClick={handleUpdatCoursae}
-                                        disabled={courseCreateUpdate ? false : true}
-                                        className="btn btn-primary w-100 fw-bold mt-3">
-                                        Update
-                                    </Button>
-                                }
-                            </> : <Loader forComponent={true}></Loader>
-                    } */}
-
                     {((showCVECourse?.show === true && showCVECourse?.newData === true) || showCVECourse?.type === 'create') && <Editor
                         value={_.cloneDeep(showCVECourse?.data)}
                         onChange={value => showCVECourse?.type !== 'view' && setCourseCreateUpdate(value)}

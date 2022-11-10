@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { ROUTE_PATH } from '../constants'
 import { useDispatch } from 'react-redux'
 import { useSelector } from "react-redux"
-import { useLayoutEffect , useCallback } from 'react'
+import { useEffect , useCallback } from 'react'
 import { 
     signOut, signIn, signUp, showAuthSignInIsPageSignIn,
     hideAuthSignUpIsPageSignUp, showAuthSignUpIsPageSignUp, hideAuthSignInIsPageSignIn
@@ -37,7 +37,7 @@ const Auth = (props) => {
         dispatch(hideAuthSignInIsPageSignIn())
     }, [ dispatch ])
     
-    useLayoutEffect (() => {
+    useEffect (() => {
         dispatch(signOut())
         if(isSignIn) {
             showPageSignIn()
@@ -51,7 +51,7 @@ const Auth = (props) => {
         }
     }, [ dispatch, isSignIn, isSignUp, showPageSignIn, showPageSignUp ])
 
-    useLayoutEffect (() => {
+    useEffect (() => {
         if(isPageSignIn) {
             showPageSignIn()
         } else if(isPageSignUp) {

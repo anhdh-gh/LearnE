@@ -8,7 +8,6 @@ import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
 import { useSelector } from 'react-redux'
-import { History } from '../components/NavigateSetter'
 import { CourseApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
@@ -16,7 +15,62 @@ import { useLayoutEffect, useCallback, useState } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
-// import { Notification } from '../utils'
+import { Notification } from '../utils'
+
+const baseCourseCreate = {
+    "id": "",
+    "name": "",
+    "author": "",
+    "image": "",
+    "description": "",
+    "level": "",
+    "price": "",
+    "chapters": [
+        {
+            "name": "",
+            "lessons": [
+                {
+                    "name": "",
+                    "duration": "",
+                    "description": "",
+                    "video": "",
+                    "lessonExercises": [
+                        {
+                            "name": "",
+                            "description": "",
+                            "lessonQuestions": [
+                                {
+                                    "id": "",
+                                    'questionType': "",
+                                    "text": "",
+                                    "image": "",
+                                    "audio": "",
+                                    "score": "",
+                                    "answers": [
+                                        {
+                                            "text": "",
+                                            "isCorrect": true                                            
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "targets": [
+        {
+            "text": ""
+        }
+    ],
+    "requests": [
+        {
+            "text": ""
+        }
+    ]
+}
 
 const CourseManagement = (props) => {
 
@@ -24,9 +78,9 @@ const CourseManagement = (props) => {
     const { page } = useParams()
     const user = useSelector(state => state.user)
     const size = 8
-    const [showVECourse, setShowVECourse] = useState({ show: false })
+    const [showCVECourse, setShowCVECourse] = useState({ show: false })
     const [courseRemove, setCourseRemove] = useState(false)
-    const [courseUpdate, setCourseUpdate] = useState(false)
+    const [courseCreateUpdate, setCourseCreateUpdate] = useState(false)
 
     const { data: responseGetAllCourses, isLoading: isLoadingGetAllCourses, isFetching: isFetchingGetAllCourses, isError: isErrorGetAllCourses, refetch: getAllCourses } = useQuery(
         ["getAllCourses", page],
@@ -64,41 +118,41 @@ const CourseManagement = (props) => {
     }, [refreshPage])
 
     useLayoutEffect(() => {
-        if(showVECourse?.show === true && _.isEmpty(showVECourse?.data?.chapters)) {
+        if (showCVECourse?.show === true && showCVECourse?.type !== 'create' && showCVECourse?.newData !== true) {
             dispatch(showLoader())
-            CourseApi.handleGetCourseById(showVECourse?.data?.id)
-            .then(res => {
-                const { meta } = res
-                if(meta.code === STATUS_CODES.SUCCESS) {
-                    const { data: course } = res
-                    setShowVECourse(previousShowVECourse => ({...previousShowVECourse, data: course}))
-                    dispatch(hideLoader()) 
-                } else {
-                    setShowVECourse({show: false})
-                    dispatch(hideLoader())
-                }
-            })            
+            CourseApi.handleGetCourseById(showCVECourse?.data?.id)
+                .then(res => {
+                    const { meta } = res
+                    if (meta.code === STATUS_CODES.SUCCESS) {
+                        const { data: course } = res
+                        setShowCVECourse(previousShowCVECourse => ({ ...previousShowCVECourse, data: course, newData: true }))
+                        dispatch(hideLoader())
+                    } else {
+                        setShowCVECourse({ show: false })
+                        dispatch(hideLoader())
+                    }
+                })
         }
 
-    }, [showVECourse, dispatch])
+    }, [showCVECourse, dispatch])
 
-    const handleUpdatCoursae = () => {
-        // dispatch(showLoader())
-        // CourseApi.updateUser(userUpdate?.id, userUpdate?.role)
-        // .then(res => {
-        //     const { meta } = res
-        //     if(meta.code === STATUS_CODES.SUCCESS) {
-        //         // const { data: user } = res
-        //         dispatch(hideLoader()) 
-        //         refreshPage()
-        //         setShowVECourse({ show: false })
-        //         setUserUpdate(false)
-        //         Notification.success("Updated successfully!")
-        //     } else {
-        //         dispatch(hideLoader())
-        //         Notification.error('Error, try again!')
-        //     }
-        // })
+    const handleCreateUpdatCoursae = () => {
+        dispatch(showLoader())
+        CourseApi.createCourse(courseCreateUpdate)
+        .then(res => {
+            const { meta } = res
+            if(meta.code === STATUS_CODES.SUCCESS) {
+                // const { data: course } = res
+                dispatch(hideLoader()) 
+                refreshPage()
+                setShowCVECourse({ show: false })
+                setCourseCreateUpdate(false)
+                Notification.success("Updated successfully!")
+            } else {
+                dispatch(hideLoader())
+                Notification.error(meta?.message)
+            }
+        })
     }
 
     return !isLoadingGetAllCourses && !isFetchingGetAllCourses && !isErrorGetAllCourses && responseGetAllCourses?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllCourses?.data) && <>
@@ -114,7 +168,14 @@ const CourseManagement = (props) => {
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
                                 <SearchBox placeholder="Search" />
-                                <Button className='h-fit font-bold' onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}>Home</Button>
+                                <Button
+                                    className='h-fit font-bold'
+                                    onClick={() => setShowCVECourse({
+                                        type: 'create',
+                                        show: true,
+                                        data: baseCourseCreate
+                                    })}
+                                >Create</Button>
                             </div>
                         </div>
                     </div>
@@ -137,8 +198,8 @@ const CourseManagement = (props) => {
                             {
                                 responseGetAllCourses?.data?.content?.map(course => <div key={course?.id} className="col-sm-6 col-md-4 col-lg-3 mt-3">
                                     <Card className="card-user cursor-default">
-                                        <Card.Img className='cursor-pointer border-b' variant="top" src={course?.image || PagesImage} onClick={() => setShowVECourse({ type: 'view', data: _.cloneDeep(course), show: true })} />
-                                        <Card.Body className='cursor-pointer' onClick={() => setShowVECourse({ type: 'view', data: _.cloneDeep(course), show: true })}>
+                                        <Card.Img className='cursor-pointer border-b' variant="top" src={course?.image || PagesImage} onClick={() => setShowCVECourse({ type: 'view', data: _.cloneDeep(course), show: true })} />
+                                        <Card.Body className='cursor-pointer' onClick={() => setShowCVECourse({ type: 'view', data: _.cloneDeep(course), show: true })}>
                                             <Card.Title className="title">{course?.name}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 <Badge pill bg="warning" text="dark">{course?.price}</Badge>
@@ -156,7 +217,7 @@ const CourseManagement = (props) => {
 
                                         <Card.Footer className="d-flex justify-content-between">
                                             <OverlayTrigger placement="bottom" overlay={<Tooltip>Edit</Tooltip>}>
-                                                <Badge bg="primary" className='cursor-pointer' onClick={() => { setShowVECourse({ data: _.cloneDeep(course), show: true, type: 'update' }) }}>
+                                                <Badge bg="primary" className='cursor-pointer' onClick={() => { setShowCVECourse({ data: _.cloneDeep(course), show: true, type: 'update' }) }}>
                                                     <i className="fas fa-edit fs-6" />
                                                 </Badge>
                                             </OverlayTrigger>
@@ -184,10 +245,10 @@ const CourseManagement = (props) => {
                 handleYes={() => setCourseRemove(false)}
             />
 
-            {showVECourse?.show && <Offcanvas placement="start" className="w-full" show={showVECourse?.show} onHide={() => { setCourseUpdate(false); setShowVECourse({ show: false }) }}>
+            {showCVECourse?.show && <Offcanvas placement="start" className="w-full" show={showCVECourse?.show} onHide={() => { setCourseCreateUpdate(false); setShowCVECourse({ show: false }) }}>
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title>
-                        {showVECourse?.type === 'update' ? 'Update course' : 'View course'}
+                        {showCVECourse?.type === 'update' ? 'Update course' : showCVECourse?.type === 'view' ? 'View course' : 'Create course'}
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body className='flex flex-col'>
@@ -196,13 +257,13 @@ const CourseManagement = (props) => {
                             ? <>
                                 <Editor
                                     value={responseGetCourseDetail?.data}
-                                    onChange={value => showVECourse?.type === 'update' && setCourseUpdate(value)}
+                                    onChange={value => showCVECourse?.type === 'update' && setCourseCreateUpdate(value)}
                                 />
 
-                                {showVECourse?.type === 'update' &&
+                                {showCVECourse?.type === 'update' &&
                                     <Button
                                         onClick={handleUpdatCoursae}
-                                        disabled={courseUpdate ? false : true}
+                                        disabled={courseCreateUpdate ? false : true}
                                         className="btn btn-primary w-100 fw-bold mt-3">
                                         Update
                                     </Button>
@@ -210,17 +271,17 @@ const CourseManagement = (props) => {
                             </> : <Loader forComponent={true}></Loader>
                     } */}
 
-                    {showVECourse?.show === true && !_.isEmpty(showVECourse?.data?.chapters) && <Editor
-                        value={showVECourse?.data}
-                        onChange={value => showVECourse?.type === 'update' && setCourseUpdate(value)}
+                    {((showCVECourse?.show === true && showCVECourse?.newData === true) || showCVECourse?.type === 'create') && <Editor
+                        value={_.cloneDeep(showCVECourse?.data)}
+                        onChange={value => showCVECourse?.type !== 'view' && setCourseCreateUpdate(value)}
                     />}
 
-                    {showVECourse?.type === 'update' &&
+                    {showCVECourse?.type !== 'view' &&
                         <Button
-                            onClick={handleUpdatCoursae}
-                            disabled={courseUpdate ? false : true}
+                            onClick={handleCreateUpdatCoursae}
+                            disabled={courseCreateUpdate ? false : true}
                             className="btn btn-primary w-100 fw-bold mt-3">
-                            Update
+                            {showCVECourse?.type === 'create' ? 'Create' : 'Update'}
                         </Button>
                     }
                 </Offcanvas.Body>

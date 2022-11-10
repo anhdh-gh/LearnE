@@ -4,7 +4,8 @@ const ROUTE_PATH = {
     GET_COURSE_DETAIL_FOR_USER: '/course/get-course-detail-for-user',
     GET_COURSE_BY_ID: '/course/get-by-id',
     UPDATE_LESSON_STATUS: "/course/update-lesson-status",
-    GET_ALL: '/course/get/all'
+    GET_ALL: '/course/get/all',
+    CREATE_COURSE: '/course/create'
 }
 
 const CourseApi = {
@@ -23,7 +24,11 @@ const CourseApi = {
 
     getAll(page, size) {
         return ApiClient.post(ROUTE_PATH.GET_ALL, { page, size })
-    }
+    },
+
+    createCourse(course) {
+        return ApiClient.post(ROUTE_PATH.CREATE_COURSE, { ...course })
+    },
 }
 
 export default CourseApi

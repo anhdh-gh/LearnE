@@ -15,7 +15,7 @@ const Sider = (props) => {
     const { collapseSidebar, toggleSidebar, collapsed, toggled, broken } = useProSidebar()
 
     return <div className='flex sider-component'>
-        <Sidebar defaultCollapsed={widthWindow >= 992 ? false : true} className='text-white' breakPoint={"sm"} backgroundColor={"#001529"} style={{height: `calc(100vh - ${broken ? 0 : headerHeight}px)`,  top: `${broken ? headerHeight : 0}px`}}>
+        <Sidebar defaultCollapsed={widthWindow >= 1200 ? false : true} className='text-white' breakPoint={"sm"} backgroundColor={"#001529"} style={{height: `calc(100vh - ${broken ? 0 : headerHeight}px)`,  top: `${broken ? headerHeight : 0}px`}}>
             <Menu className=''>
                 <MenuItem className='bg-indigo-900 hover:bg-indigo-700' onClick={() => collapseSidebar()}>
                     <div className='flex justify-center '>

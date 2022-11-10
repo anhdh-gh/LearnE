@@ -74,7 +74,7 @@ const UserManagement = (props) => {
                 Notification.success("Updated successfully!")
             } else {
                 dispatch(hideLoader())
-                Notification.error('Error, try again!')
+                Notification.error(meta?.message)
             }
         })
     } 

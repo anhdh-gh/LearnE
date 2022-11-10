@@ -13,7 +13,7 @@ const ToastModal = (props) => {
         dispatch(hideToastModal())
     }
 
-    return <Modal centered size="sm" show={isShow} onHide={handleClose}>
+    return <Modal scrollable centered size={`${message?.length <= 100 ? 'sm' : message?.length <= 500 ? 'lg' : 'xl'}`} show={isShow} onHide={handleClose}>
         <Modal.Header closeButton>
             <Modal.Title>Notification</Modal.Title>
         </Modal.Header>

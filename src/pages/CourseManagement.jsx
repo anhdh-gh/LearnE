@@ -138,21 +138,40 @@ const CourseManagement = (props) => {
 
     const handleCreateUpdatCoursae = () => {
         dispatch(showLoader())
-        CourseApi.createCourse(courseCreateUpdate)
-        .then(res => {
-            const { meta } = res
-            if(meta.code === STATUS_CODES.SUCCESS) {
-                // const { data: course } = res
-                dispatch(hideLoader()) 
-                refreshPage()
-                setShowCVECourse({ show: false })
-                setCourseCreateUpdate(false)
-                Notification.success("Updated successfully!")
-            } else {
-                dispatch(hideLoader())
-                Notification.error(meta?.message)
-            }
-        })
+
+        if(showCVECourse?.type === 'create') {
+            CourseApi.createCourse(courseCreateUpdate)
+            .then(res => {
+                const { meta } = res
+                if(meta.code === STATUS_CODES.SUCCESS) {
+                    // const { data: course } = res
+                    dispatch(hideLoader()) 
+                    refreshPage()
+                    setShowCVECourse({ show: false })
+                    setCourseCreateUpdate(false)
+                    Notification.success("Create successfully!")
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error(meta?.message)
+                }
+            })            
+        } else if(showCVECourse?.type === 'update') {
+            CourseApi.updateCourse(courseCreateUpdate)
+            .then(res => {
+                const { meta } = res
+                if(meta.code === STATUS_CODES.SUCCESS) {
+                    // const { data: course } = res
+                    dispatch(hideLoader()) 
+                    refreshPage()
+                    setShowCVECourse({ show: false })
+                    setCourseCreateUpdate(false)
+                    Notification.success("Update successfully!")
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error(meta?.message)
+                }
+            })  
+        }
     }
 
     const handleDeleteCourse = () => {
@@ -285,7 +304,6 @@ const CourseManagement = (props) => {
                     }
                 </Offcanvas.Body>
             </Offcanvas>}
-
             <Footer />
         </Sider>
     </>

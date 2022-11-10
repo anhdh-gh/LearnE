@@ -12,7 +12,8 @@ import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
-import source.dto.request.course.create_course.CreateCourseRequestDto;
+import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.course.constant.RouterCourseServiceConstant;
 import source.util.JsonUtil;
@@ -72,6 +73,16 @@ public class CourseServiceThirdPartyImpl implements CourseServiceThirdParty{
     public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterCourseServiceConstant.COURSE_CREATE),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse updateCourse(UpdateCourseRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterCourseServiceConstant.COURSE_UPDATE),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {});

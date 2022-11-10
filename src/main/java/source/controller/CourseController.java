@@ -11,7 +11,8 @@ import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
-import source.dto.request.course.create_course.CreateCourseRequestDto;
+import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.course_service.CourseService;
 
@@ -60,5 +61,11 @@ public class CourseController {
     @PostMapping(RouterConstant.COURSE_DELETE_BY_ID)
     public BaseResponse deleteCourse(@RequestBody DeleteCourseByIdRequestDto request) throws Exception {
         return courseService.deleteCourse(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_UPDATE)
+    public BaseResponse deleteCourse(@RequestBody UpdateCourseRequestDto request) throws Exception {
+        return courseService.updateCourse(request);
     }
 }

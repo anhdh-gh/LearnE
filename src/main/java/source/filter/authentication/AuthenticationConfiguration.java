@@ -29,7 +29,8 @@ public class AuthenticationConfiguration {
             RouterConstant.SAVE_STUDYSET_TEST_RESULT,
             RouterConstant.DELETE_STUDYSET_BY_ID,
             RouterConstant.CHECK_OWNER_STUDYSET_VALID,
-            RouterConstant.COURSE_DELETE_BY_ID
+            RouterConstant.COURSE_DELETE_BY_ID,
+            RouterConstant.COURSE_UPDATE
         );
         registrationBean.setOrder(1);
         return registrationBean;

@@ -1,4 +1,4 @@
-package source.dto.request.course.create_course;
+package source.dto.request.course;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.dto.request.BasicRequest;
+import source.dto.request.course.ChapterDto;
+import source.dto.request.course.RequestDto;
+import source.dto.request.course.TargetDto;
 
 import java.util.List;
 

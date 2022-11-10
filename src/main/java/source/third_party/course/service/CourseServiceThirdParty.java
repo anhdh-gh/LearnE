@@ -5,7 +5,8 @@ import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
-import source.dto.request.course.create_course.CreateCourseRequestDto;
+import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.response.BaseResponse;
 
 public interface CourseServiceThirdParty {
@@ -19,6 +20,8 @@ public interface CourseServiceThirdParty {
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
 
     BaseResponse createCourse(CreateCourseRequestDto request) throws Exception;
+
+    BaseResponse updateCourse(UpdateCourseRequestDto request) throws Exception;
 
     BaseResponse deleteCourse(DeleteCourseByIdRequestDto request) throws Exception;
 }

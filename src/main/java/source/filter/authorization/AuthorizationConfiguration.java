@@ -17,7 +17,8 @@ public class AuthorizationConfiguration {
             RouterConstant.USER_GET_BY_ID,
             RouterConstant.QUESTION_CREATE,
             RouterConstant.COURSE_CREATE,
-            RouterConstant.COURSE_DELETE_BY_ID
+            RouterConstant.COURSE_DELETE_BY_ID,
+            RouterConstant.COURSE_UPDATE
         );
         registrationBean.setOrder(2);
         return registrationBean;

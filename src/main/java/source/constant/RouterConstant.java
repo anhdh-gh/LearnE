@@ -20,6 +20,8 @@ public class RouterConstant {
 
     public static final String COURSE_CREATE = "/course/create";
 
+    public static final String COURSE_DELETE_BY_ID = "/course/delete-by-id";
+
     public static final String QUESTION_GET_BY_IDS = "/question/get-by-ids";
 
     public static final String COURSE_GET_DETAIL_FOR_USER = "/course/get-course-detail-for-user";

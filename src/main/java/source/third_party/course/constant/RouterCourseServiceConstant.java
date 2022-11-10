@@ -13,4 +13,6 @@ public class RouterCourseServiceConstant {
     public static final String COURSE_GET_ALL = "/course/get/all";
 
     public static final String COURSE_CREATE = "/course/create";
+
+    public static final String COURSE_DELETE_BY_ID = "/course/delete-by-id";
 }

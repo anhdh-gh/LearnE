@@ -1,4 +1,4 @@
-package source.dto.request.course.create_course;
+package source.dto.request.course;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

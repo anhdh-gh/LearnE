@@ -8,7 +8,8 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.*;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
-import source.dto.request.course.create_course.CreateCourseRequestDto;
+import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
@@ -127,6 +128,12 @@ public class AuthController {
     @PostMapping(RouterConstant.COURSE_DELETE_BY_ID)
     public BaseResponse deleteCourse(@Valid @RequestBody DeleteCourseByIdRequestDto request) throws Exception {
         return authService.deleteCourse(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_UPDATE)
+    public BaseResponse deleteCourse(@Valid @RequestBody UpdateCourseRequestDto request) throws Exception {
+        return authService.updateCourse(request);
     }
 
 

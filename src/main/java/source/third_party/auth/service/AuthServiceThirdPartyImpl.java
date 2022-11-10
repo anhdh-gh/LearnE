@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import source.dto.request.*;
+import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
@@ -208,6 +209,17 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {
+            });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse deleteCourse(DeleteCourseByIdRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+                String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_DELETE_BY_ID),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {
             });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }

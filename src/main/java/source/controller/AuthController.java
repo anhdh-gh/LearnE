@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.*;
+import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.create_course.CreateCourseRequestDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
@@ -121,6 +122,13 @@ public class AuthController {
     public BaseResponse getAllCourse(@Valid @RequestBody GetAllCourseRequestDto request) throws Exception {
         return authService.getAllCourse(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_DELETE_BY_ID)
+    public BaseResponse deleteCourse(@Valid @RequestBody DeleteCourseByIdRequestDto request) throws Exception {
+        return authService.deleteCourse(request);
+    }
+
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)

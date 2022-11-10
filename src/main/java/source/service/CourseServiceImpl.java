@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.dto.request.*;
-import source.dto.request.create_course.CreateCourseRequestDto;
-import source.dto.request.create_course.LessonQuestionDto;
+import source.dto.request.CreateCourseRequestDto;
+import source.dto.LessonQuestionDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.UpdateLessonStatusResponseDto;
 import source.dto.response.get_course_detail_for_user.*;
@@ -352,6 +352,25 @@ public class CourseServiceImpl implements CourseService {
             request.getRequestId(),
             courseOptional.get()
         );
+    }
+
+    @Override
+    public BaseResponse updateCourse(UpdateCourseRequestDto request) throws Exception {
+        // Kiểm tra course có tồn tại hay không
+        Optional<Course> courseOptional = courseRepository.findById(request.getId());
+        if(!courseOptional.isPresent()) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.COURSE_NOT_FOUND_400033));
+        }
+
+        // Prepare để tạo mới course
+        CreateCourseRequestDto createCourseRequestDto = CreateCourseRequestDto.builder().build();
+        modelMapper.map(courseOptional.get(), createCourseRequestDto);
+        modelMapper.map(request, createCourseRequestDto);
+
+        // Xóa course cũ
+        courseRepository.delete(courseOptional.get());
+
+        return this.createCourse(createCourseRequestDto);
     }
 
     @Override

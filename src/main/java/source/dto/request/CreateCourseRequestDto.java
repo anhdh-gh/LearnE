@@ -1,11 +1,11 @@
-package source.dto.request.create_course;
+package source.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import source.dto.request.BasicRequest;
+import source.dto.ChapterDto;
 import source.entity.Request;
 import source.entity.Target;
 

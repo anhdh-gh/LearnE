@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.dto.request.BasicRequest;
-import source.dto.request.create_course.LessonQuestionDto;
+import source.dto.LessonQuestionDto;
 
 import java.util.List;
 

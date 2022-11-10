@@ -1,4 +1,4 @@
-package source.dto.request.create_course;
+package source.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -337,6 +337,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public BaseResponse deleteCourseById(DeleteCourseByIdRequestDto request) throws Exception {
+        // Kiểm tra course có tồn tại hay không
+        Optional<Course> courseOptional = courseRepository.findById(request.getCourseId());
+        if(!courseOptional.isPresent()) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.COURSE_NOT_FOUND_400033));
+        }
+
+        // Thực hiện delete
+        courseRepository.delete(courseOptional.get());
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(
+            request.getRequestId(),
+            courseOptional.get()
+        );
+    }
+
+    @Override
     public BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception {
         // Kiểm tra xem lessonId có tồn tại hay không
         Optional<Lesson> optionalLesson = lessonRepository.findById(request.getLessonId());

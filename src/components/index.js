@@ -23,6 +23,7 @@ import RankStudySet from './RankStudySet'
 import ProgressTopLoader from './ProgressTopLoader'
 import ModalConfirm from './ModalConfirm'
 import Sider from './Sider'
+import ModalUploadFile from './ModalUploadFile'
 
 export {
     Toast,
@@ -50,4 +51,5 @@ export {
     ProgressTopLoader,
     ModalConfirm,
     Sider,
+    ModalUploadFile,
 }

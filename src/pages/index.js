@@ -13,6 +13,7 @@ import Contact from './Contact'
 import UserManagement from './UserManagement'
 import ShowAllCourse from './ShowAllCourse'
 import CourseManagement from './CourseManagement'
+import TestComponet from './TestComponet'
 
 export {
     NotFound,
@@ -30,4 +31,5 @@ export {
     UserManagement,
     ShowAllCourse,
     CourseManagement,
+    TestComponet,
 }

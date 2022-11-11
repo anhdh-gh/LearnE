@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "react-toastify/dist/ReactToastify.css"
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'react-dropzone-uploader/dist/styles.css'
 import { Toast, Loader, ToastModal, TopLoader, ProgressTopLoader } from "./components"
 import { useLayoutEffect  } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

@@ -26,6 +26,7 @@
     "react-chartjs-2": "^4.3.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
+    "react-dropzone-uploader": "^2.11.0",
     "react-firebase-hooks": "^5.0.3",
     "react-messenger-chat-plugin": "^3.0.5",
     "react-player": "^2.11.0",

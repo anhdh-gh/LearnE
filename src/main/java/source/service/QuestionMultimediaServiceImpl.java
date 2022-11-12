@@ -7,6 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import source.constant.ErrorCodeConstant;
 import source.constant.FirebaseStorageConstant;
 import source.dto.request.QuestionCheckExistRequestDto;
+import source.dto.request.QuestionDeleteByGroupIdRequestDto;
 import source.dto.request.QuestionUploadAvatarRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.QuestionUploadAvatarResponseDto;
@@ -104,7 +105,7 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
             .builder()
             .folder(FirebaseStorageConstant.BASE_PATH_QUESTION)
             .build());
-        if(removeSuccess) {
+        if(!removeSuccess) {
             return question;
         }
         return null;
@@ -145,6 +146,19 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
             }
         }
 
+        return BaseResponse.ofSucceeded(request.getRequestId(), question);
+    }
+
+    @Override
+    public BaseResponse deleteQuestionByGroupId(QuestionDeleteByGroupIdRequestDto request) throws Exception {
+        Question question = deleteQuestionByGroupId(request.getGroupId());
+        if(question == null) {
+            return BaseResponse.ofFailed(
+                request.getRequestId(),
+                BusinessErrors.INVALID_PARAMETERS,
+                environment.getProperty(BusinessErrors.INVALID_PARAMETERS.getMessage())
+            );
+        }
         return BaseResponse.ofSucceeded(request.getRequestId(), question);
     }
 }

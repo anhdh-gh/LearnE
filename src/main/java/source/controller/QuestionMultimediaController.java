@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
 import source.dto.request.QuestionCheckExistRequestDto;
+import source.dto.request.QuestionDeleteByGroupIdRequestDto;
 import source.dto.request.QuestionUploadAvatarRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.QuestionMultimediaService;
@@ -29,5 +30,10 @@ public class QuestionMultimediaController {
     @PostMapping(RouterConstant.QUESTION_CHECK_EXIST)
     public BaseResponse checkQuestionExist(@Valid @RequestBody QuestionCheckExistRequestDto requestDto) throws Exception {
         return questionMultimediaService.checkQuestionExist(requestDto);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_DELETE_BY_GROUP_ID)
+    public BaseResponse deleteQuestionByGroupId(@Valid @RequestBody QuestionDeleteByGroupIdRequestDto requestDto) throws Exception {
+        return questionMultimediaService.deleteQuestionByGroupId(requestDto);
     }
 }

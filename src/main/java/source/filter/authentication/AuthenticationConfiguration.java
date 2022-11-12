@@ -17,7 +17,9 @@ public class AuthenticationConfiguration {
             RouterConstant.USER_AVATAR_DOWNLOAD,
             RouterConstant.USER_AVATAR_DELETE,
 
-            RouterConstant.QUESTION_UPLOAD
+            RouterConstant.QUESTION_UPLOAD,
+            RouterConstant.QUESTION_CHECK_EXIST,
+            RouterConstant.QUESTION_DELETE_BY_GROUP_ID
         );
         registrationBean.setOrder(1);
         return registrationBean;

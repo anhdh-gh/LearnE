@@ -103,7 +103,7 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
         questionRepository.remove(groupId);
         boolean removeSuccess = firebaseStorageService.deleteFolder(FirebaseStorageRequestDto
             .builder()
-            .folder(FirebaseStorageConstant.BASE_PATH_QUESTION + groupId)
+            .folder(FirebaseStorageConstant.BASE_PATH_QUESTION + groupId + "/")
             .build());
         if(!removeSuccess) {
             return question;

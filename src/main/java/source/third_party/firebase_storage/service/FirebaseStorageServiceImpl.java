@@ -87,13 +87,4 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
         }
         return blob.delete();
     }
-
-    @Override
-    public boolean deleteFolder(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception {
-        Blob blob = storage.get(BlobId.of(FirebaseStorageConstant.BUCKET, firebaseStorageRequestDto.getFolder()));
-        if(blob == null) {
-            return false;
-        }
-        return blob.delete();
-    }
 }

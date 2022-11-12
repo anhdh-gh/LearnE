@@ -12,6 +12,4 @@ public interface FirebaseStorageService {
     public ResponseEntity<Object> downloadFile(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
 
     public boolean deleteFile(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
-
-    public boolean deleteFolder(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
 }

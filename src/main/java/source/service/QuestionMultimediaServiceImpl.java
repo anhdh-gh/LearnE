@@ -98,17 +98,26 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
         return question;
     }
 
-    private Question deleteQuestionByGroupId(String groupId) throws Exception {
+    private void deleteQuestionByGroupId(String groupId) throws Exception {
         Question question = getQuestionGroupId(groupId);
-        questionRepository.remove(groupId);
-        boolean removeSuccess = firebaseStorageService.deleteFolder(FirebaseStorageRequestDto
-            .builder()
-            .folder(FirebaseStorageConstant.BASE_PATH_QUESTION + groupId + "/")
-            .build());
-        if(!removeSuccess) {
-            return question;
+        for(QuestionDetail questionDetail: question.getQuestionDetails()) {
+            if(questionDetail.getImage() != null) {
+                firebaseStorageService.deleteFile(FirebaseStorageRequestDto
+                    .builder()
+                    .folder(FirebaseStorageConstant.BASE_PATH_QUESTION + question.getGroupId() + "/")
+                    .fileName(questionDetail.getId() + "." + questionDetail.getExtensionImage())
+                    .build());
+            }
+
+            if(questionDetail.getAudio() != null) {
+                firebaseStorageService.deleteFile(FirebaseStorageRequestDto
+                    .builder()
+                    .folder(FirebaseStorageConstant.BASE_PATH_QUESTION + question.getGroupId() + "/")
+                    .fileName(questionDetail.getId() + "." + questionDetail.getExtensionAudio())
+                    .build());
+            }
         }
-        return null;
+        questionRepository.remove(groupId);
     }
 
     @Override
@@ -151,14 +160,7 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
 
     @Override
     public BaseResponse deleteQuestionByGroupId(QuestionDeleteByGroupIdRequestDto request) throws Exception {
-        Question question = deleteQuestionByGroupId(request.getGroupId());
-        if(question == null) {
-            return BaseResponse.ofFailed(
-                request.getRequestId(),
-                BusinessErrors.INVALID_PARAMETERS,
-                environment.getProperty(BusinessErrors.INVALID_PARAMETERS.getMessage())
-            );
-        }
-        return BaseResponse.ofSucceeded(request.getRequestId(), question);
+        deleteQuestionByGroupId(request.getGroupId());
+        return BaseResponse.ofSucceeded(request.getRequestId(), "Remove question by groupId successfully");
     }
 }

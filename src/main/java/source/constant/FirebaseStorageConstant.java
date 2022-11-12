@@ -10,5 +10,5 @@ public class FirebaseStorageConstant {
 
     public static String BUCKET = "learne-41d47.appspot.com";
 
-    public static String PROJECT_ID = "learne-bfb9c";
+    public static String PROJECT_ID = "learne-41d47";
 }

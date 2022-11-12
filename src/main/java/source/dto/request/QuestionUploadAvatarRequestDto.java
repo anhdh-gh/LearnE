@@ -23,4 +23,6 @@ public class QuestionUploadAvatarRequestDto extends BasicRequest {
     private MultipartFile audio;
 
     private String groupId;
+
+    private String id;
 }

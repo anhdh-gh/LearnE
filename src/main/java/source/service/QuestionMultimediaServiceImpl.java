@@ -31,7 +31,10 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
 
     @Override
     public BaseResponse uploadQuestion(QuestionUploadAvatarRequestDto request) throws Exception {
-        QuestionDetail questionDetail = QuestionDetail.builder().id(UUID.randomUUID().toString()).build();
+        QuestionDetail questionDetail = QuestionDetail
+            .builder()
+            .id(request.getId() == null ? UUID.randomUUID().toString() : request.getId())
+            .build();
 
         // Tìm xem có tồn tại request id đó không
         Question question;

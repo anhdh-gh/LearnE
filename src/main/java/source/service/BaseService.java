@@ -2,6 +2,7 @@ package source.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 import source.constant.FirebaseStorageConstant;
 import source.third_party.firebase_storage.service.FirebaseStorageService;
@@ -13,6 +14,9 @@ public class BaseService {
 
     @Autowired
     protected ModelMapper modelMapper;
+
+    @Autowired
+    protected Environment environment;
 
     protected String getExtensionByUrl(String avatarUrl) {
         String fileName =

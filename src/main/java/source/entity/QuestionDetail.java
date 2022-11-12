@@ -1,5 +1,6 @@
-package source.dto.response;
+package source.entity;
 
+import com.github.fabiomaffioletti.firebase.document.FirebaseId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,17 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class QuestionUploadAvatarResponseDto {
+public class QuestionDetail {
 
     private String id;
 
-    private String urlImage;
+    private String image;
+
+    private String audio;
 
     private String extensionImage;
 
-    private String urlAudio;
-
     private String extensionAudio;
-
-    private String groupId;
 }

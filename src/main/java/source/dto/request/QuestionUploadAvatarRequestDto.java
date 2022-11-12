@@ -21,4 +21,6 @@ public class QuestionUploadAvatarRequestDto extends BasicRequest {
     @ValidFileSize(maxSize = 10000)
     @ValidFile(type = ValidFile.AUDIO)
     private MultipartFile audio;
+
+    private String groupId;
 }

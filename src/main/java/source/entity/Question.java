@@ -7,7 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import source.constant.PathDatabaseFirebaseConstant;
-import source.entity.enumeration.Role;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,13 +18,7 @@ import source.entity.enumeration.Role;
 public class Question {
 
     @FirebaseId
-    private String id;
+    private String groupId;
 
-    private String image;
-
-    private String audio;
-
-    private String extensionImage;
-
-    private String extensionAudio;
+    private List<QuestionDetail> questionDetails;
 }

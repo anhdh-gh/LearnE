@@ -2,9 +2,11 @@ package source.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
+import source.dto.request.QuestionCheckExistRequestDto;
 import source.dto.request.QuestionUploadAvatarRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.QuestionMultimediaService;
@@ -22,5 +24,10 @@ public class QuestionMultimediaController {
     public BaseResponse uploadAvatar(@Valid QuestionUploadAvatarRequestDto requestDto, HttpServletRequest request) throws Exception {
         requestDto.setRequestId((String) request.getAttribute(RequestKeyConstant.REQUEST_ID));
         return questionMultimediaService.uploadQuestion(requestDto);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_CHECK_EXIST)
+    public BaseResponse checkQuestionExist(@Valid @RequestBody QuestionCheckExistRequestDto requestDto) throws Exception {
+        return questionMultimediaService.checkQuestionExist(requestDto);
     }
 }

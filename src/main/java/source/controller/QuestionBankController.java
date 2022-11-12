@@ -37,4 +37,10 @@ public class QuestionBankController {
     public BaseResponse createQuestionsList(@RequestBody CreateListQuestionsRequestDto request) throws Exception {
         return questionBankService.createQuestionsList(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_UPDATE_LIST)
+    public BaseResponse updateQuestionsList(@RequestBody UpdateListQuestionsRequestDto request) throws Exception {
+        return questionBankService.updateQuestionsList(request);
+    }
 }

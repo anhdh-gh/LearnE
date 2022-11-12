@@ -10,10 +10,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateListQuestionsRequestDto extends BasicRequest {
+public class UpdateListQuestionsRequestDto extends BasicRequest {
 
     @JsonProperty("groupId")
     private String groupId;
 
-    private List<CreateQuestionRequestDto> questions;
+    private List<UpdateQuestionRequestDto> questions;
 }

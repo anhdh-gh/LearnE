@@ -9,6 +9,8 @@ public interface QuestionBankService {
 
     BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception;
 
+    BaseResponse updateQuestionsList(UpdateListQuestionsRequestDto request) throws Exception;
+
     BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
 
     BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;

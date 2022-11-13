@@ -12,9 +12,6 @@ public class AuthorizationConfiguration {
     public FilterRegistrationBean<AuthorizationFilter> authorizationFilter() {
         FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AuthorizationFilter());
-        registrationBean.addUrlPatterns(
-            RouterConstant.QUESTION_UPLOAD
-        );
         registrationBean.setOrder(2);
         return registrationBean;
     }

@@ -15,9 +15,7 @@ public class AuthenticationConfiguration {
         registrationBean.addUrlPatterns(
             RouterConstant.USER_AVATAR_UPLOAD,
             RouterConstant.USER_AVATAR_DOWNLOAD,
-            RouterConstant.USER_AVATAR_DELETE,
-
-            RouterConstant.QUESTION_UPLOAD
+            RouterConstant.USER_AVATAR_DELETE
         );
         registrationBean.setOrder(1);
         return registrationBean;

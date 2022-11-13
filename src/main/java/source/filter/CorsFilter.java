@@ -60,11 +60,6 @@ public class CorsFilter implements Filter {
 
         // Set user auth if exists
         if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Max-Age", "3600");
-            response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-
             String jwt = getJwtFromRequest(request);
             if (StringUtils.hasText(jwt) && jwtUtil.validateJwtToken(jwt)) {
                 User userAuth = jwtUtil.getUserFromJwtToken(jwt);

@@ -4,8 +4,6 @@ public class RouterConstant {
 
     private RouterConstant() {}
 
-    public static final String QUESTION_UPDATE_LIST = "/questions/update-list";
-
     public static final String QUESTION_GET_ALL = "/questions/all";
 
     public static final String QUESTION_GET_BY_IDS = "/questions/get-by-ids";

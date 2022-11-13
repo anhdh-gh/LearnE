@@ -14,6 +14,7 @@ import UserManagement from './UserManagement'
 import ShowAllCourse from './ShowAllCourse'
 import CourseManagement from './CourseManagement'
 import TestComponet from './TestComponet'
+import QuestionManagement from './QuestionManagement'
 
 export {
     NotFound,
@@ -32,4 +33,5 @@ export {
     ShowAllCourse,
     CourseManagement,
     TestComponet,
+    QuestionManagement,
 }

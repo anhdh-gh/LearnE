@@ -31,11 +31,7 @@ const ShowAllCourse = (props) => {
     const refreshPage = useCallback(() => {
         getAllCourse(page)
     }, [getAllCourse, page])
-
-    useLayoutEffect(() => {
-        refreshPage()
-    }, [refreshPage])
-
+    
     useLayoutEffect(() => {
         if (isLoading || isFetching) {
             dispatch(showLoader())

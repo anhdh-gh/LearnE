@@ -4,6 +4,7 @@ import ApiClient from './ApiClient'
 import StudysetApi from './StudysetApi'
 import GoogleTranslateApi from './GoogleTranslateApi'
 import DictionaryApi from './DictionaryApi'
+import QuestionApi from './QuestionApi'
 
 export {
     UserApi,
@@ -12,4 +13,5 @@ export {
     StudysetApi,
     GoogleTranslateApi,
     DictionaryApi,
+    QuestionApi,
 }

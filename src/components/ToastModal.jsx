@@ -17,7 +17,7 @@ const ToastModal = (props) => {
         <Modal.Header closeButton>
             <Modal.Title>Notification</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-justify">{message}</Modal.Body>
+        <Modal.Body className="">{message}</Modal.Body>
         <Modal.Footer>
             <Button variant={type === "info" ? "primary" : type === "warn" ? "warning" : type === "error" ? "danger" : "success"} onClick={handleClose}>Close</Button>
         </Modal.Footer>

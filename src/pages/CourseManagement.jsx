@@ -114,10 +114,6 @@ const CourseManagement = (props) => {
     }, [getAllCourses, page])
 
     useLayoutEffect(() => {
-        refreshPage()
-    }, [refreshPage])
-
-    useLayoutEffect(() => {
         if (showCVECourse?.show === true && showCVECourse?.type !== 'create' && showCVECourse?.newData !== true) {
             dispatch(showLoader())
             CourseApi.handleGetCourseById(showCVECourse?.data?.id)
@@ -144,8 +140,6 @@ const CourseManagement = (props) => {
             .then(res => {
                 const { meta } = res
                 if(meta.code === STATUS_CODES.SUCCESS) {
-                    // const { data: course } = res
-                    dispatch(hideLoader()) 
                     refreshPage()
                     setShowCVECourse({ show: false })
                     setCourseCreateUpdate(false)
@@ -160,8 +154,6 @@ const CourseManagement = (props) => {
             .then(res => {
                 const { meta } = res
                 if(meta.code === STATUS_CODES.SUCCESS) {
-                    // const { data: course } = res
-                    dispatch(hideLoader()) 
                     refreshPage()
                     setShowCVECourse({ show: false })
                     setCourseCreateUpdate(false)
@@ -180,8 +172,6 @@ const CourseManagement = (props) => {
         .then(res => {
             const { meta } = res
             if(meta.code === STATUS_CODES.SUCCESS) {
-                // const { data: course } = res
-                dispatch(hideLoader()) 
                 refreshPage()
                 setCourseRemove(false)
                 Notification.success("Remove successfully!")
@@ -222,9 +212,9 @@ const CourseManagement = (props) => {
                     <div className="container-xl">
                         <Pagination className="row"
                             classNamePagination={`m-0 mt-3`}
-                            hrefPrev={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page) - 1}`}
-                            hrefNext={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page) + 1}`}
-                            hrefCurrent={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page)}`}
+                            hrefPrev={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page) - 1}`}
+                            hrefNext={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page) + 1}`}
+                            hrefCurrent={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page)}`}
                             disabledPrev={responseGetAllCourses?.data?.first}
                             disabledNext={responseGetAllCourses?.data?.last}
                             onClickCurrent={refreshPage}
@@ -237,7 +227,7 @@ const CourseManagement = (props) => {
                                     <Card className="card-user cursor-default">
                                         <Card.Img className='cursor-pointer border-b' variant="top" src={course?.image || PagesImage} onClick={() => setShowCVECourse({ type: 'view', data: _.cloneDeep(course), show: true })} />
                                         <Card.Body className='cursor-pointer' onClick={() => setShowCVECourse({ type: 'view', data: _.cloneDeep(course), show: true })}>
-                                            <Card.Title className="title">{course?.name}</Card.Title>
+                                            <Card.Title className="title text-lg">{course?.name}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 <Badge pill bg="warning" text="dark">{course?.price}</Badge>
                                             </Card.Subtitle>

@@ -40,7 +40,8 @@ const ShowListStudyset = (props) => {
 
     useLayoutEffect (() => {
         refreshPage()
-    }, [titleSearch, refreshPage])
+        // eslint-disable-next-line
+    }, [titleSearch])
 
     useLayoutEffect (() => {
         if (isLoading || isFetching) {
@@ -83,7 +84,6 @@ const ShowListStudyset = (props) => {
                 setStudysetRemove(false)
                 const { meta } = response
                 if (meta.code === STATUS_CODES.SUCCESS) {
-                    dispatch(hideLoader())
                     Notification.success('Successful removal!')
                     refreshPage()
                 } else {

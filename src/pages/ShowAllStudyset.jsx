@@ -37,7 +37,8 @@ const ShowAllStudyset = (props) => {
 
     useLayoutEffect (() => {
         refreshPage()
-    }, [titleSearch, refreshPage])
+        // eslint-disable-next-line
+    }, [ titleSearch ])
 
     useLayoutEffect (() => {
         if (isLoading || isFetching) {

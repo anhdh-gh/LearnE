@@ -56,18 +56,12 @@ const UserManagement = (props) => {
         getAllUsers(page)
     }, [getAllUsers, page])
 
-    useLayoutEffect(() => {
-        refreshPage()
-    }, [refreshPage])
-
     const handleUpdateUser = () => {
         dispatch(showLoader())
         UserApi.updateUser(userUpdate?.id, userUpdate?.role)
         .then(res => {
             const { meta } = res
             if(meta.code === STATUS_CODES.SUCCESS) {
-                // const { data: user } = res
-                dispatch(hideLoader()) 
                 refreshPage()
                 setShowVEUser({ show: false })
                 setUserUpdate(false)
@@ -117,8 +111,8 @@ const UserManagement = (props) => {
                                     <Card className="card-user cursor-default">
                                         <Card.Img variant="top" src={user?.avatar || AvatarIcon} className='cursor-pointer border-b' onClick={() => setShowVEUser({ type: 'view', ...user, show: true })} />
                                         <Card.Body onClick={() => setShowVEUser({ type: 'view', ...user, show: true })} className='cursor-pointer'>
-                                            <Card.Title className="title">{user?.userName}</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">
+                                            <Card.Title className="title text-lg">{user?.userName}</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted text-sm">
                                                 <Badge pill bg="warning" text="dark">{user?.role?.toUpperCase()}</Badge>
                                             </Card.Subtitle>
                                             <Card.Text>{user?.account?.email}</Card.Text>

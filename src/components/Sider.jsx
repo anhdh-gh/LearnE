@@ -35,6 +35,12 @@ const Sider = (props) => {
                     </MenuItem>
                 </OverlayTrigger>
 
+                <OverlayTrigger overlay={collapsed ? <Tooltip>Questions</Tooltip> : <></>} placement="right">
+                    <MenuItem icon={<i className="fa-regular fa-file-lines"></i>} label="Courses" className={`bg-inherit hover:bg-indigo-700 ${pathname.includes(ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/0`)}>
+                        Questions
+                    </MenuItem>
+                </OverlayTrigger>
+
                 {/* <OverlayTrigger overlay={collapsed ? <Tooltip>Courses</Tooltip> : <></>} placement="right">
                     <SubMenu className='bg-inherit' label="Courses" icon={<i className="fa-solid fa-chalkboard"></i>} onOpenChange={(open) => console.log(open)}>
                         <MenuItem label="Courses" className={`bg-indigo-900 hover:bg-indigo-700 ${pathname.includes(ROUTE_PATH.ADMIN_COURSE_VIEW_ALL) ? 'bg-red-900' : ''}`} onClick={() => History.push(`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/0`)}>

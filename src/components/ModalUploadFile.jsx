@@ -23,7 +23,7 @@ const ModalUploadFile = (props) => {
         <Modal.Header closeButton>
             <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-justify">
+        <Modal.Body className="">
             <Dropzone
                 onSubmit={handleSubmit}
                 accept={accept}

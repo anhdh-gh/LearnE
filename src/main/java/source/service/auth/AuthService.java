@@ -26,14 +26,6 @@ public interface AuthService {
 
     BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception;
 
-    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
-
-    BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
-
-    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
-
-    BaseResponse getQuestionsByIds(QuestionGetByIdsRequestDto requestDto) throws Exception;
-
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
 
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;

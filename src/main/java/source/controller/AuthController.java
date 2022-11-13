@@ -77,30 +77,6 @@ public class AuthController {
     }
 
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_CREATE)
-    public BaseResponse createQuestion(@Valid @RequestBody CreateQuestionRequestDto createQuestionRequestDto) throws Exception {
-        return authService.createQuestion(createQuestionRequestDto);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
-    public BaseResponse getQuestionByQuestionId(@Valid @RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
-        return authService.getQuestionByQuestionId(request);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_ALL)
-    public BaseResponse getQuestion(@Valid @RequestBody QuestionGetAllRequestDto request) throws Exception {
-        return authService.getAllQuestion(request);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
-    public BaseResponse getQuestionsByIds(@Valid @RequestBody QuestionGetByIdsRequestDto requestDto) throws Exception {
-        return authService.getQuestionsByIds(requestDto);
-    }
-
-    @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_DETAIL_FOR_USER)
     public BaseResponse getCourseDetailForUser(@Valid @RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
         return authService.getCourseDetailForUserRequestDto(request);

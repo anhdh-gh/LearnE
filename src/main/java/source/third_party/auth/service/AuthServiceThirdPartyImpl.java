@@ -136,52 +136,6 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     }
 
     @Override
-    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_BY_QUESTION_ID),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {
-            });
-
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
-    public BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_CREATE),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {
-            });
-
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
-    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_ALL),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {
-            });
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
-    public BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto request) throws Exception {
-        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterAuthServiceConstant.QUESTION_GET_BY_IDS),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
-        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-    }
-
-    @Override
     public BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
                 String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_GET_DETAIL_FOR_USER),

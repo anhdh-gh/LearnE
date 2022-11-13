@@ -27,14 +27,6 @@ public interface AuthServiceThirdParty {
 
     BaseResponse deleteUserById(UserDeleteByIdRequestDto request) throws Exception;
 
-    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
-
-    BaseResponse createQuestion(CreateQuestionRequestDto request) throws Exception;
-
-    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
-
-    BaseResponse getQuestionByIds(QuestionGetByIdsRequestDto requestDto) throws Exception;
-
     BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
 
     BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception;

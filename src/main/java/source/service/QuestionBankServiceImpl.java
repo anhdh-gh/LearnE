@@ -147,7 +147,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             = modelMapper.map(request, QuestionDeleteByGroupIdRequestDto.class);
         questionDeleteByGroupIdRequest.setGroupId(request.getGroupId());
         BaseResponse responseDelete = multimediaThirdPartyService.deleteQuestionByGroupId(questionDeleteByGroupIdRequest);
-        if(!Objects.equals(responseDelete.getMeta().getCode(), BaseResponse.OK_CODE)) {
+        if(!Objects.equals(responseDelete.getMeta().getCode(), BaseResponse.OK_CODE)
+        && !Objects.equals(responseDelete.getMeta().getCode(), HttpStatus.NOT_FOUND.value())) {
             return responseDelete;
         }
         questionRepository.deleteAllByGroupId(request.getGroupId());

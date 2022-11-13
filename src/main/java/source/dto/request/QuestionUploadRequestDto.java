@@ -14,12 +14,12 @@ import source.anotation.ValidFileSize;
 @SuperBuilder
 public class QuestionUploadRequestDto extends BasicRequest {
 
-//    @ValidFileSize(maxSize = 2000)
-//    @ValidFile()
+    @ValidFileSize(maxSize = 2000)
+    @ValidFile()
     private MultipartFile image;
 
-//    @ValidFileSize(maxSize = 10000)
-//    @ValidFile(type = ValidFile.AUDIO)
+    @ValidFileSize(maxSize = 10000)
+    @ValidFile(type = ValidFile.AUDIO)
     private MultipartFile audio;
 
     private String groupId;

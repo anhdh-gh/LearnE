@@ -39,8 +39,8 @@ public class QuestionBankController {
     }
 
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_UPDATE_LIST)
-    public BaseResponse updateQuestionsList(@RequestBody UpdateListQuestionsRequestDto request) throws Exception {
-        return questionBankService.updateQuestionsList(request);
+    @PostMapping(RouterConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID)
+    public BaseResponse deleteQuestionsListByGroupId(@RequestBody DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
+        return questionBankService.deleteQuestionsListByGroupId(request);
     }
 }

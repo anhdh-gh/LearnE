@@ -11,4 +11,8 @@ import java.util.Set;
 public interface QuestionRepository extends JpaRepository<Question, String> {
 
     List<Question> findByIdIn(Set<String> ids);
+
+    List<Question> findAllByGroupId(String groupId);
+
+    void deleteAllByGroupId(String groupId);
 }

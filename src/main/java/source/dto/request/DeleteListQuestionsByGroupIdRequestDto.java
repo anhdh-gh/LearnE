@@ -10,10 +10,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateListQuestionsRequestDto extends BasicRequest {
+public class DeleteListQuestionsByGroupIdRequestDto extends BasicRequest {
 
     @JsonProperty("groupId")
     private String groupId;
-
-    private List<UpdateQuestionRequestDto> questions;
 }

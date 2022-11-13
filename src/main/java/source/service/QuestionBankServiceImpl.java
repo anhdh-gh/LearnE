@@ -102,37 +102,6 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     }
 
     @Override
-    public BaseResponse updateQuestionsList(UpdateListQuestionsRequestDto request) throws Exception {
-        // Kiểm tra xem có tồn tai không
-        List<Question> questions = getQuestionByQuestionIds(
-            request.getQuestions().stream()
-            .map(UpdateQuestionRequestDto::getId)
-            .collect(Collectors.toSet())
-        );
-
-        // Kiểm tra các id có cùng một group không
-        List<String> groupIds = questions.stream().map(Question::getGroupId).distinct().collect(Collectors.toList());
-        if(groupIds.size() != 1) {
-            return BaseResponse.ofFailed(
-                request.getRequestId(),
-                BusinessErrors.INVALID_PARAMETERS
-            );
-        }
-
-        // Nếu tồn tại thì xóa cái cũ
-        QuestionDeleteByGroupIdRequestDto questionDeleteByGroupIdRequest
-            = modelMapper.map(request, QuestionDeleteByGroupIdRequestDto.class);
-        questionDeleteByGroupIdRequest.setGroupId(groupIds.get(0));
-        multimediaThirdPartyService.deleteQuestionByGroupId(questionDeleteByGroupIdRequest);
-
-        // Thực hiện tạo cái mới
-        CreateListQuestionsRequestDto createListQuestionsRequest
-            = modelMapper.map(request, CreateListQuestionsRequestDto.class);
-        createListQuestionsRequest.setQuestions(mapList(request.getQuestions(), CreateQuestionRequestDto.class));
-        return createQuestionsList(createListQuestionsRequest);
-    }
-
-    @Override
     public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
 
@@ -148,6 +117,32 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
         List<Question> questions = getQuestionByQuestionIds(request.getQuestionIds());
         return BaseResponse.ofSucceeded(request.getRequestId(), questions);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
+    public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
+        // Kiểm tra xem group có tồn tại không
+        List<Question> questions = questionRepository.findAllByGroupId(request.getGroupId());
+        if(questions == null || questions.isEmpty()) {
+            return BaseResponse.ofFailed(
+                request.getRequestId(),
+                BusinessErrors.INVALID_PARAMETERS
+            );
+        }
+
+        // Thực hiện xóa
+        QuestionDeleteByGroupIdRequestDto questionDeleteByGroupIdRequest
+            = modelMapper.map(request, QuestionDeleteByGroupIdRequestDto.class);
+        questionDeleteByGroupIdRequest.setGroupId(request.getGroupId());
+        BaseResponse responseDelete = multimediaThirdPartyService.deleteQuestionByGroupId(questionDeleteByGroupIdRequest);
+        if(!Objects.equals(responseDelete.getMeta().getCode(), BaseResponse.OK_CODE)) {
+            return responseDelete;
+        }
+        questionRepository.deleteAllByGroupId(request.getGroupId());
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), "Delete questions by groupId successfully");
     }
 
     private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {

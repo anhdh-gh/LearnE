@@ -24,7 +24,7 @@ public class QuestionBankController {
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.QUESTION_GET_ALL)
-    public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
+    public BaseResponse getAllQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
         return questionBankService.getAllQuestion(request);
     }
 

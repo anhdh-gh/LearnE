@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,7 +110,11 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Override
     public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
-        PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
 
         Page<Question> questions = questionRepository.findAll(pageRequest);
 

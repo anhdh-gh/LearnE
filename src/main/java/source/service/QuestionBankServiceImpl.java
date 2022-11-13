@@ -12,11 +12,14 @@ import source.constant.ErrorCodeConstant;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.entity.Answer;
+import source.entity.BaseEntity;
 import source.entity.Question;
 import source.entity.enumeration.QuestionType;
 import source.exception.BusinessErrors;
 import source.exception.BusinessException;
 import source.repository.QuestionRepository;
+import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
+import source.third_party.course.service.CourseThirdPartyService;
 import source.third_party.multimedia.dto.request.QuestionCheckExistRequestDto;
 import source.third_party.multimedia.dto.request.QuestionDeleteByGroupIdRequestDto;
 import source.third_party.multimedia.dto.request.QuestionDetail;
@@ -39,6 +42,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private CourseThirdPartyService courseThirdPartyService;
 
     @Override
     public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
@@ -140,6 +146,18 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             return responseDelete;
         }
         questionRepository.deleteAllByGroupId(request.getGroupId());
+
+        // Thực hiện callback xóa bên service course
+        CallBackQuestionsDeleteRequestDto requestCourse
+            = modelMapper.map(request, CallBackQuestionsDeleteRequestDto.class);
+        requestCourse.setQuestionIds(questions.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
+        BaseResponse responseCourse = courseThirdPartyService.callBackQuestionsDelete(requestCourse);
+        if(!Objects.equals(responseCourse.getMeta().getCode(), BaseResponse.OK_CODE)) {
+            throw new BusinessException(
+                Integer.parseInt(ErrorCodeConstant.CALLBACK_DELETE_QUESTION_FAIL_400032),
+                environment.getProperty(ErrorCodeConstant.CALLBACK_DELETE_QUESTION_FAIL_400032),
+                HttpStatus.BAD_REQUEST);
+        }
 
         // Trả về kết quả
         return BaseResponse.ofSucceeded(request.getRequestId(), "Delete questions by groupId successfully");

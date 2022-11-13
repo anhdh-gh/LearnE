@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
+import source.dto.response.GetListQuestionsByGroupIdResponseDto;
 import source.entity.Answer;
 import source.entity.BaseEntity;
 import source.entity.Question;
@@ -134,13 +135,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
         // Kiểm tra xem group có tồn tại không
-        List<Question> questions = questionRepository.findAllByGroupId(request.getGroupId());
-        if(questions == null || questions.isEmpty()) {
-            return BaseResponse.ofFailed(
-                request.getRequestId(),
-                BusinessErrors.INVALID_PARAMETERS
-            );
-        }
+        List<Question> questions = getQuestionsListByGroupId(request.getGroupId());
 
         // Thực hiện xóa
         QuestionDeleteByGroupIdRequestDto questionDeleteByGroupIdRequest
@@ -167,6 +162,27 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
         // Trả về kết quả
         return BaseResponse.ofSucceeded(request.getRequestId(), "Delete questions by groupId successfully");
+    }
+
+    private List<Question> getQuestionsListByGroupId(String groupId) throws Exception {
+        List<Question> questions = questionRepository.findAllByGroupId(groupId);
+        if(questions == null || questions.isEmpty()) {
+            throw new BusinessException(BusinessErrors.NOT_FOUND, environment.getProperty(String.valueOf(BusinessErrors.NOT_FOUND)));
+        }
+
+        return questions;
+    }
+
+    @Override
+    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
+        // Kiểm tra tồn tại và lấy ra list questions theo groupid
+        List<Question> questions = getQuestionsListByGroupId(request.getGroupId());
+
+        // Trả về kết quả
+        GetListQuestionsByGroupIdResponseDto response
+            = modelMapper.map(request, GetListQuestionsByGroupIdResponseDto.class);
+        response.setQuestions(questions);
+        return BaseResponse.ofSucceeded(request.getRequestId(), response);
     }
 
     private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {

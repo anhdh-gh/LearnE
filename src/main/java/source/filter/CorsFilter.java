@@ -58,14 +58,15 @@ public class CorsFilter implements Filter {
         request.setAttribute(RequestKeyConstant.REQUEST_ID, requestId);
         request.setAttribute(RequestKeyConstant.URI, request.getRequestURI());
 
+        // https://stackoverflow.com/questions/39190436/post-request-with-multipart-data-in-spring-mvc
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setStatus(HttpServletResponse.SC_OK);
+
         // Set user auth if exists
         if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
-            // https://stackoverflow.com/questions/39190436/post-request-with-multipart-data-in-spring-mvc
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Max-Age", "3600");
-            response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-
             String jwt = getJwtFromRequest(request);
             if (StringUtils.hasText(jwt) && jwtUtil.validateJwtToken(jwt)) {
                 User userAuth = jwtUtil.getUserFromJwtToken(jwt);
@@ -75,6 +76,7 @@ public class CorsFilter implements Filter {
                     request.setAttribute(RequestKeyConstant.USER_AUTH_ROLE, userAuth.getRole().getValue());
                 }
             }
+
             chain.doFilter(request, response);
         } else {
             try {

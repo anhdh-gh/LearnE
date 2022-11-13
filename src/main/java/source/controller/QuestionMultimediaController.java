@@ -22,7 +22,7 @@ public class QuestionMultimediaController {
     private QuestionMultimediaService questionMultimediaService;
 
     @PostMapping(RouterConstant.QUESTION_UPLOAD)
-    public BaseResponse uploadAvatar(@Valid QuestionUploadRequestDto requestDto, HttpServletRequest request) throws Exception {
+    public BaseResponse uploadQuestion(@Valid QuestionUploadRequestDto requestDto, HttpServletRequest request) throws Exception {
         requestDto.setRequestId((String) request.getAttribute(RequestKeyConstant.REQUEST_ID));
         return questionMultimediaService.uploadQuestion(requestDto);
     }

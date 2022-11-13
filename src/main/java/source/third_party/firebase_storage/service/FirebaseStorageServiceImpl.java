@@ -5,6 +5,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,6 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
 
 @Service
 public class FirebaseStorageServiceImpl implements FirebaseStorageService {

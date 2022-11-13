@@ -7,9 +7,9 @@ import source.third_party.firebase_storage.dto.response.FirebaseUploadFileRespon
 
 public interface FirebaseStorageService {
 
-    public FirebaseUploadFileResponseDto uploadFile(FirebaseUploadFileRequestDto firebaseUploadFileRequestDto) throws Exception;
+    FirebaseUploadFileResponseDto uploadFile(FirebaseUploadFileRequestDto firebaseUploadFileRequestDto) throws Exception;
 
-    public ResponseEntity<Object> downloadFile(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
+    ResponseEntity<Object> downloadFile(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
 
-    public boolean deleteFile(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
+    boolean deleteFile(FirebaseStorageRequestDto firebaseStorageRequestDto) throws Exception;
 }

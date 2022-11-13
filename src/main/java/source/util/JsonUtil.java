@@ -1,9 +1,7 @@
 package source.util;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
@@ -60,7 +58,7 @@ public class JsonUtil {
     }
 
     public static <T> T readObject(String input, Class<T> clazz)
-            throws JsonParseException, JsonMappingException, IOException {
+            throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return objectMapper.readValue(input, clazz);

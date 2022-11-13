@@ -14,9 +14,9 @@ import java.util.Date;
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
-    private String jwtSecret = "LearnE";
+    private final String jwtSecret = "LearnE";
 
-    private static int jwtExpirationMs = 3600000;
+    private static final int jwtExpirationMs = 3600000;
 
     public String generateJwtToken(User user) {
         return generateTokenFromUserInfo(user);
@@ -32,7 +32,7 @@ public class JwtUtil {
     public User getUserFromJwtToken(String token) {
         try {
             String data = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-            String value[] = data.split(" ");
+            String[] value = data.split(" ");
             return User.builder().id(value[0]).role(Role.valueOf(value[1])).build();
         } catch (Exception e) {
             return null;

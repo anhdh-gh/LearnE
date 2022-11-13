@@ -8,7 +8,7 @@ import source.constant.ErrorCodeConstant;
 import source.constant.FirebaseStorageConstant;
 import source.dto.request.QuestionCheckExistRequestDto;
 import source.dto.request.QuestionDeleteByGroupIdRequestDto;
-import source.dto.request.QuestionUploadAvatarRequestDto;
+import source.dto.request.QuestionUploadRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.QuestionUploadAvatarResponseDto;
 import source.entity.Question;
@@ -20,7 +20,9 @@ import source.third_party.firebase_storage.dto.request.FirebaseStorageRequestDto
 import source.third_party.firebase_storage.dto.request.FirebaseUploadFileRequestDto;
 import source.third_party.firebase_storage.dto.response.FirebaseUploadFileResponseDto;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +32,7 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
     private QuestionRepository questionRepository;
 
     @Override
-    public BaseResponse uploadQuestion(QuestionUploadAvatarRequestDto request) throws Exception {
+    public BaseResponse uploadQuestion(QuestionUploadRequestDto request) throws Exception {
         QuestionDetail questionDetail = QuestionDetail
             .builder()
             .id(request.getId() == null ? UUID.randomUUID().toString() : request.getId())

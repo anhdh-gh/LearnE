@@ -1,6 +1,5 @@
 package source.entity;
 
-import com.github.fabiomaffioletti.firebase.document.FirebaseId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -2,11 +2,9 @@ package source.third_party.firebase_user_authentication.service;
 
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import source.third_party.firebase_user_authentication.bean.FirebaseRefreshTokenToIdTokenResponseBean;
@@ -17,13 +15,10 @@ import source.third_party.firebase_user_authentication.exception.HttpNotFoundExc
 import source.third_party.firebase_user_authentication.exception.HttpUnauthorizedException;
 import source.third_party.firebase_user_authentication.utility.StringUtility;
 
-import java.io.*;
-import java.util.Properties;
-
 @Service
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 
-    private String firebaseWebApiKey;
+    private final String firebaseWebApiKey;
     private StringUtility stringUtility = null;
 
     public UserAuthenticationServiceImpl() {

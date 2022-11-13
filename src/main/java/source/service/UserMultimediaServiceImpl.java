@@ -15,7 +15,6 @@ import source.repository.UserRepository;
 import source.third_party.firebase_storage.dto.request.FirebaseStorageRequestDto;
 import source.third_party.firebase_storage.dto.request.FirebaseUploadFileRequestDto;
 import source.third_party.firebase_storage.dto.response.FirebaseUploadFileResponseDto;
-import source.third_party.firebase_storage.service.FirebaseStorageService;
 
 @Service
 public class UserMultimediaServiceImpl extends BaseService implements UserMultimediaService {

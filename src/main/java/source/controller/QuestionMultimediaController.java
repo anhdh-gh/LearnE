@@ -8,7 +8,7 @@ import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
 import source.dto.request.QuestionCheckExistRequestDto;
 import source.dto.request.QuestionDeleteByGroupIdRequestDto;
-import source.dto.request.QuestionUploadAvatarRequestDto;
+import source.dto.request.QuestionUploadRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.QuestionMultimediaService;
 
@@ -22,7 +22,7 @@ public class QuestionMultimediaController {
     private QuestionMultimediaService questionMultimediaService;
 
     @PostMapping(RouterConstant.QUESTION_UPLOAD)
-    public BaseResponse uploadAvatar(@Valid QuestionUploadAvatarRequestDto requestDto, HttpServletRequest request) throws Exception {
+    public BaseResponse uploadAvatar(@Valid QuestionUploadRequestDto requestDto, HttpServletRequest request) throws Exception {
         requestDto.setRequestId((String) request.getAttribute(RequestKeyConstant.REQUEST_ID));
         return questionMultimediaService.uploadQuestion(requestDto);
     }

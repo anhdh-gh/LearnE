@@ -12,9 +12,9 @@ import source.anotation.ValidFileSize;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class QuestionUploadAvatarRequestDto extends BasicRequest {
+public class QuestionUploadRequestDto extends BasicRequest {
 
-    @ValidFileSize(maxSize = 10000)
+    @ValidFileSize(maxSize = 2000)
     @ValidFile()
     private MultipartFile image;
 

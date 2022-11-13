@@ -30,7 +30,7 @@ import static net.logstash.logback.argument.StructuredArguments.entries;
 @Order(value = 1)
 public class LogsActivityAOPHandler {
 
-    private Logger logger = LoggerFactory.getLogger(LogsActivityAOPHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(LogsActivityAOPHandler.class);
 
     @Value("${app.name}")
     private String appName;

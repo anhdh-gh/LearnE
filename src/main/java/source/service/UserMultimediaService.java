@@ -8,9 +8,9 @@ import source.dto.response.BaseResponse;
 
 public interface UserMultimediaService {
 
-    public BaseResponse uploadAvatar(UserUploadAvatarRequestDto request) throws Exception;
+    BaseResponse uploadAvatar(UserUploadAvatarRequestDto request) throws Exception;
 
-    public BaseResponse deleteAvatar(UserDeleteAvatarRequestDto request) throws Exception;
+    BaseResponse deleteAvatar(UserDeleteAvatarRequestDto request) throws Exception;
 
-    public ResponseEntity<Object> downloadAvatar(UserDownloadAvatarRequestDto request) throws Exception;
+    ResponseEntity<Object> downloadAvatar(UserDownloadAvatarRequestDto request) throws Exception;
 }

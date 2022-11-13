@@ -36,4 +36,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
         return questionBankServiceThirdParty.deleteQuestionsListByGroupId(request);
     }
+
+    @Override
+    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
+        return questionBankServiceThirdParty.getQuestionsListByGroupId(request);
+    }
 }

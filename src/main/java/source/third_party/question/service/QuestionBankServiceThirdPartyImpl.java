@@ -73,4 +73,14 @@ public class QuestionBankServiceThirdPartyImpl implements QuestionBankServiceThi
             new ParameterizedTypeReference<BaseResponse>() {});
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
+
+    @Override
+    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_BY_GROUP_QUESTION_ID),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {});
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
 }

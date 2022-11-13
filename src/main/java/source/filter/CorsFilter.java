@@ -60,6 +60,7 @@ public class CorsFilter implements Filter {
 
         // Set user auth if exists
         if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
+            // https://stackoverflow.com/questions/39190436/post-request-with-multipart-data-in-spring-mvc
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
             response.setHeader("Access-Control-Max-Age", "3600");

@@ -6,6 +6,7 @@ import source.dto.request.*;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
+import source.dto.request.questionBank.*;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.service.AuthServiceThirdParty;
@@ -149,5 +150,30 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception {
         return authServiceThirdParty.checkOwnerStudysetValid(request);
+    }
+
+    @Override
+    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getQuestionByQuestionId(request);
+    }
+
+    @Override
+    public BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception {
+        return authServiceThirdParty.createQuestionsList(request);
+    }
+
+    @Override
+    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
+        return authServiceThirdParty.getAllQuestion(request);
+    }
+
+    @Override
+    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
+        return authServiceThirdParty.getQuestionByQuestionIds(request);
+    }
+
+    @Override
+    public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
+        return authServiceThirdParty.deleteQuestionsListByGroupId(request);
     }
 }

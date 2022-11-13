@@ -10,6 +10,7 @@ import source.dto.request.*;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
+import source.dto.request.questionBank.*;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
@@ -183,5 +184,35 @@ public class AuthController {
     @LogsActivityAnnotation
     public BaseResponse checkOwnerStudysetValid(@RequestBody CheckOwnerStudysetValidRequestDto request) throws Exception {
         return authService.checkOwnerStudysetValid(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
+    public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
+        return authService.getQuestionByQuestionId(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_ALL)
+    public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
+        return authService.getAllQuestion(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
+    public BaseResponse getQuestionByIds(@RequestBody QuestionGetByIdsRequestDto request) throws Exception {
+        return authService.getQuestionByQuestionIds(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_CREATE_LIST)
+    public BaseResponse createQuestionsList(@RequestBody CreateListQuestionsRequestDto request) throws Exception {
+        return authService.createQuestionsList(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID)
+    public BaseResponse deleteQuestionsListByGroupId(@RequestBody DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
+        return authService.deleteQuestionsListByGroupId(request);
     }
 }

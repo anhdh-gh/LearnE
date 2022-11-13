@@ -4,6 +4,7 @@ import source.dto.request.*;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
+import source.dto.request.questionBank.*;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 
@@ -62,4 +63,14 @@ public interface AuthServiceThirdParty {
     BaseResponse getRankStudyset(GetRankStudysetRequestDto request) throws Exception;
 
     BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception;
+
+    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
+
+    BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception;
+
+    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
+
+    BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
+
+    BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception;
 }

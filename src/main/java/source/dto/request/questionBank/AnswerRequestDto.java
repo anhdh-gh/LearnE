@@ -1,4 +1,4 @@
-package source.dto.request;
+package source.dto.request.questionBank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class GetQuestionByQuestionIdRequestDto extends BasicRequest {
+public class AnswerRequestDto {
 
-    @JsonProperty("questionId")
-    private String questionId;
+    @JsonProperty("text")
+    private String text;
+
+    @JsonProperty("is_correct")
+    private boolean isCorrect;
 }

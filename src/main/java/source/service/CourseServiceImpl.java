@@ -411,6 +411,22 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Override
+    public BaseResponse callBackQuestionsDelete(CallBackQuestionsDeleteRequestDto request) throws Exception {
+        // Lấy ra các bản ghi
+        List<LessonExercise> lessonExercises = lessonExerciseRepository.findAllByQuestionIds(
+            new ArrayList<>(request.getQuestionIds())
+        );
+
+        // Thực hiện xóa
+        if(lessonExercises != null && !lessonExercises.isEmpty()) {
+            lessonExerciseRepository.deleteByIdIn(lessonExercises.stream().map(AutoIncrementIdBaseEntity::getId).collect(Collectors.toList()));
+        }
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), "Callback successfully");
+    }
+
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
         return source
             .stream()

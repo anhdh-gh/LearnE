@@ -48,6 +48,12 @@ public class CourseController {
     }
 
     @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_CALLBACK_QUESTIONS_DELETE)
+    public BaseResponse callBackQuestionsDelete(@RequestBody CallBackQuestionsDeleteRequestDto request) throws Exception {
+        return courseService.callBackQuestionsDelete(request);
+    }
+
+    @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_UPDATE_LESSON_STATUS)
     public BaseResponse updateLessonStatus(@RequestBody UpdateLessonStatusRequestDto request) throws Exception {
         return courseService.updateLessonStatus(request);

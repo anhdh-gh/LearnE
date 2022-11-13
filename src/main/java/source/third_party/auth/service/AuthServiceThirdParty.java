@@ -73,4 +73,6 @@ public interface AuthServiceThirdParty {
     BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
 
     BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception;
+
+    BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception;
 }

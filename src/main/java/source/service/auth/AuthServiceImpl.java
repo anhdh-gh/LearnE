@@ -176,4 +176,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
         return authServiceThirdParty.deleteQuestionsListByGroupId(request);
     }
+
+    @Override
+    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getQuestionsListByGroupId(request);
+    }
 }

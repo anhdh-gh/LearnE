@@ -215,4 +215,10 @@ public class AuthController {
     public BaseResponse deleteQuestionsListByGroupId(@RequestBody DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
         return authService.deleteQuestionsListByGroupId(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_BY_GROUP_QUESTION_ID)
+    public BaseResponse getQuestionsListByGroupId(@RequestBody GetListQuestionsByGroupIdRequestDto request) throws Exception {
+        return authService.getQuestionsListByGroupId(request);
+    }
 }

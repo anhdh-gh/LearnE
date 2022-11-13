@@ -15,10 +15,11 @@ public class AuthorizationConfiguration {
         registrationBean.addUrlPatterns(
             RouterConstant.ADMIN_DELETE_USER,
             RouterConstant.USER_GET_BY_ID,
-            RouterConstant.QUESTION_CREATE,
             RouterConstant.COURSE_CREATE,
             RouterConstant.COURSE_DELETE_BY_ID,
-            RouterConstant.COURSE_UPDATE
+            RouterConstant.COURSE_UPDATE,
+            RouterConstant.QUESTION_CREATE_LIST,
+            RouterConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID
         );
         registrationBean.setOrder(2);
         return registrationBean;

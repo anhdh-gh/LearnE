@@ -18,11 +18,7 @@ public class AuthenticationConfiguration {
             RouterConstant.USER_GET_INFO,
             RouterConstant.USER_GET_BY_ID,
             RouterConstant.ADMIN_DELETE_USER,
-            RouterConstant.QUESTION_CREATE,
-            RouterConstant.QUESTION_GET_ALL,
-            RouterConstant.QUESTION_GET_BY_QUESTION_ID,
             RouterConstant.COURSE_CREATE,
-            RouterConstant.QUESTION_GET_BY_IDS,
             RouterConstant.COURSE_UPDATE_LESSON_STATUS,
             RouterConstant.CREATE_STUDYSET,
             RouterConstant.UPDATE_STUDYSET,
@@ -30,7 +26,9 @@ public class AuthenticationConfiguration {
             RouterConstant.DELETE_STUDYSET_BY_ID,
             RouterConstant.CHECK_OWNER_STUDYSET_VALID,
             RouterConstant.COURSE_DELETE_BY_ID,
-            RouterConstant.COURSE_UPDATE
+            RouterConstant.COURSE_UPDATE,
+            RouterConstant.QUESTION_CREATE_LIST,
+            RouterConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID
         );
         registrationBean.setOrder(1);
         return registrationBean;

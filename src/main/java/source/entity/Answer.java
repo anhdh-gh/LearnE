@@ -19,7 +19,6 @@ public class Answer extends BaseEntity {
     @Column(name = "Text")
     private String text;
 
-    @JsonProperty("isCorrect")
     @Column(name = "IsCorrect")
     private boolean isCorrect;
 

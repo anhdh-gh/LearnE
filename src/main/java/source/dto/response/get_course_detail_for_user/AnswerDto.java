@@ -17,9 +17,7 @@ public class AnswerDto extends UidBaseEntity {
 
     private String text;
 
-    @JsonProperty("isCorrect")
     private boolean isCorrect;
 
-    @JsonProperty("isChoice")
     private Boolean isChoice;
 }

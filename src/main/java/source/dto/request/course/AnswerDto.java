@@ -17,6 +17,5 @@ public class AnswerDto {
     @JsonProperty("text")
     private String text;
 
-    @JsonProperty("is_correct")
     private boolean isCorrect;
 }

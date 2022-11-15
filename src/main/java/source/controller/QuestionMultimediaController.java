@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import source.anotation.LogsActivityAnnotation;
 import source.constant.RequestKeyConstant;
 import source.constant.RouterConstant;
 import source.dto.request.QuestionCheckExistRequestDto;
@@ -28,11 +29,13 @@ public class QuestionMultimediaController {
     }
 
     @PostMapping(RouterConstant.QUESTION_CHECK_EXIST)
+    @LogsActivityAnnotation
     public BaseResponse checkQuestionExist(@Valid @RequestBody QuestionCheckExistRequestDto requestDto) throws Exception {
         return questionMultimediaService.checkQuestionExist(requestDto);
     }
 
     @PostMapping(RouterConstant.QUESTION_DELETE_BY_GROUP_ID)
+    @LogsActivityAnnotation
     public BaseResponse deleteQuestionByGroupId(@Valid @RequestBody QuestionDeleteByGroupIdRequestDto requestDto) throws Exception {
         return questionMultimediaService.deleteQuestionByGroupId(requestDto);
     }

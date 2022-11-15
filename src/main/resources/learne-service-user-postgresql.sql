@@ -18,13 +18,11 @@ SET row_security = off;
 
 DROP DATABASE IF EXISTS df1c7fnf0g7h6f;
 --
--- Name: df1c7fnf0g7h6f; Type: DATABASE; Schema: -; Owner: eptmywlpphtiak
+-- Name: df1c7fnf0g7h6f; Type: DATABASE; Schema: -; Owner: -
 --
 
 CREATE DATABASE df1c7fnf0g7h6f WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.UTF-8';
 
-
-ALTER DATABASE df1c7fnf0g7h6f OWNER TO eptmywlpphtiak;
 
 \connect df1c7fnf0g7h6f
 
@@ -40,7 +38,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: df1c7fnf0g7h6f; Type: DATABASE PROPERTIES; Schema: -; Owner: eptmywlpphtiak
+-- Name: df1c7fnf0g7h6f; Type: DATABASE PROPERTIES; Schema: -; Owner: -
 --
 
 ALTER DATABASE df1c7fnf0g7h6f SET search_path TO '$user', 'public', 'heroku_ext';
@@ -60,29 +58,25 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: heroku_ext; Type: SCHEMA; Schema: -; Owner: u58ctpihmi0kql
+-- Name: heroku_ext; Type: SCHEMA; Schema: -; Owner: -
 --
 
 CREATE SCHEMA heroku_ext;
 
 
-ALTER SCHEMA heroku_ext OWNER TO u58ctpihmi0kql;
-
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: eptmywlpphtiak
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
 -- *not* creating schema, since initdb creates it
 
-
-ALTER SCHEMA public OWNER TO eptmywlpphtiak;
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: account; Type: TABLE; Schema: public; Owner: eptmywlpphtiak
+-- Name: account; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.account (
@@ -94,10 +88,8 @@ CREATE TABLE public.account (
 );
 
 
-ALTER TABLE public.account OWNER TO eptmywlpphtiak;
-
 --
--- Name: address; Type: TABLE; Schema: public; Owner: eptmywlpphtiak
+-- Name: address; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.address (
@@ -113,10 +105,8 @@ CREATE TABLE public.address (
 );
 
 
-ALTER TABLE public.address OWNER TO eptmywlpphtiak;
-
 --
--- Name: fullname; Type: TABLE; Schema: public; Owner: eptmywlpphtiak
+-- Name: fullname; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.fullname (
@@ -129,10 +119,8 @@ CREATE TABLE public.fullname (
 );
 
 
-ALTER TABLE public.fullname OWNER TO eptmywlpphtiak;
-
 --
--- Name: user; Type: TABLE; Schema: public; Owner: eptmywlpphtiak
+-- Name: user; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public."user" (
@@ -151,10 +139,8 @@ CREATE TABLE public."user" (
 );
 
 
-ALTER TABLE public."user" OWNER TO eptmywlpphtiak;
-
 --
--- Name: user User_pkey; Type: CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: user User_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -162,7 +148,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user User_username_key; Type: CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: user User_username_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -170,7 +156,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: account account_email_key; Type: CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: account account_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.account
@@ -178,7 +164,7 @@ ALTER TABLE ONLY public.account
 
 
 --
--- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.account
@@ -186,7 +172,7 @@ ALTER TABLE ONLY public.account
 
 
 --
--- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.address
@@ -194,7 +180,7 @@ ALTER TABLE ONLY public.address
 
 
 --
--- Name: fullname fullname_pkey; Type: CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: fullname fullname_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.fullname
@@ -202,7 +188,7 @@ ALTER TABLE ONLY public.fullname
 
 
 --
--- Name: user fkuser568361; Type: FK CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: user fkuser568361; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -210,7 +196,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user fkuser847479; Type: FK CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: user fkuser847479; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -218,7 +204,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user fkuser921429; Type: FK CONSTRAINT; Schema: public; Owner: eptmywlpphtiak
+-- Name: user fkuser921429; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -226,21 +212,21 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: DATABASE df1c7fnf0g7h6f; Type: ACL; Schema: -; Owner: eptmywlpphtiak
+-- Name: DATABASE df1c7fnf0g7h6f; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE CONNECT,TEMPORARY ON DATABASE df1c7fnf0g7h6f FROM PUBLIC;
 
 
 --
--- Name: SCHEMA heroku_ext; Type: ACL; Schema: -; Owner: u58ctpihmi0kql
+-- Name: SCHEMA heroku_ext; Type: ACL; Schema: -; Owner: -
 --
 
 GRANT USAGE ON SCHEMA heroku_ext TO eptmywlpphtiak;
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: eptmywlpphtiak
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
@@ -248,7 +234,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
--- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: postgres
+-- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: -
 --
 
 GRANT ALL ON LANGUAGE plpgsql TO eptmywlpphtiak;

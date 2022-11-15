@@ -20,9 +20,7 @@ public class StudysetController {
     @PostMapping(RouterConstant.CREATE_STUDYSET)
     @LogsActivityAnnotation
     public BaseResponse createStudyset(@RequestBody StudysetDto request) throws Exception {
-        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
-            request.setOwnerUserId(request.getUserAuthId());
-        }
+        request.setOwnerUserId(request.getUserAuthId());
         return studysetService.createStudyset(request);
     }
 

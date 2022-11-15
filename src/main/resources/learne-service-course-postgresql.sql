@@ -18,13 +18,11 @@ SET row_security = off;
 
 DROP DATABASE IF EXISTS d595gh195uo74p;
 --
--- Name: d595gh195uo74p; Type: DATABASE; Schema: -; Owner: smulgjknowzfdc
+-- Name: d595gh195uo74p; Type: DATABASE; Schema: -; Owner: -
 --
 
 CREATE DATABASE d595gh195uo74p WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.UTF-8';
 
-
-ALTER DATABASE d595gh195uo74p OWNER TO smulgjknowzfdc;
 
 \connect d595gh195uo74p
 
@@ -40,7 +38,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: d595gh195uo74p; Type: DATABASE PROPERTIES; Schema: -; Owner: smulgjknowzfdc
+-- Name: d595gh195uo74p; Type: DATABASE PROPERTIES; Schema: -; Owner: -
 --
 
 ALTER DATABASE d595gh195uo74p SET search_path TO '$user', 'public', 'heroku_ext';
@@ -60,29 +58,25 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: heroku_ext; Type: SCHEMA; Schema: -; Owner: u58ctpihmi0kql
+-- Name: heroku_ext; Type: SCHEMA; Schema: -; Owner: -
 --
 
 CREATE SCHEMA heroku_ext;
 
 
-ALTER SCHEMA heroku_ext OWNER TO u58ctpihmi0kql;
-
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: smulgjknowzfdc
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
 -- *not* creating schema, since initdb creates it
 
-
-ALTER SCHEMA public OWNER TO smulgjknowzfdc;
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: answerchoice; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: answerchoice; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.answerchoice (
@@ -94,10 +88,8 @@ CREATE TABLE public.answerchoice (
 );
 
 
-ALTER TABLE public.answerchoice OWNER TO smulgjknowzfdc;
-
 --
--- Name: chapter; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.chapter (
@@ -109,10 +101,8 @@ CREATE TABLE public.chapter (
 );
 
 
-ALTER TABLE public.chapter OWNER TO smulgjknowzfdc;
-
 --
--- Name: chapter_id_seq; Type: SEQUENCE; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.chapter_id_seq
@@ -123,17 +113,15 @@ CREATE SEQUENCE public.chapter_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.chapter_id_seq OWNER TO smulgjknowzfdc;
-
 --
--- Name: chapter_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.chapter_id_seq OWNED BY public.chapter.id;
 
 
 --
--- Name: course; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: course; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.course (
@@ -149,10 +137,8 @@ CREATE TABLE public.course (
 );
 
 
-ALTER TABLE public.course OWNER TO smulgjknowzfdc;
-
 --
--- Name: lesson; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.lesson (
@@ -167,10 +153,8 @@ CREATE TABLE public.lesson (
 );
 
 
-ALTER TABLE public.lesson OWNER TO smulgjknowzfdc;
-
 --
--- Name: lesson_id_seq; Type: SEQUENCE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.lesson_id_seq
@@ -181,17 +165,15 @@ CREATE SEQUENCE public.lesson_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lesson_id_seq OWNER TO smulgjknowzfdc;
-
 --
--- Name: lesson_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.lesson_id_seq OWNED BY public.lesson.id;
 
 
 --
--- Name: lessonexercise; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.lessonexercise (
@@ -204,10 +186,8 @@ CREATE TABLE public.lessonexercise (
 );
 
 
-ALTER TABLE public.lessonexercise OWNER TO smulgjknowzfdc;
-
 --
--- Name: lessonexercise_id_seq; Type: SEQUENCE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.lessonexercise_id_seq
@@ -218,17 +198,15 @@ CREATE SEQUENCE public.lessonexercise_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lessonexercise_id_seq OWNER TO smulgjknowzfdc;
-
 --
--- Name: lessonexercise_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.lessonexercise_id_seq OWNED BY public.lessonexercise.id;
 
 
 --
--- Name: lessonexercisestatus; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercisestatus; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.lessonexercisestatus (
@@ -242,10 +220,8 @@ CREATE TABLE public.lessonexercisestatus (
 );
 
 
-ALTER TABLE public.lessonexercisestatus OWNER TO smulgjknowzfdc;
-
 --
--- Name: lessonquestion; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.lessonquestion (
@@ -258,10 +234,8 @@ CREATE TABLE public.lessonquestion (
 );
 
 
-ALTER TABLE public.lessonquestion OWNER TO smulgjknowzfdc;
-
 --
--- Name: lessonquestion_id_seq; Type: SEQUENCE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.lessonquestion_id_seq
@@ -272,17 +246,15 @@ CREATE SEQUENCE public.lessonquestion_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lessonquestion_id_seq OWNER TO smulgjknowzfdc;
-
 --
--- Name: lessonquestion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.lessonquestion_id_seq OWNED BY public.lessonquestion.id;
 
 
 --
--- Name: lessonquestionhistory; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestionhistory; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.lessonquestionhistory (
@@ -295,10 +267,8 @@ CREATE TABLE public.lessonquestionhistory (
 );
 
 
-ALTER TABLE public.lessonquestionhistory OWNER TO smulgjknowzfdc;
-
 --
--- Name: lessonstatus; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonstatus; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.lessonstatus (
@@ -311,10 +281,8 @@ CREATE TABLE public.lessonstatus (
 );
 
 
-ALTER TABLE public.lessonstatus OWNER TO smulgjknowzfdc;
-
 --
--- Name: request; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: request; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.request (
@@ -326,10 +294,8 @@ CREATE TABLE public.request (
 );
 
 
-ALTER TABLE public.request OWNER TO smulgjknowzfdc;
-
 --
--- Name: target; Type: TABLE; Schema: public; Owner: smulgjknowzfdc
+-- Name: target; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.target (
@@ -341,38 +307,36 @@ CREATE TABLE public.target (
 );
 
 
-ALTER TABLE public.target OWNER TO smulgjknowzfdc;
-
 --
--- Name: chapter id; Type: DEFAULT; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chapter ALTER COLUMN id SET DEFAULT nextval('public.chapter_id_seq'::regclass);
 
 
 --
--- Name: lesson id; Type: DEFAULT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lesson ALTER COLUMN id SET DEFAULT nextval('public.lesson_id_seq'::regclass);
 
 
 --
--- Name: lessonexercise id; Type: DEFAULT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercise ALTER COLUMN id SET DEFAULT nextval('public.lessonexercise_id_seq'::regclass);
 
 
 --
--- Name: lessonquestion id; Type: DEFAULT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonquestion ALTER COLUMN id SET DEFAULT nextval('public.lessonquestion_id_seq'::regclass);
 
 
 --
--- Data for Name: answerchoice; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: answerchoice; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.answerchoice (id, lessonquestionhistoryid, answerid, createtime, updatetime) FROM stdin;
@@ -380,7 +344,7 @@ COPY public.answerchoice (id, lessonquestionhistoryid, answerid, createtime, upd
 
 
 --
--- Data for Name: chapter; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: chapter; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.chapter (id, courseid, name, createtime, updatetime) FROM stdin;
@@ -391,7 +355,7 @@ COPY public.chapter (id, courseid, name, createtime, updatetime) FROM stdin;
 
 
 --
--- Data for Name: course; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: course; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.course (id, name, description, author, image, level, price, createtime, updatetime) FROM stdin;
@@ -400,7 +364,7 @@ COPY public.course (id, name, description, author, image, level, price, createti
 
 
 --
--- Data for Name: lesson; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: lesson; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.lesson (id, chapterid, name, duration, description, video, createtime, updatetime) FROM stdin;
@@ -440,7 +404,7 @@ COPY public.lesson (id, chapterid, name, duration, description, video, createtim
 
 
 --
--- Data for Name: lessonexercise; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: lessonexercise; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.lessonexercise (id, lessonid, name, description, createtime, updatetime) FROM stdin;
@@ -448,7 +412,7 @@ COPY public.lessonexercise (id, lessonid, name, description, createtime, updatet
 
 
 --
--- Data for Name: lessonexercisestatus; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: lessonexercisestatus; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.lessonexercisestatus (id, lessonexerciseid, lessonid, userid, status, createtime, updatetime) FROM stdin;
@@ -456,7 +420,7 @@ COPY public.lessonexercisestatus (id, lessonexerciseid, lessonid, userid, status
 
 
 --
--- Data for Name: lessonquestion; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: lessonquestion; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.lessonquestion (id, lessonexerciseid, createtime, updatetime, questionid, score) FROM stdin;
@@ -464,7 +428,7 @@ COPY public.lessonquestion (id, lessonexerciseid, createtime, updatetime, questi
 
 
 --
--- Data for Name: lessonquestionhistory; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: lessonquestionhistory; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.lessonquestionhistory (id, lessonquestionid, userid, createtime, updatetime, score) FROM stdin;
@@ -472,7 +436,7 @@ COPY public.lessonquestionhistory (id, lessonquestionid, userid, createtime, upd
 
 
 --
--- Data for Name: lessonstatus; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: lessonstatus; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.lessonstatus (id, lessonid, userid, status, createtime, updatetime) FROM stdin;
@@ -492,7 +456,7 @@ a9b2f02a-df5f-4ae0-9416-826eadbec241	63	YE0vynGVmhflMIzrO8VaSwMSXgN2	PROCESSING	
 
 
 --
--- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.request (id, courseid, text, createtime, updatetime) FROM stdin;
@@ -504,7 +468,7 @@ ed2054cd-e54b-4592-b0ae-d515cdd46514	746c8e3a-f39f-4360-9df2-6f396062393a	Làm c
 
 
 --
--- Data for Name: target; Type: TABLE DATA; Schema: public; Owner: smulgjknowzfdc
+-- Data for Name: target; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.target (id, courseid, text, createtime, updatetime) FROM stdin;
@@ -516,35 +480,35 @@ be63d75e-093a-40a0-af1f-ccae0400614c	746c8e3a-f39f-4360-9df2-6f396062393a	Học 
 
 
 --
--- Name: chapter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.chapter_id_seq', 57, true);
 
 
 --
--- Name: lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.lesson_id_seq', 572, true);
 
 
 --
--- Name: lessonexercise_id_seq; Type: SEQUENCE SET; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.lessonexercise_id_seq', 1, false);
 
 
 --
--- Name: lessonquestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.lessonquestion_id_seq', 1, false);
 
 
 --
--- Name: answerchoice answerchoice_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: answerchoice answerchoice_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.answerchoice
@@ -552,7 +516,7 @@ ALTER TABLE ONLY public.answerchoice
 
 
 --
--- Name: chapter chapter_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter chapter_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chapter
@@ -560,7 +524,7 @@ ALTER TABLE ONLY public.chapter
 
 
 --
--- Name: course course_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: course course_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.course
@@ -568,7 +532,7 @@ ALTER TABLE ONLY public.course
 
 
 --
--- Name: lesson lesson_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson lesson_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lesson
@@ -576,7 +540,7 @@ ALTER TABLE ONLY public.lesson
 
 
 --
--- Name: lessonexercise lessonexercise_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise lessonexercise_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercise
@@ -584,7 +548,7 @@ ALTER TABLE ONLY public.lessonexercise
 
 
 --
--- Name: lessonexercisestatus lessonexercisestatus_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercisestatus lessonexercisestatus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercisestatus
@@ -592,7 +556,7 @@ ALTER TABLE ONLY public.lessonexercisestatus
 
 
 --
--- Name: lessonquestion lessonquestion_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion lessonquestion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonquestion
@@ -600,7 +564,7 @@ ALTER TABLE ONLY public.lessonquestion
 
 
 --
--- Name: lessonquestionhistory lessonquestionhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestionhistory lessonquestionhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonquestionhistory
@@ -608,7 +572,7 @@ ALTER TABLE ONLY public.lessonquestionhistory
 
 
 --
--- Name: lessonstatus lessonstatus_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonstatus lessonstatus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonstatus
@@ -616,7 +580,7 @@ ALTER TABLE ONLY public.lessonstatus
 
 
 --
--- Name: request request_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: request request_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -624,7 +588,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: target target_pkey; Type: CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: target target_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.target
@@ -632,7 +596,7 @@ ALTER TABLE ONLY public.target
 
 
 --
--- Name: answerchoice fkanswerchoi188174; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: answerchoice fkanswerchoi188174; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.answerchoice
@@ -640,7 +604,7 @@ ALTER TABLE ONLY public.answerchoice
 
 
 --
--- Name: chapter fkchapter746961; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: chapter fkchapter746961; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chapter
@@ -648,7 +612,7 @@ ALTER TABLE ONLY public.chapter
 
 
 --
--- Name: lesson fklesson123481; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lesson fklesson123481; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lesson
@@ -656,7 +620,7 @@ ALTER TABLE ONLY public.lesson
 
 
 --
--- Name: lessonexercisestatus fklessonexer257807; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercisestatus fklessonexer257807; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercisestatus
@@ -664,7 +628,7 @@ ALTER TABLE ONLY public.lessonexercisestatus
 
 
 --
--- Name: lessonexercise fklessonexer910564; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercise fklessonexer910564; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercise
@@ -672,7 +636,7 @@ ALTER TABLE ONLY public.lessonexercise
 
 
 --
--- Name: lessonexercisestatus fklessonexer936762; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonexercisestatus fklessonexer936762; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercisestatus
@@ -680,7 +644,7 @@ ALTER TABLE ONLY public.lessonexercisestatus
 
 
 --
--- Name: lessonquestionhistory fklessonques214875; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestionhistory fklessonques214875; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonquestionhistory
@@ -688,7 +652,7 @@ ALTER TABLE ONLY public.lessonquestionhistory
 
 
 --
--- Name: lessonquestion fklessonques641174; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonquestion fklessonques641174; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonquestion
@@ -696,7 +660,7 @@ ALTER TABLE ONLY public.lessonquestion
 
 
 --
--- Name: lessonstatus fklessonstat434395; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: lessonstatus fklessonstat434395; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonstatus
@@ -704,7 +668,7 @@ ALTER TABLE ONLY public.lessonstatus
 
 
 --
--- Name: request fkrequest930580; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: request fkrequest930580; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -712,7 +676,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: target fktarget487279; Type: FK CONSTRAINT; Schema: public; Owner: smulgjknowzfdc
+-- Name: target fktarget487279; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.target
@@ -720,21 +684,21 @@ ALTER TABLE ONLY public.target
 
 
 --
--- Name: DATABASE d595gh195uo74p; Type: ACL; Schema: -; Owner: smulgjknowzfdc
+-- Name: DATABASE d595gh195uo74p; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE CONNECT,TEMPORARY ON DATABASE d595gh195uo74p FROM PUBLIC;
 
 
 --
--- Name: SCHEMA heroku_ext; Type: ACL; Schema: -; Owner: u58ctpihmi0kql
+-- Name: SCHEMA heroku_ext; Type: ACL; Schema: -; Owner: -
 --
 
 GRANT USAGE ON SCHEMA heroku_ext TO smulgjknowzfdc;
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: smulgjknowzfdc
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
@@ -742,7 +706,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
--- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: postgres
+-- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: -
 --
 
 GRANT ALL ON LANGUAGE plpgsql TO smulgjknowzfdc;

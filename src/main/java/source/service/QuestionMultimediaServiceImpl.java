@@ -1,5 +1,7 @@
 package source.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import source.repository.QuestionRepository;
 import source.third_party.firebase_storage.dto.request.FirebaseStorageRequestDto;
 import source.third_party.firebase_storage.dto.request.FirebaseUploadFileRequestDto;
 import source.third_party.firebase_storage.dto.response.FirebaseUploadFileResponseDto;
+import source.util.JsonUtil;
 
 import java.util.Collections;
 import java.util.Map;
@@ -27,6 +30,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class QuestionMultimediaServiceImpl extends BaseService implements QuestionMultimediaService {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(QuestionMultimediaServiceImpl.class);
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -134,6 +139,9 @@ public class QuestionMultimediaServiceImpl extends BaseService implements Questi
 
         Map<String, QuestionDetail> questionMapRequest = request.getQuestions()
             .stream().collect(Collectors.toMap(QuestionDetail::getId, questionDetail -> questionDetail));
+
+        LOGGER.info("QuestionMultimediaServiceImpl.checkQuestionExist, questionMap = {}, questionMapRequest = {}",
+            JsonUtil.convertObjectToString(questionMap), JsonUtil.convertObjectToString(questionMapRequest));
 
         for (Map.Entry<String, QuestionDetail> entry : questionMap.entrySet()) {
             if(!questionMapRequest.containsKey(entry.getKey())) {

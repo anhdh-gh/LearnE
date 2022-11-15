@@ -16,7 +16,8 @@ const ModalUploadFile = (props) => {
         maxFiles,
         multiple,
         canCancel,
-        onChangeStatus
+        onChangeStatus,
+        inputWithFilesContent
      } = props
 
     return <Modal scrollable centered show={isShow} onHide={handleClose}>
@@ -34,6 +35,7 @@ const ModalUploadFile = (props) => {
                 multiple={multiple}
                 canCancel={canCancel}
                 onChangeStatus={onChangeStatus}
+                inputWithFilesContent={inputWithFilesContent}
             />
         </Modal.Body>
     </Modal>

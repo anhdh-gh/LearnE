@@ -47,6 +47,11 @@ const Notification = {
         }
     },    
 
+    json: object => {
+        store.dispatch(hideToastModal())
+        store.dispatch(showToastModal({message: object, type: "json"}))
+    },
+
     loading: message => {
         toast.dismiss()
         const id = toast.loading(message, {

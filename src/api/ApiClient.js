@@ -1,18 +1,18 @@
 import axios from "axios"
 import queryString from "query-string"
-import { API_ENDPOINT, KEY, STATUS_CODES } from "../constants"
+import { API_ENDPOINT, KEY, ROUTE_PATH, STATUS_CODES } from "../constants"
 import { UserApi } from '../api'
 import Cookie from 'js-cookie'
+import { History } from "../components/NavigateSetter"
+import { Notification } from "../utils"
 
-const URL = API_ENDPOINT.LEARNE_GATEWAY_API
-
-const createAxios = () => {
+const createAxios = (contentType, URL) => {
     let axiosInstant = axios.create()
     axiosInstant.defaults.baseURL = URL
     // axiosInstant.defaults.withCredentials = true
     axiosInstant.defaults.timeout = 20000
-    axiosInstant.defaults.headers = { "Content-Type": "application/json" }
-    axiosInstant.defaults.headers = { "access-control-allow-origin": "*" }
+    axiosInstant.defaults.headers = { "Content-Type": contentType }
+    axiosInstant.defaults.headers = { "Access-control-allow-origin": "*" }
     axiosInstant.defaults.headers = localStorage.getItem(KEY.ACCESS_TOKEN) && { Authorization: `${localStorage.getItem(KEY.TOKEN_TYPE)} ${localStorage.getItem(KEY.ACCESS_TOKEN)}` }
     axiosInstant.interceptors.request.use(
         (config) => {
@@ -26,7 +26,7 @@ const createAxios = () => {
             return config
         },
         (error) => {
-            console.error(error) 
+            Notification.error(error)
             window.location.reload()
         }
     )
@@ -51,6 +51,8 @@ const createAxios = () => {
                             }
         
                             return axiosInstant(config) // Set lại thông tin và thực hiện gọi lại request trước đó
+                        } else {
+                            History.push(ROUTE_PATH.SIGN_IN)
                         }
                     })
             }
@@ -81,10 +83,9 @@ const createAxios = () => {
 
             // }
 
-            // console.error(error)
             // throw error
 
-            window.location.reload()
+            Notification.error(error)
         }
     )
     return axiosInstant
@@ -95,26 +96,31 @@ const handleResult = (api) => {
         .then(res => Promise.resolve(res?.data))
         .catch(err => {
             // console.log(err)
-            window.location.reload()
+            Notification.error(err)
         })
 }
 
-const getAxios = createAxios()
+const getAxios = createAxios("application/json", API_ENDPOINT.LEARNE_GATEWAY_API)
+const getAxiosForMultipart = createAxios("multipart/form-data", API_ENDPOINT.LEARNE_MULTIMEDIA_API)
 
 const handleUrl = (url, query) => {
     return queryString.stringifyUrl({ url: url, query }, { arrayFormat: "comma" })
 }
 
 const ApiClient = {
-    get: (url, payload) => handleResult(getAxios.get(handleUrl(URL + url, payload))),
+    get: (url, payload) => handleResult(getAxios.get(handleUrl(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload))),
 
-    post: (url, payload) => handleResult(getAxios.post(URL + url, payload)),
+    post: (url, payload) => handleResult(getAxios.post(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
 
-    put: (url, payload) => handleResult(getAxios.put(URL + url, payload)),
+    postMultimedia: (url, payload) =>  handleResult(getAxios.post(API_ENDPOINT.LEARNE_MULTIMEDIA_API + url, payload)),
 
-    patch: (url, payload) => handleResult(getAxios.patch(URL + url, payload)),
+    postMultipartFormData: (url, payload) =>  handleResult(getAxiosForMultipart.post(API_ENDPOINT.LEARNE_MULTIMEDIA_API + url, payload)),
 
-    delete: (url, payload) => handleResult(getAxios.delete(URL + url, { data: payload })),
+    put: (url, payload) => handleResult(getAxios.put(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
+
+    patch: (url, payload) => handleResult(getAxios.patch(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
+
+    delete: (url, payload) => handleResult(getAxios.delete(API_ENDPOINT.LEARNE_GATEWAY_API + url, { data: payload })),
 }
 
 export default ApiClient

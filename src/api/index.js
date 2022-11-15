@@ -5,6 +5,7 @@ import StudysetApi from './StudysetApi'
 import GoogleTranslateApi from './GoogleTranslateApi'
 import DictionaryApi from './DictionaryApi'
 import QuestionApi from './QuestionApi'
+import MultimediaApi from './MultimediaApi'
 
 export {
     UserApi,
@@ -14,4 +15,5 @@ export {
     GoogleTranslateApi,
     DictionaryApi,
     QuestionApi,
+    MultimediaApi,
 }

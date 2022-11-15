@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 import { hideToastModal } from '../redux/actions'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+import { Button, Modal } from 'react-bootstrap'
 import { useDispatch } from "react-redux"
+import { SvelteJSONEditor } from '.'
 
 const ToastModal = (props) => {
 
@@ -17,7 +17,11 @@ const ToastModal = (props) => {
         <Modal.Header closeButton>
             <Modal.Title>Notification</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="">{message}</Modal.Body>
+        <Modal.Body className="">{
+            type === "json" 
+            ? <SvelteJSONEditor content={message} readOnly='true' />
+            : message
+        }</Modal.Body>
         <Modal.Footer>
             <Button variant={type === "info" ? "primary" : type === "warn" ? "warning" : type === "error" ? "danger" : "success"} onClick={handleClose}>Close</Button>
         </Modal.Footer>

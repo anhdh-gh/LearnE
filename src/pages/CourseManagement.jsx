@@ -1,9 +1,7 @@
 import '../assets/css/UserManagementPage.css'
 import '../assets/css/CourseManagement.css'
-import 'jsoneditor-react/es/editor.min.css'
-import { JsonEditor as Editor } from 'jsoneditor-react'
 import PagesImage from '../assets/img/pages-image.png'
-import { Header, Footer, Sider, Pagination, ModalConfirm } from "../components"
+import { Header, Footer, Sider, Pagination, ModalConfirm, SvelteJSONEditor } from "../components"
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
@@ -16,9 +14,10 @@ import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
 import { Notification } from '../utils'
+import uuid from 'react-uuid'
 
-const baseCourseCreate = {
-    "id": "",
+const baseCourseCreate = () => ({
+    "id": uuid(),
     "name": "",
     "author": "",
     "image": "",
@@ -49,7 +48,7 @@ const baseCourseCreate = {
                                     "answers": [
                                         {
                                             "text": "",
-                                            "isCorrect": true                                            
+                                            "correct": true                                            
                                         }
                                     ]
                                 }
@@ -70,7 +69,7 @@ const baseCourseCreate = {
             "text": ""
         }
     ]
-}
+})
 
 const CourseManagement = (props) => {
 
@@ -81,6 +80,7 @@ const CourseManagement = (props) => {
     const [showCVECourse, setShowCVECourse] = useState({ show: false })
     const [courseRemove, setCourseRemove] = useState(false)
     const [courseCreateUpdate, setCourseCreateUpdate] = useState(false)
+    const [content, setContent] = useState({json: baseCourseCreate()})
 
     const { data: responseGetAllCourses, isLoading: isLoadingGetAllCourses, isFetching: isFetchingGetAllCourses, isError: isErrorGetAllCourses, refetch: getAllCourses } = useQuery(
         ["getAllCourses", page],
@@ -121,6 +121,7 @@ const CourseManagement = (props) => {
                     const { meta } = res
                     if (meta.code === STATUS_CODES.SUCCESS) {
                         const { data: course } = res
+                        setContent({json: { ...course }})
                         setShowCVECourse(previousShowCVECourse => ({ ...previousShowCVECourse, data: course, newData: true }))
                         dispatch(hideLoader())
                     } else {
@@ -279,10 +280,11 @@ const CourseManagement = (props) => {
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body className='flex flex-col'>
-                    {((showCVECourse?.show === true && showCVECourse?.newData === true) || showCVECourse?.type === 'create') && <Editor
-                        value={_.cloneDeep(showCVECourse?.data)}
-                        onChange={value => showCVECourse?.type !== 'view' && setCourseCreateUpdate(value)}
-                    />}
+                    <SvelteJSONEditor
+                        content={content}
+                        onChange={value => {setContent(value); setCourseCreateUpdate(value.json || JSON.parse(value.text))}}
+                        readOnly={showCVECourse?.type === 'view' ? true : false}
+                    />
 
                     {showCVECourse?.type !== 'view' &&
                         <Button

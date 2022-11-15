@@ -24,6 +24,7 @@ import ProgressTopLoader from './ProgressTopLoader'
 import ModalConfirm from './ModalConfirm'
 import Sider from './Sider'
 import ModalUploadFile from './ModalUploadFile'
+import SvelteJSONEditor from './SvelteJSONEditor'
 
 export {
     Toast,
@@ -52,4 +53,5 @@ export {
     ModalConfirm,
     Sider,
     ModalUploadFile,
+    SvelteJSONEditor,
 }

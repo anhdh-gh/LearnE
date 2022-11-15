@@ -1,13 +1,11 @@
 import '../assets/css/UserManagementPage.css'
 import '../assets/css/CourseManagement.css'
-import 'jsoneditor-react/es/editor.min.css'
-import { JsonEditor as Editor } from 'jsoneditor-react'
-import { Header, Footer, Sider, Pagination, ModalConfirm } from "../components"
+import { Header, Footer, Sider, Pagination, ModalConfirm, ModalUploadFile, SvelteJSONEditor } from "../components"
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
 import { useSelector } from 'react-redux'
-import { QuestionApi } from '../api'
+import { QuestionApi, MultimediaApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 import { useLayoutEffect, useCallback, useState } from 'react'
@@ -30,19 +28,19 @@ const baseQuestionCreate = () => ({
             answers: [
                 {
                     text: "Đáp án 1",
-                    is_correct: true
+                    correct: true
                 },
                 {
                     text: "Đáp án 2",
-                    is_correct: false
+                    correct: false
                 },
                 {
                     text: "Đáp án 3",
-                    is_correct: false
+                    correct: false
                 },
                 {
                     text: "Đáp án 4",
-                    is_correct: false
+                    correct: false
                 }
             ]
         }
@@ -58,29 +56,32 @@ const QuestionManagement = (props) => {
     const [showCVEQuestion, setShowCVEQuestion] = useState({ show: false })
     const [questionRemove, setQuestionRemove] = useState(false)
     const [questionCreateUpdate, setQuestionCreateUpdate] = useState(false)
+    const [isShowModalUploadFile, setIShowModalUploadFile] = useState(false)
+    const [fileUploads, setFileUploads] = useState([])
+    const [content, setContent] = useState({json: baseQuestionCreate()})
 
     const { data: responseGetAllQuestions, isLoading: isLoadingGetAllQuestions, isFetching: isFetchingGetAllQuestions, isError: isErrorGetAllQuestions, refetch: getAllQuestions } = useQuery(
         ["getAllQuestions", page],
         () => QuestionApi.getAll(page, size)
-            // .then(response => {
-            //     const { meta } = response
-            //     if (meta.code === STATUS_CODES.SUCCESS) {
-            //         const { data } = response
-            //         const { content } = data
+        // .then(response => {
+        //     const { meta } = response
+        //     if (meta.code === STATUS_CODES.SUCCESS) {
+        //         const { data } = response
+        //         const { content } = data
 
-            //         content.groups = [...content
-            //             .reduce((map, question) => {
-            //                 map.set(question.groupId, question)
-            //                 return map
-            //             }, new Map())]
-            //             .map(([key, value]) => ({
-            //                 groupId: key,
-            //                 questions: value
-            //             }))
-            //     }
-            //     return response
-            // })
-        ,{
+        //         content.groups = [...content
+        //             .reduce((map, question) => {
+        //                 map.set(question.groupId, question)
+        //                 return map
+        //             }, new Map())]
+        //             .map(([key, value]) => ({
+        //                 groupId: key,
+        //                 questions: value
+        //             }))
+        //     }
+        //     return response
+        // })
+        , {
             refetchOnWindowFocus: false,
         }
     )
@@ -106,7 +107,7 @@ const QuestionManagement = (props) => {
 
     const refreshPage = useCallback(() => {
         getAllQuestions(page)
-    }, [ getAllQuestions, page ])
+    }, [getAllQuestions, page])
 
     useLayoutEffect(() => {
         if (showCVEQuestion?.show === true && showCVEQuestion?.type !== 'create' && showCVEQuestion?.newData !== true) {
@@ -117,11 +118,12 @@ const QuestionManagement = (props) => {
                     if (meta.code === STATUS_CODES.SUCCESS) {
                         const { data } = res
                         const oldGroupId = data.groupId
-                        if(showCVEQuestion?.type === 'update') {
+                        if (showCVEQuestion?.type === 'update') {
                             data.groupId = uuid()
                             data.questions.forEach(question => question.id = uuid())
                         }
-                        setShowCVEQuestion(previousShowCVEQuestion => ({ ...previousShowCVEQuestion, data: {...data}, newData: true, oldGroupId }))
+                        setContent({json: { ...data }})
+                        setShowCVEQuestion(previousShowCVEQuestion => ({ ...previousShowCVEQuestion, data: { ...data }, newData: true, oldGroupId }))
                         dispatch(hideLoader())
                     } else {
                         setShowCVEQuestion({ show: false })
@@ -133,8 +135,39 @@ const QuestionManagement = (props) => {
     }, [showCVEQuestion, dispatch])
 
     const handleCreateUpdatCoursae = () => {
-        dispatch(showLoader())
 
+        if(questionCreateUpdate.questions.some(question => question?.image || question?.audio)) {
+            // Validate file upload
+            if(fileUploads.length > questionCreateUpdate.questions.length) {
+                return Notification.error('fileUploads.length > questionCreateUpdate.questions.length')
+            } 
+            const mapQuestionsUpload = new Map()
+            fileUploads.forEach(fileUpload => mapQuestionsUpload.set(fileUpload.id, fileUpload))
+            const mapQuestionsRequest = new Map()
+            questionCreateUpdate.questions.forEach(question => mapQuestionsRequest.set(question.id, question))
+            for (const [ key, value ] of mapQuestionsRequest.entries()) {
+                if(!mapQuestionsUpload.get(key)) {
+                    return Notification.error(`Question = ${key} not match`)
+                }            
+
+                const questionUpload = mapQuestionsUpload.get(key)
+                const questionRequest = value 
+                
+                // eslint-disable-next-line
+                if(questionUpload?.urlImage != questionRequest?.image) { 
+                    return Notification.error(`Image of question = ${key} not match`)
+                }
+
+                // eslint-disable-next-line
+                if(questionUpload?.urlAudio != questionRequest?.audio) { 
+                    return Notification.error(`Audio of question = ${key} not match`)
+                }
+            }
+        }
+
+        // Process create or update
+        setFileUploads([])
+        dispatch(showLoader())
         if(showCVEQuestion?.type === 'create') {
             QuestionApi.createList(questionCreateUpdate)
             .then(res => {
@@ -193,6 +226,59 @@ const QuestionManagement = (props) => {
             })
     }
 
+    const handleUploadFile = (files, allFiles) => {
+        const fileImages = files?.filter(file => file.file.type.includes('image'))
+        const fileAudios = files?.filter(file => file.file.type.includes('audio'))
+        if (fileImages && fileImages?.length > 1) {
+            Notification.error("Only one image file is accepted")
+        } else if (fileAudios && fileAudios?.length > 1) {
+            Notification.error("Only one audio file is accepted")
+        } else {
+            const fileImage = fileImages?.[0]?.file
+            const fileAudio = fileAudios?.[0]?.file
+            if (fileImage && fileImage.size > 2000000) {
+                Notification.error("The maximum size of the image file is 2Mb")
+            } else if (fileAudio && fileAudio.size > 10000000) {
+                Notification.error("The maximum size of the audio file is 10Mb")
+            } else {
+                dispatch(showLoader())
+                MultimediaApi.questionUpload(fileImage, fileAudio, showCVEQuestion?.data?.groupId)
+                    .then(res => {
+                        const { meta } = res
+                        if (meta.code === STATUS_CODES.SUCCESS) {
+                            setIShowModalUploadFile(false)
+                            setFileUploads([res?.data, ...fileUploads])
+                            dispatch(hideLoader())
+                        } else {
+                            dispatch(hideLoader())
+                            Notification.error(meta?.message)
+                        }
+                    })
+            }
+        }
+    }
+
+    const handleHideCreateUpdate = () => {
+        if(fileUploads.length > 0) {
+            dispatch(showLoader())
+            MultimediaApi.questionDeleteByGroupId(questionCreateUpdate?.groupId)
+            .then(res => {
+                const { meta } = res
+                if (meta.code === STATUS_CODES.SUCCESS) {
+                    setQuestionCreateUpdate(false)
+                    setShowCVEQuestion({ show: false })
+                    dispatch(hideLoader())
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error(meta?.message)
+                }
+            })            
+        } else {
+            setQuestionCreateUpdate(false)
+            setShowCVEQuestion({ show: false })
+        }
+    }
+
     return !isLoadingGetAllQuestions && !isFetchingGetAllQuestions && !isErrorGetAllQuestions && responseGetAllQuestions?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllQuestions?.data) && <>
         <Header />
         <Sider>
@@ -208,11 +294,14 @@ const QuestionManagement = (props) => {
                                 <SearchBox placeholder="Search" />
                                 <Button
                                     className='h-fit font-bold'
-                                    onClick={() => setShowCVEQuestion({
-                                        type: 'create',
-                                        show: true,
-                                        data: baseQuestionCreate()
-                                    })}
+                                    onClick={() => {
+                                        const jsonCreate = baseQuestionCreate()
+                                        setContent({json: jsonCreate}); 
+                                        setShowCVEQuestion({
+                                            type: 'create',
+                                            show: true,
+                                            data: jsonCreate
+                                    })}}
                                 >Create</Button>
                             </div>
                         </div>
@@ -274,30 +363,68 @@ const QuestionManagement = (props) => {
                 handleYes={handleDeleteQuestionGroup}
             />
 
-            {showCVEQuestion?.show && <Offcanvas placement="start" className="w-full" show={showCVEQuestion?.show} onHide={() => { setQuestionCreateUpdate(false); setShowCVEQuestion({ show: false }) }}>
+            {showCVEQuestion?.show && <Offcanvas placement="start" className="w-full" show={showCVEQuestion?.show} onHide={handleHideCreateUpdate}>
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title>
                         {showCVEQuestion?.type === 'update' ? 'Update questions' : showCVEQuestion?.type === 'view' ? 'View questions' : 'Create questions'}
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body className='flex flex-col'>
-                    {((showCVEQuestion?.show === true && showCVEQuestion?.newData === true) || showCVEQuestion?.type === 'create') && <Editor
-                        value={_.cloneDeep(showCVEQuestion?.data)}
-                        onChange={value => showCVEQuestion?.type !== 'view' && setQuestionCreateUpdate(value)}
-                    />}
+                    <SvelteJSONEditor
+                        content={content}
+                        onChange={value => {setContent(value); setQuestionCreateUpdate(value.json || JSON.parse(value.text))}}
+                        readOnly={showCVEQuestion?.type === 'view' ? true : false}
+                    />
 
                     {showCVEQuestion?.type !== 'view' &&
-                        <Button
-                            onClick={handleCreateUpdatCoursae}
-                            disabled={questionCreateUpdate ? false : true}
-                            className="btn btn-primary w-100 fw-bold mt-3">
-                            {showCVEQuestion?.type === 'create' ? 'Create' : 'Update'}
-                        </Button>
+                        <div className='flex mt-3 fw-bold'>
+                            <div className='me-3'>
+                                <Button
+                                    onClick={() => setIShowModalUploadFile(true)}
+                                >Upload file
+                                </Button>
+                            </div>
+                            <div className='grow'>
+                                <Button
+                                    onClick={handleCreateUpdatCoursae}
+                                    disabled={questionCreateUpdate ? false : true}
+                                    className="btn btn-primary w-full">
+                                    {showCVEQuestion?.type === 'create' ? 'Create' : 'Update'}
+                                </Button>
+                            </div>
+                        </div>
                     }
+
+                    {fileUploads && fileUploads?.length > 0 && <>
+                        <h4 className="fw-bold my-5 pb-3 border-bottom border-3 border-start-0 border-end-0 border-top-0 border-danger d-inline-block">Uploaded files</h4>
+
+                        {fileUploads?.map(fileUpload => <SvelteJSONEditor
+                            key={uuid()}
+                            content={{ json: fileUpload }}
+                            readOnly='true'
+                        />)}
+                    </>}
                 </Offcanvas.Body>
             </Offcanvas>}
             <Footer />
         </Sider>
+
+        <ModalUploadFile
+            modalTitle="Upload file"
+            type={'image'}
+            isShow={isShowModalUploadFile}
+            handleSubmit={handleUploadFile}
+            accept="image/*,audio/*"
+            inputContent={(files, extra) => extra.reject ? 'Image and audio only' : 'Drag and drop or click to select file'}
+            styles={{
+                dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+            }}
+            multiple={true}
+            maxFiles={2}
+            inputWithFilesContent={files => `${2 - files.length} more`}
+            handleClose={() => setIShowModalUploadFile(false)}
+        />
     </>
 }
 

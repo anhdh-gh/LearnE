@@ -8,6 +8,7 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
+import source.entity.enumeration.Role;
 import source.service.studyset_service.StudysetService;
 
 @RestController
@@ -19,7 +20,9 @@ public class StudysetController {
     @PostMapping(RouterConstant.CREATE_STUDYSET)
     @LogsActivityAnnotation
     public BaseResponse createStudyset(@RequestBody StudysetDto request) throws Exception {
-        request.setOwnerUserId(request.getUserAuthId());
+        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+            request.setOwnerUserId(request.getUserAuthId());
+        }
         return studysetService.createStudyset(request);
     }
 
@@ -63,14 +66,18 @@ public class StudysetController {
     @PostMapping(RouterConstant.DELETE_STUDYSET_BY_ID)
     @LogsActivityAnnotation
     public BaseResponse deleteStudyset(@RequestBody DeleteStudysetByIdRequestDto request) throws Exception {
-        request.setOwnerUserId(request.getUserAuthId());
+        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+            request.setOwnerUserId(request.getUserAuthId());
+        }
         return studysetService.deleteStudyset(request);
     }
 
     @PostMapping(RouterConstant.UPDATE_STUDYSET)
     @LogsActivityAnnotation
     public BaseResponse updateStudyset(@RequestBody StudysetDto request) throws Exception {
-        request.setOwnerUserId(request.getUserAuthId());
+        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+            request.setOwnerUserId(request.getUserAuthId());
+        }
         return studysetService.updateStudyset(request);
     }
 
@@ -83,7 +90,9 @@ public class StudysetController {
     @PostMapping(RouterConstant.CHECK_OWNER_STUDYSET_VALID)
     @LogsActivityAnnotation
     public BaseResponse checkOwnerStudysetValid(@RequestBody CheckOwnerStudysetValidRequestDto request) throws Exception {
-        request.setOwnerUserId(request.getUserAuthId());
+        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+            request.setOwnerUserId(request.getUserAuthId());
+        }
         return studysetService.checkOwnerStudysetValid(request);
     }
 }

@@ -93,9 +93,11 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             QuestionCheckExistRequestDto questionCheckExistRequest =
                 modelMapper.map(request, QuestionCheckExistRequestDto.class);
             questionCheckExistRequest.setGroupId(request.getGroupId());
+            questionCheckExistRequest.setQuestions(mapList(request.getQuestions(), QuestionDetail.class));
             questionCheckExistRequest.setQuestions(
                 request.getQuestions().stream().map(createQuestionRequestDto ->
                     QuestionDetail.builder()
+                        .id(createQuestionRequestDto.getId())
                         .audio(createQuestionRequestDto.getAudio())
                         .image(createQuestionRequestDto.getImage())
                         .build()).collect(Collectors.toList()));

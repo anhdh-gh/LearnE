@@ -27,8 +27,8 @@ const StudysetApi = {
     //         }
     //     ]
     // }
-    createStudyset(studyset) {
-        return ApiClient.post(ROUTE_PATH.STUDYSET_CREATE, studyset)
+    createStudyset(studyset, ownerUserId) {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_CREATE, ownerUserId ? {...studyset, ownerUserId} : studyset)
     },
 
     // {
@@ -48,8 +48,8 @@ const StudysetApi = {
     //         }
     //     ]
     // }
-    updateStudyset(studyset) {
-        return ApiClient.post(ROUTE_PATH.STUDYSET_UPDATE, studyset)
+    updateStudyset(studyset, ownerUserId) {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_UPDATE, ownerUserId ? {...studyset, ownerUserId} : studyset)
     },
 
     saveTestResult(studysetId, completionTime, score) {
@@ -92,12 +92,12 @@ const StudysetApi = {
         return ApiClient.post(ROUTE_PATH.STUDYSET_GET_BY_ID, {studysetId})
     },
 
-    deleteById(studysetId) {
-        return ApiClient.post(ROUTE_PATH.STUDYSET_DELETE_BY_ID, {studysetId})
+    deleteById(studysetId, ownerUserId) {
+        return ApiClient.post(ROUTE_PATH.STUDYSET_DELETE_BY_ID, {studysetId, ownerUserId})
     },
 
-    checkOwnerStudysetValid(studysetId) {
-        return ApiClient.post(ROUTE_PATH.CHECK_OWNER_STUDYSET_VALID, {studysetId})
+    checkOwnerStudysetValid(studysetId, ownerUserId) {
+        return ApiClient.post(ROUTE_PATH.CHECK_OWNER_STUDYSET_VALID, {studysetId, ownerUserId})
     },
 }
 

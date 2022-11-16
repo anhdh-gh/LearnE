@@ -15,6 +15,7 @@ import ShowAllCourse from './ShowAllCourse'
 import CourseManagement from './CourseManagement'
 import TestComponet from './TestComponet'
 import QuestionManagement from './QuestionManagement'
+import StudysetManagenent from './StudysetManagenent'
 
 export {
     NotFound,
@@ -34,4 +35,5 @@ export {
     CourseManagement,
     TestComponet,
     QuestionManagement,
+    StudysetManagenent,
 }

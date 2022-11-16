@@ -66,7 +66,7 @@ const Header = (props) => {
                         <Nav className="my-2 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset').removeAttribute("href")} id="navbarScrollingDropdown-studyset" align="start" className="header-user-dropList"
                                 title={<span>
-                                    {pathname.includes('/studyset/')
+                                    {pathname.includes('/studyset/') && !pathname.includes('/dashboard')
                                     ? <Badge pill bg="primary">Study set</Badge>
                                     : 'Study set'
                                     }</span>}
@@ -128,7 +128,7 @@ const Header = (props) => {
 
                         <Nav className="my-3 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset-md').removeAttribute("href")} id="navbarScrollingDropdown-studyset-md" align="start" className="header-user-dropList"
-                                title={<span className={`${pathname.includes('/studyset/') && 'header-user-title'}`}>Study set</span>}
+                                title={<span className={`${pathname.includes('/studyset/') && !pathname.includes('/dashboard') && 'header-user-title'}`}>Study set</span>}
                                 >
                                 <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>

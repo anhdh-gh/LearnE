@@ -3,7 +3,7 @@ import { Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { UserInfo } from './index'
 import { useSelector } from 'react-redux'
 import { History } from './NavigateSetter'
-import { ROUTE_PATH } from '../constants'
+import { ROLE, ROUTE_PATH } from '../constants'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Notification } from '../utils'
 
@@ -39,7 +39,7 @@ const CardStudySet = (props) => {
                 </Card.Text>
             </Card.Body>
 
-            {showFooter && user?.id === studyset?.ownerUser?.id && <Card.Footer className="d-flex justify-content-between">
+            {showFooter && (user?.id === studyset?.ownerUser?.id || user?.role === ROLE.ADMIN) && <Card.Footer className="d-flex justify-content-between">
                 <OverlayTrigger placement="bottom" overlay={<Tooltip>Edit</Tooltip>}>
                     <Badge bg="primary" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_EDIT}/${studyset?.id}`)}>
                         <i className="fas fa-edit fs-6" />

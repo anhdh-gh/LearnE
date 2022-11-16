@@ -192,6 +192,12 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         return BaseResponse.ofSucceeded(request.getRequestId(), response);
     }
 
+    @Override
+    public BaseResponse getQuestionsListByQuestionTypeAndLimit(QuestionGetListRequestDto request) throws Exception {
+        List<Question> questions = questionRepository.findByQuestionTypeAndLimit(request.getQuestionType().getValue(), request.getLimit());
+        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
+    }
+
     private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {
         List<Question> questions = questionRepository.findByIdIn(questionIds);
         if(questions.size() != questionIds.size()) {

@@ -16,4 +16,6 @@ public interface QuestionBankService {
     BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception;
 
     BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception;
+
+    BaseResponse getQuestionsListByQuestionTypeAndLimit(QuestionGetListRequestDto request) throws Exception;
 }

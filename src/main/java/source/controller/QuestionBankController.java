@@ -51,4 +51,10 @@ public class QuestionBankController {
     public BaseResponse getQuestionsListByGroupId(@RequestBody GetListQuestionsByGroupIdRequestDto request) throws Exception {
         return questionBankService.getQuestionsListByGroupId(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.QUESTION_GET_LIST_BY_QUESTION_TYPE_AND_LIMIT)
+    public BaseResponse getQuestionsListByQuestionTypeAndLimit(@RequestBody QuestionGetListRequestDto request) throws Exception {
+        return questionBankService.getQuestionsListByQuestionTypeAndLimit(request);
+    }
 }

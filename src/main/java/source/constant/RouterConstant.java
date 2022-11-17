@@ -5,6 +5,8 @@ public class RouterConstant {
     private RouterConstant() {
     }
 
+    public final static String FILE_UPLOAD = "/file/upload";
+
     public final static String USER_AVATAR_UPLOAD = "/user/avatar/upload";
 
     public final static String QUESTION_UPLOAD = "/question/upload";

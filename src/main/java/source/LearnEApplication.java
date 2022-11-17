@@ -19,7 +19,8 @@ public class LearnEApplication {
     RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
-    public ObjectMapper getObjectMapper(){
+
+    public ObjectMapper getObjectMapper() {
         return new ObjectMapper();
     }
 

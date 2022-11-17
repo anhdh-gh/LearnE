@@ -2,7 +2,8 @@ package source.third_party.question.constant;
 
 public class RouterQuestionBankServiceConstant {
 
-    private RouterQuestionBankServiceConstant() {}
+    private RouterQuestionBankServiceConstant() {
+    }
 
     public static final String QUESTION_GET_ALL = "/questions/all";
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-             <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <timestamp/>
                 <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
@@ -11,9 +11,9 @@
                 <pattern>
                     <pattern>
                         {
-                            "message": "#tryJson{%message}"
+                        "message": "#tryJson{%message}"
                         }
-                </pattern>
+                    </pattern>
                 </pattern>
                 <threadName/>
                 <!-- <message/> -->
@@ -42,7 +42,7 @@
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-             <providers>
+            <providers>
                 <timestamp/>
                 <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
                 <context/> <!--Outputs entries from logback's context -->
@@ -51,9 +51,9 @@
                 <pattern>
                     <pattern>
                         {
-                            "message": "#tryJson{%message}"
+                        "message": "#tryJson{%message}"
                         }
-                </pattern>
+                    </pattern>
                 </pattern>
                 <threadName/>
                 <!-- <message/> -->
@@ -76,7 +76,7 @@
             <fileNamePattern>logs/mpw-message-trace.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-             <providers>
+            <providers>
                 <timestamp/>
                 <mdc/> <!-- MDC variables on the Thread will be written as JSON fields-->
                 <context/> <!--Outputs entries from logback's context -->
@@ -97,7 +97,6 @@
             </providers>
         </encoder>
     </appender>
-
 
 
     <root level="DEBUG">

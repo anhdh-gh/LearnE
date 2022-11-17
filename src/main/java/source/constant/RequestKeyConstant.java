@@ -2,7 +2,8 @@ package source.constant;
 
 public class RequestKeyConstant {
 
-    private RequestKeyConstant() {}
+    private RequestKeyConstant() {
+    }
 
     public static final String USER_AUTH = "user_auth";
 

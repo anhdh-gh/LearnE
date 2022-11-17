@@ -7,13 +7,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnswerRequestDto {
 
     @JsonProperty("text")
     private String text;
+
+    @JsonProperty("audio")
+    private String audio;
 
     private boolean isCorrect;
 }

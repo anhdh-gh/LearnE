@@ -60,13 +60,13 @@ public class UserServiceImpl implements UserService {
         try {
             // Sign up in firebase
             FirebaseSignInSignUpResponseBean firebaseSignInSignUpResponseBean =
-                userAuthenticationServiceImpl.signUpWithEmailAndPassword(userSignUpRequestDto.getEmail(), userSignUpRequestDto.getPassword());
+                    userAuthenticationServiceImpl.signUpWithEmailAndPassword(userSignUpRequestDto.getEmail(), userSignUpRequestDto.getPassword());
 
             // Sign up to service user
             UserSignUpThirdPartyRequestDto userSignUpThirdPartyRequestDto = modelMapper.map(userSignUpRequestDto, UserSignUpThirdPartyRequestDto.class);
             userSignUpThirdPartyRequestDto.setId(firebaseSignInSignUpResponseBean.getLocalId());
             BaseResponse response = userServiceThirdParty.createUser(userSignUpThirdPartyRequestDto);
-            if(!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
+            if (!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
                 userAuthenticationServiceImpl.deleteUserAccount(firebaseSignInSignUpResponseBean.getIdToken());
             } else {
                 User user = JsonUtil.getGenericObject(response.getData(), User.class);
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         try {
             // Sign in firebase
             FirebaseSignInSignUpResponseBean firebaseSignInSignUpResponseBean =
-                userAuthenticationServiceImpl.signInWithEmailAndPassword(userSignInRequestDto.getEmail(), userSignInRequestDto.getPassword());
+                    userAuthenticationServiceImpl.signInWithEmailAndPassword(userSignInRequestDto.getEmail(), userSignInRequestDto.getPassword());
 
             // Get user id
             String idUser = firebaseSignInSignUpResponseBean.getLocalId();
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
             return BaseResponse.ofSucceeded(userSignInRequestDto.getRequestId(),
-                TokenResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).user(user).build());
+                    TokenResponseDto.builder().refreshToken(refreshToken.getToken()).accessToken(accessToken).tokenType(JwtTokenTypeConstant.BEARER).user(user).build());
         } catch (HttpBadRequestException e) {
             FirebaseAuthException firebaseAuthError = JsonUtil.convertJsonStrToObject(e.getMessage(), FirebaseAuthException.class);
             String type = firebaseAuthError.getError().getMessage().split(" : ")[0];
@@ -149,13 +149,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
         // Kiểm tra xem có phải là admin không, nếu không thì set một số trường là null
-        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+        if (!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
             request.setId(request.getUserAuthId());
             request.setRole(null);
         }
 
         BaseResponse response = userServiceThirdParty.updateUser(request);
-        if(!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
+        if (!Objects.equals(response.getMeta().getCode(), BaseResponse.OK_CODE)) {
             return response;
         }
 

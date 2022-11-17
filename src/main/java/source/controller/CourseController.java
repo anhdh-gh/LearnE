@@ -10,8 +10,8 @@ import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.GetCourseDetailForUserRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
-import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.course_service.CourseService;
@@ -25,7 +25,7 @@ public class CourseController {
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_GET_DETAIL_FOR_USER)
     public BaseResponse getCourseDetailForUser(@RequestBody GetCourseDetailForUserRequestDto request) throws Exception {
-        if(request.getUserId() == null) {
+        if (request.getUserId() == null) {
             request.setUserId(request.getUserAuthId());
         }
         return courseService.getCourseDetailForUserRequestDto(request);

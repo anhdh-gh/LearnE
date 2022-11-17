@@ -2,7 +2,8 @@ package source.constant;
 
 public class ErrorFirebaseConstant {
 
-    private ErrorFirebaseConstant() {}
+    private ErrorFirebaseConstant() {
+    }
 
     public final static String EMAIL_EXISTS = "EMAIL_EXISTS";
 

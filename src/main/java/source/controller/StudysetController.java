@@ -64,7 +64,7 @@ public class StudysetController {
     @PostMapping(RouterConstant.DELETE_STUDYSET_BY_ID)
     @LogsActivityAnnotation
     public BaseResponse deleteStudyset(@RequestBody DeleteStudysetByIdRequestDto request) throws Exception {
-        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+        if (!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
             request.setOwnerUserId(request.getUserAuthId());
         }
         return studysetService.deleteStudyset(request);
@@ -73,7 +73,7 @@ public class StudysetController {
     @PostMapping(RouterConstant.UPDATE_STUDYSET)
     @LogsActivityAnnotation
     public BaseResponse updateStudyset(@RequestBody StudysetDto request) throws Exception {
-        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+        if (!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
             request.setOwnerUserId(request.getUserAuthId());
         }
         return studysetService.updateStudyset(request);
@@ -88,7 +88,7 @@ public class StudysetController {
     @PostMapping(RouterConstant.CHECK_OWNER_STUDYSET_VALID)
     @LogsActivityAnnotation
     public BaseResponse checkOwnerStudysetValid(@RequestBody CheckOwnerStudysetValidRequestDto request) throws Exception {
-        if(!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
+        if (!request.getUserAuthRole().equals(Role.ADMIN.getValue())) {
             request.setOwnerUserId(request.getUserAuthId());
         }
         return studysetService.checkOwnerStudysetValid(request);

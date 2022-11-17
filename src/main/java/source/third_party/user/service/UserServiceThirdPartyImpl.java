@@ -30,21 +30,23 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
     @Override
     public BaseResponse createUser(UserSignUpThirdPartyRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterUserServiceConstant.USER_CREATE),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+                String.format("%s%s", baseUrl, RouterUserServiceConstant.USER_CREATE),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
-    
+
     @Override
     public BaseResponse getAllUser(UserGetAllRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_ALL_USER),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+                String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_ALL_USER),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
@@ -52,10 +54,11 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
     @Override
     public BaseResponse updateUser(UserUpdateRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterUserServiceConstant.UPDATE_USER),
-            HttpMethod.POST,
-            getHeader(request),
-            new ParameterizedTypeReference<BaseResponse>() {});
+                String.format("%s%s", baseUrl, RouterUserServiceConstant.UPDATE_USER),
+                HttpMethod.POST,
+                getHeader(request),
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
@@ -66,7 +69,8 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
                 String.format("%s%s", baseUrl, RouterUserServiceConstant.DELETE_USER),
                 HttpMethod.POST,
                 getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {});
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
 
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
@@ -77,7 +81,8 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
                 String.format("%s%s", baseUrl, RouterUserServiceConstant.GET_USER_BY_ID),
                 HttpMethod.POST,
                 getHeader(userGetInfoRequestDto),
-                new ParameterizedTypeReference<BaseResponse>() {});
+                new ParameterizedTypeReference<BaseResponse>() {
+                });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 

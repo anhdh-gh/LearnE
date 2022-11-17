@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * Base Response for RestAPI
  */
 @Data

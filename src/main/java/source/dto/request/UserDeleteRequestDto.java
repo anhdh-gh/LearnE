@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDeleteRequestDto extends BasicRequest{
+public class UserDeleteRequestDto extends BasicRequest {
 
     private String id;
 }

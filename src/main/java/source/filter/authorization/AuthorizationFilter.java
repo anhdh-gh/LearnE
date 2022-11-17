@@ -25,7 +25,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             User user = (User) request.getAttribute(RequestKeyConstant.USER_AUTH);
-            if(user != null && user.getRole().equals(Role.ADMIN)) {
+            if (user != null && user.getRole().equals(Role.ADMIN)) {
                 filterChain.doFilter(request, response);
             } else {
                 handlerError(request, response);

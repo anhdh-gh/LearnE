@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserGetInfoRequestDto extends BasicRequest{
+public class UserGetInfoRequestDto extends BasicRequest {
     private String id;
 }

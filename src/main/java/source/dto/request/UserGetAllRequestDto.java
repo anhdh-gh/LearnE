@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserGetAllRequestDto extends BasicRequest{
+public class UserGetAllRequestDto extends BasicRequest {
     private int page;
 
     private int size;

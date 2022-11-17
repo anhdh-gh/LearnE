@@ -24,7 +24,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             User user = (User) request.getAttribute(RequestKeyConstant.USER_AUTH);
-            if(user != null) {
+            if (user != null) {
                 filterChain.doFilter(request, response);
             } else {
                 handlerError(request, response);

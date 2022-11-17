@@ -17,19 +17,23 @@ import java.io.Serializable;
 @SuperBuilder
 public class BasicRequest implements Serializable {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1606619939033520333L;
+    /**
+     * The Constant serialVersionUID.
+     */
+    private static final long serialVersionUID = 1606619939033520333L;
 
-  /** The request id. */
-  @JsonProperty("request_id")
-  private String requestId;
+    /**
+     * The request id.
+     */
+    @JsonProperty("request_id")
+    private String requestId;
 
-  @JsonProperty("uri")
-  private String uri;
+    @JsonProperty("uri")
+    private String uri;
 
-  @JsonProperty("user_auth_id")
-  private String userAuthId;
+    @JsonProperty("user_auth_id")
+    private String userAuthId;
 
-  @JsonProperty("user_auth_role")
-  private String userAuthRole;
+    @JsonProperty("user_auth_role")
+    private String userAuthRole;
 }

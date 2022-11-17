@@ -25,7 +25,9 @@ import java.util.UUID;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
     private final JwtUtil jwtUtil = new JwtUtil();
@@ -36,7 +38,8 @@ public class CorsFilter implements Filter {
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
     /*
      * (non-Javadoc)
@@ -57,7 +60,7 @@ public class CorsFilter implements Filter {
         }
         request.setAttribute(RequestKeyConstant.REQUEST_ID, requestId);
 
-        if(contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
+        if (contentType != null && contentType.trim().toLowerCase().contains(ContentTypeConstant.MULTIPART_FORM_DATA)) {
             chain.doFilter(request, response);
         } else {
             try {
@@ -75,7 +78,7 @@ public class CorsFilter implements Filter {
                 String jwt = getJwtFromRequest(request);
                 if (StringUtils.hasText(jwt) && jwtUtil.validateJwtToken(jwt)) {
                     User userAuth = jwtUtil.getUserFromJwtToken(jwt);
-                    if(userAuth != null) {
+                    if (userAuth != null) {
                         request.setAttribute(RequestKeyConstant.USER_AUTH, userAuth);
                         dataRequest.put(RequestKeyConstant.USER_AUTH_ID, userAuth.getId());
                         dataRequest.put(RequestKeyConstant.USER_AUTH_ROLE, userAuth.getRole().getValue());
@@ -105,5 +108,6 @@ public class CorsFilter implements Filter {
      * @see javax.servlet.Filter#destroy()
      */
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 }

@@ -73,6 +73,6 @@ public class UserController {
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.ADMIN_DELETE_USER)
     public BaseResponse deleteUserById(@RequestBody UserDeleteRequestDto request) throws Exception {
-      return userService.deleteUser(request);
+        return userService.deleteUser(request);
     }
 }

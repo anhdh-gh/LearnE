@@ -24,9 +24,9 @@ public class JwtUtil {
 
     public String generateTokenFromUserInfo(User user) {
         return Jwts.builder().setSubject(user.getId() + " " + user.getRole().getValue()).setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-            .signWith(SignatureAlgorithm.HS512, jwtSecret)
-            .compact();
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
     }
 
     public User getUserFromJwtToken(String token) {

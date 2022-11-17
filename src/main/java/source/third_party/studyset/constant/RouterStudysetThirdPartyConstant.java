@@ -2,7 +2,8 @@ package source.third_party.studyset.constant;
 
 public class RouterStudysetThirdPartyConstant {
 
-    private RouterStudysetThirdPartyConstant() {}
+    private RouterStudysetThirdPartyConstant() {
+    }
 
     public static final String CREATE_STUDYSET = "/studyset/cteate";
 

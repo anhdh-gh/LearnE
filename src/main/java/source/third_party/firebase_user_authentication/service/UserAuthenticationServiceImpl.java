@@ -34,8 +34,8 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         // This is the generated URI
         String url = stringUtility.findAndReplaceStringIntoString(ApiUrlConstants.FIREBASE_SIGNIN_EMAIL_AND_PASSWORD,
-            ApiUrlConstants.FIREBASE_SIGNIN_EMAIL_AND_PASSWORD_TO_BE_CHANGED_PART,
-            this.firebaseWebApiKey);
+                ApiUrlConstants.FIREBASE_SIGNIN_EMAIL_AND_PASSWORD_TO_BE_CHANGED_PART,
+                this.firebaseWebApiKey);
 
         ResponseEntity<FirebaseSignInSignUpResponseBean> responseEntity = (ResponseEntity<FirebaseSignInSignUpResponseBean>) doPostForEntity(url, request, FirebaseSignInSignUpResponseBean.class);
 
@@ -49,8 +49,8 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         // This is the generated URI
         String url = stringUtility.findAndReplaceStringIntoString(ApiUrlConstants.FIREBASE_DELETE_USER_ACCOUNT,
-            ApiUrlConstants.FIREBASE_DELETE_USER_ACCOUNT_TO_BE_CHANGED_PART,
-            this.firebaseWebApiKey);
+                ApiUrlConstants.FIREBASE_DELETE_USER_ACCOUNT_TO_BE_CHANGED_PART,
+                this.firebaseWebApiKey);
 
         doPostForEntity(url, request, null);
 
@@ -63,8 +63,8 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         // This is the generated URI
         String url = stringUtility.findAndReplaceStringIntoString(ApiUrlConstants.FIREBASE_SIGNUP_EMAIL_AND_PASSWORD,
-            ApiUrlConstants.FIREBASE_SIGNUP_EMAIL_AND_PASSWORD_TO_BE_CHANGED_PART,
-            this.firebaseWebApiKey);
+                ApiUrlConstants.FIREBASE_SIGNUP_EMAIL_AND_PASSWORD_TO_BE_CHANGED_PART,
+                this.firebaseWebApiKey);
 
         ResponseEntity<FirebaseSignInSignUpResponseBean> responseEntity = (ResponseEntity<FirebaseSignInSignUpResponseBean>) doPostForEntity(url, request, FirebaseSignInSignUpResponseBean.class);
 
@@ -78,8 +78,8 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         // This is the generated URI
         String url = stringUtility.findAndReplaceStringIntoString(ApiUrlConstants.FIREBASE_EXCHANGE_REFRESH_TOKEN_TO_ID_TOKEN,
-            ApiUrlConstants.FIREBASE_EXCHANGE_REFRESH_TOKEN_TO_ID_TOKEN_TO_BE_CHANGED_PART,
-            this.firebaseWebApiKey);
+                ApiUrlConstants.FIREBASE_EXCHANGE_REFRESH_TOKEN_TO_ID_TOKEN_TO_BE_CHANGED_PART,
+                this.firebaseWebApiKey);
 
         ResponseEntity<FirebaseRefreshTokenToIdTokenResponseBean> responseEntity = (ResponseEntity<FirebaseRefreshTokenToIdTokenResponseBean>) doPostForEntity(url, request, FirebaseRefreshTokenToIdTokenResponseBean.class);
 
@@ -96,7 +96,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
                 throw new HttpBadRequestException(e.getResponseBodyAsString());
             } else if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 throw new HttpNotFoundException(e.getResponseBodyAsString());
-            }else if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+            } else if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 throw new HttpUnauthorizedException(e.getResponseBodyAsString());
             } else {
                 throw new RuntimeException();
@@ -139,7 +139,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
     private HttpEntity<MultiValueMap<String, String>> createPostRequestBodyForRefreshTokenToIdToken(String refreshToken) {
 
-        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.add("grant_type", "refresh_token");
         map.add("refresh_token", refreshToken);
 

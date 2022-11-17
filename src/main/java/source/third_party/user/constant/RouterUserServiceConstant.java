@@ -2,7 +2,8 @@ package source.third_party.user.constant;
 
 public class RouterUserServiceConstant {
 
-    private RouterUserServiceConstant() {}
+    private RouterUserServiceConstant() {
+    }
 
     public final static String USER_CREATE = "/user/create";
 

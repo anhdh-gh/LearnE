@@ -34,17 +34,17 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Override
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findAll().stream()
-            .filter(t -> t.getToken().equals(token))
-            .findFirst();
+                .filter(t -> t.getToken().equals(token))
+                .findFirst();
     }
 
     @Override
     public RefreshToken createRefreshToken(User user) {
         RefreshToken refreshToken = RefreshToken.builder()
-            .token(jwtUtil.generateJwtToken(user))
-            .expiryDate(new Date(new Date().getTime() + refreshTokenDurationMs))
-            .userId(user.getId())
-            .build();
+                .token(jwtUtil.generateJwtToken(user))
+                .expiryDate(new Date(new Date().getTime() + refreshTokenDurationMs))
+                .userId(user.getId())
+                .build();
 
         refreshToken = refreshTokenRepository.set(refreshToken);
         return refreshToken;
@@ -69,16 +69,16 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public BaseResponse refreshToken(TokenRefreshRequestDto request) {
         String requestRefreshToken = request.getRefreshToken();
         return this.findByToken(requestRefreshToken)
-            .map(this::verifyExpiration)
-            .map(RefreshToken::getUserId)
-            .map(userId -> {
-                User user = userRepository.get(userId);
-                String token = jwtUtil.generateJwtToken(user);
-                return BaseResponse.ofSucceeded(request.getRequestId(),
-                    TokenResponseDto.builder().user(user).accessToken(token).refreshToken(requestRefreshToken).tokenType(JwtTokenTypeConstant.BEARER).build());
-            })
-            .orElseThrow(() -> new BusinessException(BusinessErrors.FORBIDDEN_ERROR,
-                "Refresh token is not in database!")
-            );
+                .map(this::verifyExpiration)
+                .map(RefreshToken::getUserId)
+                .map(userId -> {
+                    User user = userRepository.get(userId);
+                    String token = jwtUtil.generateJwtToken(user);
+                    return BaseResponse.ofSucceeded(request.getRequestId(),
+                            TokenResponseDto.builder().user(user).accessToken(token).refreshToken(requestRefreshToken).tokenType(JwtTokenTypeConstant.BEARER).build());
+                })
+                .orElseThrow(() -> new BusinessException(BusinessErrors.FORBIDDEN_ERROR,
+                        "Refresh token is not in database!")
+                );
     }
 }

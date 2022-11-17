@@ -42,7 +42,7 @@ public class LogsActivityAOPHandler {
 
     @SneakyThrows
     public Object logsActivityAnnotation(ProceedingJoinPoint point,
-         LogsActivityAnnotation logsActivityAnnotation) {
+                                         LogsActivityAnnotation logsActivityAnnotation) {
 
         Object objectRequest = point.getArgs()[0];
         Map<String, Object> mapCustomizeLog = new HashMap<>();
@@ -53,7 +53,7 @@ public class LogsActivityAOPHandler {
         mapCustomizeLog.put("method_name", point.getSignature().getName());
         mapCustomizeLog.put("message_type", "request");
 
-        if(objectRequest instanceof BasicRequest){
+        if (objectRequest instanceof BasicRequest) {
             BasicRequest basicRequest = (BasicRequest) objectRequest;
             requestId = basicRequest.getRequestId();
             mapCustomizeLog.put("request_id", requestId);
@@ -72,11 +72,11 @@ public class LogsActivityAOPHandler {
 
         logger.info(objectMapper.writeValueAsString(objectRequest), entries(mapCustomizeLog));
 
-        if(objectResponse instanceof ResponseEntity){
+        if (objectResponse instanceof ResponseEntity) {
             ResponseEntity responseEntity = (ResponseEntity) objectResponse;
             mapCustomizeLog.put("status_code", responseEntity.getStatusCode().value());
             BaseResponse baseResponse = JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
-            if(baseResponse.getMeta() != null){
+            if (baseResponse.getMeta() != null) {
                 mapCustomizeLog.put("error_code", baseResponse.getMeta().getCode());
                 logger.info(objectMapper.writeValueAsString(baseResponse), entries(mapCustomizeLog));
             }

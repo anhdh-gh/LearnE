@@ -16,9 +16,9 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry
-                    .addMapping("/**") // Cho phép mọi nguồn
-                    .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-                    .allowedOrigins("https://learneservicegateway.herokuapp.com");
+                        .addMapping("/**") // Cho phép mọi nguồn
+                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+                        .allowedOrigins("https://learneservicegateway.herokuapp.com");
             }
         };
     }

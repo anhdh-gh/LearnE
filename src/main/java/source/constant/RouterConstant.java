@@ -63,5 +63,6 @@ public class RouterConstant {
 
     public static final String QUESTION_GET_BY_GROUP_QUESTION_ID = "/questions/get-by-group-id";
 
-    private RouterConstant() {}
+    private RouterConstant() {
+    }
 }

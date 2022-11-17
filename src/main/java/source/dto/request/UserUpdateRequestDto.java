@@ -8,7 +8,7 @@ import source.entity.enumeration.Role;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserUpdateRequestDto extends BasicRequest{
+public class UserUpdateRequestDto extends BasicRequest {
 
     private String id;
 

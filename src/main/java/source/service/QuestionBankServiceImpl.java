@@ -22,9 +22,7 @@ import source.exception.BusinessException;
 import source.repository.QuestionRepository;
 import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
 import source.third_party.course.service.CourseThirdPartyService;
-import source.third_party.multimedia.dto.request.QuestionCheckExistRequestDto;
 import source.third_party.multimedia.dto.request.QuestionDeleteByGroupIdRequestDto;
-import source.third_party.multimedia.dto.request.QuestionDetail;
 import source.third_party.multimedia.service.MultimediaThirdPartyService;
 
 import java.util.*;
@@ -68,6 +66,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             .text(request.getText())
             .image(request.getImage())
             .audio(request.getAudio())
+            .pdf(request.getPdf())
             .groupId(request.getGroupId())
             .header(request.getHeader())
             .answers(request.getAnswers()
@@ -75,6 +74,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
                 .map(answerRequestDto -> Answer
                     .builder()
                     .text(answerRequestDto.getText())
+                    .audio(answerRequestDto.getAudio())
                     .isCorrect(answerRequestDto.isCorrect())
                     .build()
                 )
@@ -89,23 +89,23 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         List<Question> questions = new ArrayList<>();
 
         // Kiểm tra id, image, audio, groupId có tồn tại không
-        if(request.getQuestions().stream().anyMatch(question -> question.getImage() != null || question.getAudio() != null)) {
-            QuestionCheckExistRequestDto questionCheckExistRequest =
-                modelMapper.map(request, QuestionCheckExistRequestDto.class);
-            questionCheckExistRequest.setGroupId(request.getGroupId());
-            questionCheckExistRequest.setQuestions(mapList(request.getQuestions(), QuestionDetail.class));
-            questionCheckExistRequest.setQuestions(
-                request.getQuestions().stream().map(createQuestionRequestDto ->
-                    QuestionDetail.builder()
-                        .id(createQuestionRequestDto.getId())
-                        .audio(createQuestionRequestDto.getAudio())
-                        .image(createQuestionRequestDto.getImage())
-                        .build()).collect(Collectors.toList()));
-            BaseResponse responseCheckExist = multimediaThirdPartyService.checkQuestionExist(questionCheckExistRequest);
-            if(!Objects.equals(responseCheckExist.getMeta().getCode(), BaseResponse.OK_CODE)) {
-                return responseCheckExist;
-            }
-        }
+//        if(request.getQuestions().stream().anyMatch(question -> question.getImage() != null || question.getAudio() != null)) {
+//            QuestionCheckExistRequestDto questionCheckExistRequest =
+//                modelMapper.map(request, QuestionCheckExistRequestDto.class);
+//            questionCheckExistRequest.setGroupId(request.getGroupId());
+//            questionCheckExistRequest.setQuestions(mapList(request.getQuestions(), QuestionDetail.class));
+//            questionCheckExistRequest.setQuestions(
+//                request.getQuestions().stream().map(createQuestionRequestDto ->
+//                    QuestionDetail.builder()
+//                        .id(createQuestionRequestDto.getId())
+//                        .audio(createQuestionRequestDto.getAudio())
+//                        .image(createQuestionRequestDto.getImage())
+//                        .build()).collect(Collectors.toList()));
+//            BaseResponse responseCheckExist = multimediaThirdPartyService.checkQuestionExist(questionCheckExistRequest);
+//            if(!Objects.equals(responseCheckExist.getMeta().getCode(), BaseResponse.OK_CODE)) {
+//                return responseCheckExist;
+//            }
+//        }
 
         // Thực hiện save
         for(CreateQuestionRequestDto questionRequestDto : request.getQuestions()) {

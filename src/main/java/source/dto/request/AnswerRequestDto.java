@@ -15,5 +15,8 @@ public class AnswerRequestDto {
     @JsonProperty("text")
     private String text;
 
+    @JsonProperty("audio")
+    private String audio;
+
     private boolean isCorrect;
 }

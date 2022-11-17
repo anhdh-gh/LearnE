@@ -31,6 +31,9 @@ public class Question extends BaseEntity {
     @Column(name = "Audio")
     private String audio;
 
+    @Column(name = "Pdf")
+    private String pdf;
+
     @Column(name = "GroupId")
     private String groupId;
 
@@ -39,14 +42,14 @@ public class Question extends BaseEntity {
     private List<Answer> answers;
 
     @Builder
-
-    public Question(String id, Date createTime, Date updateTime, QuestionType questionType, String header, String text, String image, String audio, String groupId, List<Answer> answers) {
+    public Question(String id, Date createTime, Date updateTime, QuestionType questionType, String header, String text, String image, String audio, String pdf, String groupId, List<Answer> answers) {
         super(id, createTime, updateTime);
         this.questionType = questionType;
         this.header = header;
         this.text = text;
         this.image = image;
         this.audio = audio;
+        this.pdf = pdf;
         this.groupId = groupId;
         this.answers = answers;
     }

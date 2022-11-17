@@ -29,6 +29,9 @@ public class CreateQuestionRequestDto extends BasicRequest {
     @JsonProperty("audio")
     private String audio;
 
+    @JsonProperty("pdf")
+    private String pdf;
+
     @JsonProperty("header")
     private String header;
 

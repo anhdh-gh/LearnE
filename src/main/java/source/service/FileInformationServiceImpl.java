@@ -37,7 +37,7 @@ public class FileInformationServiceImpl extends BaseService implements FileInfor
                     .build());
 
         // Save info file to firebase
-        fileInformationRepository.set(FileInformation
+        FileInformation fileInformation = fileInformationRepository.set(FileInformation
             .builder()
             .id(id)
             .url(firebaseUploadFileResponseDto.getUrl())
@@ -45,10 +45,6 @@ public class FileInformationServiceImpl extends BaseService implements FileInfor
             .build()
         );
 
-        return BaseResponse.ofSucceeded(request.getRequestId(),
-            UserUploadAvatarResponseDto.builder()
-                .urlAvatar(firebaseUploadFileResponseDto.getUrl())
-                .extension(firebaseUploadFileResponseDto.getExtension())
-                .build());
+        return BaseResponse.ofSucceeded(request.getRequestId(), fileInformation);
     }
 }

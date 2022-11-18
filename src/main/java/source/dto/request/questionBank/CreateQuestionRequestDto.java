@@ -37,6 +37,9 @@ public class CreateQuestionRequestDto extends BasicRequest {
     @JsonProperty("groupId")
     private String groupId;
 
+    @JsonProperty("time")
+    private Integer time;
+
     @JsonProperty("pdf")
     private String pdf;
 

@@ -133,7 +133,7 @@ const CourseManagement = (props) => {
 
     }, [showCVECourse, dispatch])
 
-    const handleCreateUpdatCoursae = () => {
+    const handleCreateUpdatCourse = () => {
         dispatch(showLoader())
 
         if(showCVECourse?.type === 'create') {
@@ -288,7 +288,7 @@ const CourseManagement = (props) => {
 
                     {showCVECourse?.type !== 'view' &&
                         <Button
-                            onClick={handleCreateUpdatCoursae}
+                            onClick={handleCreateUpdatCourse}
                             disabled={courseCreateUpdate ? false : true}
                             className="btn btn-primary w-100 fw-bold mt-3">
                             {showCVECourse?.type === 'create' ? 'Create' : 'Update'}

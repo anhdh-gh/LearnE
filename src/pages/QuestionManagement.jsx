@@ -20,27 +20,18 @@ const baseQuestionCreate = () => ({
     questions: [
         {
             id: uuid(),
-            questionType: "VOCABULARY",
-            header: "Đây là câu hỏi kiểu: đọc đoạn văn và trả lời câu hỏi (Cái này là paste đoạn text câu hỏi y hệt trong đề thi toiec của mỗi phần)",
-            text: "Đoạn văn của câu hỏi",
-            image: "https://firebasestorage.googleapis.com/v0/b/learne-41d47.appspot.com/o/Backend-Service-Multimedia%2FQuestionBank%2FQuestion%2Fd085dae7-7afc-47af-8162-0bf1ec9a5cda%2F143c9125-ca6a-4ec4-8e44-9cdfa9711b62.jpg?alt=media",
-            audio: "https://firebasestorage.googleapis.com/v0/b/learne-41d47.appspot.com/o/Backend-Service-Multimedia%2FQuestionBank%2FQuestion%2Fd085dae7-7afc-47af-8162-0bf1ec9a5cda%2F143c9125-ca6a-4ec4-8e44-9cdfa9711b62.mp3?alt=media",
+            questionType: "FILE",
+            // header: "Đây là câu hỏi kiểu: đọc đoạn văn và trả lời câu hỏi (Cái này là paste đoạn text câu hỏi y hệt trong đề thi toiec của mỗi phần)",
+            text: "Toeic test 1",
+            time: 10000,
+            // image: "https://firebasestorage.googleapis.com/v0/b/learne-41d47.appspot.com/o/Backend-Service-Multimedia%2FQuestionBank%2FQuestion%2Fd085dae7-7afc-47af-8162-0bf1ec9a5cda%2F143c9125-ca6a-4ec4-8e44-9cdfa9711b62.jpg?alt=media",
+            // audio: "https://firebasestorage.googleapis.com/v0/b/learne-41d47.appspot.com/o/Backend-Service-Multimedia%2FQuestionBank%2FQuestion%2Fd085dae7-7afc-47af-8162-0bf1ec9a5cda%2F143c9125-ca6a-4ec4-8e44-9cdfa9711b62.mp3?alt=media",
+            pdf: "https://ToeicTest.pdf",
             answers: [
                 {
-                    text: "Đáp án 1",
-                    correct: true
-                },
-                {
-                    text: "Đáp án 2",
-                    correct: false
-                },
-                {
-                    text: "Đáp án 3",
-                    correct: false
-                },
-                {
-                    text: "Đáp án 4",
-                    correct: false
+                    text: "A",
+                    audio: 'https://audio.mp3',
+                    // correct: true
                 }
             ]
         }
@@ -134,39 +125,37 @@ const QuestionManagement = (props) => {
 
     }, [showCVEQuestion, dispatch])
 
-    const handleCreateUpdatCoursae = () => {
+    const handleCreateUpdatQuestion = () => {
+        // if(questionCreateUpdate.questions.some(question => question?.image || question?.audio)) {
+        //     // Validate file upload
+        //     if(fileUploads.length > questionCreateUpdate.questions.length) {
+        //         return Notification.error('fileUploads.length > questionCreateUpdate.questions.length')
+        //     } 
+        //     const mapQuestionsUpload = new Map()
+        //     fileUploads.forEach(fileUpload => mapQuestionsUpload.set(fileUpload.id, fileUpload))
+        //     const mapQuestionsRequest = new Map()
+        //     questionCreateUpdate.questions.forEach(question => mapQuestionsRequest.set(question.id, question))
+        //     for (const [ key, value ] of mapQuestionsRequest.entries()) {
+        //         if(!mapQuestionsUpload.get(key)) {
+        //             return Notification.error(`Question = ${key} not match`)
+        //         }            
 
-        if(questionCreateUpdate.questions.some(question => question?.image || question?.audio)) {
-            // Validate file upload
-            if(fileUploads.length > questionCreateUpdate.questions.length) {
-                return Notification.error('fileUploads.length > questionCreateUpdate.questions.length')
-            } 
-            const mapQuestionsUpload = new Map()
-            fileUploads.forEach(fileUpload => mapQuestionsUpload.set(fileUpload.id, fileUpload))
-            const mapQuestionsRequest = new Map()
-            questionCreateUpdate.questions.forEach(question => mapQuestionsRequest.set(question.id, question))
-            for (const [ key, value ] of mapQuestionsRequest.entries()) {
-                if(!mapQuestionsUpload.get(key)) {
-                    return Notification.error(`Question = ${key} not match`)
-                }            
-
-                const questionUpload = mapQuestionsUpload.get(key)
-                const questionRequest = value 
+        //         const questionUpload = mapQuestionsUpload.get(key)
+        //         const questionRequest = value 
                 
-                // eslint-disable-next-line
-                if(questionUpload?.urlImage != questionRequest?.image) { 
-                    return Notification.error(`Image of question = ${key} not match`)
-                }
+        //         // eslint-disable-next-line
+        //         if(questionUpload?.urlImage != questionRequest?.image) { 
+        //             return Notification.error(`Image of question = ${key} not match`)
+        //         }
 
-                // eslint-disable-next-line
-                if(questionUpload?.urlAudio != questionRequest?.audio) { 
-                    return Notification.error(`Audio of question = ${key} not match`)
-                }
-            }
-        }
+        //         // eslint-disable-next-line
+        //         if(questionUpload?.urlAudio != questionRequest?.audio) { 
+        //             return Notification.error(`Audio of question = ${key} not match`)
+        //         }
+        //     }
+        // }
 
         // Process create or update
-        setFileUploads([])
         dispatch(showLoader())
         if(showCVEQuestion?.type === 'create') {
             QuestionApi.createList(questionCreateUpdate)
@@ -176,6 +165,7 @@ const QuestionManagement = (props) => {
                     refreshPage()
                     setShowCVEQuestion({ show: false })
                     setQuestionCreateUpdate(false)
+                    setFileUploads([])
                     Notification.success("Create successfully!")
                 } else {
                     dispatch(hideLoader())
@@ -196,6 +186,7 @@ const QuestionManagement = (props) => {
                             refreshPage()
                             setShowCVEQuestion({ show: false })
                             setQuestionCreateUpdate(false)
+                            setFileUploads([])
                             Notification.success("Update successfully!")
                         } else {
                             dispatch(hideLoader())
@@ -227,35 +218,49 @@ const QuestionManagement = (props) => {
     }
 
     const handleUploadFile = (files, allFiles) => {
-        const fileImages = files?.filter(file => file.file.type.includes('image'))
-        const fileAudios = files?.filter(file => file.file.type.includes('audio'))
-        if (fileImages && fileImages?.length > 1) {
-            Notification.error("Only one image file is accepted")
-        } else if (fileAudios && fileAudios?.length > 1) {
-            Notification.error("Only one audio file is accepted")
-        } else {
-            const fileImage = fileImages?.[0]?.file
-            const fileAudio = fileAudios?.[0]?.file
-            if (fileImage && fileImage.size > 2000000) {
-                Notification.error("The maximum size of the image file is 2Mb")
-            } else if (fileAudio && fileAudio.size > 10000000) {
-                Notification.error("The maximum size of the audio file is 10Mb")
-            } else {
-                dispatch(showLoader())
-                MultimediaApi.questionUpload(fileImage, fileAudio, showCVEQuestion?.data?.groupId)
-                    .then(res => {
-                        const { meta } = res
-                        if (meta.code === STATUS_CODES.SUCCESS) {
-                            setIShowModalUploadFile(false)
-                            setFileUploads([res?.data, ...fileUploads])
-                            dispatch(hideLoader())
-                        } else {
-                            dispatch(hideLoader())
-                            Notification.error(meta?.message)
-                        }
-                    })
-            }
-        }
+        // const fileImages = files?.filter(file => file.file.type.includes('image'))
+        // const fileAudios = files?.filter(file => file.file.type.includes('audio'))
+        // if (fileImages && fileImages?.length > 1) {
+        //     Notification.error("Only one image file is accepted")
+        // } else if (fileAudios && fileAudios?.length > 1) {
+        //     Notification.error("Only one audio file is accepted")
+        // } else {
+        //     const fileImage = fileImages?.[0]?.file
+        //     const fileAudio = fileAudios?.[0]?.file
+        //     if (fileImage && fileImage.size > 2000000) {
+        //         Notification.error("The maximum size of the image file is 2Mb")
+        //     } else if (fileAudio && fileAudio.size > 10000000) {
+        //         Notification.error("The maximum size of the audio file is 10Mb")
+        //     } else {
+        //         dispatch(showLoader())
+        //         MultimediaApi.questionUpload(fileImage, fileAudio, showCVEQuestion?.data?.groupId)
+        //             .then(res => {
+        //                 const { meta } = res
+        //                 if (meta.code === STATUS_CODES.SUCCESS) {
+        //                     setIShowModalUploadFile(false)
+        //                     setFileUploads([res?.data, ...fileUploads])
+        //                     dispatch(hideLoader())
+        //                 } else {
+        //                     dispatch(hideLoader())
+        //                     Notification.error(meta?.message)
+        //                 }
+        //             })
+        //     }
+        // }
+
+        dispatch(showLoader())
+        MultimediaApi.uploadFile(files?.[0]?.file)
+            .then(res => {
+                const { meta } = res
+                if (meta.code === STATUS_CODES.SUCCESS) {
+                    setIShowModalUploadFile(false)
+                    setFileUploads([{ ...res?.data, ...files?.[0]?.meta }, ...fileUploads])
+                    dispatch(hideLoader())
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error(meta?.message)
+                }
+            })
     }
 
     const handleHideCreateUpdate = () => {
@@ -386,7 +391,7 @@ const QuestionManagement = (props) => {
                             </div>
                             <div className='grow'>
                                 <Button
-                                    onClick={handleCreateUpdatCoursae}
+                                    onClick={handleCreateUpdatQuestion}
                                     disabled={questionCreateUpdate ? false : true}
                                     className="btn btn-primary w-full">
                                     {showCVEQuestion?.type === 'create' ? 'Create' : 'Update'}
@@ -411,18 +416,17 @@ const QuestionManagement = (props) => {
 
         <ModalUploadFile
             modalTitle="Upload file"
-            type={'image'}
             isShow={isShowModalUploadFile}
             handleSubmit={handleUploadFile}
-            accept="image/*,audio/*"
-            inputContent={(files, extra) => extra.reject ? 'Image and audio only' : 'Drag and drop or click to select file'}
+            accept=".pdf, image/*, audio/*"
+            inputContent={(files, extra) => extra.reject ? 'Image, audio, pdf only' : 'Drag and drop or click to select file'}
             styles={{
                 dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
                 inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
             }}
-            multiple={true}
-            maxFiles={2}
-            inputWithFilesContent={files => `${2 - files.length} more`}
+            multiple={false}
+            maxFiles={1}
+            inputWithFilesContent={files => `${1 - files.length} more`}
             handleClose={() => setIShowModalUploadFile(false)}
         />
     </>

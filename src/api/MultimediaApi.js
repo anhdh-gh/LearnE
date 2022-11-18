@@ -2,7 +2,8 @@ import { ApiClient } from '.'
 
 const ROUTE_PATH = {
     QUESTION_UPLOAD: '/question/upload',
-    QUESTION_DELETE_BY_GROUP_ID: '/question/delete-by-group-id'
+    QUESTION_DELETE_BY_GROUP_ID: '/question/delete-by-group-id',
+    UPLOAD_FILE: '/file/upload'
 }
 
 const MultimediaApi = {
@@ -22,6 +23,12 @@ const MultimediaApi = {
 
     questionDeleteByGroupId(groupId) {
         return ApiClient.postMultimedia(ROUTE_PATH.QUESTION_DELETE_BY_GROUP_ID, {groupId})
+    },
+    
+    uploadFile(file) {
+        const formData = new FormData()
+        formData.append('file', file)
+        return ApiClient.postMultipartFormData(ROUTE_PATH.UPLOAD_FILE, formData)
     }
 }
 

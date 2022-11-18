@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Data
@@ -34,6 +35,9 @@ public class CreateQuestionRequestDto extends BasicRequest {
 
     @JsonProperty("header")
     private String header;
+
+    @JsonProperty("time")
+    private Integer time;
 
     @JsonProperty("groupId")
     private String groupId;

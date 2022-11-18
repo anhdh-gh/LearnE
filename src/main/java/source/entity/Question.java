@@ -28,6 +28,9 @@ public class Question extends BaseEntity {
     @Column(name = "Image")
     private String image;
 
+    @Column(name = "Time")
+    private Integer time;
+
     @Column(name = "Audio")
     private String audio;
 
@@ -42,12 +45,13 @@ public class Question extends BaseEntity {
     private List<Answer> answers;
 
     @Builder
-    public Question(String id, Date createTime, Date updateTime, QuestionType questionType, String header, String text, String image, String audio, String pdf, String groupId, List<Answer> answers) {
+    public Question(String id, Date createTime, Date updateTime, QuestionType questionType, String header, String text, String image, Integer time, String audio, String pdf, String groupId, List<Answer> answers) {
         super(id, createTime, updateTime);
         this.questionType = questionType;
         this.header = header;
         this.text = text;
         this.image = image;
+        this.time = time;
         this.audio = audio;
         this.pdf = pdf;
         this.groupId = groupId;

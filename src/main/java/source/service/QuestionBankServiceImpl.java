@@ -67,6 +67,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             .image(request.getImage())
             .audio(request.getAudio())
             .pdf(request.getPdf())
+            .time(request.getTime())
             .groupId(request.getGroupId())
             .header(request.getHeader())
             .answers(request.getAnswers()

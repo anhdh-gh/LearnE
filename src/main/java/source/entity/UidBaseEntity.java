@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import java.util.Date;
+import java.util.UUID;
 
 @MappedSuperclass // Class cha không phải là entity. https://techmaster.vn/posts/36499/hibernate-inheritance-mapping
 @Data  // All together now: A shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, @Setter on all non-final fields, and @RequiredArgsConstructor!
@@ -18,21 +17,17 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BaseEntity {
+public class UidBaseEntity extends BaseEntity {
 
-    @Column(name = "CreateTime")
-    protected Date createTime;
+    @Id
+    @Column(name = "Id")
+    protected String id;
 
-    @Column(name = "UpdateTime")
-    protected Date updateTime;
-
-    @PrePersist // Thực thi trước khi entity được persist (được lưu vào database) bởi method persist()
+    @Override
     protected void init() {
-        this.createTime = new Date();
-    }
-
-    @PreUpdate // Thực thi trước khi entity được update
-    protected void updateTime() {
-        this.updateTime = new Date();
+        super.init();
+        if(this.id == null) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 }

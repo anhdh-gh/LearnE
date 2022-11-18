@@ -1,10 +1,13 @@
 package source.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import source.entity.enumeration.QuestionType;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -12,8 +15,9 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "question", schema = "public")
-public class Question extends BaseEntity {
+public class Question extends UidBaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "QuestionType")
@@ -43,20 +47,6 @@ public class Question extends BaseEntity {
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "QuestionId", nullable = false)
     private List<Answer> answers;
-
-    @Builder
-    public Question(String id, Date createTime, Date updateTime, QuestionType questionType, String header, String text, String image, Integer time, String audio, String pdf, String groupId, List<Answer> answers) {
-        super(id, createTime, updateTime);
-        this.questionType = questionType;
-        this.header = header;
-        this.text = text;
-        this.image = image;
-        this.time = time;
-        this.audio = audio;
-        this.pdf = pdf;
-        this.groupId = groupId;
-        this.answers = answers;
-    }
 }
 
 // https://hocspringboot.net/2020/10/23/onetomany-va-manytoone-trong-spring-boot/

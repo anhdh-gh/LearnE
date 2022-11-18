@@ -14,7 +14,6 @@ import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.dto.response.GetListQuestionsByGroupIdResponseDto;
 import source.entity.Answer;
-import source.entity.BaseEntity;
 import source.entity.Question;
 import source.entity.enumeration.QuestionType;
 import source.exception.BusinessErrors;
@@ -159,7 +158,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         // Thực hiện callback xóa bên service course
         CallBackQuestionsDeleteRequestDto requestCourse
             = modelMapper.map(request, CallBackQuestionsDeleteRequestDto.class);
-        requestCourse.setQuestionIds(questions.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
+        requestCourse.setQuestionIds(questions.stream().map(Question::getId).collect(Collectors.toSet()));
         BaseResponse responseCourse = courseThirdPartyService.callBackQuestionsDelete(requestCourse);
         if(!Objects.equals(responseCourse.getMeta().getCode(), BaseResponse.OK_CODE)) {
             throw new BusinessException(

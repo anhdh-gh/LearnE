@@ -40,6 +40,9 @@ public class CreateQuestionRequestDto extends BasicRequest {
     @JsonProperty("pdf")
     private String pdf;
 
+    @JsonProperty("time")
+    private Integer time;
+
     @JsonProperty("answers")
     private List<AnswerRequestDto> answers;
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import source.constant.FirebaseStorageConstant;
 import source.dto.request.FilesUploadRequestDto;
 import source.dto.response.BaseResponse;
-import source.dto.response.UserUploadAvatarResponseDto;
 import source.entity.FileInformation;
 import source.repository.FileInformationRepository;
 import source.third_party.firebase_storage.dto.request.FirebaseUploadFileRequestDto;

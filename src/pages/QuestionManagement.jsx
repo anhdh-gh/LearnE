@@ -264,24 +264,25 @@ const QuestionManagement = (props) => {
     }
 
     const handleHideCreateUpdate = () => {
-        if(fileUploads.length > 0) {
-            dispatch(showLoader())
-            MultimediaApi.questionDeleteByGroupId(questionCreateUpdate?.groupId)
-            .then(res => {
-                const { meta } = res
-                if (meta.code === STATUS_CODES.SUCCESS) {
-                    setQuestionCreateUpdate(false)
-                    setShowCVEQuestion({ show: false })
-                    dispatch(hideLoader())
-                } else {
-                    dispatch(hideLoader())
-                    Notification.error(meta?.message)
-                }
-            })            
-        } else {
+        // if(fileUploads.length > 0) {
+        //     dispatch(showLoader())
+        //     MultimediaApi.questionDeleteByGroupId(questionCreateUpdate?.groupId)
+        //     .then(res => {
+        //         const { meta } = res
+        //         if (meta.code === STATUS_CODES.SUCCESS) {
+        //             setQuestionCreateUpdate(false)
+        //             setShowCVEQuestion({ show: false })
+        //             dispatch(hideLoader())
+        //         } else {
+        //             dispatch(hideLoader())
+        //             Notification.error(meta?.message)
+        //         }
+        //     })            
+        // } else {
+            setFileUploads([])
             setQuestionCreateUpdate(false)
             setShowCVEQuestion({ show: false })
-        }
+        // }
     }
 
     return !isLoadingGetAllQuestions && !isFetchingGetAllQuestions && !isErrorGetAllQuestions && responseGetAllQuestions?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllQuestions?.data) && <>

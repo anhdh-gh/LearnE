@@ -10,7 +10,7 @@ const createAxios = (contentType, URL) => {
     let axiosInstant = axios.create()
     axiosInstant.defaults.baseURL = URL
     // axiosInstant.defaults.withCredentials = true
-    axiosInstant.defaults.timeout = 20000
+    // axiosInstant.defaults.timeout = 20000
     axiosInstant.defaults.headers = { "Content-Type": contentType }
     axiosInstant.defaults.headers = { "Access-control-allow-origin": "*" }
     axiosInstant.defaults.headers = localStorage.getItem(KEY.ACCESS_TOKEN) && { Authorization: `${localStorage.getItem(KEY.TOKEN_TYPE)} ${localStorage.getItem(KEY.ACCESS_TOKEN)}` }

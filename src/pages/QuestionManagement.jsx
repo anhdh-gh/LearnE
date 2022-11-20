@@ -1,7 +1,7 @@
 import '../assets/css/UserManagementPage.css'
 import '../assets/css/CourseManagement.css'
 import { Header, Footer, Sider, Pagination, ModalConfirm, ModalUploadFile, SvelteJSONEditor } from "../components"
-import { ROUTE_PATH, STATUS_CODES } from '../constants'
+import { ROUTE_PATH, STATUS_CODES, QUESTION_TYPE } from '../constants'
 import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
 import { useSelector } from 'react-redux'
@@ -12,9 +12,8 @@ import { useLayoutEffect, useCallback, useState } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
-import { Notification } from '../utils'
+import { Notification, CommonUtil } from '../utils'
 import uuid from 'react-uuid'
-import { CommonUtil } from '../utils'
 
 const baseQuestionCreate = () => ({
     groupId: uuid(),
@@ -334,11 +333,11 @@ const QuestionManagement = (props) => {
                                     <Card className="card-user cursor-default">
                                         {/* <Card.Img className='cursor-pointer border-b' variant="top" src={question?.image || PagesImage} onClick={() => setShowCVEQuestion({ type: 'view', data: _.cloneDeep(question), show: true })} /> */}
                                         <Card.Body className='cursor-pointer' onClick={() => setShowCVEQuestion({ type: 'view', data: _.cloneDeep(question), show: true })}>
-                                            <Card.Title className="title text-lg">Question {responseGetAllQuestions?.data?.pageable?.offset + indexQuestion + 1}</Card.Title>
+                                            <Card.Title className="title text-lg">{question?.questionType === QUESTION_TYPE.FILE ? question?.text : `Question ${responseGetAllQuestions?.data?.pageable?.offset + indexQuestion + 1}`}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted text-sm">
                                                 <Badge pill bg="warning" text="dark">{question?.questionType}</Badge>
                                             </Card.Subtitle>
-                                            <Card.Text>Last updated on {CommonUtil.getDateStringFromMilliseconds(question?.updateTime || question?.createTime)}</Card.Text>
+                                            <Card.Text className='text-sm'>{CommonUtil.getDateStringFromMilliseconds(question?.updateTime || question?.createTime)}</Card.Text>
                                         </Card.Body>
 
                                         <Card.Footer className="d-flex justify-content-between">

@@ -45,12 +45,16 @@
     }
 }
 
+#navbarScrollingDropdown-course-md,
+#navbarScrollingDropdown-course,
 #navbarScrollingDropdown-studyset-md,
 #navbarScrollingDropdown-studyset {
     min-height: 100%;
     color: #FFFFFF;
 }
 
+#navbarScrollingDropdown-course-md + div.dropdown-menu.show,
+#navbarScrollingDropdown-course + div.dropdown-menu.show,
 #navbarScrollingDropdown-studyset-md + div.dropdown-menu.show,
 #navbarScrollingDropdown-studyset + div.dropdown-menu.show {
     top: 125%;

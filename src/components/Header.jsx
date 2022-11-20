@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { UserInfo } from '../components'
 import { History } from '../components/NavigateSetter'
-import { useRef, useLayoutEffect  } from 'react'
+import { useRef, useLayoutEffect } from 'react'
 import { setHeightHeader, signOut } from '../redux/actions'
 
 const Header = (props) => {
@@ -20,7 +20,7 @@ const Header = (props) => {
 
     const refHeader = useRef(null)
 
-    useLayoutEffect (() => {
+    useLayoutEffect(() => {
         dispatch(setHeightHeader(refHeader.current.clientHeight))
     }, [dispatch])
 
@@ -51,26 +51,32 @@ const Header = (props) => {
                             }
                         </Nav.Link>
 
-                        <Nav.Link
-                            className="cursor-pointer"
-                            as="span"
-                            active="active"
-                            onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
-                        >
-                            {pathname.includes('/course') && !pathname.includes('/dashboard')
-                                ? <Badge pill bg="primary">Course</Badge>
-                                : 'Course'
-                            }
-                        </Nav.Link>
+                        <Nav className="my-2 my-md-0 user-droplist">
+                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-course').removeAttribute("href")} id="navbarScrollingDropdown-course" align="start" className="header-user-dropList"
+                                title={<span>
+                                    {pathname.includes('/course') && !pathname.includes('/dashboard')
+                                        ? <Badge pill bg="primary">Course</Badge>
+                                        : 'Course'
+                                    }</span>}
+                            >
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-graduation-cap"></i> Courses</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>
+                                    <div className="cursor-pointer"><i className="fa-regular fa-file-lines"></i> Questions</div>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
 
                         <Nav className="my-2 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset').removeAttribute("href")} id="navbarScrollingDropdown-studyset" align="start" className="header-user-dropList"
                                 title={<span>
                                     {pathname.includes('/studyset/') && !pathname.includes('/dashboard')
-                                    ? <Badge pill bg="primary">Study set</Badge>
-                                    : 'Study set'
+                                        ? <Badge pill bg="primary">Study set</Badge>
+                                        : 'Study set'
                                     }</span>}
-                                >
+                            >
                                 <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>
                                 </NavDropdown.Item>
@@ -78,8 +84,8 @@ const Header = (props) => {
                                 <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-layer-group"></i> View study sets</div>
                                 </NavDropdown.Item>
-                                
-                                {!_.isEmpty(user) && <><NavDropdown.Divider/><NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
+
+                                {!_.isEmpty(user) && <><NavDropdown.Divider /><NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-folder"></i> My study sets</div>
                                 </NavDropdown.Item></>}
                             </NavDropdown>
@@ -119,17 +125,25 @@ const Header = (props) => {
                             onClick={() => History.push(ROUTE_PATH.HOME)}
                         >Home</Nav.Link>
 
-                        <Nav.Link
-                            className="cursor-pointer py-0 my-3"
-                            as="span"
-                            active={pathname.includes('/course') && !pathname.includes('/dashboard') && "active"}
-                            onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}
-                        >Course</Nav.Link>
+                        <Nav className="my-3 my-md-0 user-droplist">
+                            <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-course').removeAttribute("href")} id="navbarScrollingDropdown-course" align="start" className="header-user-dropList"
+                                title={<span className={`${pathname.includes('/course/') && !pathname.includes('/dashboard') && 'header-user-title'}`}>
+                                    Course</span>}
+                            >
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-graduation-cap"></i> Courses</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>
+                                    <div className="cursor-pointer"><i className="fa-regular fa-file-lines"></i> Questions</div>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
 
                         <Nav className="my-3 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-studyset-md').removeAttribute("href")} id="navbarScrollingDropdown-studyset-md" align="start" className="header-user-dropList"
                                 title={<span className={`${pathname.includes('/studyset/') && !pathname.includes('/dashboard') && 'header-user-title'}`}>Study set</span>}
-                                >
+                            >
                                 <NavDropdown.Item as="span" onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)}>
                                     <div className="cursor-pointer"><i className="fa-solid fa-plus"></i> Create study set</div>
                                 </NavDropdown.Item>

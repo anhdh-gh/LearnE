@@ -14,6 +14,9 @@ const ROUTE_PATH = {
     STUDY_SET_CREATE: '/studyset/create',
     STUDY_SET_EDIT: '/studyset/edit',
 
+    TEST_FILE_QUESTION: 'course/question/test/file',
+    SHOW_ALL_QUESTION:  'course/question/all',
+
     // Public routers
     HOME: "/",
 

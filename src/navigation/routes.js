@@ -3,7 +3,8 @@ import {
     NotFound, Auth, Home, ShowCourseDetail, 
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
     EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
-    Contact, UserManagement, ShowAllCourse, CourseManagement, TestComponet, QuestionManagement, StudysetManagenent
+    Contact, UserManagement, ShowAllCourse, CourseManagement, TestComponet, QuestionManagement, StudysetManagenent,
+    TestFile, ShowAllQuestion
 } from '../pages'
 
 const routes = {
@@ -35,6 +36,11 @@ const routes = {
     ],
 
     privateRoute: [
+        {
+            path: `${ROUTE_PATH.TEST_FILE_QUESTION}/:groupId`, 
+            element: <TestFile/>
+        }, 
+
         {
             path: `${ROUTE_PATH.SHOW_LESSON_DETAIL}/:courseId/:lessonId`, 
             element: <ShowLessonDetail/>
@@ -85,6 +91,11 @@ const routes = {
         {
             path: `${ROUTE_PATH.SHOW_COURSE_DETAIL}/:courseId`, 
             element: <ShowCourseDetail/>
+        },     
+
+        {
+            path: `${ROUTE_PATH.SHOW_ALL_QUESTION}/:page`, 
+            element: <ShowAllQuestion/>
         },     
 
         {

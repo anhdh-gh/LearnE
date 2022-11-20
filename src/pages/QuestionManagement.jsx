@@ -14,6 +14,7 @@ import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/act
 import _ from 'lodash'
 import { Notification } from '../utils'
 import uuid from 'react-uuid'
+import { CommonUtil } from '../utils'
 
 const baseQuestionCreate = () => ({
     groupId: uuid(),
@@ -337,6 +338,7 @@ const QuestionManagement = (props) => {
                                             <Card.Subtitle className="mb-2 text-muted text-sm">
                                                 <Badge pill bg="warning" text="dark">{question?.questionType}</Badge>
                                             </Card.Subtitle>
+                                            <Card.Text>Last updated on {CommonUtil.getDateStringFromMilliseconds(question?.updateTime || question?.createTime)}</Card.Text>
                                         </Card.Body>
 
                                         <Card.Footer className="d-flex justify-content-between">

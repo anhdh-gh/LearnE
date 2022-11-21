@@ -1,7 +1,7 @@
 import { useParams } from 'react-router'
 import { QuestionApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, useCallback } from 'react'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import { useDispatch, useSelector } from "react-redux"
@@ -94,6 +94,7 @@ const TestFile = () => {
     const [submitTest, setSubmitTest] = useState(false)
     const [showResult, setShowResult] = useState(false)
     const [showScore, setShowScore] = useState(false)
+    const [ fileIsReady, setFileIsReady ] = useState(false)
 
     const { data: responseGetByGroupId, isLoading: isLoadingGetByGroupId, isFetching: isFetchingGetByGroupId, isError: isErrorGetByGroupId, refetch: getByGroupId } = useQuery(
         ["getByGroupId"],
@@ -134,11 +135,38 @@ const TestFile = () => {
         }
     }, [responseGetByGroupId, dispatch, isErrorGetByGroupId, isFetchingGetByGroupId, isLoadingGetByGroupId])
 
+    const handleViewScore = useCallback(() => {
+        // Số câu không làm
+        const numberQuestionEmpty =
+            responseGetByGroupId?.data?.questions[0]?.answers?.length - answers?.length
+            + answers.reduce((acc, answer) => !answer ? acc + 1 : acc, 0)
+
+        // Số câu sai
+        const numberQuestionWrong = answers.reduce((acc, answer, index) => answer !== responseGetByGroupId?.data?.questions[0]?.answers?.[index].text ? acc + 1 : acc, 0)
+
+        // Số câu đúng
+        const numberQuestionCorrect = responseGetByGroupId?.data?.questions[0]?.answers?.length - numberQuestionEmpty - numberQuestionWrong
+
+        setShowResult([numberQuestionEmpty, numberQuestionWrong, numberQuestionCorrect])
+        data.datasets[0].data = [numberQuestionEmpty / responseGetByGroupId?.data?.questions[0]?.answers?.length, numberQuestionWrong / responseGetByGroupId?.data?.questions[0]?.answers?.length, numberQuestionCorrect / responseGetByGroupId?.data?.questions[0]?.answers?.length]
+
+        setShowScore(true)
+        setSubmitTest(false)
+    }, [ answers, responseGetByGroupId?.data?.questions ])
+
+    
+    useLayoutEffect(() => {
+        if (!showResult && responseGetByGroupId?.data?.questions[0]?.time - countUpTimer <= 0) {
+            handleViewScore()
+        }
+    }, [countUpTimer, handleViewScore, showResult, responseGetByGroupId?.data?.questions])
+
     return !isLoadingGetByGroupId && !isFetchingGetByGroupId && !isErrorGetByGroupId && responseGetByGroupId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetByGroupId?.data) && <>
         <div className='container-fluid p-0'>
             <div className='row g-0 h-screen'>
                 <div className="col-lg-9 col-md-8">
                     <object
+                        onLoad={() => setFileIsReady(true)}
                         frameBorder="0"
                         className='w-full h-screen'
                         aria-label={responseGetByGroupId?.data?.questions[0]?.text}
@@ -162,7 +190,7 @@ const TestFile = () => {
                                     <div className='text-sm'>Time</div>
                                     <div className='font-bold'>
                                         {!showResult ? <>
-                                            <Timer active={true} duration={responseGetByGroupId?.data?.questions[0]?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
+                                            <Timer active={fileIsReady} duration={responseGetByGroupId?.data?.questions[0]?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
                                             <Timecode time={responseGetByGroupId?.data?.questions[0]?.time - countUpTimer} />
                                         </> : <>
                                             <Timecode time={countUpTimer} />
@@ -251,7 +279,7 @@ const TestFile = () => {
                                 <div className='font-bold'>
                                     {!showResult ? <>
                                         <div className='text-sm'>Time remaining</div>
-                                        <Timer active={true} duration={responseGetByGroupId?.data?.questions[0]?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
+                                        <Timer active={fileIsReady} duration={responseGetByGroupId?.data?.questions[0]?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
                                         <Timecode time={responseGetByGroupId?.data?.questions[0]?.time - countUpTimer} />
                                     </> : <>
                                         <div className='text-sm'>Time</div>
@@ -343,24 +371,7 @@ const TestFile = () => {
             title="Confirm"
             message={`Do you want to submit the test?`}
             handleNo={() => setSubmitTest(false)}
-            handleYes={() => {
-                // Số câu không làm
-                const numberQuestionEmpty = 
-                    responseGetByGroupId?.data?.questions[0]?.answers?.length - answers?.length
-                    + answers.reduce((acc, answer) => !answer ? acc + 1 : acc, 0) 
-
-                // Số câu sai
-                const numberQuestionWrong = answers.reduce((acc, answer, index) => answer !== responseGetByGroupId?.data?.questions[0]?.answers?.[index].text ? acc + 1 : acc, 0) 
-
-                // Số câu đúng
-                const numberQuestionCorrect = responseGetByGroupId?.data?.questions[0]?.answers?.length - numberQuestionEmpty - numberQuestionWrong
-
-                setShowResult([numberQuestionEmpty, numberQuestionWrong, numberQuestionCorrect])
-                data.datasets[0].data = [numberQuestionEmpty / responseGetByGroupId?.data?.questions[0]?.answers?.length, numberQuestionWrong / responseGetByGroupId?.data?.questions[0]?.answers?.length, numberQuestionCorrect / responseGetByGroupId?.data?.questions[0]?.answers?.length]
-                
-                setShowScore(true)
-                setSubmitTest(false)
-            }}
+            handleYes={handleViewScore}
         />
 
         <Modal show={showScore ? true : false} onHide={() => setShowScore(false)} backdrop="static" centered fullscreen={true}>

@@ -55,6 +55,7 @@ public class QuestionBankController {
     @PostMapping(RouterConstant.QUESTION_SAVE_TEST_RESULT)
     @LogsActivityAnnotation
     public BaseResponse saveTestResult(@RequestBody TestResultDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return questionBankService.saveTestResult(request);
     }
 }

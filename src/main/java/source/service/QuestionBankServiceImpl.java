@@ -139,9 +139,10 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         );
         Page<Question> questionPage = questionRepository.findAll(pageRequest);
 
-        // Set thêm owner User để trả về
+        // Set thêm số lượng người dùng đã làm
         Page<QuestionDto> quétionDtosPage = questionPage.map(question -> {
             QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+            questionDto.setUserCount(testResultRepository.countUserByQuestionId(question.getId()));
             return questionDto;
         });
 

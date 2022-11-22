@@ -22,4 +22,6 @@ public class QuestionDto extends BaseDto {
     private String pdf;
 
     private List<AnswerDto> answers;
+
+    private long userCount;
 }

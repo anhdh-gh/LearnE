@@ -85,7 +85,7 @@ public class StudysetServiceImpl implements StudysetService {
 
         // Thực hiện lưu studyset mới
         studysetSave.setId(studyset.getId());
-        studysetSave = studysetRepository.save((studysetSave));
+        studysetSave = studysetRepository.save(studysetSave);
 
         // Trả về kết quả
         StudysetDto studysetResponseDto = modelMapper.map(studysetSave, StudysetDto.class);

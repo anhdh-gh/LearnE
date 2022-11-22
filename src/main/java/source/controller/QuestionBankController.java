@@ -44,6 +44,7 @@ public class QuestionBankController {
     @PostMapping(RouterConstant.QUESTION_GET_ALL)
     @LogsActivityAnnotation
     public BaseResponse getAllQuestion(@RequestBody GetAllQuestionDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return questionBankService.getAllQuestion(request);
     }
 

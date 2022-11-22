@@ -6,13 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.dto.request.BasicRequest;
 
-import java.util.Set;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class QuestionGetByIdsRequestDto extends BasicRequest {
+public class GetRankQuestionDto extends BasicRequest {
 
-    private Set<String> questionIds;
+    private String questionId;
+
+    private int page;
+
+    private int size;
 }

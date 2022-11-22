@@ -16,39 +16,45 @@ public class QuestionBankController {
     @Autowired
     private QuestionBankService questionBankService;
 
+    @PostMapping(RouterConstant.QUESTION_CREATE)
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
-    public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
-        return questionBankService.getQuestionByQuestionId(request);
+    public BaseResponse createQuestion(@RequestBody QuestionDto request) throws Exception {
+        return questionBankService.createQuestion(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_UPDATE)
     @LogsActivityAnnotation
+    public BaseResponse updateQuestion(@RequestBody QuestionDto request) throws Exception {
+        return questionBankService.updateQuestion(request);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_DELETE_BY_ID)
+    @LogsActivityAnnotation
+    public BaseResponse deleteQuestionById(@RequestBody DeleteQuestionByIdRequestDto request) throws Exception {
+        return questionBankService.deleteQuestionById(request);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_GET_BY_ID)
+    @LogsActivityAnnotation
+    public BaseResponse getQuestionById(@RequestBody GetQuestionByIdRequestDto request) throws Exception {
+        return questionBankService.getQuestionById(request);
+    }
+
     @PostMapping(RouterConstant.QUESTION_GET_ALL)
-    public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
+    @LogsActivityAnnotation
+    public BaseResponse getAllQuestion(@RequestBody GetAllQuestionDto request) throws Exception {
         return questionBankService.getAllQuestion(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_GET_RANK)
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
-    public BaseResponse getQuestionByIds(@RequestBody QuestionGetByIdsRequestDto request) throws Exception {
-        return questionBankService.getQuestionByQuestionIds(request);
+    public BaseResponse getRankQuestion(@RequestBody GetRankQuestionDto request) throws Exception {
+        return questionBankService.getRankQuestion(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_SAVE_TEST_RESULT)
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_CREATE_LIST)
-    public BaseResponse createQuestionsList(@RequestBody CreateListQuestionsRequestDto request) throws Exception {
-        return questionBankService.createQuestionsList(request);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID)
-    public BaseResponse deleteQuestionsListByGroupId(@RequestBody DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
-        return questionBankService.deleteQuestionsListByGroupId(request);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_GROUP_QUESTION_ID)
-    public BaseResponse getQuestionsListByGroupId(@RequestBody GetListQuestionsByGroupIdRequestDto request) throws Exception {
-        return questionBankService.getQuestionsListByGroupId(request);
+    public BaseResponse saveTestResult(@RequestBody TestResultDto request) throws Exception {
+        return questionBankService.saveTestResult(request);
     }
 }

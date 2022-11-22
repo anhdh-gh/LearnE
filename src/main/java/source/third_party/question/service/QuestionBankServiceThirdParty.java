@@ -5,15 +5,17 @@ import source.dto.response.BaseResponse;
 
 public interface QuestionBankServiceThirdParty {
 
-    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
+    BaseResponse createQuestion(QuestionDto request) throws Exception;
 
-    BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception;
+    BaseResponse updateQuestion(QuestionDto request) throws Exception;
 
-    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
+    BaseResponse deleteQuestionById(DeleteQuestionByIdRequestDto request) throws Exception;
 
-    BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
+    BaseResponse getQuestionById(GetQuestionByIdRequestDto request) throws Exception;
 
-    BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception;
+    BaseResponse getAllQuestion(GetAllQuestionDto request) throws Exception;
 
-    BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception;
+    BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception;
+
+    BaseResponse saveTestResult(TestResultDto request) throws Exception;
 }

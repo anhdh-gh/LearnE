@@ -25,68 +25,79 @@ public class QuestionBankServiceThirdPartyImpl implements QuestionBankServiceThi
 
 
     @Override
-    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
+    public BaseResponse createQuestion(QuestionDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_BY_QUESTION_ID),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_CREATE),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
-    public BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception {
+    public BaseResponse updateQuestion(QuestionDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_CREATE_LIST),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_UPDATE),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
-    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
+    public BaseResponse deleteQuestionById(DeleteQuestionByIdRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_ALL),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_DELETE_BY_ID),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
-    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
+    public BaseResponse getQuestionById(GetQuestionByIdRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_BY_IDS),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_BY_ID),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
-    public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
+    public BaseResponse getAllQuestion(GetAllQuestionDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_ALL),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
     @Override
-    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
+    public BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-                String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_BY_GROUP_QUESTION_ID),
-                HttpMethod.POST,
-                getHeader(request),
-                new ParameterizedTypeReference<BaseResponse>() {
-                });
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_GET_RANK),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse saveTestResult(TestResultDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.QUESTION_SAVE_TEST_RESULT),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 }

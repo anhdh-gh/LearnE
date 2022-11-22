@@ -14,4 +14,6 @@ import lombok.experimental.SuperBuilder;
 public class GetQuestionByIdRequestDto extends BasicRequest {
 
     private String questionId;
+
+    private String userId;
 }

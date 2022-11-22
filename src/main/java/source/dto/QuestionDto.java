@@ -24,4 +24,6 @@ public class QuestionDto extends BaseDto {
     private List<AnswerDto> answers;
 
     private Long userCount;
+
+    private TestResultDto testResult;
 }

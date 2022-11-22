@@ -124,8 +124,19 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         // Kiểm tra question có tồn tại hay không?
         Question question = checkQuestionExits(request.getQuestionId());
 
-        // Trả về kết quả
         QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+
+        // Nếu user tồn tại thì lấy kết quả test ra
+        if(request.getUserId() != null) {
+            Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndQuestionId(
+                request.getUserId(), question.getId()
+            );
+            if(testResultOptional.isPresent()) {
+                questionDto.setTestResult(modelMapper.map(testResultOptional.get(), TestResultDto.class));
+            }
+        }
+
+        // Trả về kết quả
         return BaseResponse.ofSucceeded(request.getRequestId(), questionDto);
     }
 

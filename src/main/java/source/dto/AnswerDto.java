@@ -13,9 +13,7 @@ import javax.persistence.Column;
 @SuperBuilder
 public class AnswerDto extends BaseDto {
 
-    @Column(name = "Text")
     private String text;
 
-    @Column(name = "Audio")
     private String audio;
 }

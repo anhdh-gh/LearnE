@@ -297,7 +297,7 @@ public class StudysetServiceImpl implements StudysetService {
         });
 
         // Trả về kết quả
-        return BaseResponse.ofSucceeded(request.getStudysetId(), testResultDtosResponse);
+        return BaseResponse.ofSucceeded(request.getRequestId(), testResultDtosResponse);
     }
 
     @Override

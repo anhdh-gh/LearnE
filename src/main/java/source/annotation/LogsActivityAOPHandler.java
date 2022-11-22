@@ -33,8 +33,10 @@ public class LogsActivityAOPHandler {
 
     @Value("${app.name}")
     private String appName;
+
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     private HttpServletRequest httpServletRequest;
 

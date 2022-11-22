@@ -10,6 +10,9 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+  jackson:
+    serialization-inclusion: non_null
+    default-property-inclusion: non_null
 app:
   name: service-questions-bank
 

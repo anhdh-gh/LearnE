@@ -1,5 +1,6 @@
 package source.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "answer", schema = "public")
 public class Answer extends AutoIncrementIdBaseEntity {
 

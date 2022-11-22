@@ -1,5 +1,6 @@
 package source.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @SuperBuilder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "testresult", schema = "public")
 public class TestResult extends UidBaseEntity {
 

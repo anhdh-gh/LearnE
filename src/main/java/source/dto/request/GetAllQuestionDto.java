@@ -16,4 +16,6 @@ public class GetAllQuestionDto extends BasicRequest {
     private int page;
 
     private int size;
+
+    private String userId;
 }

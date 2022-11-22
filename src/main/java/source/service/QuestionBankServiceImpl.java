@@ -131,9 +131,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
             Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndQuestionId(
                 request.getUserId(), question.getId()
             );
-            if(testResultOptional.isPresent()) {
-                questionDto.setTestResult(modelMapper.map(testResultOptional.get(), TestResultDto.class));
-            }
+            testResultOptional.ifPresent(testResult -> questionDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
         }
 
         // Trả về kết quả
@@ -154,6 +152,13 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         Page<QuestionDto> quétionDtosPage = questionPage.map(question -> {
             QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
             questionDto.setUserCount(testResultRepository.countUserByQuestionId(question.getId()));
+            // Nếu user tồn tại thì lấy kết quả test ra
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndQuestionId(
+                    request.getUserId(), question.getId()
+                );
+                testResultOptional.ifPresent(testResult -> questionDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
             return questionDto;
         });
 

@@ -84,6 +84,7 @@ public class StudysetServiceImpl implements StudysetService {
         studysetRepository.delete(studyset);
 
         // Thực hiện lưu studyset mới
+        studysetSave.setId(studyset.getId());
         studysetSave = studysetRepository.save((studysetSave));
 
         // Trả về kết quả

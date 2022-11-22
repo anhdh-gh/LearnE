@@ -6,23 +6,26 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
+import source.dto.QuestionDto;
+import source.dto.TestResultDto;
+import source.dto.UserDto;
 import source.dto.request.*;
 import source.dto.response.BaseResponse;
-import source.dto.response.GetListQuestionsByGroupIdResponseDto;
 import source.entity.Answer;
 import source.entity.Question;
-import source.entity.enumeration.QuestionType;
+import source.entity.TestResult;
 import source.exception.BusinessErrors;
 import source.exception.BusinessException;
 import source.repository.QuestionRepository;
-import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
+import source.repository.TestResultRepository;
 import source.third_party.course.service.CourseThirdPartyService;
-import source.third_party.multimedia.dto.request.QuestionDeleteByGroupIdRequestDto;
 import source.third_party.multimedia.service.MultimediaThirdPartyService;
+import source.third_party.user.dto.request.UserGetByIdRequestDto;
+import source.third_party.user.dto.request.UserGetListByIdsRequestDto;
+import source.third_party.user.service.UserServiceThirdParty;
+import source.util.JsonUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,173 +48,206 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Autowired
     private CourseThirdPartyService courseThirdPartyService;
 
-    @Override
-    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
-        Optional<Question> questionOptional = questionRepository.findById(request.getQuestionId());
+    @Autowired
+    private TestResultRepository testResultRepository;
 
-        if(questionOptional.isPresent()) {
-            return BaseResponse.ofSucceeded(request.getRequestId(), questionOptional.get());
-        } else {
-            int errorCode = Integer.parseInt(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031);
-            throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    private Question saveQuestion(CreateQuestionRequestDto request) throws Exception {
-        return questionRepository.save(Question
-            .builder()
-            .id(request.getId())
-            .questionType(QuestionType.valueOf(request.getQuestionType()))
-            .text(request.getText())
-            .image(request.getImage())
-            .audio(request.getAudio())
-            .pdf(request.getPdf())
-            .time(request.getTime())
-            .groupId(request.getGroupId())
-            .header(request.getHeader())
-            .answers(request.getAnswers()
-                .stream()
-                .map(answerRequestDto -> Answer
-                    .builder()
-                    .text(answerRequestDto.getText())
-                    .audio(answerRequestDto.getAudio())
-                    .isCorrect(answerRequestDto.isCorrect())
-                    .build()
-                )
-                .collect(Collectors.toList()))
-            .build()
-        );
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Throwable.class})
-    public BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception {
-        List<Question> questions = new ArrayList<>();
-
-        // Kiểm tra id, image, audio, groupId có tồn tại không
-//        if(request.getQuestions().stream().anyMatch(question -> question.getImage() != null || question.getAudio() != null)) {
-//            QuestionCheckExistRequestDto questionCheckExistRequest =
-//                modelMapper.map(request, QuestionCheckExistRequestDto.class);
-//            questionCheckExistRequest.setGroupId(request.getGroupId());
-//            questionCheckExistRequest.setQuestions(mapList(request.getQuestions(), QuestionDetail.class));
-//            questionCheckExistRequest.setQuestions(
-//                request.getQuestions().stream().map(createQuestionRequestDto ->
-//                    QuestionDetail.builder()
-//                        .id(createQuestionRequestDto.getId())
-//                        .audio(createQuestionRequestDto.getAudio())
-//                        .image(createQuestionRequestDto.getImage())
-//                        .build()).collect(Collectors.toList()));
-//            BaseResponse responseCheckExist = multimediaThirdPartyService.checkQuestionExist(questionCheckExistRequest);
-//            if(!Objects.equals(responseCheckExist.getMeta().getCode(), BaseResponse.OK_CODE)) {
-//                return responseCheckExist;
-//            }
-//        }
-
-        // Thực hiện save
-        for(CreateQuestionRequestDto questionRequestDto : request.getQuestions()) {
-            questionRequestDto.setGroupId(request.getGroupId());
-            Question questionSave = saveQuestion(questionRequestDto);
-            questions.add(questionSave);
-        }
-        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
-    }
-
-    @Override
-    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
-        PageRequest pageRequest = PageRequest.of(
-            request.getPage(),
-            request.getSize(),
-            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
-        );
-
-        Page<Question> questions = questionRepository.findAll(pageRequest);
-
-        return BaseResponse.ofSucceeded(
-            request.getRequestId(),
-            questions
-        );
-    }
-
-    @Override
-    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
-        List<Question> questions = getQuestionByQuestionIds(request.getQuestionIds());
-        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Throwable.class})
-    public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
-        // Kiểm tra xem group có tồn tại không
-        List<Question> questions = getQuestionsListByGroupId(request.getGroupId());
-
-        // Thực hiện xóa
-        QuestionDeleteByGroupIdRequestDto questionDeleteByGroupIdRequest
-            = modelMapper.map(request, QuestionDeleteByGroupIdRequestDto.class);
-        questionDeleteByGroupIdRequest.setGroupId(request.getGroupId());
-        BaseResponse responseDelete = multimediaThirdPartyService.deleteQuestionByGroupId(questionDeleteByGroupIdRequest);
-        if(!Objects.equals(responseDelete.getMeta().getCode(), BaseResponse.OK_CODE)
-        && !Objects.equals(responseDelete.getMeta().getCode(), HttpStatus.NOT_FOUND.value())) {
-            return responseDelete;
-        }
-        questionRepository.deleteAllByGroupId(request.getGroupId());
-
-        // Thực hiện callback xóa bên service course
-        CallBackQuestionsDeleteRequestDto requestCourse
-            = modelMapper.map(request, CallBackQuestionsDeleteRequestDto.class);
-        requestCourse.setQuestionIds(questions.stream().map(Question::getId).collect(Collectors.toSet()));
-        BaseResponse responseCourse = courseThirdPartyService.callBackQuestionsDelete(requestCourse);
-        if(!Objects.equals(responseCourse.getMeta().getCode(), BaseResponse.OK_CODE)) {
-            throw new BusinessException(
-                Integer.parseInt(ErrorCodeConstant.CALLBACK_DELETE_QUESTION_FAIL_400032),
-                environment.getProperty(ErrorCodeConstant.CALLBACK_DELETE_QUESTION_FAIL_400032),
-                HttpStatus.BAD_REQUEST);
-        }
-
-        // Trả về kết quả
-        return BaseResponse.ofSucceeded(request.getRequestId(), "Delete questions by groupId successfully");
-    }
-
-    private List<Question> getQuestionsListByGroupId(String groupId) throws Exception {
-        List<Question> questions = questionRepository.findAllByGroupId(groupId);
-        if(questions == null || questions.isEmpty()) {
-            throw new BusinessException(BusinessErrors.NOT_FOUND, environment.getProperty(String.valueOf(BusinessErrors.NOT_FOUND)));
-        }
-
-        return questions;
-    }
-
-    @Override
-    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
-        // Kiểm tra tồn tại và lấy ra list questions theo groupid
-        List<Question> questions = getQuestionsListByGroupId(request.getGroupId());
-
-        // Trả về kết quả
-        GetListQuestionsByGroupIdResponseDto response
-            = modelMapper.map(request, GetListQuestionsByGroupIdResponseDto.class);
-        response.setQuestions(questions);
-        return BaseResponse.ofSucceeded(request.getRequestId(), response);
-    }
-
-    @Override
-    public BaseResponse getQuestionsListByQuestionTypeAndLimit(QuestionGetListRequestDto request) throws Exception {
-        List<Question> questions = questionRepository.findByQuestionTypeAndLimit(request.getQuestionType().getValue(), request.getLimit());
-        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
-    }
-
-    private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {
-        List<Question> questions = questionRepository.findByIdIn(questionIds);
-        if(questions.size() != questionIds.size()) {
-            int errorCode = Integer.parseInt(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031);
-            throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
-        }
-
-        return questions;
-    }
+    @Autowired
+    private UserServiceThirdParty userServiceThirdParty;
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
         return source
             .stream()
             .map(element -> modelMapper.map(element, targetClass))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public BaseResponse createQuestion(QuestionDto request) throws Exception {
+        // Thực hiện lưu
+        Question questionSave = modelMapper.map(request, Question.class);
+        questionSave.setAnswers(mapList(request.getAnswers(), Answer.class));
+        questionSave = questionRepository.save(questionSave);
+
+        // Trả kết quả về
+        QuestionDto questionDto = modelMapper.map(questionSave, QuestionDto.class);
+        return BaseResponse.ofSucceeded(request.getRequestId(), questionDto);
+    }
+
+    @Override
+    public BaseResponse updateQuestion(QuestionDto request) throws Exception {
+        // Kiểm tra question có tồn tại hay không
+        Question question = checkQuestionExits(request.getId());
+
+        // Set dữ liệu để update
+        Question questionSave = modelMapper.map(request, Question.class);
+        questionSave.setId(null);
+        questionSave.setAnswers(mapList(request.getAnswers(), Answer.class));
+        questionSave.setCreateTime(question.getCreateTime());
+        questionSave.setUpdateTime(new Date());
+
+        // Xóa cái cũ
+        questionRepository.delete(question);
+
+        // Thực hiện lưu question mới
+        questionSave.setId(question.getId());
+        questionSave = questionRepository.save(questionSave);
+
+        // Trả về kết quả
+        QuestionDto questionResponseDto = modelMapper.map(questionSave, QuestionDto.class);
+        return BaseResponse.ofSucceeded(request.getRequestId(), questionResponseDto);
+    }
+
+    private Question checkQuestionExits(String questionId) throws Exception {
+        // Kiểm tra Question có tồn tại hay không
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        if(!optionalQuestion.isPresent()) {
+            throw new BusinessException(BusinessErrors.INVALID_PARAMETERS, environment.getProperty(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031));
+        }
+
+        return optionalQuestion.get();
+    }
+
+    @Override
+    public BaseResponse deleteQuestionById(DeleteQuestionByIdRequestDto request) throws Exception {
+        // Kiểm tra question có tồn tại hay không
+        Question question = checkQuestionExits(request.getQuestionId());
+
+        // Xóa question
+        questionRepository.delete(question);
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), question);
+    }
+
+    @Override
+    public BaseResponse getQuestionById(GetQuestionByIdRequestDto request) throws Exception {
+        // Kiểm tra question có tồn tại hay không?
+        Question question = checkQuestionExits(request.getQuestionId());
+
+        // Trả về kết quả
+        QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+        return BaseResponse.ofSucceeded(request.getRequestId(), questionDto);
+    }
+
+    @Override
+    public BaseResponse getAllQuestion(GetAllQuestionDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+        Page<Question> questionPage = questionRepository.findAll(pageRequest);
+
+        // Set thêm owner User để trả về
+        Page<QuestionDto> quétionDtosPage = questionPage.map(question -> {
+            QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+            return questionDto;
+        });
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(
+            request.getRequestId(),
+            quétionDtosPage
+        );
+    }
+
+    @Override
+    public BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception {
+        // Kiểm tra studyset có tồn tại hay không
+        Question question = checkQuestionExits(request.getQuestionId());
+
+        // Lấy ra xếp hạng của studyset này
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("score").descending()
+                .and(Sort.by("completionTime").ascending()
+                .and(Sort.by("updateTime").ascending()
+                .and(Sort.by("createTime").ascending())))
+        );
+        Page<TestResult> testResultsPage = testResultRepository.findAllByQuestionId(request.getQuestionId(), pageRequest);
+
+        // Lấy ra một list user theo userIds
+        Set<String> userIds = testResultsPage.toList().stream().map(TestResult::getUserId).collect(Collectors.toSet());
+        Map<String, UserDto> userDtosMap = getListUserByUserIds(request, userIds).stream().collect(Collectors.toMap(UserDto::getId, userDto -> userDto));
+
+        // Tạo response trả về
+        Page<TestResultDto> testResultDtosResponse = testResultsPage.map(testResult -> {
+            TestResultDto testResultDto = modelMapper.map(testResult, TestResultDto.class);
+            testResultDto.setUser(userDtosMap.get(testResult.getUserId()));
+            return testResultDto;
+        });
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), testResultDtosResponse);
+    }
+
+    @Override
+    public BaseResponse saveTestResult(TestResultDto request) throws Exception {
+        // Kiểm tra user có tồn tại không
+        UserDto userDto = checkUserExits(request, request.getUserId());
+
+        // Kiểm tra question có tồn tại hay không
+        Question question = checkQuestionExits(request.getQuestionId());
+
+        // Thực hiện lưu score
+        Optional<TestResult> optionalTestResultDto
+            = testResultRepository.findTestResultByUserIdAndQuestionId(request.getUserId(), request.getQuestionId());
+
+        TestResult testResultResponse = null;
+        if(!optionalTestResultDto.isPresent()) {
+            TestResult testResultSave = modelMapper.map(request, TestResult.class);
+            testResultSave.setQuestion(question);
+            testResultResponse = testResultRepository.save(testResultSave);
+        } else {
+            TestResult testResultUpdate = optionalTestResultDto.get();
+            testResultUpdate.setScore(request.getScore());
+            testResultUpdate.setCompletionTime(request.getCompletionTime());
+            testResultUpdate.setUpdateTime(new Date());
+            testResultResponse = testResultRepository.save(testResultUpdate);
+        }
+
+        // Trả kết quả về
+        TestResultDto testResultDto = modelMapper.map(testResultResponse, TestResultDto.class);
+        testResultDto.setQuestionId(testResultResponse.getQuestion().getId());
+        return BaseResponse.ofSucceeded(request.getRequestId(), testResultDto);
+    }
+
+    private List<UserDto> getListUserByUserIds(BasicRequest request, Set<String> userIds) throws Exception {
+        // Kiểm tra xem UserId có tồn tại hay không
+        BaseResponse baseResponse = userServiceThirdParty.getUserByUserIds(UserGetListByIdsRequestDto
+            .builder()
+            .requestId(request.getRequestId())
+            .ids(userIds)
+            .build()
+        );
+        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            throw new BusinessException(BusinessErrors.INVALID_PARAMETERS, environment.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        }
+
+        List userlistRaw = JsonUtil.getGenericObject(baseResponse.getData(), List.class);
+        List<UserDto> userDtos = new ArrayList<>();
+        userlistRaw.forEach(userRaw -> {
+            UserDto userDto = JsonUtil.getGenericObject(userRaw, UserDto.class);
+            userDtos.add(userDto);
+        });
+
+        return mapList(userDtos, UserDto.class);
+    }
+
+    private UserDto checkUserExits(BasicRequest request, String userId) throws Exception {
+        // Kiểm tra xem UserId có tồn tại hay không
+        BaseResponse baseResponse = userServiceThirdParty.getUserById(UserGetByIdRequestDto
+            .builder()
+            .requestId(request.getRequestId())
+            .id(userId)
+            .build()
+        );
+        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            throw new BusinessException(BusinessErrors.INVALID_PARAMETERS, environment.getProperty(ErrorCodeConstant.USERID_IS_NOT_EXISTS_400011));
+        }
+
+        return JsonUtil.getGenericObject(baseResponse.getData(), UserDto.class);
     }
 }

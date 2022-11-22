@@ -1,22 +1,21 @@
-package source.dto.request;
+package source.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class AnswerRequestDto {
+public class AnswerDto extends BaseDto {
 
-    @JsonProperty("text")
+    @Column(name = "Text")
     private String text;
 
-    @JsonProperty("audio")
+    @Column(name = "Audio")
     private String audio;
-
-    private boolean isCorrect;
 }

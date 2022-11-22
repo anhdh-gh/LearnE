@@ -80,9 +80,8 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.answer (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     questionid character varying(255) NOT NULL,
-    iscorrect boolean NOT NULL,
     text text NOT NULL,
     updatetime timestamp(6) without time zone,
     createtime timestamp(6) without time zone,
@@ -116,16 +115,26 @@ ALTER SEQUENCE public.answer_id_seq OWNED BY public.answer.id;
 
 CREATE TABLE public.question (
     id character varying(255) NOT NULL,
-    questiontype character varying(255) NOT NULL,
-    text text NOT NULL,
-    image character varying(1000),
-    audio character varying(1000),
+    text character varying(255) NOT NULL,
     updatetime timestamp(6) without time zone,
     createtime timestamp(6) without time zone,
-    header text,
     "time" integer,
-    pdf character varying(1000),
-    groupid character varying(255) NOT NULL
+    pdf character varying(1000) NOT NULL
+);
+
+
+--
+-- Name: testresult; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.testresult (
+    id character varying(255) NOT NULL,
+    completiontime bigint NOT NULL,
+    score real NOT NULL,
+    userid character varying(255) NOT NULL,
+    updatetime timestamp(6) without time zone,
+    createtime timestamp(6) without time zone,
+    questionid character varying(255) NOT NULL
 );
 
 
@@ -153,11 +162,27 @@ ALTER TABLE ONLY public.question
 
 
 --
+-- Name: testresult testresult_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.testresult
+    ADD CONSTRAINT testresult_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: answer fkanswer406451; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.answer
     ADD CONSTRAINT fkanswer406451 FOREIGN KEY (questionid) REFERENCES public.question(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: testresult fktestresult342670; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.testresult
+    ADD CONSTRAINT fktestresult342670 FOREIGN KEY (questionid) REFERENCES public.question(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -192,4 +217,3 @@ GRANT ALL ON LANGUAGE plpgsql TO udfrqepeatccsz;
 --
 -- PostgreSQL database dump complete
 --
-

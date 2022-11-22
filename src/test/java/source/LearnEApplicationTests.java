@@ -3,11 +3,11 @@ package source;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import source.entity.Answer;
 import source.entity.Question;
 import source.repository.QuestionRepository;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Collections;
 
 @SpringBootTest
 class LearnEApplicationTests {
@@ -17,11 +17,15 @@ class LearnEApplicationTests {
 
     @Test
     void contextLoads() {
-        List<Question> questions = questionRepository.findAll();
-
-        questions.forEach(question -> {
-            question.setGroupId(UUID.randomUUID().toString());
-            questionRepository.save(question);
-        });
+        questionRepository.save(Question
+            .builder()
+            .text("Text")
+            .pdf("Pdf")
+            .answers(Collections.singletonList(
+                Answer
+                .builder()
+                .text("Text")
+                .build()))
+            .build());
     }
 }

@@ -24,7 +24,4 @@ public class Answer extends AutoIncrementIdBaseEntity {
 
     @Column(name = "Audio")
     private String audio;
-
-    @Column(name = "IsCorrect")
-    private boolean isCorrect;
 }

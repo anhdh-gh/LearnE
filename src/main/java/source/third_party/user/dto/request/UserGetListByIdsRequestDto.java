@@ -1,9 +1,10 @@
-package source.dto.request;
+package source.third_party.user.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import source.dto.request.BasicRequest;
 
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class QuestionGetByIdsRequestDto extends BasicRequest {
+public class UserGetListByIdsRequestDto extends BasicRequest {
 
-    private Set<String> questionIds;
+    private Set<String> ids;
 }

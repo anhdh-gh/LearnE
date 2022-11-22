@@ -9,9 +9,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class QuestionGetAllRequestDto extends BasicRequest {
+public class GetQuestionByIdRequestDto extends BasicRequest {
 
-    private int page;
-
-    private int size;
+    private String questionId;
 }

@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import source.entity.enumeration.QuestionType;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class QuestionGetListRequestDto extends BasicRequest {
+public class GetRankQuestionDto extends BasicRequest {
 
-    private QuestionType questionType;
+    private String questionId;
 
-    private long limit;
+    private int page;
+
+    private int size;
 }

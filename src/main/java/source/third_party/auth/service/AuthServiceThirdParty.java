@@ -1,10 +1,11 @@
 package source.third_party.auth.service;
 
 import source.dto.request.*;
-import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
+import source.dto.request.studyset.TestResultDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 
@@ -50,7 +51,7 @@ public interface AuthServiceThirdParty {
 
     BaseResponse getStudysetById(GetStudysetByIdRequestDto request) throws Exception;
 
-    BaseResponse saveTestResult(TestResultDto request) throws Exception;
+    BaseResponse saveTestResultStudyset(TestResultDto request) throws Exception;
 
     BaseResponse getAllStudysetByOwnerUserId(GetAllStudysetByOwnerUserIdRequestDto request) throws Exception;
 
@@ -64,15 +65,17 @@ public interface AuthServiceThirdParty {
 
     BaseResponse checkOwnerStudysetValid(CheckOwnerStudysetValidRequestDto request) throws Exception;
 
-    BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception;
+    BaseResponse createQuestion(QuestionDto request) throws Exception;
 
-    BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception;
+    BaseResponse updateQuestion(QuestionDto request) throws Exception;
 
-    BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception;
+    BaseResponse deleteQuestionById(DeleteQuestionByIdRequestDto request) throws Exception;
 
-    BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
+    BaseResponse getQuestionById(GetQuestionByIdRequestDto request) throws Exception;
 
-    BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception;
+    BaseResponse getAllQuestion(GetAllQuestionDto request) throws Exception;
 
-    BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception;
+    BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception;
+
+    BaseResponse saveTestResultQuestion(source.dto.request.questionBank.TestResultDto request) throws Exception;
 }

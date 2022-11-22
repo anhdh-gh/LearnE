@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.*;
-import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
+import source.dto.request.studyset.TestResultDto;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
@@ -128,8 +129,8 @@ public class AuthController {
 
     @PostMapping(RouterConstant.SAVE_STUDYSET_TEST_RESULT)
     @LogsActivityAnnotation
-    public BaseResponse saveTestResult(@RequestBody TestResultDto request) throws Exception {
-        return authService.saveTestResult(request);
+    public BaseResponse saveTestResultStudyset(@RequestBody TestResultDto request) throws Exception {
+        return authService.saveTestResultStudyset(request);
     }
 
     @PostMapping(RouterConstant.GET_STUDYSET_BY_ID)
@@ -186,39 +187,45 @@ public class AuthController {
         return authService.checkOwnerStudysetValid(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_CREATE)
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_QUESTION_ID)
-    public BaseResponse getQuestionByQuestionId(@RequestBody GetQuestionByQuestionIdRequestDto request) throws Exception {
-        return authService.getQuestionByQuestionId(request);
+    public BaseResponse createQuestion(@RequestBody QuestionDto request) throws Exception {
+        return authService.createQuestion(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_UPDATE)
     @LogsActivityAnnotation
+    public BaseResponse updateQuestion(@RequestBody QuestionDto request) throws Exception {
+        return authService.updateQuestion(request);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_DELETE_BY_ID)
+    @LogsActivityAnnotation
+    public BaseResponse deleteQuestionById(@RequestBody DeleteQuestionByIdRequestDto request) throws Exception {
+        return authService.deleteQuestionById(request);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_GET_BY_ID)
+    @LogsActivityAnnotation
+    public BaseResponse getQuestionById(@RequestBody GetQuestionByIdRequestDto request) throws Exception {
+        return authService.getQuestionById(request);
+    }
+
     @PostMapping(RouterConstant.QUESTION_GET_ALL)
-    public BaseResponse getQuestion(@RequestBody QuestionGetAllRequestDto request) throws Exception {
+    @LogsActivityAnnotation
+    public BaseResponse getAllQuestion(@RequestBody GetAllQuestionDto request) throws Exception {
         return authService.getAllQuestion(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_GET_RANK)
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
-    public BaseResponse getQuestionByIds(@RequestBody QuestionGetByIdsRequestDto request) throws Exception {
-        return authService.getQuestionByQuestionIds(request);
+    public BaseResponse getRankQuestion(@RequestBody GetRankQuestionDto request) throws Exception {
+        return authService.getRankQuestion(request);
     }
 
+    @PostMapping(RouterConstant.QUESTION_SAVE_TEST_RESULT)
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_CREATE_LIST)
-    public BaseResponse createQuestionsList(@RequestBody CreateListQuestionsRequestDto request) throws Exception {
-        return authService.createQuestionsList(request);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_DELETE_BY_GROUP_QUESTION_ID)
-    public BaseResponse deleteQuestionsListByGroupId(@RequestBody DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
-        return authService.deleteQuestionsListByGroupId(request);
-    }
-
-    @LogsActivityAnnotation
-    @PostMapping(RouterConstant.QUESTION_GET_BY_GROUP_QUESTION_ID)
-    public BaseResponse getQuestionsListByGroupId(@RequestBody GetListQuestionsByGroupIdRequestDto request) throws Exception {
-        return authService.getQuestionsListByGroupId(request);
+    public BaseResponse saveTestResultQuestion(@RequestBody source.dto.request.questionBank.TestResultDto request) throws Exception {
+        return authService.saveTestResultQuestion(request);
     }
 }

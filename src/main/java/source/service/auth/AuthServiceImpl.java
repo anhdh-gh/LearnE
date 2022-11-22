@@ -3,9 +3,10 @@ package source.service.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import source.dto.request.*;
-import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.CreateCourseRequestDto;
+import source.dto.request.course.DeleteCourseByIdRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
+import source.dto.request.questionBank.TestResultDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.*;
 import source.dto.response.BaseResponse;
@@ -118,8 +119,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public BaseResponse saveTestResult(TestResultDto request) throws Exception {
-        return authServiceThirdParty.saveTestResult(request);
+    public BaseResponse saveTestResultStudyset(source.dto.request.studyset.TestResultDto request) throws Exception {
+        return authServiceThirdParty.saveTestResultStudyset(request);
     }
 
     @Override
@@ -153,32 +154,37 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public BaseResponse getQuestionByQuestionId(GetQuestionByQuestionIdRequestDto request) throws Exception {
-        return authServiceThirdParty.getQuestionByQuestionId(request);
+    public BaseResponse createQuestion(QuestionDto request) throws Exception {
+        return authServiceThirdParty.createQuestion(request);
     }
 
     @Override
-    public BaseResponse createQuestionsList(CreateListQuestionsRequestDto request) throws Exception {
-        return authServiceThirdParty.createQuestionsList(request);
+    public BaseResponse updateQuestion(QuestionDto request) throws Exception {
+        return authServiceThirdParty.updateQuestion(request);
     }
 
     @Override
-    public BaseResponse getAllQuestion(QuestionGetAllRequestDto request) throws Exception {
+    public BaseResponse deleteQuestionById(DeleteQuestionByIdRequestDto request) throws Exception {
+        return authServiceThirdParty.deleteQuestionById(request);
+    }
+
+    @Override
+    public BaseResponse getQuestionById(GetQuestionByIdRequestDto request) throws Exception {
+        return authServiceThirdParty.getQuestionById(request);
+    }
+
+    @Override
+    public BaseResponse getAllQuestion(GetAllQuestionDto request) throws Exception {
         return authServiceThirdParty.getAllQuestion(request);
     }
 
     @Override
-    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
-        return authServiceThirdParty.getQuestionByQuestionIds(request);
+    public BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception {
+        return authServiceThirdParty.getRankQuestion(request);
     }
 
     @Override
-    public BaseResponse deleteQuestionsListByGroupId(DeleteListQuestionsByGroupIdRequestDto request) throws Exception {
-        return authServiceThirdParty.deleteQuestionsListByGroupId(request);
-    }
-
-    @Override
-    public BaseResponse getQuestionsListByGroupId(GetListQuestionsByGroupIdRequestDto request) throws Exception {
-        return authServiceThirdParty.getQuestionsListByGroupId(request);
+    public BaseResponse saveTestResultQuestion(TestResultDto request) throws Exception {
+        return authServiceThirdParty.saveTestResultQuestion(request);
     }
 }

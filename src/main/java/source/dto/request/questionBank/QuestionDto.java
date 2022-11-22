@@ -4,15 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import source.dto.request.BasicRequest;
+import source.dto.BaseDto;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class QuestionGetAllRequestDto extends BasicRequest {
+public class QuestionDto extends BaseDto {
 
-    private int page;
+    private String text;
 
-    private int size;
+    private Integer time;
+
+    private String pdf;
+
+    private List<AnswerDto> answers;
 }

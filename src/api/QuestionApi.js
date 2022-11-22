@@ -1,41 +1,44 @@
 import { ApiClient } from '.'
 
 const ROUTE_PATH = {
-    GET_ALL_QUESTION: '/questions/all',
-    DELETE_BY_GROUP_ID: '/questions/delete-by-group-id',
-    CREATE_LIST: '/questions/create-list',
-    GET_BY_GROUP_ID: '/questions/get-by-group-id'
+    QUESTION_CREATE: '/question/create',
+    QUESTION_UPDATE: '/question/update',
+    QUESTION_DELETE_BY_ID: '/question/delete-by-id',
+    QUESTION_GET_BY_ID: '/question/get-by-id',
+    QUESTION_GET_ALL: '/question/get-all',
+    QUESTION_SAVE_TEST_RESULT: '/question/save-test-result',
+    QUESTION_GET_RANK: '/question/get-rank'
 }
 
 const QuestionApi = {
 
-    // handleGetCourseDetailForUser(courseId, userId) {
-    //     return () => ApiClient.post(ROUTE_PATH.GET_COURSE_DETAIL_FOR_USER, {courseId, userId})
-    // },
-
-    getByGroupId(groupId) {
-        return ApiClient.post(ROUTE_PATH.GET_BY_GROUP_ID, {groupId})
-    },
-
-    // updateLessonStatus(lessonId, status) {
-    //     return () => ApiClient.post(ROUTE_PATH.UPDATE_LESSON_STATUS, { lessonId, status })
-    // },
-
     getAll(page, size) {
-        return ApiClient.post(ROUTE_PATH.GET_ALL_QUESTION, { page, size })
+        return ApiClient.post(ROUTE_PATH.QUESTION_GET_ALL, { page, size })
     },
 
-    createList(question) {
-        return ApiClient.post(ROUTE_PATH.CREATE_LIST, { ...question })
+    create(question) {
+        return ApiClient.post(ROUTE_PATH.QUESTION_CREATE, { ...question })
     },
 
-    deleteByGroupId(groupId) {
-        return ApiClient.post(ROUTE_PATH.DELETE_BY_GROUP_ID, { groupId })
+    update(question) {
+        return ApiClient.post(ROUTE_PATH.QUESTION_UPDATE, { ...question })
     },
 
-    // updateCourse(course) {
-    //     return ApiClient.post(ROUTE_PATH.UPDATE_COURSE, { ...course })
-    // },
+    deleteById(questionId) {
+        return ApiClient.post(ROUTE_PATH.QUESTION_DELETE_BY_ID, { questionId })
+    },
+
+    getById(questionId) {
+        return ApiClient.post(ROUTE_PATH.QUESTION_GET_BY_ID, { questionId })
+    },
+
+    saveTestResult(questionId, completionTime, score) {
+        return ApiClient.post(ROUTE_PATH.QUESTION_SAVE_TEST_RESULT, { questionId, completionTime, score })
+    },
+
+    getRank(questionId, page, size) {
+        return ApiClient.post(ROUTE_PATH.QUESTION_GET_RANK, { questionId, page, size })
+    }
 }
 
 export default QuestionApi

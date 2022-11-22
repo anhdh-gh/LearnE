@@ -16,7 +16,7 @@ import CourseManagement from './CourseManagement'
 import TestComponet from './TestComponet'
 import QuestionManagement from './QuestionManagement'
 import StudysetManagenent from './StudysetManagenent'
-import TestFile from './TestFile'
+import TestQuestion from './TestQuestion'
 import ShowAllQuestion from './ShowAllQuestion'
 
 export {
@@ -38,6 +38,6 @@ export {
     TestComponet,
     QuestionManagement,
     StudysetManagenent,
-    TestFile,
+    TestQuestion,
     ShowAllQuestion,
 }

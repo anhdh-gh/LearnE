@@ -17,7 +17,7 @@ const ViewDetailStudySet = (props) => {
 
     const { studysetId } = useParams()
     const dispatch = useDispatch()
-    const [ showRank, setShowRank ] = useState(false);
+    const [ showRank, setShowRank ] = useState(false)
 
     const { data: responseGetStudysetById, isLoading, isFetching, isError, refetch: getStudysetById } = useQuery(
         ["getStudysetById"],

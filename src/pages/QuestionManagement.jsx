@@ -1,9 +1,9 @@
 import '../assets/css/UserManagementPage.css'
 import '../assets/css/CourseManagement.css'
 import { Header, Footer, Sider, Pagination, ModalConfirm, ModalUploadFile, SvelteJSONEditor } from "../components"
-import { ROUTE_PATH, STATUS_CODES, QUESTION_TYPE } from '../constants'
+import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
-import { SearchBox, UserInfo } from '../components'
+import { SearchBox, UserInfo, RankQuestion } from '../components'
 import { useSelector } from 'react-redux'
 import { QuestionApi, MultimediaApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
@@ -13,27 +13,15 @@ import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
 import { Notification, CommonUtil } from '../utils'
-import uuid from 'react-uuid'
 
 const baseQuestionCreate = () => ({
-    groupId: uuid(),
-    questions: [
+    "text": "Test name",
+    "time": 10000,
+    "pdf": "pdf",
+    "answers": [
         {
-            id: uuid(),
-            questionType: "FILE",
-            // header: "Đây là câu hỏi kiểu: đọc đoạn văn và trả lời câu hỏi (Cái này là paste đoạn text câu hỏi y hệt trong đề thi toiec của mỗi phần)",
-            text: "Toeic test 1",
-            time: 10000,
-            // image: "https://firebasestorage.googleapis.com/v0/b/learne-41d47.appspot.com/o/Backend-Service-Multimedia%2FQuestionBank%2FQuestion%2Fd085dae7-7afc-47af-8162-0bf1ec9a5cda%2F143c9125-ca6a-4ec4-8e44-9cdfa9711b62.jpg?alt=media",
-            // audio: "https://firebasestorage.googleapis.com/v0/b/learne-41d47.appspot.com/o/Backend-Service-Multimedia%2FQuestionBank%2FQuestion%2Fd085dae7-7afc-47af-8162-0bf1ec9a5cda%2F143c9125-ca6a-4ec4-8e44-9cdfa9711b62.mp3?alt=media",
-            pdf: "https://ToeicTest.pdf",
-            answers: [
-                {
-                    text: "A",
-                    audio: 'https://audio.mp3',
-                    // correct: true
-                }
-            ]
+            "text": "A",
+            "audio": "audio"
         }
     ]
 })
@@ -49,32 +37,14 @@ const QuestionManagement = (props) => {
     const [questionCreateUpdate, setQuestionCreateUpdate] = useState(false)
     const [isShowModalUploadFile, setIShowModalUploadFile] = useState(false)
     const [fileUploads, setFileUploads] = useState([])
-    const [content, setContent] = useState({json: baseQuestionCreate()})
+    const [content, setContent] = useState({ json: baseQuestionCreate() })
+    const [ showRank, setShowRank ] = useState(false)
 
     const { data: responseGetAllQuestions, isLoading: isLoadingGetAllQuestions, isFetching: isFetchingGetAllQuestions, isError: isErrorGetAllQuestions, refetch: getAllQuestions } = useQuery(
         ["getAllQuestions", page],
-        () => QuestionApi.getAll(page, size)
-        // .then(response => {
-        //     const { meta } = response
-        //     if (meta.code === STATUS_CODES.SUCCESS) {
-        //         const { data } = response
-        //         const { content } = data
-
-        //         content.groups = [...content
-        //             .reduce((map, question) => {
-        //                 map.set(question.groupId, question)
-        //                 return map
-        //             }, new Map())]
-        //             .map(([key, value]) => ({
-        //                 groupId: key,
-        //                 questions: value
-        //             }))
-        //     }
-        //     return response
-        // })
-        , {
-            refetchOnWindowFocus: false,
-        }
+        () => QuestionApi.getAll(page, size), {
+        refetchOnWindowFocus: false,
+    }
     )
 
     useLayoutEffect(() => {
@@ -103,18 +73,14 @@ const QuestionManagement = (props) => {
     useLayoutEffect(() => {
         if (showCVEQuestion?.show === true && showCVEQuestion?.type !== 'create' && showCVEQuestion?.newData !== true) {
             dispatch(showLoader())
-            QuestionApi.getByGroupId(showCVEQuestion?.data?.groupId)
+            QuestionApi.getById(showCVEQuestion?.data?.id)
                 .then(res => {
                     const { meta } = res
                     if (meta.code === STATUS_CODES.SUCCESS) {
                         const { data } = res
-                        const oldGroupId = data.groupId
-                        if (showCVEQuestion?.type === 'update') {
-                            data.groupId = uuid()
-                            data.questions.forEach(question => question.id = uuid())
-                        }
-                        setContent({json: { ...data }})
-                        setShowCVEQuestion(previousShowCVEQuestion => ({ ...previousShowCVEQuestion, data: { ...data }, newData: true, oldGroupId }))
+                        delete data?.testResult
+                        setContent({ json: { ...data } })
+                        setShowCVEQuestion(previousShowCVEQuestion => ({ ...previousShowCVEQuestion, data: { ...data }, newData: true }))
                         dispatch(hideLoader())
                     } else {
                         setShowCVEQuestion({ show: false })
@@ -126,84 +92,45 @@ const QuestionManagement = (props) => {
     }, [showCVEQuestion, dispatch])
 
     const handleCreateUpdatQuestion = () => {
-        // if(questionCreateUpdate.questions.some(question => question?.image || question?.audio)) {
-        //     // Validate file upload
-        //     if(fileUploads.length > questionCreateUpdate.questions.length) {
-        //         return Notification.error('fileUploads.length > questionCreateUpdate.questions.length')
-        //     } 
-        //     const mapQuestionsUpload = new Map()
-        //     fileUploads.forEach(fileUpload => mapQuestionsUpload.set(fileUpload.id, fileUpload))
-        //     const mapQuestionsRequest = new Map()
-        //     questionCreateUpdate.questions.forEach(question => mapQuestionsRequest.set(question.id, question))
-        //     for (const [ key, value ] of mapQuestionsRequest.entries()) {
-        //         if(!mapQuestionsUpload.get(key)) {
-        //             return Notification.error(`Question = ${key} not match`)
-        //         }            
-
-        //         const questionUpload = mapQuestionsUpload.get(key)
-        //         const questionRequest = value 
-                
-        //         // eslint-disable-next-line
-        //         if(questionUpload?.urlImage != questionRequest?.image) { 
-        //             return Notification.error(`Image of question = ${key} not match`)
-        //         }
-
-        //         // eslint-disable-next-line
-        //         if(questionUpload?.urlAudio != questionRequest?.audio) { 
-        //             return Notification.error(`Audio of question = ${key} not match`)
-        //         }
-        //     }
-        // }
-
         // Process create or update
         dispatch(showLoader())
-        if(showCVEQuestion?.type === 'create') {
-            QuestionApi.createList(questionCreateUpdate)
-            .then(res => {
-                const { meta } = res
-                if(meta.code === STATUS_CODES.SUCCESS) {
-                    refreshPage()
-                    setShowCVEQuestion({ show: false })
-                    setQuestionCreateUpdate(false)
-                    setFileUploads([])
-                    Notification.success("Create successfully!")
-                } else {
-                    dispatch(hideLoader())
-                    Notification.error(meta?.message)
-                }
-            })            
-        } else if(showCVEQuestion?.type === 'update') {
+        if (showCVEQuestion?.type === 'create') {
+            QuestionApi.create(questionCreateUpdate)
+                .then(res => {
+                    const { meta } = res
+                    if (meta.code === STATUS_CODES.SUCCESS) {
+                        refreshPage()
+                        setShowCVEQuestion({ show: false })
+                        setQuestionCreateUpdate(false)
+                        setFileUploads([])
+                        Notification.success("Create successfully!")
+                    } else {
+                        dispatch(hideLoader())
+                        Notification.error(meta?.message)
+                    }
+                })
+        } else if (showCVEQuestion?.type === 'update') {
             // Thực hiện tạo cái mới trước
-            QuestionApi.createList(questionCreateUpdate)
-            .then(res => {
-                const { meta } = res
-                if(meta.code === STATUS_CODES.SUCCESS) {
-                    // Tạo thành công sẽ xóa cái cũ
-                    QuestionApi.deleteByGroupId(showCVEQuestion?.oldGroupId)
-                    .then(res => {
-                        const { meta } = res
-                        if (meta.code === STATUS_CODES.SUCCESS) {
-                            refreshPage()
-                            setShowCVEQuestion({ show: false })
-                            setQuestionCreateUpdate(false)
-                            setFileUploads([])
-                            Notification.success("Update successfully!")
-                        } else {
-                            dispatch(hideLoader())
-                            Notification.error(meta?.message)
-                        }
-                    })
-                } else {
-                    dispatch(hideLoader())
-                    Notification.error(meta?.message)
-                }
-            })       
+            QuestionApi.update(questionCreateUpdate)
+                .then(res => {
+                    const { meta } = res
+                    if (meta.code === STATUS_CODES.SUCCESS) {
+                        refreshPage()
+                        setShowCVEQuestion({ show: false })
+                        setQuestionCreateUpdate(false)
+                        setFileUploads([])
+                        Notification.success("Update successfully!")
+                    } else {
+                        dispatch(hideLoader())
+                        Notification.error(meta?.message)
+                    }
+                })
         }
     }
 
     const handleDeleteQuestionGroup = () => {
         dispatch(showLoader())
-        QuestionApi.deleteByGroupId(questionRemove?.groupId)
+        QuestionApi.deleteById(questionRemove?.id)
             .then(res => {
                 const { meta } = res
                 if (meta.code === STATUS_CODES.SUCCESS) {
@@ -218,36 +145,6 @@ const QuestionManagement = (props) => {
     }
 
     const handleUploadFile = (files, allFiles) => {
-        // const fileImages = files?.filter(file => file.file.type.includes('image'))
-        // const fileAudios = files?.filter(file => file.file.type.includes('audio'))
-        // if (fileImages && fileImages?.length > 1) {
-        //     Notification.error("Only one image file is accepted")
-        // } else if (fileAudios && fileAudios?.length > 1) {
-        //     Notification.error("Only one audio file is accepted")
-        // } else {
-        //     const fileImage = fileImages?.[0]?.file
-        //     const fileAudio = fileAudios?.[0]?.file
-        //     if (fileImage && fileImage.size > 2000000) {
-        //         Notification.error("The maximum size of the image file is 2Mb")
-        //     } else if (fileAudio && fileAudio.size > 10000000) {
-        //         Notification.error("The maximum size of the audio file is 10Mb")
-        //     } else {
-        //         dispatch(showLoader())
-        //         MultimediaApi.questionUpload(fileImage, fileAudio, showCVEQuestion?.data?.groupId)
-        //             .then(res => {
-        //                 const { meta } = res
-        //                 if (meta.code === STATUS_CODES.SUCCESS) {
-        //                     setIShowModalUploadFile(false)
-        //                     setFileUploads([res?.data, ...fileUploads])
-        //                     dispatch(hideLoader())
-        //                 } else {
-        //                     dispatch(hideLoader())
-        //                     Notification.error(meta?.message)
-        //                 }
-        //             })
-        //     }
-        // }
-
         dispatch(showLoader())
         MultimediaApi.uploadFile(files?.[0]?.file)
             .then(res => {
@@ -264,25 +161,9 @@ const QuestionManagement = (props) => {
     }
 
     const handleHideCreateUpdate = () => {
-        // if(fileUploads.length > 0) {
-        //     dispatch(showLoader())
-        //     MultimediaApi.questionDeleteByGroupId(questionCreateUpdate?.groupId)
-        //     .then(res => {
-        //         const { meta } = res
-        //         if (meta.code === STATUS_CODES.SUCCESS) {
-        //             setQuestionCreateUpdate(false)
-        //             setShowCVEQuestion({ show: false })
-        //             dispatch(hideLoader())
-        //         } else {
-        //             dispatch(hideLoader())
-        //             Notification.error(meta?.message)
-        //         }
-        //     })            
-        // } else {
-            setFileUploads([])
-            setQuestionCreateUpdate(false)
-            setShowCVEQuestion({ show: false })
-        // }
+        setFileUploads([])
+        setQuestionCreateUpdate(false)
+        setShowCVEQuestion({ show: false })
     }
 
     return !isLoadingGetAllQuestions && !isFetchingGetAllQuestions && !isErrorGetAllQuestions && responseGetAllQuestions?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllQuestions?.data) && <>
@@ -302,12 +183,13 @@ const QuestionManagement = (props) => {
                                     className='h-fit font-bold'
                                     onClick={() => {
                                         const jsonCreate = baseQuestionCreate()
-                                        setContent({json: jsonCreate}); 
+                                        setContent({ json: jsonCreate });
                                         setShowCVEQuestion({
                                             type: 'create',
                                             show: true,
                                             data: jsonCreate
-                                    })}}
+                                        })
+                                    }}
                                 >Create</Button>
                             </div>
                         </div>
@@ -333,16 +215,27 @@ const QuestionManagement = (props) => {
                                     <Card className="card-user cursor-default">
                                         {/* <Card.Img className='cursor-pointer border-b' variant="top" src={question?.image || PagesImage} onClick={() => setShowCVEQuestion({ type: 'view', data: _.cloneDeep(question), show: true })} /> */}
                                         <Card.Body className='cursor-pointer' onClick={() => setShowCVEQuestion({ type: 'view', data: _.cloneDeep(question), show: true })}>
-                                            <Card.Title className="title text-lg">{question?.questionType === QUESTION_TYPE.FILE ? question?.text : `Question ${responseGetAllQuestions?.data?.pageable?.offset + indexQuestion + 1}`}</Card.Title>
+                                            <Card.Title className="title text-lg">{question?.text}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted text-sm">
                                                 <Badge pill bg="warning" text="dark">{question?.questionType}</Badge>
                                             </Card.Subtitle>
                                             <Card.Text className='text-sm'>{CommonUtil.getDateStringFromMilliseconds(question?.updateTime || question?.createTime)}</Card.Text>
+                                            <div className='flex justify-between items-end'>
+                                                <div className='flex items-center'>
+                                                    <i className="fa-solid fa-user-group"></i> <span className='ps-2'>{question?.userCount}</span>
+                                                </div>
+                                            </div>
                                         </Card.Body>
 
                                         <Card.Footer className="d-flex justify-content-between">
+                                            <OverlayTrigger placement="bottom" overlay={<Tooltip>Rank</Tooltip>}>
+                                                <Badge bg="primary" className='cursor-pointer' onClick={() => setShowRank({id: question?.id})}>
+                                                    <i className="fa-solid fa-ranking-star fs-6" />
+                                                </Badge>
+                                            </OverlayTrigger>
+
                                             <OverlayTrigger placement="bottom" overlay={<Tooltip>Edit</Tooltip>}>
-                                                <Badge bg="primary" className='cursor-pointer' onClick={() => { setShowCVEQuestion({ data: _.cloneDeep(question), show: true, type: 'update' }) }}>
+                                                <Badge bg="warning" className='cursor-pointer' onClick={() => { setShowCVEQuestion({ data: _.cloneDeep(question), show: true, type: 'update' }) }}>
                                                     <i className="fas fa-edit fs-6" />
                                                 </Badge>
                                             </OverlayTrigger>
@@ -365,7 +258,7 @@ const QuestionManagement = (props) => {
                 show={questionRemove ? true : false}
                 setShow={() => setQuestionRemove(false)}
                 title="Confirm"
-                message={`Are you sure you want to remove group contain question: "${questionRemove?.indexQuestion}"?`}
+                message={`Are you sure you want to remove question: "${questionRemove?.text}"?`}
                 handleNo={() => setQuestionRemove(false)}
                 handleYes={handleDeleteQuestionGroup}
             />
@@ -373,13 +266,13 @@ const QuestionManagement = (props) => {
             {showCVEQuestion?.show && <Offcanvas placement="start" className="w-full" show={showCVEQuestion?.show} onHide={handleHideCreateUpdate}>
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title>
-                        {showCVEQuestion?.type === 'update' ? 'Update questions' : showCVEQuestion?.type === 'view' ? 'View questions' : 'Create questions'}
+                        {showCVEQuestion?.type === 'update' ? 'Update question' : showCVEQuestion?.type === 'view' ? 'View question' : 'Create question'}
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body className='flex flex-col'>
                     <SvelteJSONEditor
                         content={content}
-                        onChange={value => {setContent(value); setQuestionCreateUpdate(value.json || JSON.parse(value.text))}}
+                        onChange={value => { setContent(value); setQuestionCreateUpdate(value.json || JSON.parse(value.text)) }}
                         readOnly={showCVEQuestion?.type === 'view' ? true : false}
                     />
 
@@ -405,8 +298,8 @@ const QuestionManagement = (props) => {
                     {fileUploads && fileUploads?.length > 0 && <>
                         <h4 className="fw-bold my-5 pb-3 border-bottom border-3 border-start-0 border-end-0 border-top-0 border-danger d-inline-block">Uploaded files</h4>
 
-                        {fileUploads?.map(fileUpload => <SvelteJSONEditor
-                            key={uuid()}
+                        {fileUploads?.map((fileUpload, index) => <SvelteJSONEditor
+                            key={index}
                             content={{ json: fileUpload }}
                             readOnly='true'
                         />)}
@@ -420,17 +313,19 @@ const QuestionManagement = (props) => {
             modalTitle="Upload file"
             isShow={isShowModalUploadFile}
             handleSubmit={handleUploadFile}
-            accept=".pdf, image/*, audio/*"
-            inputContent={(files, extra) => extra.reject ? 'Image, audio, pdf only' : 'Drag and drop or click to select file'}
-            styles={{
-                dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-            }}
+            accept="application/pdf, audio/*"
+            inputContent={(files, extra) => extra.reject ? 'Pdf or audio only' : 'Drag and drop or click to select file'}
+            // styles={{
+            //     dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+            //     inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+            // }}
             multiple={false}
             maxFiles={1}
             inputWithFilesContent={files => `${1 - files.length} more`}
             handleClose={() => setIShowModalUploadFile(false)}
         />
+
+        {showRank?.id && <RankQuestion questionId={showRank?.id} show={showRank ? true : false} onHide={() => setShowRank(false)} />}
     </>
 }
 

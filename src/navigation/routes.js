@@ -4,7 +4,7 @@ import {
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
     EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
     Contact, UserManagement, ShowAllCourse, CourseManagement, TestComponet, QuestionManagement, StudysetManagenent,
-    TestFile, ShowAllQuestion
+    TestQuestion, ShowAllQuestion
 } from '../pages'
 
 const routes = {
@@ -37,8 +37,8 @@ const routes = {
 
     privateRoute: [
         {
-            path: `${ROUTE_PATH.TEST_FILE_QUESTION}/:groupId`, 
-            element: <TestFile/>
+            path: `${ROUTE_PATH.QUESTION_TEST}/:questionId`, 
+            element: <TestQuestion/>
         }, 
 
         {

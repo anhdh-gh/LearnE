@@ -1,24 +1,27 @@
 import '../assets/css/StudySetPage.css'
 import '../assets/css/UserManagementPage.css'
 import '../assets/css/CourseManagement.css'
-import { Header, Footer, SearchBox, UserInfo, Pagination } from '../components'
+import { Header, Footer, SearchBox, UserInfo, Pagination, RankQuestion, ModalConfirm } from '../components'
 import { useParams } from 'react-router'
 import { QuestionApi } from '../api'
-import { useLayoutEffect, useCallback } from 'react'
+import { useLayoutEffect, useCallback, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import { useSelector, useDispatch } from "react-redux"
-import { STATUS_CODES, ROUTE_PATH, QUESTION_TYPE } from '../constants'
+import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { History } from '../components/NavigateSetter'
-import { Button, Card, Badge } from 'react-bootstrap'
+import { Button, Card, Badge, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { CommonUtil } from '../utils'
+import Timecode from 'react-timecode'
 
 const ShowAllQuestion = (props) => {
 
     const { page } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
+    const [showRank, setShowRank] = useState(false)
+    const [questionRetest, setQuestionRetest] = useState(false)
 
     const size = 9
     const { data: responseGetAllQuestions, isLoading: isLoadingGetAllQuestions, isFetching: isFetchingGetAllQuestions, isError: isErrorGetAllQuestions, refetch: getAllQuestions } = useQuery(
@@ -91,18 +94,38 @@ const ShowAllQuestion = (props) => {
                                 <div className="col-md-6 col-lg-4 mb-3" key={question.id}>
                                     <Card className="card-study-set-container cursor-default">
                                         <Card.Body>
-                                            <Card.Title className="title">{question?.questionType === QUESTION_TYPE.FILE ? question?.text : `Question ${responseGetAllQuestions?.data?.pageable?.offset + indexQuestion + 1}`}</Card.Title>
+                                            <Card.Title className="title">{question?.text}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">
                                                 <Badge pill bg="warning" text="dark">{question?.questionType}</Badge>
                                             </Card.Subtitle>
                                             <Card.Text>{CommonUtil.getDateStringFromMilliseconds(question?.updateTime || question?.createTime)}</Card.Text>
+                                            <div className='flex justify-between items-end'>
+                                                <div className='flex items-center'>
+                                                    <i className="fa-solid fa-user-group"></i> <span className='ps-2'>{question?.userCount}</span>
+                                                </div>
+                                            </div>
                                         </Card.Body>
 
                                         <Card.Footer className="d-flex justify-content-between">
-                                            <Button className='text-center text-white w-full' onClick={() => History.push(`${question?.questionType === QUESTION_TYPE.FILE && ROUTE_PATH.TEST_FILE_QUESTION}/${question?.groupId}`)}>
-                                                {/* {course?.status === STATUS_TYPE.UNFINISHED ? 'Start now' : 'Keep studying'} */}
-                                                Start now
-                                            </Button>
+                                            <OverlayTrigger placement="bottom" overlay={<Tooltip>Rank</Tooltip>}>
+                                                <Badge bg="primary" className='cursor-pointer' onClick={() => setShowRank({ id: question?.id })}>
+                                                    <i className="fa-solid fa-ranking-star fs-6" />
+                                                </Badge>
+                                            </OverlayTrigger>
+
+                                            {
+                                                !question?.testResult ?
+                                                    <OverlayTrigger placement="bottom" overlay={<Tooltip>Test</Tooltip>}>
+                                                        <Badge bg="warning" className='cursor-pointer' onClick={() => History.push(`${ROUTE_PATH.QUESTION_TEST}/${question?.id}`)}>
+                                                            <i className="fas fa-edit fs-6" />
+                                                        </Badge>
+                                                    </OverlayTrigger>
+                                                    : <OverlayTrigger placement="bottom" overlay={<Tooltip>Score</Tooltip>}>
+                                                        <Badge bg="warning" className='cursor-pointer' onClick={() => setQuestionRetest(question)}>
+                                                            <i className="fa-solid fa-eye fs-6" />
+                                                        </Badge>
+                                                    </OverlayTrigger>
+                                            }
                                         </Card.Footer>
                                     </Card>
                                 </div>
@@ -113,6 +136,23 @@ const ShowAllQuestion = (props) => {
             </div>
         </div>
         <Footer />
+
+        {showRank?.id && <RankQuestion questionId={showRank?.id} show={showRank ? true : false} onHide={() => setShowRank(false)} />}
+
+        <ModalConfirm
+            show={questionRetest ? true : false}
+            setShow={() => setQuestionRetest(false)}
+            title={`Test: ${questionRetest?.text}`}
+            message={questionRetest && <div className='py-2'>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(questionRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={questionRetest?.testResult?.completionTime} /></div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(questionRetest?.testResult?.updateTime || questionRetest?.testResult?.createTime)}</div>
+            </div>}
+            handleNo={() => setQuestionRetest(false)}
+            handleYes={() => History.push(`${ROUTE_PATH.QUESTION_TEST}/${questionRetest?.id}`)}
+            labelYes="Retest"
+            labelNo="Close"
+        />
     </>
 }
 

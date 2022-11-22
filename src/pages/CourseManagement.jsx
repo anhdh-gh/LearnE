@@ -14,10 +14,8 @@ import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
 import { Notification } from '../utils'
-import uuid from 'react-uuid'
 
 const baseCourseCreate = () => ({
-    "id": uuid(),
     "name": "",
     "author": "",
     "image": "",

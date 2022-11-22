@@ -1,9 +1,9 @@
 import { useParams } from 'react-router'
 import { QuestionApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import { useLayoutEffect, useState, useCallback } from 'react'
+import { useLayoutEffect, useState, useCallback, useEffect } from 'react'
 import _ from 'lodash'
-import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
+import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
 import { useDispatch, useSelector } from "react-redux"
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Card } from 'react-bootstrap'
@@ -80,10 +80,10 @@ const data = {
 }
 
 
-const TestFile = () => {
+const TestQuestion = () => {
 
     const dispatch = useDispatch()
-    const { groupId } = useParams()
+    const { questionId } = useParams()
     const [countUpTimer, setCountUpTimer] = useState(0)
     const [answers, setAnswers] = useState([])
     const [widthWindow] = useWindowSize()
@@ -96,16 +96,16 @@ const TestFile = () => {
     const [showScore, setShowScore] = useState(false)
     const [fileIsReady, setFileIsReady] = useState(false)
 
-    const { data: responseGetByGroupId, isLoading: isLoadingGetByGroupId, isFetching: isFetchingGetByGroupId, isError: isErrorGetByGroupId, refetch: getByGroupId } = useQuery(
-        ["getByGroupId"],
-        () => QuestionApi.getByGroupId(groupId),
+    const { data: responseGetById, isLoading: isLoadingGetById, isFetching: isFetchingGetById, isError: isErrorGetById, refetch: getById } = useQuery(
+        ["getById"],
+        () => QuestionApi.getById(questionId),
         {
             refetchOnWindowFocus: false,
         }
     )
 
     const refreshPage = () => {
-        getByGroupId()
+        getById()
         setSubmitTest(false)
         setShowResult(false)
         setCancelTest(false)
@@ -114,16 +114,32 @@ const TestFile = () => {
         setAnswers([])
         setShowScore(false)
         setCountUpTimer(0)
+        audioCurent?.audio?.pause()
+        setAudioCurent({ isPlaying: false })
     }
 
+    useEffect(() => {
+        if(!isLoadingGetById && !isFetchingGetById && !isErrorGetById && responseGetById?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetById?.data) && !responseGetById?.data?.testResult) {
+            dispatch(showTopLoader())
+            QuestionApi.saveTestResult(questionId, responseGetById?.data?.time, 0)
+                .then(response => {
+                    const { meta } = response
+                    if(meta?.code === STATUS_CODES.SUCCESS) {
+                        dispatch(hideTopLoader())
+                    }
+                })
+                .catch(() => dispatch(hideTopLoader()))
+        }
+    }, [isErrorGetById, isFetchingGetById, isLoadingGetById, responseGetById?.data, responseGetById?.meta?.code, dispatch, questionId ])
+
     useLayoutEffect(() => {
-        if (isLoadingGetByGroupId || isFetchingGetByGroupId) {
+        if (isLoadingGetById || isFetchingGetById) {
             dispatch(showLoader())
         } else {
             dispatch(hideLoader())
         }
 
-        if (isErrorGetByGroupId || (responseGetByGroupId?.meta && responseGetByGroupId?.meta?.code !== STATUS_CODES.SUCCESS)) {
+        if (isErrorGetById || (responseGetById?.meta && responseGetById?.meta?.code !== STATUS_CODES.SUCCESS)) {
             dispatch(showNotFound())
         } else {
             dispatch(hideNotFound())
@@ -133,35 +149,57 @@ const TestFile = () => {
             dispatch(hideLoader())
             dispatch(hideNotFound())
         }
-    }, [responseGetByGroupId, dispatch, isErrorGetByGroupId, isFetchingGetByGroupId, isLoadingGetByGroupId])
+    }, [responseGetById, dispatch, isErrorGetById, isFetchingGetById, isLoadingGetById])
 
     const handleViewScore = useCallback(() => {
+        audioCurent?.audio?.pause()
+        setAudioCurent({ isPlaying: false })
+
         // Số câu không làm
         const numberQuestionEmpty =
-            responseGetByGroupId?.data?.questions[0]?.answers?.length - answers?.length
+            responseGetById?.data?.answers?.length - answers?.length
             + answers.reduce((acc, answer) => !answer ? acc + 1 : acc, 0)
 
         // Số câu sai
-        const numberQuestionWrong = answers.reduce((acc, answer, index) => answer && answer !== responseGetByGroupId?.data?.questions[0]?.answers?.[index].text ? acc + 1 : acc, 0)
+        const numberQuestionWrong = answers.reduce((acc, answer, index) => answer && answer !== responseGetById?.data?.answers?.[index].text ? acc + 1 : acc, 0)
 
         // Số câu đúng
-        const numberQuestionCorrect = responseGetByGroupId?.data?.questions[0]?.answers?.length - numberQuestionEmpty - numberQuestionWrong
+        const numberQuestionCorrect = responseGetById?.data?.answers?.length - numberQuestionEmpty - numberQuestionWrong
 
         setShowResult([numberQuestionEmpty, numberQuestionWrong, numberQuestionCorrect])
-        data.datasets[0].data = [numberQuestionEmpty / responseGetByGroupId?.data?.questions[0]?.answers?.length, numberQuestionWrong / responseGetByGroupId?.data?.questions[0]?.answers?.length, numberQuestionCorrect / responseGetByGroupId?.data?.questions[0]?.answers?.length]
+        const score = numberQuestionCorrect / responseGetById?.data?.answers?.length * 10
+        data.datasets[0].data = [numberQuestionEmpty / responseGetById?.data?.answers?.length, numberQuestionWrong / responseGetById?.data?.answers?.length, numberQuestionCorrect / responseGetById?.data?.answers?.length]
 
         setShowScore(true)
         setSubmitTest(false)
-    }, [answers, responseGetByGroupId?.data?.questions])
+
+        // Thực hiện gửi điểm
+        dispatch(showTopLoader())
+        QuestionApi.saveTestResult(questionId, countUpTimer, score)
+            .then(response => {
+                const { meta } = response
+                if(meta?.code === STATUS_CODES.SUCCESS) {
+                    dispatch(hideTopLoader())
+                }
+            })
+            .catch(() => dispatch(hideTopLoader()))
+    }, [answers, responseGetById?.data, questionId, dispatch, countUpTimer, audioCurent?.audio ])
 
 
     useLayoutEffect(() => {
-        if (!showResult && responseGetByGroupId?.data?.questions[0]?.time - countUpTimer <= 0) {
+        if (!showResult && responseGetById?.data?.time - countUpTimer <= 0) {
             handleViewScore()
         }
-    }, [countUpTimer, handleViewScore, showResult, responseGetByGroupId?.data?.questions])
 
-    return !isLoadingGetByGroupId && !isFetchingGetByGroupId && !isErrorGetByGroupId && responseGetByGroupId?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetByGroupId?.data) && <>
+    }, [countUpTimer, handleViewScore, showResult, responseGetById?.data])
+
+    useEffect(() => {
+        return () => {
+            audioCurent?.audio?.pause()
+        }
+    }, [ audioCurent?.audio ])
+
+    return !isLoadingGetById && !isFetchingGetById && !isErrorGetById && responseGetById?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetById?.data) && <>
         <div className='container-fluid p-0'>
             <div className='row g-0 h-screen'>
                 <div className="col-lg-9 col-md-8">
@@ -169,8 +207,8 @@ const TestFile = () => {
                         onLoad={() => setFileIsReady(true)}
                         frameBorder="0"
                         className='w-full h-screen'
-                        aria-label={responseGetByGroupId?.data?.questions[0]?.text}
-                        data={`${responseGetByGroupId?.data?.questions[0]?.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
+                        aria-label={responseGetById?.data?.text}
+                        data={`${responseGetById?.data?.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
                     />
                 </div>
 
@@ -180,8 +218,8 @@ const TestFile = () => {
                             <div className='flex px-2.5 pt-2.5'>
                                 <div className='p-2.5 bg-indigo-500 text-white rounded rounded-sm'>MC</div>
                                 <div className='px-2'>
-                                    <div className='font-bold'>{responseGetByGroupId?.data?.questions[0]?.text}</div>
-                                    <div className='text-sm'>{CommonUtil.getDateStringFromMilliseconds(responseGetByGroupId?.data?.questions[0]?.updateTime || responseGetByGroupId?.data?.questions[0]?.createTime)}</div>
+                                    <div className='font-bold'>{responseGetById?.data?.text}</div>
+                                    <div className='text-sm'>{CommonUtil.getDateStringFromMilliseconds(responseGetById?.data?.updateTime || responseGetById?.data?.createTime)}</div>
                                 </div>
                             </div>
 
@@ -190,8 +228,8 @@ const TestFile = () => {
                                     <div className='text-sm'>Time</div>
                                     <div className='font-bold'>
                                         {!showResult ? <>
-                                            <Timer active={fileIsReady} duration={responseGetByGroupId?.data?.questions[0]?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
-                                            <Timecode time={responseGetByGroupId?.data?.questions[0]?.time - countUpTimer} />
+                                            <Timer active={fileIsReady} duration={responseGetById?.data?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
+                                            <Timecode time={responseGetById?.data?.time - countUpTimer} />
                                         </> : <>
                                             <Timecode time={countUpTimer} />
                                         </>}
@@ -203,8 +241,8 @@ const TestFile = () => {
                             <div className='font-bold mt-4 text-center px-2.5'>Answer sheet</div>
 
                             <div className='mt-4 flex flex-wrap'>
-                                {responseGetByGroupId?.data?.questions[0]?.answers.map((answer, index) => <div className='grow w-full max-w-full p-2.5' key={answer?.id}>
-                                    <InputGroup id={answer?.id} className="mb-3 max-w-full flex-nowrap">
+                                {responseGetById?.data?.answers.map((answer, index) => <div className='grow w-full max-w-full p-2.5' key={answer?.id}>
+                                    <InputGroup id={answer?.id} className="mb-3 max-w-full flex-nowrap overflow-auto">
                                         <InputGroup.Text>{index + 1}</InputGroup.Text>
                                         <Form.Control
                                             type="text"
@@ -272,8 +310,8 @@ const TestFile = () => {
                         <div className='flex px-2.5 pt-2.5'>
                             <div className='p-2.5 bg-indigo-500 text-white rounded rounded-sm'>MC</div>
                             <div className='px-2'>
-                                <div className='font-bold'>{responseGetByGroupId?.data?.questions[0]?.text}</div>
-                                <div className='text-sm'>{CommonUtil.getDateStringFromMilliseconds(responseGetByGroupId?.data?.questions[0]?.updateTime || responseGetByGroupId?.data?.questions[0]?.createTime)}</div>
+                                <div className='font-bold'>{responseGetById?.data?.text}</div>
+                                <div className='text-sm'>{CommonUtil.getDateStringFromMilliseconds(responseGetById?.data?.updateTime || responseGetById?.data?.createTime)}</div>
                             </div>
 
                             <div className='ml-auto px-2 cursor-pointer hover:text-yellow-500 active:scale-95' onClick={() => setShowOffcanvas(prevShowOffcanvas => !prevShowOffcanvas)}><i className="fa-solid fa-xmark text-2xl"></i></div>
@@ -284,8 +322,8 @@ const TestFile = () => {
                                 <div className='font-bold'>
                                     {!showResult ? <>
                                         <div className='text-sm'>Time remaining</div>
-                                        <Timer active={fileIsReady} duration={responseGetByGroupId?.data?.questions[0]?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
-                                        <Timecode time={responseGetByGroupId?.data?.questions[0]?.time - countUpTimer} />
+                                        <Timer active={fileIsReady} duration={responseGetById?.data?.time} onTimeUpdate={({ time }) => setCountUpTimer(time)} />
+                                        <Timecode time={responseGetById?.data?.time - countUpTimer} />
                                     </> : <>
                                         <div className='text-sm'>Time</div>
                                         <Timecode time={countUpTimer} />
@@ -298,7 +336,7 @@ const TestFile = () => {
                         <div className='font-bold mt-4 text-center px-2.5'>Answer sheet</div>
 
                         <div className='mt-4 flex flex-wrap'>
-                            {responseGetByGroupId?.data?.questions[0]?.answers.map((answer, index) => <div className='grow w-full max-w-full p-2.5' key={answer?.id}>
+                            {responseGetById?.data?.answers.map((answer, index) => <div className='grow w-full max-w-full p-2.5' key={answer?.id}>
                                 <InputGroup id={answer?.id} className="mb-3 max-w-full flex-nowrap">
                                     <InputGroup.Text>{index + 1}</InputGroup.Text>
                                     <Form.Control
@@ -393,29 +431,29 @@ const TestFile = () => {
                     <div className="">
                         <div>
                             <div className='py-2'>
-                                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(showResult[2] / responseGetByGroupId?.data?.questions[0]?.answers?.length * 10).toFixed(2)}</div>
+                                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(showResult[2] / responseGetById?.data?.answers?.length * 10).toFixed(2)}</div>
                                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={countUpTimer} /></div>
                                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(showScore && new Date().getTime())}</div>
                             </div>
 
                             <ProgressBar className="mt-4 fs-6 fw-bold">
-                                <ProgressBar max={responseGetByGroupId?.data?.questions[0]?.answers?.length} variant="danger" now={showResult[0]}
+                                <ProgressBar max={responseGetById?.data?.answers?.length} variant="danger" now={showResult[0]}
                                     label={<OverlayTrigger
                                         placement="bottom"
                                         overlay={<Tooltip>Empty</Tooltip>}
-                                    ><span>{`${showResult[0]}/${responseGetByGroupId?.data?.questions[0]?.answers?.length}`}</span></OverlayTrigger>} />
+                                    ><span>{`${showResult[0]}/${responseGetById?.data?.answers?.length}`}</span></OverlayTrigger>} />
 
-                                <ProgressBar max={responseGetByGroupId?.data?.questions[0]?.answers?.length} variant="warning" now={showResult[1]}
+                                <ProgressBar max={responseGetById?.data?.answers?.length} variant="warning" now={showResult[1]}
                                     label={<OverlayTrigger
                                         placement="bottom"
                                         overlay={<Tooltip>Incorrect</Tooltip>}
-                                    ><span>{`${showResult[1]}/${responseGetByGroupId?.data?.questions[0]?.answers?.length}`}</span></OverlayTrigger>} />
+                                    ><span>{`${showResult[1]}/${responseGetById?.data?.answers?.length}`}</span></OverlayTrigger>} />
 
-                                <ProgressBar max={responseGetByGroupId?.data?.questions[0]?.answers?.length} variant="success" now={showResult[2]}
+                                <ProgressBar max={responseGetById?.data?.answers?.length} variant="success" now={showResult[2]}
                                     label={<OverlayTrigger
                                         placement="bottom"
                                         overlay={<Tooltip>Correct</Tooltip>}
-                                    ><span>{`${showResult[2]}/${responseGetByGroupId?.data?.questions[0]?.answers?.length}`}</span></OverlayTrigger>} />
+                                    ><span>{`${showResult[2]}/${responseGetById?.data?.answers?.length}`}</span></OverlayTrigger>} />
                             </ProgressBar>
                         </div>
                     </div>
@@ -433,4 +471,4 @@ const TestFile = () => {
     </>
 }
 
-export default TestFile
+export default TestQuestion

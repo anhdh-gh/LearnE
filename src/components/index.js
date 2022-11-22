@@ -25,6 +25,7 @@ import ModalConfirm from './ModalConfirm'
 import Sider from './Sider'
 import ModalUploadFile from './ModalUploadFile'
 import SvelteJSONEditor from './SvelteJSONEditor'
+import RankQuestion from './RankQuestion'
 
 export {
     Toast,
@@ -54,4 +55,5 @@ export {
     Sider,
     ModalUploadFile,
     SvelteJSONEditor,
+    RankQuestion,
 }

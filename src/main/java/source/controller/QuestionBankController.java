@@ -37,6 +37,7 @@ public class QuestionBankController {
     @PostMapping(RouterConstant.QUESTION_GET_BY_ID)
     @LogsActivityAnnotation
     public BaseResponse getQuestionById(@RequestBody GetQuestionByIdRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return questionBankService.getQuestionById(request);
     }
 

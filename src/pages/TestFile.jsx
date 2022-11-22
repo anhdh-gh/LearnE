@@ -94,7 +94,7 @@ const TestFile = () => {
     const [submitTest, setSubmitTest] = useState(false)
     const [showResult, setShowResult] = useState(false)
     const [showScore, setShowScore] = useState(false)
-    const [ fileIsReady, setFileIsReady ] = useState(false)
+    const [fileIsReady, setFileIsReady] = useState(false)
 
     const { data: responseGetByGroupId, isLoading: isLoadingGetByGroupId, isFetching: isFetchingGetByGroupId, isError: isErrorGetByGroupId, refetch: getByGroupId } = useQuery(
         ["getByGroupId"],
@@ -142,7 +142,7 @@ const TestFile = () => {
             + answers.reduce((acc, answer) => !answer ? acc + 1 : acc, 0)
 
         // Số câu sai
-        const numberQuestionWrong = answers.reduce((acc, answer, index) => answer !== responseGetByGroupId?.data?.questions[0]?.answers?.[index].text ? acc + 1 : acc, 0)
+        const numberQuestionWrong = answers.reduce((acc, answer, index) => answer && answer !== responseGetByGroupId?.data?.questions[0]?.answers?.[index].text ? acc + 1 : acc, 0)
 
         // Số câu đúng
         const numberQuestionCorrect = responseGetByGroupId?.data?.questions[0]?.answers?.length - numberQuestionEmpty - numberQuestionWrong
@@ -152,9 +152,9 @@ const TestFile = () => {
 
         setShowScore(true)
         setSubmitTest(false)
-    }, [ answers, responseGetByGroupId?.data?.questions ])
+    }, [answers, responseGetByGroupId?.data?.questions])
 
-    
+
     useLayoutEffect(() => {
         if (!showResult && responseGetByGroupId?.data?.questions[0]?.time - countUpTimer <= 0) {
             handleViewScore()
@@ -247,10 +247,15 @@ const TestFile = () => {
                             <div className='mt-3.5 text-center px-2.5 pb-2.5'>
                                 {!showResult ? <>
                                     <div className='text-center bg-indigo-600 text-white rounded rounded-sm py-2 cursor-pointer hover:bg-indigo-700' onClick={() => setSubmitTest(true)}>Submit</div>
-                                    <div className='text-slate-500 mt-3 cursor-pointer hover:text-slate-600' onClick={() => setCancelTest(true)}>Cancel</div>
+                                    <div className='text-slate-500 mt-3 hover:text-slate-600 flex justify-center'>
+                                        <div className='cursor-pointer' onClick={() => setCancelTest(true)}>Cancel</div>
+                                    </div>
                                 </> : <>
                                     <div className='text-center bg-indigo-600 text-white rounded rounded-sm py-2 cursor-pointer hover:bg-indigo-700' onClick={() => setShowScore(true)}>View score</div>
-                                    <div className='text-slate-500 mt-3 cursor-pointer hover:text-slate-600' onClick={() => refreshPage()}>ReTest</div>
+                                    <div className='text-slate-500 mt-3 hover:text-slate-600 flex justify-between w-full'>
+                                        <div className='cursor-pointer' onClick={() => History.push(previousUrl || `${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>Exit</div>
+                                        <div className='cursor-pointer' onClick={() => refreshPage()}>ReTest</div>
+                                    </div>
                                 </>}
                             </div>
                         </Card.Footer>
@@ -338,10 +343,15 @@ const TestFile = () => {
                         <div className='mt-3.5 text-center px-2.5 pb-2.5'>
                             {!showResult ? <>
                                 <div className='text-center bg-indigo-600 text-white rounded rounded-sm py-2 cursor-pointer hover:bg-indigo-700' onClick={() => setSubmitTest(true)}>Submit</div>
-                                <div className='text-slate-500 mt-3 cursor-pointer hover:text-slate-600' onClick={() => setCancelTest(true)}>Cancel</div>
+                                <div className='text-slate-500 mt-3 hover:text-slate-600 flex justify-center'>
+                                    <div className="cursor-pointer" onClick={() => setCancelTest(true)}>Cancel</div>
+                                </div>
                             </> : <>
                                 <div className='text-center bg-indigo-600 text-white rounded rounded-sm py-2 cursor-pointer hover:bg-indigo-700' onClick={() => setShowScore(true)}>View score</div>
-                                <div className='text-slate-500 mt-3 cursor-pointer hover:text-slate-600' onClick={() => refreshPage()}>ReTest</div>
+                                <div className='text-slate-500 mt-3 cursor-pointer hover:text-slate-600 flex justify-between w-full'>
+                                    <div className='' onClick={() => History.push(previousUrl || `${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>Exit</div>
+                                    <div className='' onClick={() => refreshPage()}>ReTest</div>
+                                </div>
                             </>}
                         </div>
                     </Card.Footer>

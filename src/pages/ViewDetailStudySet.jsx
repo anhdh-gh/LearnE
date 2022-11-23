@@ -1,5 +1,5 @@
 import '../assets/css/ViewStudySetPage.css'
-import { Header, Footer, UserInfo, WordCardSlide, WordCardList, RankStudySet } from "../components"
+import { Header, Footer, UserInfo, WordCardSlide, WordCardList, RankStudySet, ModalConfirm } from "../components"
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
@@ -12,13 +12,16 @@ import { Notification } from '../utils'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { DictionaryApi } from '../api'
 import { History } from '../components/NavigateSetter'
+import { CommonUtil } from '../utils'
+import Timecode from 'react-timecode'
 
 const ViewDetailStudySet = (props) => {
 
     const { studysetId } = useParams()
     const dispatch = useDispatch()
     const [ showRank, setShowRank ] = useState(false)
-
+    const [studysetRetest, setStudysetRetest] = useState(false)
+    
     const { data: responseGetStudysetById, isLoading, isFetching, isError, refetch: getStudysetById } = useQuery(
         ["getStudysetById"],
         async () => {
@@ -101,8 +104,12 @@ const ViewDetailStudySet = (props) => {
                                 <i className="fa-solid fa-ranking-star" /> <span className='ps-2' style={{ lineHeight: "100%" }}>Rank</span>
                             </div>
 
-                            <div className="flex justify-start items-end" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${responseGetStudysetById?.data?.id}`)}>
-                                <i className="fa-solid fa-file-pen" /> <span className='ps-2' style={{ lineHeight: "100%" }}>Test</span>
+                            <div className="flex justify-start items-end" onClick={() => setStudysetRetest(responseGetStudysetById?.data)}>
+                                {
+                                    !responseGetStudysetById?.data?.testResult 
+                                        ? <><i className="fa-solid fa-file-pen" /> <span className='ps-2' style={{ lineHeight: "100%" }}>Test</span></>
+                                        : <><i className="fa-solid fa-file-pen" /> <span className='ps-2' style={{ lineHeight: "100%" }}>Retest</span></>
+                                }
                             </div>
                         </div>
                     </div>
@@ -122,6 +129,21 @@ const ViewDetailStudySet = (props) => {
         <Footer />
 
         <RankStudySet studysetId={responseGetStudysetById?.data?.id} show={showRank} onHide={() => setShowRank(false)}/>
+
+        <ModalConfirm
+            show={studysetRetest ? true : false}
+            setShow={() => setStudysetRetest(false)}
+            title={studysetRetest ? `Test: ${studysetRetest?.title}` : 'Closing'}
+            message={studysetRetest && <div className='py-2'>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={studysetRetest?.testResult?.completionTime} /></div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(studysetRetest?.testResult?.updateTime || studysetRetest?.testResult?.createTime)}</div>
+            </div>}
+            handleNo={() => setStudysetRetest(false)}
+            handleYes={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${studysetRetest?.id}`)}
+            labelYes="Retest"
+            labelNo="Close"
+        />
     </>
 }
 

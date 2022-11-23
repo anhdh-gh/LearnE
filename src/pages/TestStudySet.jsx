@@ -3,7 +3,7 @@ import { Header, Footer, UserInfo, MultipleChoiceTest } from "../components"
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import { useLayoutEffect  } from 'react'
+import { useLayoutEffect, useEffect  } from 'react'
 import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
@@ -24,6 +24,20 @@ const TestStudySet = (props) => {
             refetchOnWindowFocus: false,
         }
     )
+    
+    useEffect(() => {
+        if(!isLoading && !isFetching && !isError && responseGetStudysetById?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetStudysetById?.data) && !responseGetStudysetById?.data?.testResult) {
+            dispatch(showTopLoader())
+            StudysetApi.saveTestResult(responseGetStudysetById?.data?.id, 0, 0)
+                .then(response => {
+                    const { meta } = response
+                    if(meta?.code === STATUS_CODES.SUCCESS) {
+                        dispatch(hideTopLoader())
+                    }
+                })
+                .catch(() => dispatch(hideTopLoader()))
+        }
+    }, [isLoading, isFetching, isError, responseGetStudysetById?.data, responseGetStudysetById?.meta?.code, dispatch ])
 
     useLayoutEffect (() => {
         if (isLoading || isFetching) {

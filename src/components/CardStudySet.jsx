@@ -9,7 +9,7 @@ import { Notification } from '../utils'
 
 const CardStudySet = (props) => {
 
-    const { studyset, showHeader, showFooter, handleRemoveStudyset } = props
+    const { studyset, showHeader, showFooter, handleRemoveStudyset, setStudysetRetest } = props
 
     const user = useSelector(state => state.user)
 
@@ -54,11 +54,15 @@ const CardStudySet = (props) => {
             </Card.Footer>}
 
             {!showFooter && <Card.Footer className="d-flex justify-content-between">
-                <OverlayTrigger placement="bottom" overlay={<Tooltip>Test</Tooltip>}>
+                {studyset?.testResult ? <OverlayTrigger placement="bottom" overlay={<Tooltip>Score</Tooltip>}>
+                    <Badge bg="primary" onClick={() => setStudysetRetest(studyset)}>
+                        <i className="fa-solid fa-eye fs-6"></i>
+                    </Badge>
+                </OverlayTrigger> : <OverlayTrigger placement="bottom" overlay={<Tooltip>Test</Tooltip>}>
                     <Badge bg="primary" onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${studyset?.id}`)}>
                         <i className="fa-regular fa-pen-to-square fs-6"></i>
                     </Badge>
-                </OverlayTrigger>
+                </OverlayTrigger>}
 
                 <OverlayTrigger placement="bottom" overlay={<Tooltip>Share</Tooltip>}>
                     <Badge bg="success">

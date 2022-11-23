@@ -1,8 +1,8 @@
 import '../assets/css/StudySetPage.css'
-import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination } from '../components'
+import { Header, Footer, CardStudySet, SearchBox, UserInfo, Pagination, ModalConfirm } from '../components'
 import { useParams } from 'react-router'
 import { StudysetApi } from '../api'
-import { useLayoutEffect , useCallback } from 'react'
+import { useLayoutEffect , useCallback, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
@@ -12,6 +12,8 @@ import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { History } from '../components/NavigateSetter'
 import { useSearchParams } from 'react-router-dom'
 import { useDebounce } from 'use-debounce'
+import { CommonUtil } from '../utils'
+import Timecode from 'react-timecode'
 
 const ShowAllStudyset = (props) => {
 
@@ -20,6 +22,7 @@ const ShowAllStudyset = (props) => {
     const user = useSelector(state => state.user)
     const [searchParams, setSearchParams] = useSearchParams()
     const [titleSearch] = useDebounce(searchParams.get('title'), 1000)
+    const [studysetRetest, setStudysetRetest] = useState(false)
 
     const size = 9
 
@@ -99,6 +102,8 @@ const ShowAllStudyset = (props) => {
                                     <CardStudySet
                                         studyset={studyset}
                                         showHeader={true}
+                                        studysetRetest={setStudysetRetest}
+                                        setStudysetRetest={setStudysetRetest}
                                     />
                                 </div>
                             )
@@ -108,6 +113,21 @@ const ShowAllStudyset = (props) => {
             </div>
         </div>
         <Footer />
+
+        <ModalConfirm
+            show={studysetRetest ? true : false}
+            setShow={() => setStudysetRetest(false)}
+            title={studysetRetest ? `Test: ${studysetRetest?.title}` : 'Closing'}
+            message={studysetRetest && <div className='py-2'>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={studysetRetest?.testResult?.completionTime} /></div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(studysetRetest?.testResult?.updateTime || studysetRetest?.testResult?.createTime)}</div>
+            </div>}
+            handleNo={() => setStudysetRetest(false)}
+            handleYes={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${studysetRetest ? studysetRetest?.id : ''}`)}
+            labelYes="Retest"
+            labelNo="Close"
+        />
     </>
 }
 

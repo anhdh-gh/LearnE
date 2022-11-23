@@ -1,7 +1,7 @@
 import '../assets/css/Audio.css'
 import { useSpeechSynthesis } from 'react-speech-kit'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { useState, useLayoutEffect  } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { DictionaryApi } from '../api'
 
 const AudioWord = (props) => {

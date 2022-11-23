@@ -1,6 +1,6 @@
 import '../assets/css/Home.css'
 import { Button, Carousel } from 'react-bootstrap'
-import { Header, Footer, UserInfo, Pagination, CardStudySet } from '../components'
+import { Header, Footer, UserInfo, Pagination, CardStudySet, ModalConfirm } from '../components'
 import { History } from '../components/NavigateSetter'
 import { useQuery } from '@tanstack/react-query'
 import _ from 'lodash'
@@ -8,13 +8,16 @@ import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/act
 import { useDispatch } from "react-redux"
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import { UserApi, StudysetApi } from '../api'
-import { useLayoutEffect , useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
+import { CommonUtil } from '../utils'
+import Timecode from 'react-timecode'
 
 const Home = (props) => {
 
     const dispatch = useDispatch()
     const [pageStudyset, setPageStudyset] = useState(0)
     const sizeStudyset = 3
+    const [studysetRetest, setStudysetRetest] = useState(false)
 
     const { data: responseGetAllUsers, isLoading: isLoadingGetAllUsers, isFetching: isFetchingGetAllUsers, isError: isErrorGetAllUsers } = useQuery(
         ["getAllUsers"],
@@ -32,7 +35,7 @@ const Home = (props) => {
         }
     )
 
-    useLayoutEffect (() => {
+    useLayoutEffect(() => {
         if (isLoadingGetAllUsers || isFetchingGetAllUsers || isLoadingGetAllStudyset || isFetchingGetAllStudyset) {
             dispatch(showLoader())
         } else {
@@ -53,9 +56,9 @@ const Home = (props) => {
     }, [responseGetAllUsers, dispatch, isErrorGetAllUsers, isFetchingGetAllUsers, isLoadingGetAllUsers, isErrorGetAllStudyset,
         isFetchingGetAllStudyset, isLoadingGetAllStudyset, responseGetAllStudyset])
 
-    useLayoutEffect (() => {
+    useLayoutEffect(() => {
         getAllStudyset(pageStudyset)
-    }, [ pageStudyset, getAllStudyset ])
+    }, [pageStudyset, getAllStudyset])
 
     return !isLoadingGetAllUsers && !isFetchingGetAllUsers && !isErrorGetAllUsers && responseGetAllUsers?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllUsers?.data) &&
         !isLoadingGetAllStudyset && !isFetchingGetAllStudyset && !isErrorGetAllStudyset && responseGetAllStudyset?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllStudyset?.data) && <>
@@ -103,6 +106,8 @@ const Home = (props) => {
                                                 <CardStudySet
                                                     studyset={studyset}
                                                     showHeader={true}
+                                                    studysetRetest={setStudysetRetest}
+                                                    setStudysetRetest={setStudysetRetest}
                                                 />
                                             </div>
                                         )
@@ -130,6 +135,21 @@ const Home = (props) => {
                 </div>
             </div>
             <Footer />
+
+            <ModalConfirm
+                show={studysetRetest ? true : false}
+                setShow={() => setStudysetRetest(false)}
+                title={studysetRetest ? `Test: ${studysetRetest?.title}` : 'Closing'}
+                message={studysetRetest && <div className='py-2'>
+                    <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score).toFixed(2)}</div>
+                    <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={studysetRetest?.testResult?.completionTime} /></div>
+                    <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(studysetRetest?.testResult?.updateTime || studysetRetest?.testResult?.createTime)}</div>
+                </div>}
+                handleNo={() => setStudysetRetest(false)}
+                handleYes={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${studysetRetest?.id}`)}
+                labelYes="Retest"
+                labelNo="Close"
+            />
         </>
 }
 

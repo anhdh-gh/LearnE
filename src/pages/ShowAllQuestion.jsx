@@ -142,7 +142,7 @@ const ShowAllQuestion = (props) => {
         <ModalConfirm
             show={questionRetest ? true : false}
             setShow={() => setQuestionRetest(false)}
-            title={`Test: ${questionRetest?.text}`}
+            title={questionRetest ? `Test: ${questionRetest?.text}` : 'Closing'}
             message={questionRetest && <div className='py-2'>
                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(questionRetest?.testResult?.score).toFixed(2)}</div>
                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={questionRetest?.testResult?.completionTime} /></div>

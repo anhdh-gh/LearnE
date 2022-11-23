@@ -22,4 +22,6 @@ public class StudysetDto extends BaseDto {
     private UserDto ownerUser;
 
     private List<WordCardDto> wordCards;
+
+    private TestResultDto testResult;
 }

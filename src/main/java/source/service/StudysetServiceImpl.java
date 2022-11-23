@@ -116,8 +116,14 @@ public class StudysetServiceImpl implements StudysetService {
         // Lấy ra OwnerUser
         UserDto userDto = checkUserExits(request, studyset.getOwnerUserId());
 
-        // Trả về kết quả
         StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
+
+        if(request.getUserId() != null) {
+            Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), studyset.getId());
+            testResultOptional.ifPresent(testResult -> studysetDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+        }
+
+        // Trả về kết quả
         studysetDto.setOwnerUser(userDto);
         return BaseResponse.ofSucceeded(request.getRequestId(), studysetDto);
     }
@@ -170,6 +176,12 @@ public class StudysetServiceImpl implements StudysetService {
         Page<StudysetDto> studysetDtosPage = studysetsPage.map(studyset -> {
             StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
             studysetDto.setOwnerUser(userDto);
+
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), studyset.getId());
+                testResultOptional.ifPresent(testResult -> studysetDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
+
             return studysetDto;
         });
 
@@ -201,6 +213,11 @@ public class StudysetServiceImpl implements StudysetService {
         Page<StudysetDto> studysetDtosPage = studysetsPage.map(studyset -> {
             StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
             studysetDto.setOwnerUser(userDtosMap.get(studysetDto.getOwnerUserId()));
+
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), studyset.getId());
+                testResultOptional.ifPresent(testResult -> studysetDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
             return studysetDto;
         });
 
@@ -229,6 +246,12 @@ public class StudysetServiceImpl implements StudysetService {
         Page<StudysetDto> studysetDtosPage = studysetsPage.map(studyset -> {
             StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
             studysetDto.setOwnerUser(userDtosMap.get(studysetDto.getOwnerUserId()));
+
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), studyset.getId());
+                testResultOptional.ifPresent(testResult -> studysetDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
+
             return studysetDto;
         });
 
@@ -256,6 +279,11 @@ public class StudysetServiceImpl implements StudysetService {
         Page<StudysetDto> studysetDtosPage = studysetsPage.map(studyset -> {
             StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
             studysetDto.setOwnerUser(userDto);
+
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), studyset.getId());
+                testResultOptional.ifPresent(testResult -> studysetDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
             return studysetDto;
         });
 

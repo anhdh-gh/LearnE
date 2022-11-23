@@ -12,4 +12,6 @@ import lombok.experimental.SuperBuilder;
 public class SearchAllStudysetByOwnerUserIdRequestDto extends SearchAllStudysetRequestDto {
 
     private String ownerUserId;
+
+    private String userId;
 }

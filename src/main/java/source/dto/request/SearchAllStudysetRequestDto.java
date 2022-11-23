@@ -16,4 +16,6 @@ public class SearchAllStudysetRequestDto extends BasicRequest {
     private int size;
 
     private String titleSearch;
+
+    private String userId;
 }

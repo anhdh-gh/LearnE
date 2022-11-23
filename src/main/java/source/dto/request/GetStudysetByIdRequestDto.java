@@ -12,4 +12,6 @@ import lombok.experimental.SuperBuilder;
 public class GetStudysetByIdRequestDto extends BasicRequest {
 
     private String studysetId;
+
+    private String userId;
 }

@@ -13,4 +13,6 @@ import source.dto.request.BasicRequest;
 public class GetStudysetByIdRequestDto extends BasicRequest {
 
     private String studysetId;
+
+    private String userId;
 }

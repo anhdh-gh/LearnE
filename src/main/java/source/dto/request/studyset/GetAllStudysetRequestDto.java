@@ -15,4 +15,6 @@ public class GetAllStudysetRequestDto extends BasicRequest {
     private int page;
 
     private int size;
+
+    private String userId;
 }

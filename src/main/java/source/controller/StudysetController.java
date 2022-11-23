@@ -34,30 +34,35 @@ public class StudysetController {
     @PostMapping(RouterConstant.GET_STUDYSET_BY_ID)
     @LogsActivityAnnotation
     public BaseResponse getStudysetById(@RequestBody GetStudysetByIdRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return studysetService.getStudysetById(request);
     }
 
     @PostMapping(RouterConstant.GET_ALL_STUDYSET_BY_OWNER_USER_ID)
     @LogsActivityAnnotation
     public BaseResponse getAllStudysetByOwnerUserId(@RequestBody GetAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return studysetService.getAllStudysetByOwnerUserId(request);
     }
 
     @PostMapping(RouterConstant.GET_ALL_STUDYSET)
     @LogsActivityAnnotation
     public BaseResponse getAllStudyset(@RequestBody GetAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return studysetService.getAllStudyset(request);
     }
 
     @PostMapping(RouterConstant.SEARCH_ALL_STUDYSET_BY_OWNER_USER_ID)
     @LogsActivityAnnotation
     public BaseResponse searchAllStudysetByOwnerUserId(@RequestBody SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return studysetService.searchAllStudysetByOwnerUserId(request);
     }
 
     @PostMapping(RouterConstant.SEARCH_ALL_STUDYSET)
     @LogsActivityAnnotation
     public BaseResponse searchAllStudyset(@RequestBody SearchAllStudysetByOwnerUserIdRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
         return studysetService.searchAllStudyset(request);
     }
 

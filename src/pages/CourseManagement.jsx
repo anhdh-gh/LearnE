@@ -1,12 +1,12 @@
 import '../assets/css/UserManagementPage.css'
 import '../assets/css/CourseManagement.css'
 import PagesImage from '../assets/img/pages-image.png'
-import { Header, Footer, Sider, Pagination, ModalConfirm, SvelteJSONEditor } from "../components"
+import { Header, Footer, Sider, Pagination, ModalConfirm, SvelteJSONEditor, ModalUploadFile } from "../components"
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Button, Card, Badge, OverlayTrigger, Tooltip, Offcanvas } from 'react-bootstrap'
 import { SearchBox, UserInfo } from '../components'
 import { useSelector } from 'react-redux'
-import { CourseApi } from '../api'
+import { CourseApi, MultimediaApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 import { useLayoutEffect, useCallback, useState } from 'react'
@@ -125,6 +125,8 @@ const CourseManagement = (props) => {
     const [courseRemove, setCourseRemove] = useState(false)
     const [courseCreateUpdate, setCourseCreateUpdate] = useState(false)
     const [content, setContent] = useState({ json: baseCourseCreate() })
+    const [isShowModalUploadFile, setIShowModalUploadFile] = useState(false)
+    const [fileUploads, setFileUploads] = useState([])
 
     const { data: responseGetAllCourses, isLoading: isLoadingGetAllCourses, isFetching: isFetchingGetAllCourses, isError: isErrorGetAllCourses, refetch: getAllCourses } = useQuery(
         ["getAllCourses", page],
@@ -188,6 +190,7 @@ const CourseManagement = (props) => {
                         refreshPage()
                         setShowCVECourse({ show: false })
                         setCourseCreateUpdate(false)
+                        setFileUploads([])
                         Notification.success("Create successfully!")
                     } else {
                         dispatch(hideLoader())
@@ -202,6 +205,7 @@ const CourseManagement = (props) => {
                         refreshPage()
                         setShowCVECourse({ show: false })
                         setCourseCreateUpdate(false)
+                        setFileUploads([])
                         Notification.success("Update successfully!")
                     } else {
                         dispatch(hideLoader())
@@ -225,6 +229,28 @@ const CourseManagement = (props) => {
                     Notification.error(meta?.message)
                 }
             })
+    }
+
+    const handleUploadFile = (files, allFiles) => {
+        dispatch(showLoader())
+        MultimediaApi.uploadFile(files?.[0]?.file)
+            .then(res => {
+                const { meta } = res
+                if (meta.code === STATUS_CODES.SUCCESS) {
+                    setIShowModalUploadFile(false)
+                    setFileUploads([{ ...res?.data, ...files?.[0]?.meta }, ...fileUploads])
+                    dispatch(hideLoader())
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error(meta?.message)
+                }
+            })
+    }
+
+    const handleHideCreateUpdate = () => {
+        setFileUploads([])
+        setCourseCreateUpdate(false)
+        setShowCVECourse({ show: false })
     }
 
     return !isLoadingGetAllCourses && !isFetchingGetAllCourses && !isErrorGetAllCourses && responseGetAllCourses?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllCourses?.data) && <>
@@ -317,7 +343,7 @@ const CourseManagement = (props) => {
                 handleYes={handleDeleteCourse}
             />
 
-            {showCVECourse?.show && <Offcanvas placement="start" className="w-full" show={showCVECourse?.show} onHide={() => { setCourseCreateUpdate(false); setShowCVECourse({ show: false }) }}>
+            {showCVECourse?.show && <Offcanvas placement="start" className="w-full" show={showCVECourse?.show} onHide={handleHideCreateUpdate}>
                 <Offcanvas.Header closeButton className="border-bottom">
                     <Offcanvas.Title>
                         {showCVECourse?.type === 'update' ? 'Update course' : showCVECourse?.type === 'view' ? 'View course' : 'Create course'}
@@ -331,17 +357,53 @@ const CourseManagement = (props) => {
                     />
 
                     {showCVECourse?.type !== 'view' &&
-                        <Button
-                            onClick={handleCreateUpdatCourse}
-                            disabled={courseCreateUpdate ? false : true}
-                            className="btn btn-primary w-100 fw-bold mt-3">
-                            {showCVECourse?.type === 'create' ? 'Create' : 'Update'}
-                        </Button>
+                        <div className='flex mt-3 fw-bold'>
+                            <div className='me-3'>
+                                <Button
+                                    onClick={() => setIShowModalUploadFile(true)}
+                                >Upload file
+                                </Button>
+                            </div>
+                            <div className='grow'>
+                                <Button
+                                    onClick={handleCreateUpdatCourse}
+                                    disabled={courseCreateUpdate ? false : true}
+                                    className="btn btn-primary w-full">
+                                    {showCVECourse?.type === 'create' ? 'Create' : 'Update'}
+                                </Button>
+                            </div>
+                        </div>
                     }
+
+                    {fileUploads && fileUploads?.length > 0 && <>
+                        <h4 className="fw-bold my-5 pb-3 border-bottom border-3 border-start-0 border-end-0 border-top-0 border-danger d-inline-block">Uploaded files</h4>
+
+                        {fileUploads?.map((fileUpload, index) => <SvelteJSONEditor
+                            key={index}
+                            content={{ json: fileUpload }}
+                            readOnly='true'
+                        />)}
+                    </>}
                 </Offcanvas.Body>
             </Offcanvas>}
             <Footer />
         </Sider>
+
+        <ModalUploadFile
+            modalTitle="Upload file"
+            isShow={isShowModalUploadFile}
+            handleSubmit={handleUploadFile}
+            accept="video/*, image/*"
+            inputContent={(files, extra) => extra.reject ? 'Video or image only' : 'Drag and drop or click to select file'}
+            // styles={{
+            //     dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+            //     inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+            // }}
+            multiple={false}
+            maxFiles={1}
+            inputWithFilesContent={files => `${1 - files.length} more`}
+            handleClose={() => setIShowModalUploadFile(false)}
+        />
     </>
 }
 

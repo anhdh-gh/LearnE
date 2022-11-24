@@ -5,7 +5,7 @@ import { StudysetApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useLayoutEffect, useEffect  } from 'react'
 import { useDispatch } from "react-redux"
-import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
+import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader, updateTestResultOfQuestion } from '../redux/actions'
 import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import _ from 'lodash'
 import { CommonUtil } from '../utils'
@@ -32,6 +32,8 @@ const TestStudySet = (props) => {
                 .then(response => {
                     const { meta } = response
                     if(meta?.code === STATUS_CODES.SUCCESS) {
+                        const { data } = response
+                        dispatch(updateTestResultOfQuestion(data?.studysetId, data))
                         dispatch(hideTopLoader())
                     }
                 })
@@ -64,6 +66,8 @@ const TestStudySet = (props) => {
             .then(response => {
                 const { meta } = response
                 if(meta?.code === STATUS_CODES.SUCCESS) {
+                    const { data } = response
+                    dispatch(updateTestResultOfQuestion(data?.studysetId, data))
                     dispatch(hideTopLoader())
                 }
             })

@@ -1,8 +1,8 @@
 import { STATUS_TYPE, STATUS_CODES } from "../../constants"
 import ACTION_TYPE_SAGA from "../actions/ACTION_TYPE_SAGA"
-import { 
-    showLoader, hideLoader, 
-    showTopLoader, hideTopLoader, 
+import {
+    showLoader, hideLoader,
+    showTopLoader, hideTopLoader,
     showNotFound, hideNotFound,
     saveCourse,
     fetchCourseProcessingDone,
@@ -12,7 +12,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects'
 import { CommonUtil } from '../../utils'
 import _ from 'lodash'
 
-const { GET_COURSE_BY_ID, UPDATE_LESSON_STATUS } = ACTION_TYPE_SAGA
+const { GET_COURSE_BY_ID, UPDATE_LESSON_STATUS, UPDATE_TEST_RESULT_OF_QUESTION } = ACTION_TYPE_SAGA
 const { SUCCESS } = STATUS_CODES
 
 function handleCourseData(course) {
@@ -21,8 +21,8 @@ function handleCourseData(course) {
     course.status = lessons.every(lesson => lesson?.status === STATUS_TYPE.FINISHED)
         ? STATUS_TYPE.FINISHED
         : lessons.every(lesson => !lesson?.status || lesson?.status === STATUS_TYPE.UNFINISHED)
-          ? STATUS_TYPE.UNFINISHED
-          : STATUS_TYPE.PROCESSING
+            ? STATUS_TYPE.UNFINISHED
+            : STATUS_TYPE.PROCESSING
 
     // Set tổng số lượng lesson, tổng duration, tổng số lượng lesson đã hoàn thành, phần trăm hoàn thành course
     course.lessons = lessons
@@ -36,7 +36,7 @@ function handleCourseData(course) {
         const numberOfLessonUnFinshed = chapter.lessons.reduce((sum, lesson) => sum + (lesson.status === STATUS_TYPE.UNFINISHED ? 1 : 0), 0)
         chapter.status = numberOfLessonFinshed === chapter.lessons.length ? STATUS_TYPE.FINISHED
             : numberOfLessonUnFinshed === chapter.lessons.length ? STATUS_TYPE.UNFINISHED
-            : STATUS_TYPE.PROCESSING
+                : STATUS_TYPE.PROCESSING
         chapter.numberOfLessonFinshed = numberOfLessonFinshed
         chapter.totalDuration = chapter.lessons.reduce((save, lesson) => CommonUtil.addTimeString(save, lesson.duration), "00:00:00")
         chapter.displayName = `${indexChapter + 1}. ${chapter.name}`
@@ -55,7 +55,7 @@ function handleCourseData(course) {
         lesson => lesson.status === STATUS_TYPE.UNFINISHED)[0]
 
     // Nếu người dùng đã hoàn thành khóa học thì set cho nó học lesson đầu tiên và chapter đầu tiên
-    if(course?.status === STATUS_TYPE.FINISHED) {
+    if (course?.status === STATUS_TYPE.FINISHED) {
         course.chapterCurrentProcessing = course?.chapters[0]
         course.lessonCurrentProcessing = course?.chapters[0]?.lessons[0]
     }
@@ -70,7 +70,7 @@ function* getCourseByIdWorker({ payload }) {
     try {
         const responseCourse = yield call(CourseApi.handleGetCourseDetailForUser(courseId))
         const { data: dataCourse, meta: metaCourse } = responseCourse
-        if(metaCourse.code === SUCCESS) {
+        if (metaCourse.code === SUCCESS) {
             yield put(saveCourse(handleCourseData(dataCourse)))
             yield put(hideNotFound())
         } else {
@@ -89,20 +89,19 @@ function* updateLessonStatusWorker({ payload }) {
     yield put(showTopLoader())
     try {
         const { meta: metaUpdateLesson } = yield call(CourseApi.updateLessonStatus(lessonId, status))
-        if(metaUpdateLesson.code === SUCCESS) {
+        if (metaUpdateLesson.code === SUCCESS) {
             let course = yield select(state => state.course)
             course = _.cloneDeep(course)
-            const res = course.chapters.some(chapter => 
+            const res = course.chapters.some(chapter =>
                 chapter.lessons.some(lesson => {
-                    if(lesson.id === lessonId) {
+                    if (lesson.id === lessonId) {
                         lesson.status = status
                         return true
                     }
-
                     return false
                 }))
 
-            if(res) {
+            if (res) {
                 yield put(saveCourse(handleCourseData(course)))
             }
         }
@@ -112,9 +111,32 @@ function* updateLessonStatusWorker({ payload }) {
     yield put(hideTopLoader())
 }
 
+function* updateTestResultOfQuestionWorker({ payload }) {
+    const { referenceId, testResult } = payload
+
+    yield put(showTopLoader())
+    let course = yield select(state => state.course)
+    course = _.cloneDeep(course)
+    const res = course?.chapters?.some(chapter =>
+        chapter?.lessons?.some(lesson =>
+            lesson?.lessonExercises?.some(lessonExercise => {
+                if (lessonExercise?.referenceId === referenceId) {
+                    lessonExercise.question.testResult = testResult
+                    return true
+                }
+                return false
+            })))
+
+    if (res) {
+        yield put(saveCourse(handleCourseData(course)))
+    }
+    yield put(hideTopLoader())
+}
+
 function* courseWatcher() {
     yield takeLatest(GET_COURSE_BY_ID, getCourseByIdWorker)
     yield takeLatest(UPDATE_LESSON_STATUS, updateLessonStatusWorker)
+    yield takeLatest(UPDATE_TEST_RESULT_OF_QUESTION, updateTestResultOfQuestionWorker)
 }
 
 export default courseWatcher

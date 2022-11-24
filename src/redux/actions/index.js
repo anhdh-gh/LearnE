@@ -24,7 +24,7 @@ import { saveUser, removeUser } from '../features/UserSlice'
 import { signIn, signOut, signUp } from './userAction'
 
 // Course
-import { getCourseById, updateLessonStatus } from './courseAction'
+import { getCourseById, updateLessonStatus, updateTestResultOfQuestion } from './courseAction'
 import { saveCourse, removeCourse } from '../features/CourseSlice'
 
 export {
@@ -57,5 +57,6 @@ export {
     // Course
     saveCourse, removeCourse,
     getCourseById,
-    updateLessonStatus
+    updateLessonStatus,
+    updateTestResultOfQuestion
 }

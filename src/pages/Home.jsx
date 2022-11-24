@@ -106,7 +106,7 @@ const Home = (props) => {
                                                 <CardStudySet
                                                     studyset={studyset}
                                                     showHeader={true}
-                                                    studysetRetest={setStudysetRetest}
+                                                    studysetRetest={studysetRetest}
                                                     setStudysetRetest={setStudysetRetest}
                                                 />
                                             </div>

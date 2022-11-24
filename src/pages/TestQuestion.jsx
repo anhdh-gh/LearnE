@@ -3,7 +3,7 @@ import { QuestionApi } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useLayoutEffect, useState, useCallback, useEffect } from 'react'
 import _ from 'lodash'
-import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader } from '../redux/actions'
+import { showLoader, hideLoader, showNotFound, hideNotFound, showTopLoader, hideTopLoader, updateTestResultOfQuestion } from '../redux/actions'
 import { useDispatch, useSelector } from "react-redux"
 import { ROUTE_PATH, STATUS_CODES } from '../constants'
 import { Card } from 'react-bootstrap'
@@ -125,6 +125,8 @@ const TestQuestion = () => {
                 .then(response => {
                     const { meta } = response
                     if(meta?.code === STATUS_CODES.SUCCESS) {
+                        const { data } = response
+                        dispatch(updateTestResultOfQuestion(data?.questionId, data))
                         dispatch(hideTopLoader())
                     }
                 })
@@ -179,6 +181,8 @@ const TestQuestion = () => {
             .then(response => {
                 const { meta } = response
                 if(meta?.code === STATUS_CODES.SUCCESS) {
+                    const { data } = response
+                    dispatch(updateTestResultOfQuestion(data?.questionId, data))
                     dispatch(hideTopLoader())
                 }
             })

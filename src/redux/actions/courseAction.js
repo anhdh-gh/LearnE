@@ -9,3 +9,8 @@ export const updateLessonStatus = (lessonId, status) => ({
     type: ACTION_TYPE_SAGA.UPDATE_LESSON_STATUS,
     payload: {lessonId, status}
 })
+
+export const updateTestResultOfQuestion = (referenceId, testResult) => ({
+    type: ACTION_TYPE_SAGA.UPDATE_TEST_RESULT_OF_QUESTION,
+    payload: {referenceId, testResult}
+})

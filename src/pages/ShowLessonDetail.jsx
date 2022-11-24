@@ -1,18 +1,19 @@
 import '../assets/css/ShowLessonDetail.css'
 import PagesImage from '../assets/img/pages-image.png'
-import { Loader, CourseHeader } from '../components'
-import { useLayoutEffect , useState, useRef } from 'react'
+import { Loader, CourseHeader, CardStudySet, ModalConfirm, RankQuestion } from '../components'
+import { useLayoutEffect, useState, useRef } from 'react'
 import { getCourseById, updateLessonStatus, showNotFound, hideNotFound } from '../redux/actions'
-import { ROUTE_PATH, STATUS_TYPE } from '../constants'
+import { ROUTE_PATH, STATUS_TYPE, PROVIDER } from '../constants'
 import { useSelector, useDispatch } from 'react-redux'
 import { Accordion } from 'react-bootstrap'
 import { History } from '../components/NavigateSetter'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player/youtube'
-import { Navbar, Container, Offcanvas } from 'react-bootstrap'
+import { Navbar, Container, Offcanvas, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import _ from 'lodash'
 import Parser from 'html-react-parser'
 import { CommonUtil } from '../utils'
+import Timecode from 'react-timecode'
 
 const ShowLessonDetail = (props) => {
 
@@ -24,21 +25,23 @@ const ShowLessonDetail = (props) => {
 
     const dispatch = useDispatch()
     const course = useSelector(state => state.course)
-    const isShow = useSelector(state =>  state.UI.NotFound.isShow)
+    const isShow = useSelector(state => state.UI.NotFound.isShow)
+    const [questionRetest, setQuestionRetest] = useState(false)
+    const [showRank, setShowRank] = useState(false)
 
-    useLayoutEffect (() => {
-        if(!lessonId || (course && course?.lessons?.every(lesson => lesson !== lessonId))) {
+    useLayoutEffect(() => {
+        if (!lessonId || (course && course?.lessons?.every(lesson => lesson !== lessonId))) {
             dispatch(showNotFound())
         }
 
-    }, [ dispatch, lessonId, course ])
+    }, [dispatch, lessonId, course])
 
-    useLayoutEffect (() => {
-        if(_.isEmpty(course) || course?.id !== courseId) {
+    useLayoutEffect(() => {
+        if (_.isEmpty(course) || course?.id !== courseId) {
             dispatch(getCourseById(courseId))
         }
 
-    }, [ dispatch, course, courseId ])
+    }, [dispatch, course, courseId])
 
     const refScrollChapter = useRef(null)
     const refNavbarButtom = useRef(null)
@@ -51,12 +54,13 @@ const ShowLessonDetail = (props) => {
     const [currentLesson, setCurrentsLesson] = useState()
     const [nextLesson, setNextLesson] = useState()
     const [loadVideo, setloadVideo] = useState()
-    const[heightNavbarButtom, setHeightNavbarButtom] = useState(0)
-    const[heightCourseContent, setHeightCourseContent] = useState(0)
+    const [heightNavbarButtom, setHeightNavbarButtom] = useState(0)
+    const [heightCourseContent, setHeightCourseContent] = useState(0)
+    const [studysetRetest, setStudysetRetest] = useState(false)
 
     const removeScrollBody = () => document.body.classList.remove("overflow-hidden")
 
-    useLayoutEffect (() => {
+    useLayoutEffect(() => {
         if (course) {
             const isLessonExist = course?.lessons?.some((lesson, indexLesson, lessons) => {
 
@@ -78,32 +82,33 @@ const ShowLessonDetail = (props) => {
                 }
                 return false
             })
-            
-            if(isLessonExist) {
+
+            if (isLessonExist) {
                 setCurrentIdShowContentCourse(!course ? [] : [course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0]?.id])
                 setChapterCurrentShow(course && course?.chapters?.filter(chapter => chapter.lessons.some(lesson => lesson.id === lessonId))[0])
-            
+
                 document.body.classList.add("overflow-hidden")
 
-                if(window.innerWidth < 1024) {
+                if (window.innerWidth < 1024) {
                     setShowCourseContent(false)
                 }
-    
-                if(refNavbarButtom?.current?.clientHeight) {
+
+                if (refNavbarButtom?.current?.clientHeight) {
                     setHeightNavbarButtom(refNavbarButtom?.current?.clientHeight)
                 }
-    
-                if(refCourseContent?.current?.clientHeight) {
+
+                if (refCourseContent?.current?.clientHeight) {
                     setHeightCourseContent(refCourseContent?.current?.clientHeight)
                 }
 
                 dispatch(hideNotFound())
-            } 
-        } else if(!isPFetchCourseProcessing) {
+            }
+        } else if (!isPFetchCourseProcessing) {
             dispatch(showNotFound())
         }
 
-    }, [ isPFetchCourseProcessing, heightCourseContent, dispatch, course, chapterCurrentShow, lessonId, currentLesson ])
+        return removeScrollBody
+    }, [isPFetchCourseProcessing, heightCourseContent, dispatch, course, chapterCurrentShow, lessonId, currentLesson])
 
     return _.isEmpty(course) || !currentLesson ? <Loader useStateLoader={true} /> : !isShow && <>
 
@@ -131,12 +136,12 @@ const ShowLessonDetail = (props) => {
                                     height='100%'
                                     onReady={() => setloadVideo(false)}
                                     onEnded={() => {
-                                        if(currentLesson && currentLesson?.status !== STATUS_TYPE.FINISHED) {
+                                        if (currentLesson && currentLesson?.status !== STATUS_TYPE.FINISHED) {
                                             dispatch(updateLessonStatus(lessonId, STATUS_TYPE.FINISHED))
                                         }
                                     }}
                                     onStart={() => {
-                                        if(currentLesson && currentLesson?.status === STATUS_TYPE.UNFINISHED) {
+                                        if (currentLesson && currentLesson?.status === STATUS_TYPE.UNFINISHED) {
                                             dispatch(updateLessonStatus(lessonId, STATUS_TYPE.PROCESSING))
                                         }
                                     }}
@@ -154,6 +159,58 @@ const ShowLessonDetail = (props) => {
 
                             {currentLesson?.description && Parser(currentLesson?.description)}
 
+                            <div className='mt-5 row'>
+                                {currentLesson?.lessonExercises?.map(lessonExercise =>
+                                    lessonExercise?.provider === PROVIDER.STUDYSET
+                                        ? <div className="col-md-6 col-lg-4 mb-3" key={lessonExercise.id}>
+                                            <CardStudySet
+                                                studyset={lessonExercise?.question}
+                                                showHeader={true}
+                                                studysetRetest={studysetRetest}
+                                                setStudysetRetest={setStudysetRetest}
+                                            />
+                                        </div>
+                                        : lessonExercise?.provider === PROVIDER.QUESTION_BANK
+                                            ? <div className="col-md-6 col-lg-4 mb-3" key={lessonExercise.id}>
+                                                <Card className="card-study-set-container cursor-default">
+                                                    <Card.Body>
+                                                        <Card.Title className="title">{lessonExercise?.question?.text}</Card.Title>
+                                                        <Card.Subtitle className="mb-2 text-muted">
+                                                            <Badge pill bg="warning" text="dark">{lessonExercise?.question?.questionType}</Badge>
+                                                        </Card.Subtitle>
+                                                        <Card.Text>{CommonUtil.getDateStringFromMilliseconds(lessonExercise?.question?.updateTime || lessonExercise?.question?.createTime)}</Card.Text>
+                                                        <div className='flex justify-between items-end'>
+                                                            <div className='flex items-center'>
+                                                                <i className="fa-solid fa-user-group"></i> <span className='ps-2'>{lessonExercise?.question?.userCount}</span>
+                                                            </div>
+                                                        </div>
+                                                    </Card.Body>
+
+                                                    <Card.Footer className="d-flex justify-content-between">
+                                                        <OverlayTrigger placement="bottom" overlay={<Tooltip>Rank</Tooltip>}>
+                                                            <Badge bg="primary" className='cursor-pointer' onClick={() => setShowRank({ id: lessonExercise?.question?.id })}>
+                                                                <i className="fa-solid fa-ranking-star fs-6" />
+                                                            </Badge>
+                                                        </OverlayTrigger>
+
+                                                        {
+                                                            !lessonExercise?.question?.testResult ?
+                                                                <OverlayTrigger placement="bottom" overlay={<Tooltip>Test</Tooltip>}>
+                                                                    <Badge bg="warning" className='cursor-pointer' onClick={() => History.push(`${ROUTE_PATH.QUESTION_TEST}/${lessonExercise?.question?.id}`)}>
+                                                                        <i className="fas fa-edit fs-6" />
+                                                                    </Badge>
+                                                                </OverlayTrigger>
+                                                                : <OverlayTrigger placement="bottom" overlay={<Tooltip>Score</Tooltip>}>
+                                                                    <Badge bg="warning" className='cursor-pointer' onClick={() => setQuestionRetest(lessonExercise?.question)}>
+                                                                        <i className="fa-solid fa-eye fs-6" />
+                                                                    </Badge>
+                                                                </OverlayTrigger>
+                                                        }
+                                                    </Card.Footer>
+                                                </Card>
+                                            </div>
+                                            : <></>)}
+                            </div>
                             <div className='mt-5 text-center py-3 text-gray-500 font-semibold'>Made with <i className="text-red-500 fa-solid fa-heart"></i> · Powered by Do Hung Anh</div>
                         </div>
                     </div>
@@ -275,6 +332,38 @@ const ShowLessonDetail = (props) => {
         </Navbar>
 
         <div style={{ height: `${refNavbarButtom?.current?.clientHeight}px` || "0px" }}></div>
+
+        <ModalConfirm
+            show={studysetRetest ? true : false}
+            setShow={() => setStudysetRetest(false)}
+            title={studysetRetest ? `Test: ${studysetRetest?.title}` : 'Closing'}
+            message={studysetRetest && <div className='py-2'>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={studysetRetest?.testResult?.completionTime} /></div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(studysetRetest?.testResult?.updateTime || studysetRetest?.testResult?.createTime)}</div>
+            </div>}
+            handleNo={() => setStudysetRetest(false)}
+            handleYes={() => History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${studysetRetest?.id}`)}
+            labelYes="Retest"
+            labelNo="Close"
+        />
+
+        <ModalConfirm
+            show={questionRetest ? true : false}
+            setShow={() => setQuestionRetest(false)}
+            title={questionRetest ? `Test: ${questionRetest?.text}` : 'Closing'}
+            message={questionRetest && <div className='py-2'>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(questionRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={questionRetest?.testResult?.completionTime} /></div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(questionRetest?.testResult?.updateTime || questionRetest?.testResult?.createTime)}</div>
+            </div>}
+            handleNo={() => setQuestionRetest(false)}
+            handleYes={() => History.push(`${ROUTE_PATH.QUESTION_TEST}/${questionRetest?.id}`)}
+            labelYes="Retest"
+            labelNo="Close"
+        />
+
+        {showRank?.id && <RankQuestion questionId={showRank?.id} show={showRank ? true : false} onHide={() => setShowRank(false)} />}
     </>
 }
 

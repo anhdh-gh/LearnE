@@ -253,7 +253,7 @@ public class CourseServiceImpl implements CourseService {
                 .builder()
                 .requestId(request.getRequestId())
                 .userId(request.getUserId())
-                .studysetIds(questionIds)
+                .studysetIds(studysetIds)
                 .build()
         );
         if(!baseResponseStudyset.getMeta().getCode().equals(BaseResponse.OK_CODE)) {

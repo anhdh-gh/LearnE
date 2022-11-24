@@ -76,19 +76,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: answerchoice; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.answerchoice (
-    id character varying(255) NOT NULL,
-    lessonquestionhistoryid character varying(255) NOT NULL,
-    answerid character varying(255) NOT NULL,
-    createtime timestamp(6) without time zone,
-    updatetime timestamp(6) without time zone
-);
-
-
---
 -- Name: chapter; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -179,8 +166,8 @@ ALTER SEQUENCE public.lesson_id_seq OWNED BY public.lesson.id;
 CREATE TABLE public.lessonexercise (
     id bigint NOT NULL,
     lessonid bigint NOT NULL,
-    name character varying(255) NOT NULL,
-    description text,
+    referenceid character varying(255) NOT NULL,
+    provider character varying(255),
     createtime timestamp(6) without time zone,
     updatetime timestamp(6) without time zone
 );
@@ -206,68 +193,6 @@ ALTER SEQUENCE public.lessonexercise_id_seq OWNED BY public.lessonexercise.id;
 
 
 --
--- Name: lessonexercisestatus; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lessonexercisestatus (
-    id character varying(255) NOT NULL,
-    lessonexerciseid bigint NOT NULL,
-    lessonid bigint NOT NULL,
-    userid character varying(255) NOT NULL,
-    status character varying(255) NOT NULL,
-    createtime timestamp(6) without time zone,
-    updatetime timestamp(6) without time zone
-);
-
-
---
--- Name: lessonquestion; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lessonquestion (
-    id bigint NOT NULL,
-    lessonexerciseid bigint NOT NULL,
-    createtime timestamp(6) without time zone,
-    updatetime timestamp(6) without time zone,
-    questionid character varying(255) NOT NULL,
-    score real NOT NULL
-);
-
-
---
--- Name: lessonquestion_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.lessonquestion_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lessonquestion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.lessonquestion_id_seq OWNED BY public.lessonquestion.id;
-
-
---
--- Name: lessonquestionhistory; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lessonquestionhistory (
-    id character varying(255) NOT NULL,
-    lessonquestionid bigint NOT NULL,
-    userid character varying(255) NOT NULL,
-    createtime timestamp(6) without time zone,
-    updatetime timestamp(6) without time zone,
-    score real NOT NULL
-);
-
-
---
 -- Name: lessonstatus; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -282,10 +207,10 @@ CREATE TABLE public.lessonstatus (
 
 
 --
--- Name: request; Type: TABLE; Schema: public; Owner: -
+-- Name: requirement; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.request (
+CREATE TABLE public.requirement (
     id character varying(255) NOT NULL,
     courseid character varying(255) NOT NULL,
     text text NOT NULL,
@@ -326,21 +251,6 @@ ALTER TABLE ONLY public.lesson ALTER COLUMN id SET DEFAULT nextval('public.lesso
 --
 
 ALTER TABLE ONLY public.lessonexercise ALTER COLUMN id SET DEFAULT nextval('public.lessonexercise_id_seq'::regclass);
-
-
---
--- Name: lessonquestion id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonquestion ALTER COLUMN id SET DEFAULT nextval('public.lessonquestion_id_seq'::regclass);
-
-
---
--- Data for Name: answerchoice; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.answerchoice (id, lessonquestionhistoryid, answerid, createtime, updatetime) FROM stdin;
-\.
 
 
 --
@@ -407,31 +317,7 @@ COPY public.lesson (id, chapterid, name, duration, description, video, createtim
 -- Data for Name: lessonexercise; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.lessonexercise (id, lessonid, name, description, createtime, updatetime) FROM stdin;
-\.
-
-
---
--- Data for Name: lessonexercisestatus; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.lessonexercisestatus (id, lessonexerciseid, lessonid, userid, status, createtime, updatetime) FROM stdin;
-\.
-
-
---
--- Data for Name: lessonquestion; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.lessonquestion (id, lessonexerciseid, createtime, updatetime, questionid, score) FROM stdin;
-\.
-
-
---
--- Data for Name: lessonquestionhistory; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.lessonquestionhistory (id, lessonquestionid, userid, createtime, updatetime, score) FROM stdin;
+COPY public.lessonexercise (id, lessonid, referenceid, provider, createtime, updatetime) FROM stdin;
 \.
 
 
@@ -456,10 +342,10 @@ a9b2f02a-df5f-4ae0-9416-826eadbec241	63	YE0vynGVmhflMIzrO8VaSwMSXgN2	PROCESSING	
 
 
 --
--- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: requirement; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.request (id, courseid, text, createtime, updatetime) FROM stdin;
+COPY public.requirement (id, courseid, text, createtime, updatetime) FROM stdin;
 9e145479-3427-410a-b273-9928f25ef814	746c8e3a-f39f-4360-9df2-6f396062393a	Chủ động học tập và làm theo sự hướng dẫn	2022-10-18 11:13:44.657	\N
 02c378ed-9c55-46d8-b68b-85bcfa313cd7	746c8e3a-f39f-4360-9df2-6f396062393a	Cần có nền tảng tiếng anh căn bản	2022-10-18 11:13:44.657	\N
 8beb46cc-76d8-4e92-a527-2f08ecc5bc64	746c8e3a-f39f-4360-9df2-6f396062393a	Tích cực trao đổi với cố giáo và các học viên khác	2022-10-18 11:13:44.657	\N
@@ -483,36 +369,21 @@ be63d75e-093a-40a0-af1f-ccae0400614c	746c8e3a-f39f-4360-9df2-6f396062393a	Học 
 -- Name: chapter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.chapter_id_seq', 57, true);
+SELECT pg_catalog.setval('public.chapter_id_seq', 62, true);
 
 
 --
 -- Name: lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.lesson_id_seq', 572, true);
+SELECT pg_catalog.setval('public.lesson_id_seq', 577, true);
 
 
 --
 -- Name: lessonexercise_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.lessonexercise_id_seq', 1, false);
-
-
---
--- Name: lessonquestion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.lessonquestion_id_seq', 1, false);
-
-
---
--- Name: answerchoice answerchoice_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.answerchoice
-    ADD CONSTRAINT answerchoice_pkey PRIMARY KEY (id);
+SELECT pg_catalog.setval('public.lessonexercise_id_seq', 6, true);
 
 
 --
@@ -548,30 +419,6 @@ ALTER TABLE ONLY public.lessonexercise
 
 
 --
--- Name: lessonexercisestatus lessonexercisestatus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonexercisestatus
-    ADD CONSTRAINT lessonexercisestatus_pkey PRIMARY KEY (id);
-
-
---
--- Name: lessonquestion lessonquestion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonquestion
-    ADD CONSTRAINT lessonquestion_pkey PRIMARY KEY (id);
-
-
---
--- Name: lessonquestionhistory lessonquestionhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonquestionhistory
-    ADD CONSTRAINT lessonquestionhistory_pkey PRIMARY KEY (id);
-
-
---
 -- Name: lessonstatus lessonstatus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -580,10 +427,10 @@ ALTER TABLE ONLY public.lessonstatus
 
 
 --
--- Name: request request_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: requirement request_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.request
+ALTER TABLE ONLY public.requirement
     ADD CONSTRAINT request_pkey PRIMARY KEY (id);
 
 
@@ -593,14 +440,6 @@ ALTER TABLE ONLY public.request
 
 ALTER TABLE ONLY public.target
     ADD CONSTRAINT target_pkey PRIMARY KEY (id);
-
-
---
--- Name: answerchoice fkanswerchoi188174; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.answerchoice
-    ADD CONSTRAINT fkanswerchoi188174 FOREIGN KEY (lessonquestionhistoryid) REFERENCES public.lessonquestionhistory(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -620,43 +459,11 @@ ALTER TABLE ONLY public.lesson
 
 
 --
--- Name: lessonexercisestatus fklessonexer257807; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonexercisestatus
-    ADD CONSTRAINT fklessonexer257807 FOREIGN KEY (lessonexerciseid) REFERENCES public.lessonexercise(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: lessonexercise fklessonexer910564; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lessonexercise
     ADD CONSTRAINT fklessonexer910564 FOREIGN KEY (lessonid) REFERENCES public.lesson(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: lessonexercisestatus fklessonexer936762; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonexercisestatus
-    ADD CONSTRAINT fklessonexer936762 FOREIGN KEY (lessonid) REFERENCES public.lesson(id);
-
-
---
--- Name: lessonquestionhistory fklessonques214875; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonquestionhistory
-    ADD CONSTRAINT fklessonques214875 FOREIGN KEY (lessonquestionid) REFERENCES public.lessonquestion(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: lessonquestion fklessonques641174; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessonquestion
-    ADD CONSTRAINT fklessonques641174 FOREIGN KEY (lessonexerciseid) REFERENCES public.lessonexercise(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -668,10 +475,10 @@ ALTER TABLE ONLY public.lessonstatus
 
 
 --
--- Name: request fkrequest930580; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: requirement fkrequest930580; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.request
+ALTER TABLE ONLY public.requirement
     ADD CONSTRAINT fkrequest930580 FOREIGN KEY (courseid) REFERENCES public.course(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 

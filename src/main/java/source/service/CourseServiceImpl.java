@@ -310,64 +310,6 @@ public class CourseServiceImpl implements CourseService {
             lessonExercises.addAll(lessons.get(i).getLessonExercises());
         }
 
-        // Get question and studyset
-        Set<String> questionIds = new HashSet<>();
-        Set<String> studysetIds = new HashSet<>();
-        for(LessonExercise lessonExercise: lessonExercises) {
-            if(lessonExercise.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
-                questionIds.add(lessonExercise.getReferenceId());
-            } else if(lessonExercise.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
-                studysetIds.add(lessonExercise.getReferenceId());
-            }
-        }
-
-        // Lấy ra list question by ids
-        BaseResponse baseResponseQuestion = questionBankThirdPartyService.getQuestionByQuestionIds(
-            QuestionGetByIdsRequestDto
-                .builder()
-                .requestId(request.getRequestId())
-                .questionIds(questionIds)
-                .build()
-        );
-        if(!baseResponseQuestion.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
-            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031));
-        }
-
-        List questionBanksRaw = JsonUtil.getGenericObject(baseResponseQuestion.getData(), List.class);
-        Map<String, Object> mapQuestion = new HashMap<>();
-        questionBanksRaw.forEach(questionBankRaw -> {
-            BaseDto questionDto = JsonUtil.getGenericObject(questionBankRaw, BaseDto.class);
-            mapQuestion.put(questionDto.getId(), questionBankRaw);
-        });
-
-        // Lấy ra list studyset by ids
-        BaseResponse baseResponseStudyset = questionBankThirdPartyService.getQuestionByQuestionIds(
-            QuestionGetByIdsRequestDto
-                .builder()
-                .requestId(request.getRequestId())
-                .questionIds(questionIds)
-                .build()
-        );
-        if(!baseResponseStudyset.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
-            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.STUDYSET_NOT_FOUND_400032));
-        }
-
-        List studysetsRaw = JsonUtil.getGenericObject(baseResponseStudyset.getData(), List.class);
-        Map<String, Object> mapStudyset = new HashMap<>();
-        studysetsRaw.forEach(studysetRaw -> {
-            BaseDto studysetDto = JsonUtil.getGenericObject(studysetRaw, BaseDto.class);
-            mapStudyset.put(studysetDto.getId(), studysetRaw);
-        });
-
-        // Gán vào lessonExerciseDtos
-        for(LessonExerciseDto lessonExerciseDto: lessonExerciseDtos) {
-            if(lessonExerciseDto.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
-                lessonExerciseDto.setQuestion(mapQuestion.get(lessonExerciseDto.getReferenceId()));
-            } else if(lessonExerciseDto.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
-                lessonExerciseDto.setQuestion(mapStudyset.get(lessonExerciseDto.getReferenceId()));
-            }
-        }
-
         return BaseResponse.ofSucceeded(request.getRequestId(), response);
     }
 

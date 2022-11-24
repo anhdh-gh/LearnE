@@ -84,4 +84,10 @@ public class StudysetController {
     public BaseResponse checkOwnerStudysetValid(@RequestBody CheckOwnerStudysetValidRequestDto request) throws Exception {
         return studysetService.checkOwnerStudysetValid(request);
     }
+
+    @PostMapping(RouterConstant.GET_STUDYSET_BY_IDS)
+    @LogsActivityAnnotation
+    public BaseResponse getStudysetByStudysetIds(@RequestBody GetStudysetByIdsRequestDto request) throws Exception {
+        return studysetService.getStudysetByStudysetIds(request);
+    }
 }

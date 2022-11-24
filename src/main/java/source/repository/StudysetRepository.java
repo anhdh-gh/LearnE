@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import source.entity.Studyset;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface StudysetRepository extends JpaRepository<Studyset, String> {
@@ -17,4 +18,6 @@ public interface StudysetRepository extends JpaRepository<Studyset, String> {
     Page<Studyset> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     Page<Studyset> findAllByOwnerUserIdAndTitleContainingIgnoreCase(String ownerUserId, String title, Pageable pageable);
+
+    List<Studyset> findByIdIn(Set<String> ids);
 }

@@ -6,6 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.dto.StudysetDto;
@@ -343,6 +344,22 @@ public class StudysetServiceImpl implements StudysetService {
         StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
         studysetDto.setOwnerUser(userDto);
         return BaseResponse.ofSucceeded(request.getRequestId(), studysetDto);
+    }
+
+    @Override
+    public BaseResponse getStudysetByStudysetIds(GetStudysetByIdsRequestDto request) throws Exception {
+        List<Studyset> studysets = getStudysetByStudysetIds(request.getStudysetIds());
+        return BaseResponse.ofSucceeded(request.getRequestId(), studysets);
+    }
+
+    private List<Studyset> getStudysetByStudysetIds(Set<String> studysetIds) throws Exception {
+        List<Studyset> studysets = studysetRepository.findByIdIn(studysetIds);
+        if(studysets.size() != studysetIds.size()) {
+            int errorCode = Integer.parseInt(ErrorCodeConstant.STUDYSET_NOT_FOUND_400032);
+            throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
+        }
+
+        return studysets;
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {

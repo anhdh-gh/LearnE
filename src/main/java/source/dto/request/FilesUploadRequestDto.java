@@ -13,6 +13,6 @@ import source.anotation.ValidFileSize;
 @SuperBuilder
 public class FilesUploadRequestDto extends BasicRequest {
 
-    @ValidFileSize(maxSize = 100000)
+//    @ValidFileSize(maxSize = 100000)
     private MultipartFile file;
 }

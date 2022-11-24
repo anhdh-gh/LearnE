@@ -8,10 +8,7 @@ import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.QuestionDto;
 import source.dto.TestResultDto;
-import source.dto.request.DeleteQuestionByIdRequestDto;
-import source.dto.request.GetAllQuestionDto;
-import source.dto.request.GetQuestionByIdRequestDto;
-import source.dto.request.GetRankQuestionDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 import source.service.QuestionBankService;
 
@@ -61,5 +58,10 @@ public class QuestionBankController {
     @LogsActivityAnnotation
     public BaseResponse saveTestResult(@RequestBody TestResultDto request) throws Exception {
         return questionBankService.saveTestResult(request);
+    }
+
+    @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
+    public BaseResponse getQuestionByIds(@RequestBody QuestionGetByIdsRequestDto request) throws Exception {
+        return questionBankService.getQuestionByQuestionIds(request);
     }
 }

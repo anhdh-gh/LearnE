@@ -6,6 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.dto.QuestionDto;
@@ -230,6 +231,23 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         testResultDto.setQuestionId(testResultResponse.getQuestion().getId());
         return BaseResponse.ofSucceeded(request.getRequestId(), testResultDto);
     }
+
+    @Override
+    public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
+        List<Question> questions = getQuestionByQuestionIds(request.getQuestionIds());
+        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
+    }
+
+    private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {
+        List<Question> questions = questionRepository.findByIdIn(questionIds);
+        if(questions.size() != questionIds.size()) {
+            int errorCode = Integer.parseInt(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031);
+            throw new BusinessException(errorCode, environment.getProperty(String.valueOf(errorCode)), HttpStatus.BAD_REQUEST);
+        }
+
+        return questions;
+    }
+
 
     private List<UserDto> getListUserByUserIds(BasicRequest request, Set<String> userIds) throws Exception {
         // Kiểm tra xem UserId có tồn tại hay không

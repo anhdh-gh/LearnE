@@ -2,10 +2,7 @@ package source.service;
 
 import source.dto.QuestionDto;
 import source.dto.TestResultDto;
-import source.dto.request.DeleteQuestionByIdRequestDto;
-import source.dto.request.GetAllQuestionDto;
-import source.dto.request.GetQuestionByIdRequestDto;
-import source.dto.request.GetRankQuestionDto;
+import source.dto.request.*;
 import source.dto.response.BaseResponse;
 
 public interface QuestionBankService {
@@ -23,4 +20,6 @@ public interface QuestionBankService {
     BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception;
 
     BaseResponse saveTestResult(TestResultDto request) throws Exception;
+
+    BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
 }

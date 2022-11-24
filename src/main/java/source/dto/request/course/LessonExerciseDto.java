@@ -13,9 +13,7 @@ import java.util.List;
 @Builder
 public class LessonExerciseDto {
 
-    private String name;
+    private String referenceId;
 
-    private String description;
-
-    private List<LessonQuestionDto> lessonQuestions;
+    private Provider provider;
 }

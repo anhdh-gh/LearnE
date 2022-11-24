@@ -349,7 +349,22 @@ public class StudysetServiceImpl implements StudysetService {
     @Override
     public BaseResponse getStudysetByStudysetIds(GetStudysetByIdsRequestDto request) throws Exception {
         List<Studyset> studysets = getStudysetByStudysetIds(request.getStudysetIds());
-        return BaseResponse.ofSucceeded(request.getRequestId(), studysets);
+
+        Set<String> userIds = studysets.stream().map(Studyset::getOwnerUserId).collect(Collectors.toSet());
+        Map<String, UserDto> userDtosMap = getListUserByUserIds(request, userIds).stream().collect(Collectors.toMap(UserDto::getId, userDto -> userDto));
+
+        List<StudysetDto> studysetDtos = studysets.stream().map(studyset -> {
+            StudysetDto studysetDto = modelMapper.map(studyset, StudysetDto.class);
+            studysetDto.setOwnerUser(userDtosMap.get(studysetDto.getOwnerUserId()));
+
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndStudysetId(request.getUserId(), studyset.getId());
+                testResultOptional.ifPresent(testResult -> studysetDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
+            return studysetDto;
+        }).collect(Collectors.toList());
+
+        return BaseResponse.ofSucceeded(request.getRequestId(), studysetDtos);
     }
 
     private List<Studyset> getStudysetByStudysetIds(Set<String> studysetIds) throws Exception {

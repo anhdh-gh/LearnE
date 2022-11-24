@@ -129,7 +129,7 @@ public class CourseServiceImpl implements CourseService {
         PageRequest pageRequest = PageRequest.of(
             request.getPage(),
             request.getSize(),
-            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+            Sort.by("updateTime").ascending().and(Sort.by("createTime").ascending())
         );
         Page<Course> coursesPage = courseRepository.findAll(pageRequest);
 

@@ -1,15 +1,12 @@
 package source.dto.response.get_course_detail_for_user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.entity.LessonExercise;
-import source.entity.enumeration.StatusType;
-
-import java.util.List;
+import source.entity.enumeration.Provider;
 
 @Data
 @NoArgsConstructor
@@ -18,8 +15,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LessonExerciseDto extends LessonExercise {
 
-    private StatusType status;
+    private String referenceId;
 
-    @JsonProperty("lessonQuestions")
-    private List<LessonQuestionDto> lessonQuestionDtos;
+    private Provider provider;
+
+    private Object question;
 }

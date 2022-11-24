@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.dto.ChapterDto;
-import source.entity.Request;
+import source.entity.Requirement;
 import source.entity.Target;
 
 import java.util.List;
@@ -36,5 +36,5 @@ public class UpdateCourseRequestDto extends BasicRequest {
 
     private List<Target> targets;
 
-    private List<Request> requests;
+    private List<Requirement> requirements;
 }

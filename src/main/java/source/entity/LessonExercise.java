@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import source.entity.enumeration.Provider;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,14 +21,10 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LessonExercise extends AutoIncrementIdBaseEntity {
 
-    @Column(name = "Name")
-    private String name;
+    @Column(name = "ReferenceId")
+    private String referenceId;
 
-    @Column(name = "Description")
-    private String description;
-
-    @OneToMany(targetEntity = LessonQuestion.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "LessonExerciseId", nullable = false)
-    @OrderBy(value = "id asc")
-    private List<LessonQuestion> lessonQuestions;
+    @Column(name = "Provider")
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 }

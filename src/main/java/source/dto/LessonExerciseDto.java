@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import source.entity.enumeration.Provider;
 
 @Data
 @NoArgsConstructor
@@ -13,9 +12,7 @@ import java.util.List;
 @Builder
 public class LessonExerciseDto {
 
-    private String name;
+    private String referenceId;
 
-    private String description;
-
-    private List<LessonQuestionDto> lessonQuestions;
+    private Provider provider;
 }

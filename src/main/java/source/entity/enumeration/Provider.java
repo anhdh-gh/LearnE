@@ -5,13 +5,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum StatusType {
+public enum Provider {
 
-    UNFINISHED("UNFINISHED"),
-
-    PROCESSING("PROCESSING"),
-
-    FINISHED("FINISHED");
+    QUESTION_BANK("QUESTION_BANK"),
+    STUDYSET("STUDYSET");
 
     private final String value;
 }

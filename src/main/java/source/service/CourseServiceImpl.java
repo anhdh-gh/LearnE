@@ -11,17 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.dto.request.*;
 import source.dto.request.CreateCourseRequestDto;
-import source.dto.LessonQuestionDto;
+import source.dto.response.BaseDto;
 import source.dto.response.BaseResponse;
+import source.dto.response.get_course_detail_for_user.GetCourseDetailForUserResponseDto;
 import source.dto.response.UpdateLessonStatusResponseDto;
 import source.dto.response.get_course_detail_for_user.*;
 import source.entity.*;
+import source.entity.enumeration.Provider;
 import source.entity.enumeration.StatusType;
 import source.exception.BusinessErrors;
 import source.repository.*;
-import source.third_party.question_bank.dto.request.CreateListQuestionsRequestDto;
 import source.third_party.question_bank.dto.request.QuestionGetByIdsRequestDto;
 import source.third_party.question_bank.service.QuestionBankThirdPartyService;
+import source.third_party.studyset.dto.request.StudysetGetByIdsRequestDto;
+import source.third_party.studyset.service.StudysetThirdPartyService;
 import source.third_party.user.dto.request.UserGetByIdRequestDto;
 import source.third_party.user.service.UserServiceThirdParty;
 import source.util.JsonUtil;
@@ -48,23 +51,14 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private LessonStatusRepository lessonStatusRepository;
 
-    // ------------------------------------------
     @Autowired
     private LessonExerciseRepository lessonExerciseRepository;
 
     @Autowired
-    private LessonExerciseStatusRepository lessonExerciseStatusRepository;
-
-    // ------------------------------------------
-    @Autowired
-    private LessonQuestionRepository questionRepository;
-
-    @Autowired
-    private LessonQuestionHistoryRepository lessonQuestionHistoryRepository;
-
-    // ------------------------------------------
-    @Autowired
     private QuestionBankThirdPartyService questionBankThirdPartyService;
+
+    @Autowired
+    private StudysetThirdPartyService studysetThirdPartyService;
 
     @Autowired
     private UserServiceThirdParty userServiceThirdParty;
@@ -72,24 +66,19 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public BaseResponse createCourse(CreateCourseRequestDto request) throws Exception {
-        // Lấy ra list các LessonQuestion
-        List<LessonQuestionDto> lessonQuestionDtosCreate = new ArrayList<>();
-        List<LessonQuestionDto> lessonQuestionDtosExist = new ArrayList<>();
+        // Lấy ra list các id của studyset và question
+        List<String> referenceIdsStudyset = new ArrayList<>();
+        List<String> referenceIdsQuestion = new ArrayList<>();
         if(request.getChapters() != null) {
             request.getChapters().forEach(chapterDto -> {
                 if(chapterDto.getLessons() != null) {
                     chapterDto.getLessons().forEach(lessonDto -> {
                         if(lessonDto.getLessonExercises() != null) {
                             lessonDto.getLessonExercises().forEach(lessonExercise -> {
-                                if(lessonExercise.getLessonQuestions() != null) {
-                                    lessonExercise.getLessonQuestions().forEach(lessonQuestionDto -> {
-                                        if(lessonQuestionDto.getQuestionId() == null) {
-                                            lessonQuestionDto.setQuestionId(UUID.randomUUID().toString());
-                                            lessonQuestionDtosCreate.add(lessonQuestionDto);
-                                        } else {
-                                            lessonQuestionDtosExist.add(lessonQuestionDto);
-                                        }
-                                    });
+                                if(lessonExercise.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
+                                    referenceIdsQuestion.add(lessonExercise.getReferenceId());
+                                } else if(lessonExercise.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
+                                    referenceIdsStudyset.add(lessonExercise.getReferenceId());
                                 }
                             });
                         }
@@ -98,12 +87,13 @@ public class CourseServiceImpl implements CourseService {
             });
         }
 
-        if(!lessonQuestionDtosExist.isEmpty()) {
+        // Kiểm tra question có tồn tại hay không
+        if(!referenceIdsQuestion.isEmpty()) {
             BaseResponse baseResponse = questionBankThirdPartyService.getQuestionByQuestionIds(
                 QuestionGetByIdsRequestDto
                     .builder()
                     .requestId(request.getRequestId())
-                    .questionIds(lessonQuestionDtosExist.stream().map(LessonQuestionDto::getQuestionId).collect(Collectors.toSet()))
+                    .questionIds(new HashSet<>(referenceIdsQuestion))
                     .build()
             );
             if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
@@ -111,12 +101,13 @@ public class CourseServiceImpl implements CourseService {
             }
         }
 
-        if(!lessonQuestionDtosCreate.isEmpty()) {
-            BaseResponse baseResponse = questionBankThirdPartyService.createQuestionsList(
-                CreateListQuestionsRequestDto
+        // Kiểm tra studyset có tồn tại hay không
+        if(!referenceIdsStudyset.isEmpty()) {
+            BaseResponse baseResponse = studysetThirdPartyService.getStudysetByStudysetIds(
+                StudysetGetByIdsRequestDto
                     .builder()
                     .requestId(request.getRequestId())
-                    .questions(lessonQuestionDtosCreate)
+                    .studysetIds(new HashSet<>(referenceIdsStudyset))
                     .build()
             );
             if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
@@ -124,10 +115,11 @@ public class CourseServiceImpl implements CourseService {
             }
         }
 
+        // Thực hiện save
         Course courseSave = modelMapper.map(request, Course.class);
-
         courseSave = courseRepository.save(courseSave);
 
+        // Trả về kết quả
         return BaseResponse.ofSucceeded(request.getRequestId(), courseSave);
     }
 
@@ -215,7 +207,6 @@ public class CourseServiceImpl implements CourseService {
             });
         }
 
-
         // Set info for lessonExercises
         List<LessonExercise> lessonExercises = new ArrayList<>();
         List<LessonExerciseDto> lessonExerciseDtos = new ArrayList<>();
@@ -224,53 +215,64 @@ public class CourseServiceImpl implements CourseService {
             lessonExerciseDtos.addAll(lessonDtos.get(i).getLessonExerciseDtos());
             lessonExercises.addAll(lessons.get(i).getLessonExercises());
         }
-        if(request.getUserId() != null) {
-            lessonExerciseDtos.forEach(lessonExerciseDto -> {
-                Optional<LessonExerciseStatus> lessonExerciseStatus = lessonExerciseStatusRepository.findLessonExerciseStatusByUserIdAndLessonExerciseId(request.getUserId(), lessonExerciseDto.getId());
-                if(lessonExerciseStatus.isPresent()) {
-                    lessonExerciseDto.setStatus(lessonExerciseStatus.get().getStatus());
-                } else {
-                    lessonExerciseDto.setStatus(StatusType.UNFINISHED);
-                }
-            });
+
+        // Get question and studyset
+        Set<String> questionIds = new HashSet<>();
+        Set<String> studysetIds = new HashSet<>();
+        for(LessonExercise lessonExercise: lessonExercises) {
+            if(lessonExercise.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
+                questionIds.add(lessonExercise.getReferenceId());
+            } else if(lessonExercise.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
+                studysetIds.add(lessonExercise.getReferenceId());
+            }
         }
 
-        // Set info for lessonQuestions
-        List<source.dto.response.get_course_detail_for_user.LessonQuestionDto> lessonQuestionDtos = new ArrayList<>();
-        for(int i = 0 ; i < lessonExerciseDtos.size() ; i++) {
-            lessonExerciseDtos.get(i).setLessonQuestionDtos(mapList(lessonExercises.get(i).getLessonQuestions(), source.dto.response.get_course_detail_for_user.LessonQuestionDto.class));
-            lessonQuestionDtos.addAll(lessonExerciseDtos.get(i).getLessonQuestionDtos());
-        }
-        Set<String> questionIds = lessonQuestionDtos.stream().map(LessonQuestion::getQuestionId).collect(Collectors.toSet());
-        BaseResponse baseResponse = questionBankThirdPartyService.getQuestionByQuestionIds(
+        // Lấy ra list question by ids
+        BaseResponse baseResponseQuestion = questionBankThirdPartyService.getQuestionByQuestionIds(
             QuestionGetByIdsRequestDto
             .builder()
             .requestId(request.getRequestId())
             .questionIds(questionIds)
             .build()
         );
-        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+        if(!baseResponseQuestion.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
             return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031));
         }
-        List questionBanksRaw = JsonUtil.getGenericObject(baseResponse.getData(), List.class);
-        Map<String, QuestionDto> map = new HashMap<>();
+
+        List questionBanksRaw = JsonUtil.getGenericObject(baseResponseQuestion.getData(), List.class);
+        Map<String, Object> mapQuestion = new HashMap<>();
         questionBanksRaw.forEach(questionBankRaw -> {
-            QuestionDto questionDto = JsonUtil.getGenericObject(questionBankRaw, QuestionDto.class);
-            map.put(questionDto.getId(), questionDto);
+            BaseDto questionDto = JsonUtil.getGenericObject(questionBankRaw, BaseDto.class);
+            mapQuestion.put(questionDto.getId(), questionBankRaw);
         });
-        lessonQuestionDtos.forEach(lessonQuestionDto -> {
-            lessonQuestionDto.setQuestion(map.get(lessonQuestionDto.getQuestionId()));
 
-            if(request.getUserId() != null) {
-                Float score = lessonQuestionHistoryRepository.findLessonQuestionHistoriesByUserIdAndLessonQuestionId(request.getUserId(), lessonQuestionDto.getId());
-                lessonQuestionDto.getQuestion().setScore(score != null ? score : 0);
+        // Lấy ra list studyset by ids
+        BaseResponse baseResponseStudyset = questionBankThirdPartyService.getQuestionByQuestionIds(
+            QuestionGetByIdsRequestDto
+                .builder()
+                .requestId(request.getRequestId())
+                .questionIds(questionIds)
+                .build()
+        );
+        if(!baseResponseStudyset.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.STUDYSET_NOT_FOUND_400032));
+        }
 
-                lessonQuestionDto.getQuestion().getAnswers()
-                    .forEach(answerDto -> answerDto
-                        .setIsChoice(lessonQuestionHistoryRepository
-                            .checkAnswerOfUser(lessonQuestionDto.getId(), answerDto.getId())));
+        List studysetsRaw = JsonUtil.getGenericObject(baseResponseStudyset.getData(), List.class);
+        Map<String, Object> mapStudyset = new HashMap<>();
+        studysetsRaw.forEach(studysetRaw -> {
+            BaseDto studysetDto = JsonUtil.getGenericObject(studysetRaw, BaseDto.class);
+            mapStudyset.put(studysetDto.getId(), studysetRaw);
+        });
+
+        // Gán vào lessonExerciseDtos
+        for(LessonExerciseDto lessonExerciseDto: lessonExerciseDtos) {
+            if(lessonExerciseDto.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
+                lessonExerciseDto.setQuestion(mapQuestion.get(lessonExerciseDto.getReferenceId()));
+            } else if(lessonExerciseDto.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
+                lessonExerciseDto.setQuestion(mapStudyset.get(lessonExerciseDto.getReferenceId()));
             }
-        });
+        }
 
         return BaseResponse.ofSucceeded(request.getRequestId(), response);
     }
@@ -306,32 +308,63 @@ public class CourseServiceImpl implements CourseService {
             lessonExercises.addAll(lessons.get(i).getLessonExercises());
         }
 
-        // Set info for lessonQuestions
-        List<source.dto.response.get_course_detail_for_user.LessonQuestionDto> lessonQuestionDtos = new ArrayList<>();
-        for(int i = 0 ; i < lessonExerciseDtos.size() ; i++) {
-            lessonExerciseDtos.get(i).setLessonQuestionDtos(mapList(lessonExercises.get(i).getLessonQuestions(), source.dto.response.get_course_detail_for_user.LessonQuestionDto.class));
-            lessonQuestionDtos.addAll(lessonExerciseDtos.get(i).getLessonQuestionDtos());
+        // Get question and studyset
+        Set<String> questionIds = new HashSet<>();
+        Set<String> studysetIds = new HashSet<>();
+        for(LessonExercise lessonExercise: lessonExercises) {
+            if(lessonExercise.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
+                questionIds.add(lessonExercise.getReferenceId());
+            } else if(lessonExercise.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
+                studysetIds.add(lessonExercise.getReferenceId());
+            }
         }
-        Set<String> questionIds = lessonQuestionDtos.stream().map(LessonQuestion::getQuestionId).collect(Collectors.toSet());
-        BaseResponse baseResponse = questionBankThirdPartyService.getQuestionByQuestionIds(
+
+        // Lấy ra list question by ids
+        BaseResponse baseResponseQuestion = questionBankThirdPartyService.getQuestionByQuestionIds(
             QuestionGetByIdsRequestDto
                 .builder()
                 .requestId(request.getRequestId())
                 .questionIds(questionIds)
                 .build()
         );
-        if(!baseResponse.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+        if(!baseResponseQuestion.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
             return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.QUESTION_ID_NOT_FOUND_400031));
         }
-        List questionBanksRaw = JsonUtil.getGenericObject(baseResponse.getData(), List.class);
-        Map<String, QuestionDto> map = new HashMap<>();
+
+        List questionBanksRaw = JsonUtil.getGenericObject(baseResponseQuestion.getData(), List.class);
+        Map<String, Object> mapQuestion = new HashMap<>();
         questionBanksRaw.forEach(questionBankRaw -> {
-            QuestionDto questionDto = JsonUtil.getGenericObject(questionBankRaw, QuestionDto.class);
-            map.put(questionDto.getId(), questionDto);
+            BaseDto questionDto = JsonUtil.getGenericObject(questionBankRaw, BaseDto.class);
+            mapQuestion.put(questionDto.getId(), questionBankRaw);
         });
-        lessonQuestionDtos.forEach(lessonQuestionDto -> {
-            lessonQuestionDto.setQuestion(map.get(lessonQuestionDto.getQuestionId()));
+
+        // Lấy ra list studyset by ids
+        BaseResponse baseResponseStudyset = questionBankThirdPartyService.getQuestionByQuestionIds(
+            QuestionGetByIdsRequestDto
+                .builder()
+                .requestId(request.getRequestId())
+                .questionIds(questionIds)
+                .build()
+        );
+        if(!baseResponseStudyset.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+            return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, env.getProperty(ErrorCodeConstant.STUDYSET_NOT_FOUND_400032));
+        }
+
+        List studysetsRaw = JsonUtil.getGenericObject(baseResponseStudyset.getData(), List.class);
+        Map<String, Object> mapStudyset = new HashMap<>();
+        studysetsRaw.forEach(studysetRaw -> {
+            BaseDto studysetDto = JsonUtil.getGenericObject(studysetRaw, BaseDto.class);
+            mapStudyset.put(studysetDto.getId(), studysetRaw);
         });
+
+        // Gán vào lessonExerciseDtos
+        for(LessonExerciseDto lessonExerciseDto: lessonExerciseDtos) {
+            if(lessonExerciseDto.getProvider().getValue().equals(Provider.QUESTION_BANK.getValue())) {
+                lessonExerciseDto.setQuestion(mapQuestion.get(lessonExerciseDto.getReferenceId()));
+            } else if(lessonExerciseDto.getProvider().getValue().equals(Provider.STUDYSET.getValue())) {
+                lessonExerciseDto.setQuestion(mapStudyset.get(lessonExerciseDto.getReferenceId()));
+            }
+        }
 
         return BaseResponse.ofSucceeded(request.getRequestId(), response);
     }
@@ -362,13 +395,13 @@ public class CourseServiceImpl implements CourseService {
             return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.COURSE_NOT_FOUND_400033));
         }
 
-        // Prepare để tạo mới course
-        CreateCourseRequestDto createCourseRequestDto = CreateCourseRequestDto.builder().build();
-        modelMapper.map(courseOptional.get(), createCourseRequestDto);
-        modelMapper.map(request, createCourseRequestDto);
-
         // Xóa course cũ
         courseRepository.delete(courseOptional.get());
+
+        // Prepare để tạo mới course
+        CreateCourseRequestDto createCourseRequestDto = CreateCourseRequestDto.builder().id(courseOptional.get().getId()).build();
+        modelMapper.map(courseOptional.get(), createCourseRequestDto);
+        modelMapper.map(request, createCourseRequestDto);
 
         return this.createCourse(createCourseRequestDto);
     }
@@ -414,9 +447,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public BaseResponse callBackQuestionsDelete(CallBackQuestionsDeleteRequestDto request) throws Exception {
         // Lấy ra các bản ghi
-        List<LessonExercise> lessonExercises = lessonExerciseRepository.findAllByQuestionIds(
-            new ArrayList<>(request.getQuestionIds())
-        );
+        List<LessonExercise> lessonExercises = lessonExerciseRepository.findAllByReferenceId(request.getReferenceId());
 
         // Thực hiện xóa
         if(lessonExercises != null && !lessonExercises.isEmpty()) {

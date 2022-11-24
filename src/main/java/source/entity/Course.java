@@ -47,7 +47,7 @@ public class Course extends UidBaseEntity {
     @JoinColumn(name = "CourseId", nullable = false)
     private List<Target> targets;
 
-    @OneToMany(targetEntity = Request.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Requirement.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "CourseId", nullable = false)
-    private List<Request> requests;
+    private List<Requirement> requirements;
 }

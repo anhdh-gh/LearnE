@@ -1,21 +1,20 @@
-package source.dto;
+package source.third_party.studyset.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import source.dto.request.BasicRequest;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AnswerDto {
+public class StudysetGetByIdsRequestDto extends BasicRequest {
 
-    @JsonProperty("text")
-    private String text;
-
-    private boolean isCorrect;
+    private Set<String> studysetIds;
 }

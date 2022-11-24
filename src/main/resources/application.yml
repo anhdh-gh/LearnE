@@ -18,3 +18,5 @@ service:
     baseurl: https://learnequestionbank.herokuapp.com
   user:
     baseurl: https://learneuser.herokuapp.com
+  studyset:
+    baseurl: https://learnestudyset.herokuapp.com

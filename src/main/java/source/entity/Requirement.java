@@ -16,11 +16,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "answerchoice", schema = "public")
+@Table(name = "requirement", schema = "public")
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AnswerChoice extends UidBaseEntity {
+public class Requirement extends UidBaseEntity {
 
-    @Column(name = "AnswerId")
-    private String answerId;
+    @Column(name = "Text")
+    private String text;
 }

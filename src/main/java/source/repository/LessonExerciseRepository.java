@@ -23,4 +23,6 @@ public interface LessonExerciseRepository extends JpaRepository<LessonExercise, 
         "where lessonexercise.Id in :ids"
     , nativeQuery = true)
     void deleteByIdIn(Collection<Long> ids);
+
+    List<LessonExercise> findAllByReferenceId(String referenceId);
 }

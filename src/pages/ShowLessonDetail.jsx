@@ -24,16 +24,17 @@ const ShowLessonDetail = (props) => {
 
     const dispatch = useDispatch()
     const course = useSelector(state => state.course)
+    const isShow = useSelector(state =>  state.UI.NotFound.isShow)
 
     useLayoutEffect (() => {
-        if(!lessonId) {
+        if(!lessonId || (course && course?.lessons?.every(lesson => lesson !== lessonId))) {
             dispatch(showNotFound())
         }
 
-    }, [ dispatch, lessonId ])
+    }, [ dispatch, lessonId, course ])
 
     useLayoutEffect (() => {
-        if(_.isEmpty(course)) {
+        if(_.isEmpty(course) || course?.id !== courseId) {
             dispatch(getCourseById(courseId))
         }
 
@@ -104,7 +105,7 @@ const ShowLessonDetail = (props) => {
 
     }, [ isPFetchCourseProcessing, heightCourseContent, dispatch, course, chapterCurrentShow, lessonId, currentLesson ])
 
-    return _.isEmpty(course) || !currentLesson ? <Loader useStateLoader={true} /> : <>
+    return _.isEmpty(course) || !currentLesson ? <Loader useStateLoader={true} /> : !isShow && <>
 
         <CourseHeader course={course} onClick={removeScrollBody} />
 
@@ -157,7 +158,7 @@ const ShowLessonDetail = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={`${showCourseContent && window.innerWidth >= 992 ? 'col-lg-3' : 'd-none'} px-0`}>
+                <div className={`${showCourseContent && window.innerWidth >= 992 ? 'col-lg-3' : 'd-none'} hidden lg:block px-0`}>
 
                     <div className=''>
                         <div ref={refCourseContent} className='font-bold p-3 tracking-wider'>Course content</div>
@@ -205,7 +206,7 @@ const ShowLessonDetail = (props) => {
                     </div>
                 </div>
 
-                <Offcanvas className="w-full sm:w-1/2 md:w-5/12" responsive="lg" show={showCourseContent && window.innerWidth < 992} onHide={() => setShowCourseContent(false)}>
+                <Offcanvas className="w-full sm:w-1/2 md:w-5/12 lg:hidden" responsive="lg" show={showCourseContent && window.innerWidth < 992} onHide={() => setShowCourseContent(false)}>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Course content</Offcanvas.Title>
                     </Offcanvas.Header>

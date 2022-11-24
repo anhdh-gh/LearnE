@@ -8,7 +8,7 @@ import {
     fetchCourseProcessingDone,
 } from '../actions'
 import { CourseApi } from '../../api'
-import { call, put, takeLatest, select, delay } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import { CommonUtil } from '../../utils'
 import _ from 'lodash'
 
@@ -54,22 +54,16 @@ function handleCourseData(course) {
     course.lessonCurrentProcessing = lessonCurrentProcessing || course.chapterCurrentProcessing?.lessons.filter(
         lesson => lesson.status === STATUS_TYPE.UNFINISHED)[0]
 
-    // Tinh điểm cho các lessonExercises
-    lessons.forEach(lesson => {
-        lesson.lessonExercises.forEach(lessonExercise => {
-            if (lessonExercise?.status === STATUS_TYPE.FINISHED) {
-                lessonExercise.score = lessonExercise
-                    .lessonQuestions
-                    .reduce((sum, lessonQuestion) => lessonQuestion.question.score + sum, 0)
-            }
-        })
-    })
+    // Nếu người dùng đã hoàn thành khóa học thì set cho nó học lesson đầu tiên và chapter đầu tiên
+    if(course?.status === STATUS_TYPE.FINISHED) {
+        course.chapterCurrentProcessing = course.chapters[0]
+        course.lessonCurrentProcessing = course.chapters[0].lessons[0]
+    }
 
     return course
 }
 
 function* getCourseByIdWorker({ payload }) {
-    yield delay(500)
     const { courseId } = payload
 
     yield put(showLoader())

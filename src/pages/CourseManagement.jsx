@@ -16,55 +16,101 @@ import _ from 'lodash'
 import { Notification } from '../utils'
 
 const baseCourseCreate = () => ({
-    "name": "",
-    "author": "",
-    "image": "",
-    "description": "",
-    "level": "",
-    "price": "",
+    // "name": "",
+    // "author": "",
+    // "image": "",
+    // "description": "",
+    // "level": "",
+    // "price": "",
+    // "chapters": [
+    //     {
+    //         "name": "",
+    //         "lessons": [
+    //             {
+    //                 "name": "",
+    //                 "duration": "",
+    //                 "description": "",
+    //                 "video": "",
+    //                 "lessonExercises": [
+    //                     {
+    //                         "referenceId": "",
+    //                         "provider": "QUESTION_BANK"
+    //                     },
+    //                     {
+    //                         "referenceId": "",
+    //                         "provider": "STUDYSET"
+    //                     }
+    //                 ]
+    //             }
+    //         ]
+    //     }
+    // ],
+    // "targets": [
+    //     {
+    //         "text": ""
+    //     }
+    // ],
+    // "requirements": [
+    //     {
+    //         "text": ""
+    //     }
+    // ]
+
+    "name": "TOEIC English course",
+    "author": "Kim Dung",
+    "image": "https://www.testcenter.vn/blog/wp-content/uploads/2020/11/Banner-002.jpg",
+    "description": "Toeic English course from basic to advanced, the result of this course is that you have the knowledge of Toeic English to be able to take the exam and get the highest score possible.",
+    "level": "Basic",
+    "price": "Free",
+    "targets": [
+        {
+            "text": "Mất gốc lấy lại căn bản, tạo cảm hứng"
+        },
+        {
+            "text": "Học cách quản lý thời gian, phân tích đề, tìm hiểu thói quen ra đề của Toeic."
+        },
+        {
+            "text": "Tăng ít nhất 50-100 điểm so với điểm ban đầu."
+        },
+        {
+            "text": "Mở rộng kiến thức, hướng dẫn các tài liệu sát với đề thi nhất."
+        }
+    ],
+    "requirements": [
+        {
+            "text": "Chủ động học tập và làm theo sự hướng dẫn"
+        },
+        {
+            "text": "Cần có nền tảng tiếng anh căn bản"
+        },
+        {
+            "text": "Tích cực trao đổi với cố giáo và các học viên khác"
+        },
+        {
+            "text": "Làm các bài tập đầy đủ"
+        }
+    ],
     "chapters": [
         {
-            "name": "",
+            "name": "Chapter name 1",
             "lessons": [
                 {
-                    "name": "",
-                    "duration": "",
-                    "description": "",
-                    "video": "",
+                    "name": "Lesson name 1",
+                    "duration": "01:02:15",
+                    "description": "Lesson description 1",
+                    "video": "https://www.youtube.com/watch?v=C0oooD-OXkk",
                     "lessonExercises": [
                         {
-                            "name": "",
-                            "description": "",
-                            "lessonQuestions": [
-                                {
-                                    "id": "",
-                                    'questionType': "",
-                                    "text": "",
-                                    "image": "",
-                                    "audio": "",
-                                    "score": "",
-                                    "answers": [
-                                        {
-                                            "text": "",
-                                            "correct": true                                            
-                                        }
-                                    ]
-                                }
-                            ]
+                            "referenceId": "c2176be7-dee1-48ce-805a-4dcf3b7baf75",
+                            "provider": "QUESTION_BANK"
+                        },
+                        {
+                            "referenceId": "bde77cee-c3b8-46f3-bb44-fe1e61bdf693",
+                            "provider": "STUDYSET"
                         }
                     ]
                 }
             ]
-        }
-    ],
-    "targets": [
-        {
-            "text": ""
-        }
-    ],
-    "requests": [
-        {
-            "text": ""
         }
     ]
 })
@@ -78,7 +124,7 @@ const CourseManagement = (props) => {
     const [showCVECourse, setShowCVECourse] = useState({ show: false })
     const [courseRemove, setCourseRemove] = useState(false)
     const [courseCreateUpdate, setCourseCreateUpdate] = useState(false)
-    const [content, setContent] = useState({json: baseCourseCreate()})
+    const [content, setContent] = useState({ json: baseCourseCreate() })
 
     const { data: responseGetAllCourses, isLoading: isLoadingGetAllCourses, isFetching: isFetchingGetAllCourses, isError: isErrorGetAllCourses, refetch: getAllCourses } = useQuery(
         ["getAllCourses", page],
@@ -119,7 +165,7 @@ const CourseManagement = (props) => {
                     const { meta } = res
                     if (meta.code === STATUS_CODES.SUCCESS) {
                         const { data: course } = res
-                        setContent({json: { ...course }})
+                        setContent({ json: { ...course } })
                         setShowCVECourse(previousShowCVECourse => ({ ...previousShowCVECourse, data: course, newData: true }))
                         dispatch(hideLoader())
                     } else {
@@ -134,51 +180,51 @@ const CourseManagement = (props) => {
     const handleCreateUpdatCourse = () => {
         dispatch(showLoader())
 
-        if(showCVECourse?.type === 'create') {
+        if (showCVECourse?.type === 'create') {
             CourseApi.createCourse(courseCreateUpdate)
-            .then(res => {
-                const { meta } = res
-                if(meta.code === STATUS_CODES.SUCCESS) {
-                    refreshPage()
-                    setShowCVECourse({ show: false })
-                    setCourseCreateUpdate(false)
-                    Notification.success("Create successfully!")
-                } else {
-                    dispatch(hideLoader())
-                    Notification.error(meta?.message)
-                }
-            })            
-        } else if(showCVECourse?.type === 'update') {
+                .then(res => {
+                    const { meta } = res
+                    if (meta.code === STATUS_CODES.SUCCESS) {
+                        refreshPage()
+                        setShowCVECourse({ show: false })
+                        setCourseCreateUpdate(false)
+                        Notification.success("Create successfully!")
+                    } else {
+                        dispatch(hideLoader())
+                        Notification.error(meta?.message)
+                    }
+                })
+        } else if (showCVECourse?.type === 'update') {
             CourseApi.updateCourse(courseCreateUpdate)
-            .then(res => {
-                const { meta } = res
-                if(meta.code === STATUS_CODES.SUCCESS) {
-                    refreshPage()
-                    setShowCVECourse({ show: false })
-                    setCourseCreateUpdate(false)
-                    Notification.success("Update successfully!")
-                } else {
-                    dispatch(hideLoader())
-                    Notification.error(meta?.message)
-                }
-            })  
+                .then(res => {
+                    const { meta } = res
+                    if (meta.code === STATUS_CODES.SUCCESS) {
+                        refreshPage()
+                        setShowCVECourse({ show: false })
+                        setCourseCreateUpdate(false)
+                        Notification.success("Update successfully!")
+                    } else {
+                        dispatch(hideLoader())
+                        Notification.error(meta?.message)
+                    }
+                })
         }
     }
 
     const handleDeleteCourse = () => {
         dispatch(showLoader())
         CourseApi.deleteCourse(courseRemove?.id)
-        .then(res => {
-            const { meta } = res
-            if(meta.code === STATUS_CODES.SUCCESS) {
-                refreshPage()
-                setCourseRemove(false)
-                Notification.success("Remove successfully!")
-            } else {
-                dispatch(hideLoader())
-                Notification.error(meta?.message)
-            }
-        })
+            .then(res => {
+                const { meta } = res
+                if (meta.code === STATUS_CODES.SUCCESS) {
+                    refreshPage()
+                    setCourseRemove(false)
+                    Notification.success("Remove successfully!")
+                } else {
+                    dispatch(hideLoader())
+                    Notification.error(meta?.message)
+                }
+            })
     }
 
     return !isLoadingGetAllCourses && !isFetchingGetAllCourses && !isErrorGetAllCourses && responseGetAllCourses?.meta?.code === STATUS_CODES.SUCCESS && !_.isEmpty(responseGetAllCourses?.data) && <>
@@ -280,7 +326,7 @@ const CourseManagement = (props) => {
                 <Offcanvas.Body className='flex flex-col'>
                     <SvelteJSONEditor
                         content={content}
-                        onChange={value => {setContent(value); setCourseCreateUpdate(value.json || JSON.parse(value.text))}}
+                        onChange={value => { setContent(value); setCourseCreateUpdate(value.json || JSON.parse(value.text)) }}
                         readOnly={showCVECourse?.type === 'view' ? true : false}
                     />
 

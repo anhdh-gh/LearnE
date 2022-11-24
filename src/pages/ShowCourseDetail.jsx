@@ -31,17 +31,17 @@ const ShowCourseDetail = (props) => {
     }, [ course?.lessonCurrentProcessing?.id, courseId, user ])
 
     useLayoutEffect (() => {
-        if(_.isEmpty(course)) {
+        if(_.isEmpty(course) || course?.id !== courseId) {
             dispatch(getCourseById(courseId))
         }
     }, [ dispatch, course , courseId ])
 
     useLayoutEffect (() => {
-        if(course && course?.status && course.status !== STATUS_TYPE.UNFINISHED && !_.isEmpty(user)) {
+        if(course && course?.status && course.status !== STATUS_TYPE.UNFINISHED && !_.isEmpty(user) && course?.id === courseId) {
             redirectToLessonDetail()        
         } 
 
-    }, [ course, redirectToLessonDetail, user ])
+    }, [ course, redirectToLessonDetail, user, courseId ])
 
     return _.isEmpty(course) ? <Loader useStateLoader={true} /> : <div className='max-h-screen'>
         <Header />
@@ -100,11 +100,11 @@ const ShowCourseDetail = (props) => {
                         </div>
                     </div>
 
-                    {course?.requests && course.requests.length > 0 && <div className='mt-5'>
+                    {course?.requirements && course?.requirements.length > 0 && <div className='mt-5'>
                         <h2 className='mb-3 text-2xl font-bold'>Requirements</h2>
                         <div>
                             {
-                                course.requests.map((request, index) => <div className="mb-4 text-gray-500 d-flex" key={request.id}>
+                                course?.requirements.map((request, index) => <div className="mb-4 text-gray-500 d-flex" key={request.id}>
                                     <i className="fa-solid fa-check text-orange-500 leading-4 me-2"></i> <span className='leading-4'>{request.text}</span>
                                 </div>)
                             }

@@ -24,7 +24,4 @@ public class WordCard extends BaseEntity {
 
     @Column(name = "Value")
     private String value;
-
-    @Column(name = "Image")
-    private String image;
 }

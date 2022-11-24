@@ -114,8 +114,7 @@ CREATE TABLE public.wordcard (
     key text NOT NULL,
     value text NOT NULL,
     createtime timestamp without time zone,
-    updatetime timestamp without time zone,
-    image character varying(255)
+    updatetime timestamp without time zone
 );
 
 

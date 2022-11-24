@@ -10,7 +10,7 @@ public interface CourseService {
 
     BaseResponse getAllCourse(GetAllCourseRequestDto request) throws Exception;
 
-    BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception;
+    BaseResponse getCourseDetailForUser(GetCourseDetailForUserRequestDto request) throws Exception;
 
     BaseResponse getCourseById(GetCourseByIdRequestDto request) throws Exception;
 

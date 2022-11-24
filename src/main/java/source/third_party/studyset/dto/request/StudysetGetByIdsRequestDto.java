@@ -17,4 +17,6 @@ import java.util.Set;
 public class StudysetGetByIdsRequestDto extends BasicRequest {
 
     private Set<String> studysetIds;
+
+    private String userId;
 }

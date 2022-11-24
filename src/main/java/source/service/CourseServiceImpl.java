@@ -164,7 +164,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public BaseResponse getCourseDetailForUserRequestDto(GetCourseDetailForUserRequestDto request) throws Exception {
+    public BaseResponse getCourseDetailForUser(GetCourseDetailForUserRequestDto request) throws Exception {
         Optional<Course> courseOptional = courseRepository.findById(request.getCourseId());
         if(!courseOptional.isPresent()) {
             return BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INVALID_PARAMETERS, env.getProperty(ErrorCodeConstant.COURSE_NOT_FOUND_400033));
@@ -232,6 +232,7 @@ public class CourseServiceImpl implements CourseService {
             QuestionGetByIdsRequestDto
             .builder()
             .requestId(request.getRequestId())
+            .userId(request.getUserId())
             .questionIds(questionIds)
             .build()
         );
@@ -247,11 +248,12 @@ public class CourseServiceImpl implements CourseService {
         });
 
         // Lấy ra list studyset by ids
-        BaseResponse baseResponseStudyset = questionBankThirdPartyService.getQuestionByQuestionIds(
-            QuestionGetByIdsRequestDto
+        BaseResponse baseResponseStudyset = studysetThirdPartyService.getStudysetByStudysetIds(
+            StudysetGetByIdsRequestDto
                 .builder()
                 .requestId(request.getRequestId())
-                .questionIds(questionIds)
+                .userId(request.getUserId())
+                .studysetIds(questionIds)
                 .build()
         );
         if(!baseResponseStudyset.getMeta().getCode().equals(BaseResponse.OK_CODE)) {

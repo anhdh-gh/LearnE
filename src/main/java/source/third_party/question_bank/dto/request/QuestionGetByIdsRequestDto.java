@@ -17,4 +17,6 @@ import java.util.Set;
 public class QuestionGetByIdsRequestDto extends BasicRequest {
 
     private Set<String> questionIds;
+
+    private String userId;
 }

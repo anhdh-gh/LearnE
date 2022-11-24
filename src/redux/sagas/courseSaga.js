@@ -56,8 +56,8 @@ function handleCourseData(course) {
 
     // Nếu người dùng đã hoàn thành khóa học thì set cho nó học lesson đầu tiên và chapter đầu tiên
     if(course?.status === STATUS_TYPE.FINISHED) {
-        course.chapterCurrentProcessing = course.chapters[0]
-        course.lessonCurrentProcessing = course.chapters[0].lessons[0]
+        course.chapterCurrentProcessing = course?.chapters[0]
+        course.lessonCurrentProcessing = course?.chapters[0]?.lessons[0]
     }
 
     return course

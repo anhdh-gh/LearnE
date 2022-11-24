@@ -235,7 +235,22 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Override
     public BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception {
         List<Question> questions = getQuestionByQuestionIds(request.getQuestionIds());
-        return BaseResponse.ofSucceeded(request.getRequestId(), questions);
+
+        // Set thêm số lượng người dùng đã làm
+        List<QuestionDto> questionDtos = questions.stream().map(question -> {
+            QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+            questionDto.setUserCount(testResultRepository.countUserByQuestionId(question.getId()));
+            // Nếu user tồn tại thì lấy kết quả test ra
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndQuestionId(
+                        request.getUserId(), question.getId()
+                );
+                testResultOptional.ifPresent(testResult -> questionDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
+            return questionDto;
+        }).collect(Collectors.toList());
+
+        return BaseResponse.ofSucceeded(request.getRequestId(), questionDtos);
     }
 
     private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {

@@ -389,9 +389,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public BaseResponse callBackQuestionsDelete(CallBackQuestionsDeleteRequestDto request) throws Exception {
+    public BaseResponse callBackQuestionDelete(CallBackQuestionDeleteRequestDto request) throws Exception {
         // Lấy ra các bản ghi
-        List<LessonExercise> lessonExercises = lessonExerciseRepository.findAllByReferenceId(request.getReferenceId());
+        List<LessonExercise> lessonExercises = lessonExerciseRepository.findAllByReferenceIdAndProvider(
+            request.getReferenceId(), request.getProvider());
 
         // Thực hiện xóa
         if(lessonExercises != null && !lessonExercises.isEmpty()) {

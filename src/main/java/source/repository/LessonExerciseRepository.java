@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import source.entity.LessonExercise;
+import source.entity.enumeration.Provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,5 +25,5 @@ public interface LessonExerciseRepository extends JpaRepository<LessonExercise, 
     , nativeQuery = true)
     void deleteByIdIn(Collection<Long> ids);
 
-    List<LessonExercise> findAllByReferenceId(String referenceId);
+    List<LessonExercise> findAllByReferenceIdAndProvider(String referenceId, Provider provider);
 }

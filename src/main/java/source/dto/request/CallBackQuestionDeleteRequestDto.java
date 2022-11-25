@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class CallBackQuestionsDeleteRequestDto extends BasicRequest {
+public class CallBackQuestionDeleteRequestDto extends BasicRequest {
 
     private String referenceId;
 

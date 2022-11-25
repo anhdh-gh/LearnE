@@ -49,8 +49,8 @@ public class CourseController {
 
     @LogsActivityAnnotation
     @PostMapping(RouterConstant.COURSE_CALLBACK_QUESTIONS_DELETE)
-    public BaseResponse callBackQuestionsDelete(@RequestBody CallBackQuestionsDeleteRequestDto request) throws Exception {
-        return courseService.callBackQuestionsDelete(request);
+    public BaseResponse callBackQuestionDelete(@RequestBody CallBackQuestionDeleteRequestDto request) throws Exception {
+        return courseService.callBackQuestionDelete(request);
     }
 
     @LogsActivityAnnotation

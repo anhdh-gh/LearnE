@@ -192,7 +192,7 @@ const QuestionManagement = (props) => {
                                     className='h-fit font-bold'
                                     onClick={() => {
                                         const jsonCreate = baseQuestionCreate()
-                                        setContent({ json: jsonCreate });
+                                        setContent({ json: jsonCreate })
                                         setShowCVEQuestion({
                                             type: 'create',
                                             show: true,

@@ -277,11 +277,15 @@ const CourseManagement = (props) => {
                                 <SearchBox value={searchParams.get('name') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'name': e.target.value.trim() })} />
                                 <Button
                                     className='h-fit font-bold'
-                                    onClick={() => setShowCVECourse({
-                                        type: 'create',
-                                        show: true,
-                                        data: baseCourseCreate
-                                    })}
+                                    onClick={() => {
+                                        const jsonCreate = baseCourseCreate()
+                                        setContent({ json: jsonCreate })
+                                        setShowCVECourse({
+                                            type: 'create',
+                                            show: true,
+                                            data: jsonCreate
+                                        })
+                                    }}
                                 >Create</Button>
                             </div>
                         </div>

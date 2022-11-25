@@ -144,7 +144,7 @@ const ShowCourseDetail = (props) => {
                                 </div>
 
                                 <div className="mb-4 text-gray-500 d-flex">
-                                    <i className="fa-solid fa-earth-americas text-gray-700 leading-4 me-2"></i> <span className='leading-4'>Study every time and everywhere</span>
+                                    <i className="fa-solid fa-earth-americas text-gray-700 leading-4 me-2"></i> <span className='leading-4'>Study anytime, anywhere</span>
                                 </div>
                             </div>
                         </div>

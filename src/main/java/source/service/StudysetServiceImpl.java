@@ -89,7 +89,7 @@ public class StudysetServiceImpl implements StudysetService {
         studysetSave.setUpdateTime(new Date());
 
         // Xóa cái cũ
-        deleteStudyset(request, studyset);
+        studysetRepository.delete(studyset);
 
         // Thực hiện lưu studyset mới
         studysetSave.setId(studyset.getId());

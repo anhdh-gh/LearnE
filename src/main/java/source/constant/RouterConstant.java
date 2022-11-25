@@ -18,5 +18,5 @@ public class RouterConstant {
 
     public static final String QUESTION_SAVE_TEST_RESULT = "/question/save-test-result";
 
-    public static final String QUESTION_GET_BY_IDS = "/questions/get-by-ids";
+    public static final String QUESTION_GET_BY_IDS = "/question/get-by-ids";
 }

@@ -403,6 +403,46 @@ public class CourseServiceImpl implements CourseService {
         return BaseResponse.ofSucceeded(request.getRequestId(), "Callback successfully");
     }
 
+    @Override
+    public BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+        Page<Course> coursesPage = courseRepository.findAllByNameContainingIgnoreCase(request.getName(), pageRequest);
+
+        // Convert sang DTO
+        Page<GetCourseDetailForUserResponseDto> response = coursesPage.map(course -> {
+            GetCourseDetailForUserResponseDto responseDto = modelMapper.map(course, GetCourseDetailForUserResponseDto.class);
+            responseDto.setNumberOfPeople(lessonStatusRepository.countDistinctUserId(course.getId()));
+            responseDto.setStatus(StatusType.UNFINISHED);
+            if(request.getUserId() != null) {
+                // Kiểm tra user xem có tồn tại hay không
+                try {
+                    BaseResponse responseGetUserById = getUserById(request, request.getUserId());
+                    if(responseGetUserById.getMeta().getCode().equals(BaseResponse.OK_CODE)) {
+                        Long countStatus = lessonStatusRepository.countByCourseIdAndUserId(course.getId(), request.getUserId());
+                        responseDto.setStatus(
+                            countStatus == null || countStatus == 0
+                                ? StatusType.UNFINISHED
+                                : countStatus == lessonRepository.countByCourseId(course.getId())
+                                ? StatusType.FINISHED
+                                : StatusType.PROCESSING
+                        );
+                    }
+                } catch (Exception ex) {
+                    BaseResponse.ofFailed(request.getRequestId(), BusinessErrors.INTERNAL_SERVER_ERROR, ex.getMessage());
+                }
+            }
+            return responseDto;
+        });
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(request.getRequestId(), response);
+    }
+
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
         return source
             .stream()

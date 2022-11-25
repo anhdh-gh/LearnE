@@ -64,4 +64,10 @@ public class CourseController {
     public BaseResponse getAllCourse(@RequestBody GetAllCourseRequestDto request) throws Exception {
         return courseService.getAllCourse(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_SEARCH)
+    public BaseResponse searchCourse(@RequestBody SearchCourseRequestDto request) throws Exception {
+        return courseService.searchCourse(request);
+    }
 }

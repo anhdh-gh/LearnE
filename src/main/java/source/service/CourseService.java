@@ -21,4 +21,6 @@ public interface CourseService {
     BaseResponse updateLessonStatus(UpdateLessonStatusRequestDto request) throws Exception;
 
     BaseResponse callBackQuestionDelete(CallBackQuestionDeleteRequestDto request) throws Exception;
+
+    BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception;
 }

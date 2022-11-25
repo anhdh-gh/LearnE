@@ -28,7 +28,7 @@ const MultipleChoiceQuestion = (props) => {
         }
     }
 
-    return <div className="mb-3 white-space_pre-line">
+    return <div className="mb-3 whitespace-pre-line">
         <Form ref={formRef} className="card shadow-md my-5">
             <div className="card-body">
                 <div className='flex mx-2 justify-between'>

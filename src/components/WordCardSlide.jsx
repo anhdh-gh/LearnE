@@ -10,7 +10,7 @@ const WordCardSlide = (props) => {
     const [ isFlipped, setIsFipped ] = useState(false)
     const [ index, setIndex ] = useState(0)
 
-    return <div className="WordCardSlide-container white-space_pre-line">
+    return <div className="WordCardSlide-container whitespace-pre-line">
         <Carousel controls={false} indicators={false} interval={null} activeIndex={index} variant="dark" className="cart">
             {
                 wordCards.map((wordCard, index) => 

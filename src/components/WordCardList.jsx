@@ -9,7 +9,7 @@ const WordCardList = (props) => {
             <h4 className="info">Terms in this set ({wordCards.length})</h4>
             {
                 wordCards.map((wordCard, index) =>
-                    <div className="list white-space_pre-line" key={index}>
+                    <div className="list whitespace-pre-line" key={index}>
                         <div className="row">
                             <div className="col-sm-1 pb-sm-0 pb-2">
                                 <div className="index">

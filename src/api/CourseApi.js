@@ -7,7 +7,8 @@ const ROUTE_PATH = {
     GET_ALL: '/course/get/all',
     CREATE_COURSE: '/course/create',
     DELETE_COURSE: '/course/delete-by-id',
-    UPDATE_COURSE: '/course/update'
+    UPDATE_COURSE: '/course/update',
+    COURSE_SEARCH: '/course/search'
 }
 
 const CourseApi = {
@@ -18,6 +19,10 @@ const CourseApi = {
 
     handleGetCourseById(courseId) {
         return ApiClient.post(ROUTE_PATH.GET_COURSE_BY_ID, {courseId})
+    },
+
+    search(page, size, name) {
+        return ApiClient.post(ROUTE_PATH.COURSE_SEARCH, { page, size, name })
     },
 
     updateLessonStatus(lessonId, status) {

@@ -11,22 +11,31 @@ import { useSelector, useDispatch } from "react-redux"
 import { STATUS_CODES, ROUTE_PATH, STATUS_TYPE } from '../constants'
 import { History } from '../components/NavigateSetter'
 import { Button, Card, Badge } from 'react-bootstrap'
+import { useDebounce } from 'use-debounce'
+import { useSearchParams } from 'react-router-dom'
 
 const ShowAllCourse = (props) => {
 
     const { page } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [ nameSearch ] = useDebounce(searchParams.get('name'), 1000)
 
     const size = 9
 
     const { data: responseGetAllCourse, isLoading, isFetching, isError, refetch: getAllCourse } = useQuery(
         ["getAllCourse", page],
-        () => CourseApi.getAll(page, size),
+        () => _.isEmpty(searchParams.get('name')) ? CourseApi.getAll(page, size) : CourseApi.search(page, size, searchParams.get('name')),
         {
             refetchOnWindowFocus: false,
         }
     )
+
+    useLayoutEffect (() => {
+        refreshPage()
+        // eslint-disable-next-line
+    }, [ nameSearch ])
 
     const refreshPage = useCallback(() => {
         getAllCourse(page)
@@ -63,7 +72,7 @@ const ShowAllCourse = (props) => {
                             <UserInfo className="cursor-pointer" limit={30} user={user} />
                         </div>}
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                            <SearchBox placeholder="Search" />
+                            <SearchBox value={searchParams.get('name') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'name': e.target.value.trim() })} />
                             <Button onClick={() => History.push(ROUTE_PATH.HOME)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Home</Button>
                         </div>
                     </div>

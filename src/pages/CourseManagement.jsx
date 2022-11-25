@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
 import { Notification } from '../utils'
+import { useDebounce } from 'use-debounce'
+import { useSearchParams } from 'react-router-dom'
 
 const baseCourseCreate = () => ({
     // "name": "",
@@ -127,14 +129,21 @@ const CourseManagement = (props) => {
     const [content, setContent] = useState({ json: baseCourseCreate() })
     const [isShowModalUploadFile, setIShowModalUploadFile] = useState(false)
     const [fileUploads, setFileUploads] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [ nameSearch ] = useDebounce(searchParams.get('name'), 1000)
 
     const { data: responseGetAllCourses, isLoading: isLoadingGetAllCourses, isFetching: isFetchingGetAllCourses, isError: isErrorGetAllCourses, refetch: getAllCourses } = useQuery(
         ["getAllCourses", page],
-        () => CourseApi.getAll(page, size),
+        () => _.isEmpty(searchParams.get('name')) ? CourseApi.getAll(page, size) : CourseApi.search(page, size, searchParams.get('name')),
         {
             refetchOnWindowFocus: false,
         }
     )
+
+    useLayoutEffect (() => {
+        refreshPage()
+        // eslint-disable-next-line
+    }, [ nameSearch ])
 
     useLayoutEffect(() => {
         if (isLoadingGetAllCourses || isFetchingGetAllCourses) {
@@ -265,7 +274,7 @@ const CourseManagement = (props) => {
                                 <UserInfo limit={30} user={user} />
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                                <SearchBox placeholder="Search" />
+                                <SearchBox value={searchParams.get('name') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'name': e.target.value.trim() })} />
                                 <Button
                                     className='h-fit font-bold'
                                     onClick={() => setShowCVECourse({

@@ -4,7 +4,5 @@ public class RouterQuestionBankThirdPartyConstant {
 
     private RouterQuestionBankThirdPartyConstant() {}
 
-    public static final String QUESTION_CREATE_LIST = "/questions/create-list";
-
-    public static final String QUESTION_GET_BY_IDS = "/questions/get-by-ids";
+    public static final String QUESTION_GET_BY_IDS = "/question/get-by-ids";
 }

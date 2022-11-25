@@ -187,4 +187,9 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse saveTestResultQuestion(TestResultDto request) throws Exception {
         return authServiceThirdParty.saveTestResultQuestion(request);
     }
+
+    @Override
+    public BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception {
+        return authServiceThirdParty.searchQuestion(request);
+    }
 }

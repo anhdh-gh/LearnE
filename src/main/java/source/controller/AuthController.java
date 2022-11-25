@@ -228,4 +228,10 @@ public class AuthController {
     public BaseResponse saveTestResultQuestion(@RequestBody source.dto.request.questionBank.TestResultDto request) throws Exception {
         return authService.saveTestResultQuestion(request);
     }
+
+    @PostMapping(RouterConstant.SEARCH_QUESTION)
+    @LogsActivityAnnotation
+    public BaseResponse searchQuestion(@RequestBody SearchQuestionRequestDto request) throws Exception {
+        return authService.searchQuestion(request);
+    }
 }

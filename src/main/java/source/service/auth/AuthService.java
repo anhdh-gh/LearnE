@@ -77,4 +77,6 @@ public interface AuthService {
     BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception;
 
     BaseResponse saveTestResultQuestion(source.dto.request.questionBank.TestResultDto request) throws Exception;
+
+    BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception;
 }

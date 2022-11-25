@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import source.dto.request.BasicRequest;
-
-import java.util.Set;
+import source.third_party.course.constant.Provider;
 
 @Data
 @NoArgsConstructor
@@ -16,5 +15,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CallBackQuestionsDeleteRequestDto extends BasicRequest {
 
-    private Set<String> questionIds;
+    private String referenceId;
+
+    private Provider provider;
 }

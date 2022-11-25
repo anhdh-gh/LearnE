@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.dto.QuestionDto;
@@ -21,6 +22,8 @@ import source.exception.BusinessErrors;
 import source.exception.BusinessException;
 import source.repository.QuestionRepository;
 import source.repository.TestResultRepository;
+import source.third_party.course.constant.Provider;
+import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
 import source.third_party.course.service.CourseThirdPartyService;
 import source.third_party.multimedia.service.MultimediaThirdPartyService;
 import source.third_party.user.dto.request.UserGetByIdRequestDto;
@@ -87,7 +90,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         questionSave.setUpdateTime(new Date());
 
         // Xóa cái cũ
-        questionRepository.delete(question);
+        deleteQuestion(request, question);
 
         // Thực hiện lưu question mới
         questionSave.setId(question.getId());
@@ -114,10 +117,30 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         Question question = checkQuestionExits(request.getQuestionId());
 
         // Xóa question
-        questionRepository.delete(question);
+        deleteQuestion(request, question);
 
         // Trả về kết quả
         return BaseResponse.ofSucceeded(request.getRequestId(), question);
+    }
+
+    private void deleteQuestion(BasicRequest request, Question question) throws Exception {
+        // Xóa question
+        questionRepository.delete(question);
+
+        // Thực hiện callback về cho course
+        callBackQuestionsDelete(request, question.getId());
+    }
+
+    @Async
+    public void callBackQuestionsDelete(BasicRequest request, String questionId) throws Exception {
+        CallBackQuestionsDeleteRequestDto requestDto = modelMapper.map(request, CallBackQuestionsDeleteRequestDto.class);
+        courseThirdPartyService.callBackQuestionsDelete(
+            CallBackQuestionsDeleteRequestDto
+                .builder()
+                .referenceId(questionId)
+                .provider(Provider.QUESTION_BANK)
+                .build()
+        );
     }
 
     @Override

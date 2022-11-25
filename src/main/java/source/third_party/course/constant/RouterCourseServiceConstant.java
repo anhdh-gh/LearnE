@@ -18,4 +18,6 @@ public class RouterCourseServiceConstant {
     public static final String COURSE_DELETE_BY_ID = "/course/delete-by-id";
 
     public static final String COURSE_UPDATE = "/course/update";
+
+    public static final String COURSE_SEARCH = "/course/search";
 }

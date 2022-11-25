@@ -67,6 +67,8 @@ public class RouterConstant {
 
     public static final String SEARCH_QUESTION = "/question/search";
 
+    public static final String COURSE_SEARCH = "/course/search";
+
     private RouterConstant() {
     }
 }

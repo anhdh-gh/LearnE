@@ -10,10 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
-import source.dto.request.course.CreateCourseRequestDto;
-import source.dto.request.course.DeleteCourseByIdRequestDto;
-import source.dto.request.course.GetCourseDetailForUserRequestDto;
-import source.dto.request.course.UpdateCourseRequestDto;
+import source.dto.request.course.*;
 import source.dto.response.BaseResponse;
 import source.third_party.course.constant.RouterCourseServiceConstant;
 import source.util.JsonUtil;
@@ -103,6 +100,17 @@ public class CourseServiceThirdPartyImpl implements CourseServiceThirdParty {
                 getHeader(request),
                 new ParameterizedTypeReference<BaseResponse>() {
                 });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterCourseServiceConstant.COURSE_SEARCH),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 }

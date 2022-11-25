@@ -9,10 +9,7 @@ import source.constant.RouterConstant;
 import source.dto.request.GetAllCourseRequestDto;
 import source.dto.request.GetCourseByIdRequestDto;
 import source.dto.request.UpdateLessonStatusRequestDto;
-import source.dto.request.course.CreateCourseRequestDto;
-import source.dto.request.course.DeleteCourseByIdRequestDto;
-import source.dto.request.course.GetCourseDetailForUserRequestDto;
-import source.dto.request.course.UpdateCourseRequestDto;
+import source.dto.request.course.*;
 import source.dto.response.BaseResponse;
 import source.service.course_service.CourseService;
 
@@ -67,5 +64,11 @@ public class CourseController {
     @PostMapping(RouterConstant.COURSE_UPDATE)
     public BaseResponse deleteCourse(@RequestBody UpdateCourseRequestDto request) throws Exception {
         return courseService.updateCourse(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.COURSE_SEARCH)
+    public BaseResponse searchCourse(@RequestBody SearchCourseRequestDto request) throws Exception {
+        return courseService.searchCourse(request);
     }
 }

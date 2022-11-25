@@ -18,4 +18,6 @@ public interface QuestionBankService {
     BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception;
 
     BaseResponse saveTestResult(TestResultDto request) throws Exception;
+
+    BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception;
 }

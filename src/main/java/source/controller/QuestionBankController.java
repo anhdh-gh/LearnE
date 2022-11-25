@@ -60,4 +60,11 @@ public class QuestionBankController {
         request.setUserId(request.getUserAuthId());
         return questionBankService.saveTestResult(request);
     }
+
+    @PostMapping(RouterConstant.SEARCH_QUESTION)
+    @LogsActivityAnnotation
+    public BaseResponse searchQuestion(@RequestBody SearchQuestionRequestDto request) throws Exception {
+        request.setUserId(request.getUserAuthId());
+        return questionBankService.searchQuestion(request);
+    }
 }

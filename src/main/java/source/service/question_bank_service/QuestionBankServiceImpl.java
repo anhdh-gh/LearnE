@@ -47,4 +47,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     public BaseResponse saveTestResult(TestResultDto request) throws Exception {
         return questionBankServiceThirdParty.saveTestResult(request);
     }
+
+    @Override
+    public BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception {
+        return questionBankServiceThirdParty.searchQuestion(request);
+    }
 }

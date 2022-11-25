@@ -18,4 +18,6 @@ public class RouterQuestionBankServiceConstant {
     public static final String QUESTION_GET_RANK = "/question/get-rank";
 
     public static final String QUESTION_SAVE_TEST_RESULT = "/question/save-test-result";
+
+    public static final String SEARCH_QUESTION = "/question/search";
 }

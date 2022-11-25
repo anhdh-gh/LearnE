@@ -100,4 +100,15 @@ public class QuestionBankServiceThirdPartyImpl implements QuestionBankServiceThi
         });
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
+
+    @Override
+    public BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterQuestionBankServiceConstant.SEARCH_QUESTION),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
 }

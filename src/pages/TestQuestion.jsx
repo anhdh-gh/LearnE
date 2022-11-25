@@ -95,6 +95,7 @@ const TestQuestion = () => {
     const [showResult, setShowResult] = useState(false)
     const [showScore, setShowScore] = useState(false)
     const [fileIsReady, setFileIsReady] = useState(false)
+    const [showQuestionResult, setShowQuestionResult] = useState(false)
 
     const { data: responseGetById, isLoading: isLoadingGetById, isFetching: isFetchingGetById, isError: isErrorGetById, refetch: getById } = useQuery(
         ["getById"],
@@ -116,6 +117,7 @@ const TestQuestion = () => {
         setCountUpTimer(0)
         audioCurent?.audio?.pause()
         setAudioCurent({ isPlaying: false })
+        setShowQuestionResult(false)
     }
 
     useEffect(() => {
@@ -212,7 +214,7 @@ const TestQuestion = () => {
                         frameBorder="0"
                         className='w-full h-screen'
                         aria-label={responseGetById?.data?.text}
-                        data={`${responseGetById?.data?.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
+                        data={`${showQuestionResult ? responseGetById?.data?.questionResult : responseGetById?.data?.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
                     />
                 </div>
 
@@ -269,6 +271,7 @@ const TestQuestion = () => {
                                                     const audio = new Audio(answer?.audio)
                                                     setAudioCurent({ audio, isPlaying: true, index })
                                                     audio.play()
+                                                    audio.onended = () => setAudioCurent({ isPlaying: false })
                                                 }
                                             }}
                                             className='cursor-pointer'><i className={`fas fa-volume-up hover:text-yellow-500 active:scale-95 ${audioCurent?.index === index && audioCurent?.isPlaying && 'text-yellow-500'}`} /></InputGroup.Text>}
@@ -293,7 +296,10 @@ const TestQuestion = () => {
                                         <div className='cursor-pointer' onClick={() => setCancelTest(true)}>Cancel</div>
                                     </div>
                                 </> : <>
-                                    <div className='text-center bg-indigo-600 text-white rounded rounded-sm py-2 cursor-pointer hover:bg-indigo-700' onClick={() => setShowScore(true)}>View score</div>
+                                    <div className='flex justify-between'>
+                                        <div className='text-center bg-indigo-600 text-white rounded rounded-sm p-2 cursor-pointer hover:bg-indigo-700' onClick={() => setShowScore(true)}>Score</div>
+                                        <div className='text-center bg-indigo-600 text-white rounded rounded-sm p-2 cursor-pointer hover:bg-indigo-700' onClick={() => {setShowQuestionResult(!showQuestionResult); setShowOffcanvas(false)}}>{showQuestionResult ? 'Question' : 'Result'}</div>
+                                    </div>
                                     <div className='text-slate-500 mt-3 hover:text-slate-600 flex justify-between w-full'>
                                         <div className='cursor-pointer' onClick={() => History.push(previousUrl || `${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>Exit</div>
                                         <div className='cursor-pointer' onClick={() => refreshPage()}>ReTest</div>
@@ -389,7 +395,10 @@ const TestQuestion = () => {
                                     <div className="cursor-pointer" onClick={() => setCancelTest(true)}>Cancel</div>
                                 </div>
                             </> : <>
-                                <div className='text-center bg-indigo-600 text-white rounded rounded-sm py-2 cursor-pointer hover:bg-indigo-700' onClick={() => setShowScore(true)}>View score</div>
+                                <div className='flex justify-between'>
+                                    <div className='text-center bg-indigo-600 text-white rounded rounded-sm p-2 cursor-pointer hover:bg-indigo-700' onClick={() => setShowScore(true)}>Score</div>
+                                    <div className='text-center bg-indigo-600 text-white rounded rounded-sm p-2 cursor-pointer hover:bg-indigo-700' onClick={() => {setShowQuestionResult(!showQuestionResult); setShowOffcanvas(false)}}>{showQuestionResult ? 'Question' : 'Result'}</div>
+                                </div>
                                 <div className='text-slate-500 mt-3 cursor-pointer hover:text-slate-600 flex justify-between w-full'>
                                     <div className='' onClick={() => History.push(previousUrl || `${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>Exit</div>
                                     <div className='' onClick={() => refreshPage()}>ReTest</div>

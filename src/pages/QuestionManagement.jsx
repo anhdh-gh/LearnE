@@ -20,6 +20,7 @@ const baseQuestionCreate = () => ({
     "text": "Test name",
     "time": 10000,
     "pdf": "pdf",
+    "questionResult": "questionResult",
     "answers": [
         {
             "text": "A",

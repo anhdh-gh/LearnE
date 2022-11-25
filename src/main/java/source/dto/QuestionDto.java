@@ -26,4 +26,6 @@ public class QuestionDto extends BaseDto {
     private Long userCount;
 
     private TestResultDto testResult;
+
+    private String questionResult;
 }

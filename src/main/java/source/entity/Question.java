@@ -29,6 +29,9 @@ public class Question extends UidBaseEntity {
     @Column(name = "Pdf")
     private String pdf;
 
+    @Column(name = "QuestionResult")
+    private String questionResult;
+
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "QuestionId", nullable = false)
     private List<Answer> answers;

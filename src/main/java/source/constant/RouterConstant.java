@@ -16,7 +16,7 @@ public class RouterConstant {
 
     public static final String COURSE_UPDATE = "/course/update";
 
-    public static final String COURSE_CALLBACK_QUESTIONS_DELETE = "/course/callback-question-delete";
+    public static final String COURSE_CALLBACK_QUESTION_DELETE = "/course/callback-question-delete";
 
     public static final String COURSE_UPDATE_LESSON_STATUS = "/course/update-lesson-status";
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import source.constant.ErrorCodeConstant;
 import source.dto.StudysetDto;
@@ -21,6 +22,9 @@ import source.exception.BusinessErrors;
 import source.exception.BusinessException;
 import source.repository.StudysetRepository;
 import source.repository.TestResultRepository;
+import source.third_party.course.constant.Provider;
+import source.third_party.course.dto.request.CallBackQuestionDeleteRequestDto;
+import source.third_party.course.service.CourseThirdPartyService;
 import source.third_party.user.dto.request.UserGetByIdRequestDto;
 import source.third_party.user.dto.request.UserGetListByIdsRequestDto;
 import source.third_party.user.service.UserServiceThirdParty;
@@ -46,6 +50,9 @@ public class StudysetServiceImpl implements StudysetService {
 
     @Autowired
     private UserServiceThirdParty userServiceThirdParty;
+
+    @Autowired
+    private CourseThirdPartyService courseThirdPartyService;
 
     @Override
     public BaseResponse createStudyset(StudysetDto request) throws Exception {
@@ -82,7 +89,7 @@ public class StudysetServiceImpl implements StudysetService {
         studysetSave.setUpdateTime(new Date());
 
         // Xóa cái cũ
-        studysetRepository.delete(studyset);
+        deleteStudyset(request, studyset);
 
         // Thực hiện lưu studyset mới
         studysetSave.setId(studyset.getId());
@@ -103,10 +110,26 @@ public class StudysetServiceImpl implements StudysetService {
         checkOwnerUserIdValid(request.getOwnerUserId(), studyset);
 
         // Xóa studyset
-        studysetRepository.delete(studyset);
+        deleteStudyset(request, studyset);
 
         // Trả về kết quả
         return BaseResponse.ofSucceeded(request.getRequestId(), studyset);
+    }
+
+    private void deleteStudyset(BasicRequest request, Studyset studyset) throws Exception {
+        // Xóa studyset
+        studysetRepository.delete(studyset);
+
+        // Callback for course
+        callBackQuestionDelete(request, studyset.getId());
+    }
+
+    @Async
+    public void callBackQuestionDelete(BasicRequest request, String studysetId) throws Exception {
+        CallBackQuestionDeleteRequestDto requestDto = modelMapper.map(request, CallBackQuestionDeleteRequestDto.class);
+        requestDto.setReferenceId(studysetId);
+        requestDto.setProvider(Provider.STUDYSET);
+        courseThirdPartyService.callBackQuestionDelete(requestDto);
     }
 
     @Override

@@ -16,3 +16,13 @@ app:
 service:
   user:
     baseurl: https://learneuser.herokuapp.com
+  gateway:
+    baseurl: https://learnegateway.herokuapp.com
+  question-bank:
+    baseurl: https://learnequestionbank.herokuapp.com
+  course:
+    baseurl: https://learnecourse.herokuapp.com
+  studyset:
+    baseurl: https://learnestudyset.herokuapp.com
+  multimedia:
+    baseurl: https://learnemultimedia.herokuapp.com

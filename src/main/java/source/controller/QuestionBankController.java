@@ -61,7 +61,14 @@ public class QuestionBankController {
     }
 
     @PostMapping(RouterConstant.QUESTION_GET_BY_IDS)
+    @LogsActivityAnnotation
     public BaseResponse getQuestionByIds(@RequestBody QuestionGetByIdsRequestDto request) throws Exception {
         return questionBankService.getQuestionByQuestionIds(request);
+    }
+
+    @PostMapping(RouterConstant.SEARCH_QUESTION)
+    @LogsActivityAnnotation
+    public BaseResponse searchQuestion(@RequestBody SearchQuestionRequestDto request) throws Exception {
+        return questionBankService.searchQuestion(request);
     }
 }

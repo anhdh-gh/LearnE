@@ -22,4 +22,6 @@ public interface QuestionBankService {
     BaseResponse saveTestResult(TestResultDto request) throws Exception;
 
     BaseResponse getQuestionByQuestionIds(QuestionGetByIdsRequestDto request) throws Exception;
+
+    BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception;
 }

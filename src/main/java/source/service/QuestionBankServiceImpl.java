@@ -272,6 +272,38 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         return BaseResponse.ofSucceeded(request.getRequestId(), questionDtos);
     }
 
+    @Override
+    public BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+
+        Page<Question> questionPage = questionRepository.findAllByTextContainingIgnoreCase(request.getText(), pageRequest);
+
+        // Set thêm số lượng người dùng đã làm
+        Page<QuestionDto> quétionDtosPage = questionPage.map(question -> {
+            QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+            questionDto.setUserCount(testResultRepository.countUserByQuestionId(question.getId()));
+            // Nếu user tồn tại thì lấy kết quả test ra
+            if(request.getUserId() != null) {
+                Optional<TestResult> testResultOptional = testResultRepository.findTestResultByUserIdAndQuestionId(
+                    request.getUserId(), question.getId()
+                );
+                testResultOptional.ifPresent(testResult -> questionDto.setTestResult(modelMapper.map(testResult, TestResultDto.class)));
+            }
+            return questionDto;
+        });
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(
+            request.getRequestId(),
+            quétionDtosPage
+        );
+    }
+
     private List<Question> getQuestionByQuestionIds(Set<String> questionIds) throws Exception {
         List<Question> questions = questionRepository.findByIdIn(questionIds);
         if(questions.size() != questionIds.size()) {

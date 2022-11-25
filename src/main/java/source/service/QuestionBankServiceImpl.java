@@ -90,7 +90,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         questionSave.setUpdateTime(new Date());
 
         // Xóa cái cũ
-        deleteQuestion(request, question);
+        questionRepository.delete(question);
 
         // Thực hiện lưu question mới
         questionSave.setId(question.getId());

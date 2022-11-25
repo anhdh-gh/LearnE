@@ -1,9 +1,9 @@
 package source.third_party.course.service;
 
 import source.dto.response.BaseResponse;
-import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
+import source.third_party.course.dto.request.CallBackQuestionDeleteRequestDto;
 
 public interface CourseThirdPartyService {
 
-    BaseResponse callBackQuestionsDelete(CallBackQuestionsDeleteRequestDto request) throws Exception;
+    BaseResponse callBackQuestionDelete(CallBackQuestionDeleteRequestDto request) throws Exception;
 }

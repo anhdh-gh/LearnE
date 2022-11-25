@@ -13,7 +13,7 @@ import source.third_party.course.constant.Provider;
 @AllArgsConstructor
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CallBackQuestionsDeleteRequestDto extends BasicRequest {
+public class CallBackQuestionDeleteRequestDto extends BasicRequest {
 
     private String referenceId;
 

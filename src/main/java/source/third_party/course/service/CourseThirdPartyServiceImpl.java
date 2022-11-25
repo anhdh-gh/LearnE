@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import source.dto.response.BaseResponse;
 import source.third_party.course.constant.RouterConstant;
-import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
+import source.third_party.course.dto.request.CallBackQuestionDeleteRequestDto;
 import source.third_party.multimedia.BaseService;
 import source.util.JsonUtil;
 
@@ -18,9 +18,9 @@ public class CourseThirdPartyServiceImpl extends BaseService implements CourseTh
     private String baseUrl;
 
     @Override
-    public BaseResponse callBackQuestionsDelete(CallBackQuestionsDeleteRequestDto request) throws Exception {
+    public BaseResponse callBackQuestionDelete(CallBackQuestionDeleteRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
-            String.format("%s%s", baseUrl, RouterConstant.COURSE_CALLBACK_QUESTIONS_DELETE),
+            String.format("%s%s", baseUrl, RouterConstant.COURSE_CALLBACK_QUESTION_DELETE),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {});

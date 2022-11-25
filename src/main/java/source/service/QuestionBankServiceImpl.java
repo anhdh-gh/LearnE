@@ -23,7 +23,7 @@ import source.exception.BusinessException;
 import source.repository.QuestionRepository;
 import source.repository.TestResultRepository;
 import source.third_party.course.constant.Provider;
-import source.third_party.course.dto.request.CallBackQuestionsDeleteRequestDto;
+import source.third_party.course.dto.request.CallBackQuestionDeleteRequestDto;
 import source.third_party.course.service.CourseThirdPartyService;
 import source.third_party.multimedia.service.MultimediaThirdPartyService;
 import source.third_party.user.dto.request.UserGetByIdRequestDto;
@@ -128,19 +128,15 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         questionRepository.delete(question);
 
         // Thực hiện callback về cho course
-        callBackQuestionsDelete(request, question.getId());
+        callBackQuestionDelete(request, question.getId());
     }
 
     @Async
-    public void callBackQuestionsDelete(BasicRequest request, String questionId) throws Exception {
-        CallBackQuestionsDeleteRequestDto requestDto = modelMapper.map(request, CallBackQuestionsDeleteRequestDto.class);
-        courseThirdPartyService.callBackQuestionsDelete(
-            CallBackQuestionsDeleteRequestDto
-                .builder()
-                .referenceId(questionId)
-                .provider(Provider.QUESTION_BANK)
-                .build()
-        );
+    public void callBackQuestionDelete(BasicRequest request, String questionId) throws Exception {
+        CallBackQuestionDeleteRequestDto requestDto = modelMapper.map(request, CallBackQuestionDeleteRequestDto.class);
+        requestDto.setReferenceId(questionId);
+        requestDto.setProvider(Provider.QUESTION_BANK);
+        courseThirdPartyService.callBackQuestionDelete(requestDto);
     }
 
     @Override

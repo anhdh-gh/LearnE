@@ -9,6 +9,7 @@ import source.constant.RouterConstant;
 import source.dto.request.*;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
+import source.dto.request.course.SearchCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.TestResultDto;
@@ -233,5 +234,11 @@ public class AuthController {
     @LogsActivityAnnotation
     public BaseResponse searchQuestion(@RequestBody SearchQuestionRequestDto request) throws Exception {
         return authService.searchQuestion(request);
+    }
+
+    @PostMapping(RouterConstant.COURSE_SEARCH)
+    @LogsActivityAnnotation
+    public BaseResponse searchCourse(@RequestBody SearchCourseRequestDto request) throws Exception {
+        return authService.searchCourse(request);
     }
 }

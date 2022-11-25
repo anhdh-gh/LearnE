@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import source.dto.request.*;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
+import source.dto.request.course.SearchCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.TestResultDto;
@@ -416,6 +417,17 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.SEARCH_QUESTION),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_SEARCH),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {

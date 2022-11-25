@@ -3,6 +3,7 @@ package source.third_party.auth.service;
 import source.dto.request.*;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
+import source.dto.request.course.SearchCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.TestResultDto;
@@ -80,4 +81,6 @@ public interface AuthServiceThirdParty {
     BaseResponse saveTestResultQuestion(source.dto.request.questionBank.TestResultDto request) throws Exception;
 
     BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception;
+
+    BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception;
 }

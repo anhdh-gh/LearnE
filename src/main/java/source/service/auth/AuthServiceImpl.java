@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import source.dto.request.*;
 import source.dto.request.course.CreateCourseRequestDto;
 import source.dto.request.course.DeleteCourseByIdRequestDto;
+import source.dto.request.course.SearchCourseRequestDto;
 import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.TestResultDto;
 import source.dto.request.questionBank.*;
@@ -191,5 +192,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception {
         return authServiceThirdParty.searchQuestion(request);
+    }
+
+    @Override
+    public BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception {
+        return authServiceThirdParty.searchCourse(request);
     }
 }

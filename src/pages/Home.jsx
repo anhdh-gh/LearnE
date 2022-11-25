@@ -141,7 +141,7 @@ const Home = (props) => {
                 setShow={() => setStudysetRetest(false)}
                 title={studysetRetest ? `Test: ${studysetRetest?.title}` : 'Closing'}
                 message={studysetRetest && <div className='py-2'>
-                    <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score).toFixed(2)}</div>
+                    <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score?.toFixed(2))}</div>
                     <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={studysetRetest?.testResult?.completionTime} /></div>
                     <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(studysetRetest?.testResult?.updateTime || studysetRetest?.testResult?.createTime)}</div>
                 </div>}

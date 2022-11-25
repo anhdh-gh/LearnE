@@ -51,7 +51,7 @@ const RankStudySet = (props) => {
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <div>
-                                        <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {item?.score}</div>
+                                        <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {item?.score?.toFixed(2)}</div>
                                         <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={item?.completionTime}/></div>
                                         <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated on {CommonUtil.getDateStringFromMilliseconds(item?.updateTime || item?.createTime)}</div>
                                     </div>

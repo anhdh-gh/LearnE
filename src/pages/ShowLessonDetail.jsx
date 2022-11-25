@@ -338,7 +338,7 @@ const ShowLessonDetail = (props) => {
             setShow={() => setStudysetRetest(false)}
             title={studysetRetest ? `Test: ${studysetRetest?.title}` : 'Closing'}
             message={studysetRetest && <div className='py-2'>
-                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(studysetRetest?.testResult?.score?.toFixed(2))}</div>
                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={studysetRetest?.testResult?.completionTime} /></div>
                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(studysetRetest?.testResult?.updateTime || studysetRetest?.testResult?.createTime)}</div>
             </div>}
@@ -353,7 +353,7 @@ const ShowLessonDetail = (props) => {
             setShow={() => setQuestionRetest(false)}
             title={questionRetest ? `Test: ${questionRetest?.text}` : 'Closing'}
             message={questionRetest && <div className='py-2'>
-                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(questionRetest?.testResult?.score).toFixed(2)}</div>
+                <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Score: {(questionRetest?.testResult?.score?.toFixed(2))}</div>
                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Completion time: <Timecode time={questionRetest?.testResult?.completionTime} /></div>
                 <div className="py-1"><i className="fa-solid fa-arrows-to-dot"></i> Last updated: {CommonUtil.getDateStringFromMilliseconds(questionRetest?.testResult?.updateTime || questionRetest?.testResult?.createTime)}</div>
             </div>}

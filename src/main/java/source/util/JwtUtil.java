@@ -16,7 +16,7 @@ public class JwtUtil {
 
     private final String jwtSecret = "LearnE";
 
-    private static final int jwtExpirationMs = 3600000;
+    private static final int jwtExpirationMs = 14400000;
 
     public String generateJwtToken(User user) {
         return generateTokenFromUserInfo(user);

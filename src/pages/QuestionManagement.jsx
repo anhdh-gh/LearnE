@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux"
 import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/actions'
 import _ from 'lodash'
 import { Notification, CommonUtil } from '../utils'
+import { useDebounce } from 'use-debounce'
+import { useSearchParams } from 'react-router-dom'
 
 const baseQuestionCreate = () => ({
     "text": "Test name",
@@ -39,13 +41,20 @@ const QuestionManagement = (props) => {
     const [fileUploads, setFileUploads] = useState([])
     const [content, setContent] = useState({ json: baseQuestionCreate() })
     const [ showRank, setShowRank ] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [ textSearch ] = useDebounce(searchParams.get('text'), 1000)
 
     const { data: responseGetAllQuestions, isLoading: isLoadingGetAllQuestions, isFetching: isFetchingGetAllQuestions, isError: isErrorGetAllQuestions, refetch: getAllQuestions } = useQuery(
         ["getAllQuestions", page],
-        () => QuestionApi.getAll(page, size), {
-        refetchOnWindowFocus: false,
-    }
+        () => _.isEmpty(searchParams.get('text')) ? QuestionApi.getAll(page, size) : QuestionApi.search(searchParams.get('text'), page, size), {
+            refetchOnWindowFocus: false,
+        }
     )
+
+    useLayoutEffect (() => {
+        refreshPage()
+        // eslint-disable-next-line
+    }, [ textSearch ])
 
     useLayoutEffect(() => {
         if (isLoadingGetAllQuestions || isFetchingGetAllQuestions) {
@@ -178,7 +187,7 @@ const QuestionManagement = (props) => {
                                 <UserInfo limit={30} user={user} />
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                                <SearchBox placeholder="Search" />
+                                <SearchBox value={searchParams.get('text') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'text': e.target.value.trim() })} />
                                 <Button
                                     className='h-fit font-bold'
                                     onClick={() => {

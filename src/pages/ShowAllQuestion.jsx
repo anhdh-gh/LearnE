@@ -14,6 +14,8 @@ import { History } from '../components/NavigateSetter'
 import { Button, Card, Badge, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { CommonUtil } from '../utils'
 import Timecode from 'react-timecode'
+import { useDebounce } from 'use-debounce'
+import { useSearchParams } from 'react-router-dom'
 
 const ShowAllQuestion = (props) => {
 
@@ -22,15 +24,21 @@ const ShowAllQuestion = (props) => {
     const user = useSelector(state => state.user)
     const [showRank, setShowRank] = useState(false)
     const [questionRetest, setQuestionRetest] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [ textSearch ] = useDebounce(searchParams.get('text'), 1000)
 
     const size = 9
     const { data: responseGetAllQuestions, isLoading: isLoadingGetAllQuestions, isFetching: isFetchingGetAllQuestions, isError: isErrorGetAllQuestions, refetch: getAllQuestions } = useQuery(
         ["getAllQuestions", page],
-        () => QuestionApi.getAll(page, size),
-        {
+        () => _.isEmpty(searchParams.get('text')) ? QuestionApi.getAll(page, size) : QuestionApi.search(searchParams.get('text'), page, size), {
             refetchOnWindowFocus: false,
         }
     )
+
+    useLayoutEffect (() => {
+        refreshPage()
+        // eslint-disable-next-line
+    }, [ textSearch ])
 
     const refreshPage = useCallback(() => {
         getAllQuestions(page)
@@ -67,7 +75,7 @@ const ShowAllQuestion = (props) => {
                             <UserInfo className="cursor-pointer" limit={30} user={user} />
                         </div>}
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                            <SearchBox placeholder="Search" />
+                            <SearchBox value={searchParams.get('text') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'text': e.target.value.trim() })} />
                             <Button onClick={() => History.push(ROUTE_PATH.HOME)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Home</Button>
                         </div>
                     </div>

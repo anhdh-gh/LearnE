@@ -104,7 +104,7 @@ const ViewDetailStudySet = (props) => {
                                 <i className="fa-solid fa-ranking-star" /> <span className='ps-2' style={{ lineHeight: "100%" }}>Rank</span>
                             </div>
 
-                            <div className="flex justify-start items-end" onClick={() => setStudysetRetest(responseGetStudysetById?.data)}>
+                            <div className="flex justify-start items-end" onClick={() => !responseGetStudysetById?.data?.testResult ? History.push(`${ROUTE_PATH.STUDY_SET_TEST}/${responseGetStudysetById?.data?.id}`) : setStudysetRetest(responseGetStudysetById?.data)}>
                                 {
                                     !responseGetStudysetById?.data?.testResult 
                                         ? <><i className="fa-solid fa-file-pen" /> <span className='ps-2' style={{ lineHeight: "100%" }}>Test</span></>

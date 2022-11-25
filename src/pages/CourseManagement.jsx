@@ -393,8 +393,8 @@ const CourseManagement = (props) => {
             modalTitle="Upload file"
             isShow={isShowModalUploadFile}
             handleSubmit={handleUploadFile}
-            accept="video/*, image/*"
-            inputContent={(files, extra) => extra.reject ? 'Video or image only' : 'Drag and drop or click to select file'}
+            // accept="video/*, image/*"
+            // inputContent={(files, extra) => extra.reject ? 'Video or image only' : 'Drag and drop or click to select file'}
             // styles={{
             //     dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
             //     inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),

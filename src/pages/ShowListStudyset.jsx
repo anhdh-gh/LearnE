@@ -79,7 +79,7 @@ const ShowListStudyset = (props) => {
 
     const processRemoveStudyset = () => {
         dispatch(showLoader())
-        StudysetApi.deleteById(studysetRemove?.id)
+        StudysetApi.deleteById(studysetRemove?.id, studysetRemove?.ownerUserId)
             .then(response => {
                 setStudysetRemove(false)
                 const { meta } = response

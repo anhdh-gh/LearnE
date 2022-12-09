@@ -8,6 +8,9 @@ import {
 import { UserApi } from '../../api'
 import Cookie from 'js-cookie'
 import { call, put, takeLatest } from 'redux-saga/effects'
+import { History } from '../../components/NavigateSetter'
+import { ROUTE_PATH } from "../../constants"
+
 const { INIT_INFO, RESET_INFO_WHEN_NO_MORE_USER } = ACTION_TYPE_SAGA
 const { SUCCESS } = STATUS_CODES
 
@@ -44,6 +47,7 @@ function* resetInfoWhenNoMoreUserWorker() {
         localStorage.removeItem(KEY.TOKEN_TYPE)
         yield put(removeUser())
         yield put(removeCourse())
+        History.push(ROUTE_PATH.SIGN_IN)
     } catch (error) {
         console.error(error)
     }

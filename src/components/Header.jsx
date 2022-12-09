@@ -93,9 +93,9 @@ const Header = (props) => {
 
                         <Nav.Link
                             className="cursor-pointer"
-                            as="span"
+                            as="a"
+                            href={ROUTE_PATH.CONTACT}
                             active="active"
-                            onClick={() => History.push(ROUTE_PATH.CONTACT)}
                         >
                             {pathname === ROUTE_PATH.CONTACT
                                 ? <><Badge pill bg="primary">Contact</Badge></>
@@ -105,7 +105,7 @@ const Header = (props) => {
 
                         {!_.isEmpty(user) && user?.role === ROLE.ADMIN && <Nav.Link
                             className="cursor-pointer"
-                            as="span"
+                            as="a"
                             active="active"
                             onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}
                         >
@@ -119,9 +119,9 @@ const Header = (props) => {
                     <Nav className="my-2 my-md-0 d-md-none d-block">
 
                         <Nav.Link
-                            className="cursor-pointer py-0 my-3"
+                            className={`cursor-pointer py-0 my-3 ${pathname === ROUTE_PATH.HOME && 'font-bold'}`}
                             as="span"
-                            active={pathname === ROUTE_PATH.HOME && `active`}
+                            active={`active`}
                             onClick={() => History.push(ROUTE_PATH.HOME)}
                         >Home</Nav.Link>
 
@@ -158,16 +158,16 @@ const Header = (props) => {
                         </Nav>
 
                         <Nav.Link
-                            className="cursor-pointer py-0 my-3"
-                            as="span"
-                            active={pathname === ROUTE_PATH.CONTACT && `active`}
-                            onClick={() => History.push(ROUTE_PATH.CONTACT)}
+                            className={`cursor-pointer py-0 my-3 ${pathname === ROUTE_PATH.CONTACT && 'font-bold'}`}
+                            as="a"
+                            active={`active`}
+                            href={ROUTE_PATH.CONTACT}
                         >Contact</Nav.Link>
 
                         {!_.isEmpty(user) && user?.role === ROLE.ADMIN && <Nav.Link
-                            className="cursor-pointer py-0 my-3"
+                            className={`cursor-pointer py-0 my-3 ${pathname.includes('/dashboard') && 'font-bold'}`}
                             as="span"
-                            active={pathname.includes('/dashboard') && `active`}
+                            active={`active`}
                             onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}
                         >Dashboard</Nav.Link>}
                     </Nav>

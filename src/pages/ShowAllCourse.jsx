@@ -117,7 +117,7 @@ const ShowAllCourse = (props) => {
 
                                         <Card.Footer className="d-flex justify-content-between">
                                             <Button className='text-center text-white w-full' onClick={() => History.push(`${ROUTE_PATH.SHOW_COURSE_DETAIL}/${course?.id}`)}>
-                                                {course?.status === STATUS_TYPE.UNFINISHED ? 'Start now' : 'Keep studying'}
+                                                {(!course?.status || course?.status === STATUS_TYPE.UNFINISHED) ? 'Start now' : 'Keep studying'}
                                             </Button>
                                         </Card.Footer>
                                     </Card>

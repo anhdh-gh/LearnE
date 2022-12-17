@@ -19,4 +19,6 @@ public interface UserService {
     BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
 
     BaseResponse getUserByUserIds(UserGetListByIdsRequestDto request) throws Exception;
+
+    BaseResponse searchUser(SearchUserRequestDto request) throws Exception;
 }

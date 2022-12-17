@@ -179,4 +179,22 @@ public class UserServiceImpl implements UserService{
         }
         return BaseResponse.ofSucceeded(request.getRequestId(), users);
     }
+
+    @Override
+    public BaseResponse searchUser(SearchUserRequestDto request) throws Exception {
+        // Lấy ra list theo paging and sorting
+        PageRequest pageRequest = PageRequest.of(
+            request.getPage(),
+            request.getSize(),
+            Sort.by("updateTime").descending().and(Sort.by("createTime").descending())
+        );
+
+        Page<User> userPage = userRepository.findAllByUserNameContainingIgnoreCase(request.getUserName(), pageRequest);
+
+        // Trả về kết quả
+        return BaseResponse.ofSucceeded(
+            request.getRequestId(),
+            userPage
+        );
+    }
 }

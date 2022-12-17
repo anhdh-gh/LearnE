@@ -57,4 +57,10 @@ public class UserController {
     public BaseResponse getUserByUserIds(@RequestBody UserGetListByIdsRequestDto request) throws Exception {
         return userService.getUserByUserIds(request);
     }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.GET_ALL_USER)
+    public BaseResponse searchUser(@RequestBody SearchUserRequestDto request) throws Exception {
+        return userService.searchUser(request);
+    }
 }

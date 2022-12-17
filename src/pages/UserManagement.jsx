@@ -14,6 +14,8 @@ import { showLoader, hideLoader, showNotFound, hideNotFound } from '../redux/act
 import _ from 'lodash'
 import AvatarIcon from '../assets/img/avatar-icon.jpg'
 import { CommonUtil, Notification } from '../utils'
+import { useSearchParams } from 'react-router-dom'
+import { useDebounce } from 'use-debounce'
 
 const UserManagement = (props) => {
 
@@ -24,10 +26,12 @@ const UserManagement = (props) => {
     const [showVEUser, setShowVEUser] = useState({ show: false })
     const [userRemove, setUserRemove] = useState(false)
     const [userUpdate, setUserUpdate] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [ userNameSearch ] = useDebounce(searchParams.get('userName'), 1000)
 
     const { data: responseGetAllUsers, isLoading: isLoadingGetAllUsers, isFetching: isFetchingGetAllUsers, isError: isErrorGetAllUsers, refetch: getAllUsers } = useQuery(
         ["getAllUsers", page],
-        () => UserApi.getAllUsers(page, size),
+        () => _.isEmpty(searchParams.get('userName')) ? UserApi.getAllUsers(page, size) : UserApi.searchUser(page, size, searchParams.get('userName')),
         {
             refetchOnWindowFocus: false,
         }
@@ -55,6 +59,11 @@ const UserManagement = (props) => {
     const refreshPage = useCallback(() => {
         getAllUsers(page)
     }, [getAllUsers, page])
+
+    useLayoutEffect (() => {
+        refreshPage()
+        // eslint-disable-next-line
+    }, [ userNameSearch ])
 
     const handleUpdateUser = () => {
         dispatch(showLoader())
@@ -85,7 +94,7 @@ const UserManagement = (props) => {
                                 <UserInfo limit={30} user={user} />
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                                <SearchBox placeholder="Search" />
+                                <SearchBox value={searchParams.get('userName') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'userName': e.target.value.trim() })} />
                                 <Button className='h-fit font-bold' onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}>Home</Button>
                             </div>
                         </div>
@@ -96,9 +105,9 @@ const UserManagement = (props) => {
                     <div className="container-xl">
                         <Pagination className="row"
                             classNamePagination={`m-0 mt-3`}
-                            hrefPrev={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page) - 1}`}
-                            hrefNext={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page) + 1}`}
-                            hrefCurrent={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page)}`}
+                            hrefPrev={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page) - 1}${!_.isEmpty(searchParams.get('userName')) ? `?userName=${searchParams.get('userName')}` : ''}`}
+                            hrefNext={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page) + 1}${!_.isEmpty(searchParams.get('userName')) ? `?userName=${searchParams.get('userName')}` : ''}`}
+                            hrefCurrent={`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/${parseInt(page)}${!_.isEmpty(searchParams.get('userName')) ? `?userName=${searchParams.get('userName')}` : ''}`}
                             disabledPrev={responseGetAllUsers?.data?.first}
                             disabledNext={responseGetAllUsers?.data?.last}
                             onClickCurrent={refreshPage}

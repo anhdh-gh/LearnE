@@ -8,6 +8,7 @@ const ROUTE_PATH = {
     SIGN_UP: '/user/signup',
     GET_COURSE_DETAIL_FOR_USER: '/course/get-course-detail-for-user',
     UPDATE: '/user/update',
+    SEARCH: '/user/search'
 }
 
 const UserApi = {
@@ -34,6 +35,10 @@ const UserApi = {
 
     getAllUsers: (page, size) => {
         return ApiClient.post(ROUTE_PATH.GET_ALL_USERS, {page, size})
+    },
+
+    searchUser: (page, size, userName) => {
+        return ApiClient.post(ROUTE_PATH.SEARCH, {page, size, userName})
     }
 }
 

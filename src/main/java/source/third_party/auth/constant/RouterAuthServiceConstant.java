@@ -76,4 +76,6 @@ public class RouterAuthServiceConstant {
     public static final String SEARCH_QUESTION = "/question/search";
 
     public static final String COURSE_SEARCH = "/course/search";
+
+    public final static String SEARCH_USER = "user/search";
 }

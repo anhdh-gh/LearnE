@@ -10,6 +10,7 @@ import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.TestResultDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.*;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.service.AuthServiceThirdParty;
 
@@ -197,5 +198,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception {
         return authServiceThirdParty.searchCourse(request);
+    }
+
+    @Override
+    public BaseResponse searchUser(SearchUserRequestDto request) throws Exception {
+        return authServiceThirdParty.searchUser(request);
     }
 }

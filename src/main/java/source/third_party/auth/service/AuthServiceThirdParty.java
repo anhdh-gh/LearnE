@@ -8,6 +8,7 @@ import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.TestResultDto;
 import source.dto.request.studyset.*;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 
 
@@ -83,4 +84,6 @@ public interface AuthServiceThirdParty {
     BaseResponse searchQuestion(SearchQuestionRequestDto request) throws Exception;
 
     BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception;
+
+    BaseResponse searchUser(SearchUserRequestDto request) throws Exception;
 }

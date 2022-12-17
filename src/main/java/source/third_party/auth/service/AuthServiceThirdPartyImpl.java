@@ -14,6 +14,7 @@ import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.TestResultDto;
 import source.dto.request.studyset.*;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.auth.constant.RouterAuthServiceConstant;
 import source.util.JsonUtil;
@@ -428,6 +429,17 @@ public class AuthServiceThirdPartyImpl implements AuthServiceThirdParty {
     public BaseResponse searchCourse(SearchCourseRequestDto request) throws Exception {
         ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
             String.format("%s%s", baseUrl, RouterAuthServiceConstant.COURSE_SEARCH),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
+
+    @Override
+    public BaseResponse searchUser(SearchUserRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterAuthServiceConstant.SEARCH_USER),
             HttpMethod.POST,
             getHeader(request),
             new ParameterizedTypeReference<BaseResponse>() {

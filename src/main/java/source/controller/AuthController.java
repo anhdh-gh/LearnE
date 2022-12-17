@@ -14,6 +14,7 @@ import source.dto.request.course.UpdateCourseRequestDto;
 import source.dto.request.questionBank.*;
 import source.dto.request.studyset.TestResultDto;
 import source.dto.request.studyset.*;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.auth.AuthService;
 
@@ -240,5 +241,11 @@ public class AuthController {
     @LogsActivityAnnotation
     public BaseResponse searchCourse(@RequestBody SearchCourseRequestDto request) throws Exception {
         return authService.searchCourse(request);
+    }
+
+    @PostMapping(RouterConstant.SEARCH_USER)
+    @LogsActivityAnnotation
+    public BaseResponse searchUser(@RequestBody SearchUserRequestDto request) throws Exception {
+        return authService.searchUser(request);
     }
 }

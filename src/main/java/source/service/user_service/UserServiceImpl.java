@@ -9,6 +9,7 @@ import source.constant.ErrorCodeConstant;
 import source.constant.ErrorFirebaseConstant;
 import source.constant.JwtTokenTypeConstant;
 import source.dto.request.*;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.dto.response.FieldViolation;
 import source.dto.response.TokenResponseDto;
@@ -175,5 +176,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception {
         return userServiceThirdParty.getUserInfo(userGetInfoRequestDto);
+    }
+
+    @Override
+    public BaseResponse searchUser(SearchUserRequestDto request) throws Exception {
+        return userServiceThirdParty.searchUser(request);
     }
 }

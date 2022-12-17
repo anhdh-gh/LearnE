@@ -4,6 +4,7 @@ import source.dto.request.UserDeleteRequestDto;
 import source.dto.request.UserGetAllRequestDto;
 import source.dto.request.UserGetInfoRequestDto;
 import source.dto.request.UserUpdateRequestDto;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.user.dto.request.UserSignUpThirdPartyRequestDto;
 
@@ -18,4 +19,6 @@ public interface UserServiceThirdParty {
     BaseResponse deleteUser(UserDeleteRequestDto userDeleteRequestDto) throws Exception;
 
     BaseResponse getUserInfo(UserGetInfoRequestDto userGetInfoRequestDto) throws Exception;
+
+    BaseResponse searchUser(SearchUserRequestDto request) throws Exception;
 }

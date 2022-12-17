@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import source.annotation.LogsActivityAnnotation;
 import source.constant.RouterConstant;
 import source.dto.request.*;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.service.refresh_token_service.RefreshTokenService;
 import source.service.user_service.UserService;
@@ -74,5 +75,11 @@ public class UserController {
     @PostMapping(RouterConstant.ADMIN_DELETE_USER)
     public BaseResponse deleteUserById(@RequestBody UserDeleteRequestDto request) throws Exception {
         return userService.deleteUser(request);
+    }
+
+    @LogsActivityAnnotation
+    @PostMapping(RouterConstant.SEARCH_USER)
+    public BaseResponse searchUser(@RequestBody SearchUserRequestDto request) throws Exception {
+        return userService.searchUser(request);
     }
 }

@@ -11,6 +11,7 @@ import source.dto.request.UserDeleteRequestDto;
 import source.dto.request.UserGetAllRequestDto;
 import source.dto.request.UserGetInfoRequestDto;
 import source.dto.request.UserUpdateRequestDto;
+import source.dto.request.user.SearchUserRequestDto;
 import source.dto.response.BaseResponse;
 import source.third_party.user.constant.RouterUserServiceConstant;
 import source.third_party.user.dto.request.UserSignUpThirdPartyRequestDto;
@@ -86,5 +87,14 @@ public class UserServiceThirdPartyImpl implements UserServiceThirdParty {
         return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
     }
 
-
+    @Override
+    public BaseResponse searchUser(SearchUserRequestDto request) throws Exception {
+        ResponseEntity<BaseResponse> responseEntity = restTemplate.exchange(
+            String.format("%s%s", baseUrl, RouterUserServiceConstant.SEARCH_USER),
+            HttpMethod.POST,
+            getHeader(request),
+            new ParameterizedTypeReference<BaseResponse>() {
+        });
+        return JsonUtil.getGenericObject(responseEntity.getBody(), BaseResponse.class);
+    }
 }

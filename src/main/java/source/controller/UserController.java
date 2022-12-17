@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @LogsActivityAnnotation
-    @PostMapping(RouterConstant.GET_ALL_USER)
+    @PostMapping(RouterConstant.SEARCH_USER)
     public BaseResponse searchUser(@RequestBody SearchUserRequestDto request) throws Exception {
         return userService.searchUser(request);
     }

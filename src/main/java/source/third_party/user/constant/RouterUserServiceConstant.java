@@ -15,5 +15,5 @@ public class RouterUserServiceConstant {
 
     public static final String DELETE_USER = "/user/delete";
 
-    public final static String SEARCH_USER = "user/search";
+    public final static String SEARCH_USER = "/user/search";
 }

@@ -69,7 +69,7 @@ public class RouterConstant {
 
     public static final String COURSE_SEARCH = "/course/search";
 
-    public final static String SEARCH_USER = "user/search";
+    public final static String SEARCH_USER = "/user/search";
 
     private RouterConstant() {
     }

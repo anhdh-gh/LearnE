@@ -87,9 +87,9 @@ const ShowAllQuestion = (props) => {
                 <div className="container-xl">
                     <Pagination className="row"
                         classNamePagination={`m-0 mt-3`}
-                        hrefPrev={`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/${parseInt(page) - 1}`}
-                        hrefNext={`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/${parseInt(page) + 1}`}
-                        hrefCurrent={`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/${parseInt(page)}`}
+                        hrefPrev={`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/${parseInt(page) - 1}${!_.isEmpty(searchParams.get('text')) ? `?text=${searchParams.get('text')}` : ''}`}
+                        hrefNext={`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/${parseInt(page) + 1}${!_.isEmpty(searchParams.get('text')) ? `?text=${searchParams.get('text')}` : ''}`}
+                        hrefCurrent={`${ROUTE_PATH.ADMIN_QUESTION_VIEW_ALL}/${parseInt(page)}${!_.isEmpty(searchParams.get('text')) ? `?text=${searchParams.get('text')}` : ''}`}
                         disabledPrev={responseGetAllQuestions?.data?.first}
                         disabledNext={responseGetAllQuestions?.data?.last}
                         onClickCurrent={refreshPage}

@@ -84,9 +84,9 @@ const ShowAllCourse = (props) => {
                 <div className="container-xl">
                     <Pagination className="row"
                         classNamePagination={`m-0 mt-3`}
-                        hrefPrev={`${ROUTE_PATH.SHOW_ALL_COURSE}/${parseInt(page) - 1}`}
-                        hrefNext={`${ROUTE_PATH.SHOW_ALL_COURSE}/${parseInt(page) + 1}`}
-                        hrefCurrent={`${ROUTE_PATH.SHOW_ALL_COURSE}/${parseInt(page)}`}
+                        hrefPrev={`${ROUTE_PATH.SHOW_ALL_COURSE}/${parseInt(page) - 1}${!_.isEmpty(searchParams.get('name')) ? `?name=${searchParams.get('name')}` : ''}`}
+                        hrefNext={`${ROUTE_PATH.SHOW_ALL_COURSE}/${parseInt(page) + 1}${!_.isEmpty(searchParams.get('name')) ? `?name=${searchParams.get('name')}` : ''}`}
+                        hrefCurrent={`${ROUTE_PATH.SHOW_ALL_COURSE}/${parseInt(page)}${!_.isEmpty(searchParams.get('name')) ? `?name=${searchParams.get('name')}` : ''}`}
                         disabledPrev={responseGetAllCourse?.data?.first}
                         disabledNext={responseGetAllCourse?.data?.last}
                         onClickCurrent={refreshPage}

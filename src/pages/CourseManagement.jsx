@@ -296,9 +296,9 @@ const CourseManagement = (props) => {
                     <div className="container-xl">
                         <Pagination className="row"
                             classNamePagination={`m-0 mt-3`}
-                            hrefPrev={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page) - 1}`}
-                            hrefNext={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page) + 1}`}
-                            hrefCurrent={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page)}`}
+                            hrefPrev={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page) - 1}${!_.isEmpty(searchParams.get('name')) ? `?name=${searchParams.get('name')}` : ''}`}
+                            hrefNext={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page) + 1}${!_.isEmpty(searchParams.get('name')) ? `?name=${searchParams.get('name')}` : ''}`}
+                            hrefCurrent={`${ROUTE_PATH.ADMIN_COURSE_VIEW_ALL}/${parseInt(page)}${!_.isEmpty(searchParams.get('name')) ? `?name=${searchParams.get('name')}` : ''}`}
                             disabledPrev={responseGetAllCourses?.data?.first}
                             disabledNext={responseGetAllCourses?.data?.last}
                             onClickCurrent={refreshPage}

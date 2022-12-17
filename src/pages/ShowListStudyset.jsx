@@ -117,9 +117,9 @@ const ShowListStudyset = (props) => {
                 <div className="container-xl">
                     <Pagination className="row"
                         classNamePagination={`m-0 mt-3`}
-                        hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) - 1}`}
-                        hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) + 1}`}
-                        hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}`}
+                        hrefPrev={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) - 1}${!_.isEmpty(searchParams.get('title')) ? `?title=${searchParams.get('title')}` : ''}`}
+                        hrefNext={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page) + 1}${!_.isEmpty(searchParams.get('title')) ? `?title=${searchParams.get('title')}` : ''}`}
+                        hrefCurrent={`${ROUTE_PATH.STUDY_SET_VIEW}/${ownerUserId}/${parseInt(page)}${!_.isEmpty(searchParams.get('title')) ? `?title=${searchParams.get('title')}` : ''}`}
                         disabledPrev={responseGetAllByOwnerUserId?.data?.first}
                         disabledNext={responseGetAllByOwnerUserId?.data?.last}
                         onClickCurrent={refreshPage}

@@ -15,7 +15,7 @@ public class RouterConstant {
 
     public static final String GET_USER_LIST_BY_IDS = "/user/get-by-ids";
 
-    public final static String SEARCH_USER = "user/search";
+    public final static String SEARCH_USER = "/user/search";
 
     private RouterConstant() {
     }

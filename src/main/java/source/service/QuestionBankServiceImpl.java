@@ -191,10 +191,10 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Override
     public BaseResponse getRankQuestion(GetRankQuestionDto request) throws Exception {
-        // Kiểm tra studyset có tồn tại hay không
+        // Kiểm tra question có tồn tại hay không
         Question question = checkQuestionExits(request.getQuestionId());
 
-        // Lấy ra xếp hạng của studyset này
+        // Lấy ra xếp hạng của question này
         PageRequest pageRequest = PageRequest.of(
             request.getPage(),
             request.getSize(),

@@ -10,17 +10,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import source.constant.ErrorCodeConstant;
 import source.dto.request.*;
-import source.dto.request.CreateCourseRequestDto;
 import source.dto.response.BaseDto;
 import source.dto.response.BaseResponse;
-import source.dto.response.get_course_detail_for_user.GetCourseDetailForUserResponseDto;
 import source.dto.response.UpdateLessonStatusResponseDto;
-import source.dto.response.get_course_detail_for_user.*;
+import source.dto.response.get_course_detail_for_user.ChapterDto;
+import source.dto.response.get_course_detail_for_user.GetCourseDetailForUserResponseDto;
+import source.dto.response.get_course_detail_for_user.LessonDto;
+import source.dto.response.get_course_detail_for_user.LessonExerciseDto;
 import source.entity.*;
 import source.entity.enumeration.Provider;
 import source.entity.enumeration.StatusType;
 import source.exception.BusinessErrors;
-import source.repository.*;
+import source.repository.CourseRepository;
+import source.repository.LessonExerciseRepository;
+import source.repository.LessonRepository;
+import source.repository.LessonStatusRepository;
 import source.third_party.question_bank.dto.request.QuestionGetByIdsRequestDto;
 import source.third_party.question_bank.service.QuestionBankThirdPartyService;
 import source.third_party.studyset.dto.request.StudysetGetByIdsRequestDto;
@@ -344,7 +348,6 @@ public class CourseServiceImpl implements CourseService {
 
         // Prepare để tạo mới course
         CreateCourseRequestDto createCourseRequestDto = CreateCourseRequestDto.builder().id(courseOptional.get().getId()).build();
-        modelMapper.map(courseOptional.get(), createCourseRequestDto);
         modelMapper.map(request, createCourseRequestDto);
 
         return this.createCourse(createCourseRequestDto);

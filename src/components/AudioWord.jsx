@@ -6,7 +6,7 @@ import { DictionaryApi } from '../api'
 
 const AudioWord = (props) => {
 
-    const { word } = props
+    const { word, autoGetInfo = true } = props
 
     const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
     const [ phonetic, setPhonetic ] = useState()
@@ -23,14 +23,15 @@ const AudioWord = (props) => {
     }
 
     useLayoutEffect (() => {
+        console.log(word)
         // Trích xuất phiên âm
         if (word?.info) {
             setPhonetic(getPhonetic(word?.info))
-        } else {
+        } else if(word?.text?.trim()?.split(" ")?.length === 1 && word?.type === 'key' && autoGetInfo) {
             DictionaryApi.getInforWord(word.text)
             .then(info => setPhonetic(getPhonetic(info)))
         }
-    }, [word])
+    }, [word, autoGetInfo])
 
     const filterVoice = (lang) => {
         const voicesFilter = voices.filter(voice => voice.lang.trim().toLowerCase().includes(lang.trim().toLowerCase()))

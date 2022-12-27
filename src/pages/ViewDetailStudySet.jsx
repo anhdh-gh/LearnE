@@ -10,7 +10,7 @@ import { STATUS_CODES, ROUTE_PATH } from '../constants'
 import _ from 'lodash'
 import { Notification } from '../utils'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { DictionaryApi } from '../api'
+// import { DictionaryApi } from '../api'
 import { History } from '../components/NavigateSetter'
 import { CommonUtil } from '../utils'
 import Timecode from 'react-timecode'
@@ -37,13 +37,20 @@ const ViewDetailStudySet = (props) => {
                         }
                     }
 
-                    const getInforWord = (word, infoNewWordCard) => {
-                        DictionaryApi.getInforWord(word)
-                            .then(res => infoNewWordCard.info = res)
-                    }
+                    // const getInforWord = (word, infoNewWordCard) => {
+                    //     word?.text?.trim()?.split(" ")?.length === 1 && DictionaryApi.getInforWord(word)
+                    //         .then(res => infoNewWordCard.info = res)
+                    // }
 
-                    getInforWord(wordCard?.key, newWordCard.key)
-                    getInforWord(wordCard?.value, newWordCard.value)
+                    // getInforWord(wordCard?.key, newWordCard.key)
+                    // getInforWord(wordCard?.value, newWordCard.value)
+
+                    // const getInforWord = (word, infoNewWordCard) => {
+                    //     if(word.text.trim().split(" ").length === 1) {
+                    //         DictionaryApi.getInforWord(word)
+                    //             .then(res => infoNewWordCard.info = res)
+                    //     }
+                    // }
 
                     return newWordCard
                 })

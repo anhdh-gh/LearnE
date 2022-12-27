@@ -33,6 +33,8 @@ const ROUTE_PATH = {
     STUDY_SET_VIEW_DETAIL: '/studyset/view/detail',
     STUDY_SET_TEST: '/studyset/test',
 
+    TRANSLATION: '/translation',
+
     // Not found
     NOT_FOUND: '*'
 }

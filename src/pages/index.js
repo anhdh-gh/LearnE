@@ -18,6 +18,7 @@ import QuestionManagement from './QuestionManagement'
 import StudysetManagenent from './StudysetManagenent'
 import TestQuestion from './TestQuestion'
 import ShowAllQuestion from './ShowAllQuestion'
+import Translation from './Translation'
 
 export {
     NotFound,
@@ -40,4 +41,5 @@ export {
     StudysetManagenent,
     TestQuestion,
     ShowAllQuestion,
+    Translation,
 }

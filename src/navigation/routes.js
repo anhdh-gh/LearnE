@@ -4,7 +4,7 @@ import {
     ShowLessonDetail, ShowListStudyset, CreateStudySet,
     EditStudySet, ViewDetailStudySet, TestStudySet, ShowAllStudyset,
     Contact, UserManagement, ShowAllCourse, CourseManagement, TestComponet, QuestionManagement, StudysetManagenent,
-    TestQuestion, ShowAllQuestion
+    TestQuestion, ShowAllQuestion, Translation
 } from '../pages'
 
 const routes = {
@@ -106,6 +106,11 @@ const routes = {
         {
             path: ROUTE_PATH.CONTACT, 
             element: <Contact/>
+        },   
+
+        {
+            path: ROUTE_PATH.TRANSLATION, 
+            element: <Translation/>
         },   
 
         {

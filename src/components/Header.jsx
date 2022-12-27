@@ -54,7 +54,7 @@ const Header = (props) => {
                         <Nav className="my-2 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-course').removeAttribute("href")} id="navbarScrollingDropdown-course" align="start" className="header-user-dropList"
                                 title={<span>
-                                    {pathname.includes('/course') && !pathname.includes('/dashboard')
+                                    {(pathname.includes('/course') || pathname === ROUTE_PATH.TRANSLATION) && !pathname.includes('/dashboard')
                                         ? <Badge pill bg="primary">Course</Badge>
                                         : 'Course'
                                     }</span>}
@@ -65,6 +65,10 @@ const Header = (props) => {
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-regular fa-file-lines"></i> Questions</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.TRANSLATION}`)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-language"></i> Translation</div>
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
@@ -127,7 +131,7 @@ const Header = (props) => {
 
                         <Nav className="my-3 my-md-0 user-droplist">
                             <NavDropdown onMouseEnter={() => document.getElementById('navbarScrollingDropdown-course').removeAttribute("href")} id="navbarScrollingDropdown-course" align="start" className="header-user-dropList"
-                                title={<span className={`${pathname.includes('/course/') && !pathname.includes('/dashboard') && 'header-user-title'}`}>
+                                title={<span className={`${(pathname.includes('/course/') || pathname === ROUTE_PATH.TRANSLATION) && !pathname.includes('/dashboard') && 'header-user-title'}`}>
                                     Course</span>}
                             >
                                 <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_COURSE}/0`)}>
@@ -136,6 +140,10 @@ const Header = (props) => {
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.SHOW_ALL_QUESTION}/0`)}>
                                     <div className="cursor-pointer"><i className="fa-regular fa-file-lines"></i> Questions</div>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as="span" onClick={() => History.push(`${ROUTE_PATH.TRANSLATION}`)}>
+                                    <div className="cursor-pointer"><i className="fa-solid fa-language"></i> Translation</div>
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>

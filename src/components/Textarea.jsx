@@ -3,7 +3,7 @@ import autosize from "autosize"
 import { useRef, useLayoutEffect  } from 'react'
 
 const Textarea = (props) => {
-    const { title, value, placeholder, maxLength, enter, onChange, error } = props
+    const { title, value, placeholder, maxLength, enter, onChange, error, readOnly } = props
     const texareaRef = useRef(null)
 
     useLayoutEffect (() => {
@@ -26,6 +26,7 @@ const Textarea = (props) => {
             maxLength={maxLength}
             onKeyPress={handleKeyPress}
             onChange={onChange}
+            readOnly={readOnly}
         />
         <div className={`textarea-underline ${error ? 'underline-textarea-error' : ''}`}/>
         {error && <div className="error">{error}</div>}

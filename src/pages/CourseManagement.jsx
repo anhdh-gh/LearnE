@@ -134,7 +134,7 @@ const CourseManagement = (props) => {
 
     const { data: responseGetAllCourses, isLoading: isLoadingGetAllCourses, isFetching: isFetchingGetAllCourses, isError: isErrorGetAllCourses, refetch: getAllCourses } = useQuery(
         ["getAllCourses", page],
-        () => _.isEmpty(searchParams.get('name')) ? CourseApi.getAll(page, size) : CourseApi.search(page, size, searchParams.get('name')),
+        () => _.isEmpty(searchParams.get('name')) ? CourseApi.getAll(page, size) : CourseApi.search(page, size, searchParams.get('name').trim()),
         {
             refetchOnWindowFocus: false,
         }
@@ -274,7 +274,7 @@ const CourseManagement = (props) => {
                                 <UserInfo limit={30} user={user} />
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                                <SearchBox value={searchParams.get('name') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'name': e.target.value.trim() })} />
+                                <SearchBox value={searchParams.get('name') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'name': e.target.value })} />
                                 <Button
                                     className='h-fit font-bold'
                                     onClick={() => {

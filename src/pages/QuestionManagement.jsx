@@ -47,7 +47,7 @@ const QuestionManagement = (props) => {
 
     const { data: responseGetAllQuestions, isLoading: isLoadingGetAllQuestions, isFetching: isFetchingGetAllQuestions, isError: isErrorGetAllQuestions, refetch: getAllQuestions } = useQuery(
         ["getAllQuestions", page],
-        () => _.isEmpty(searchParams.get('text')) ? QuestionApi.getAll(page, size) : QuestionApi.search(searchParams.get('text'), page, size), {
+        () => _.isEmpty(searchParams.get('text')) ? QuestionApi.getAll(page, size) : QuestionApi.search(searchParams.get('text').trim(), page, size), {
             refetchOnWindowFocus: false,
         }
     )
@@ -188,7 +188,7 @@ const QuestionManagement = (props) => {
                                 <UserInfo limit={30} user={user} />
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                                <SearchBox value={searchParams.get('text') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'text': e.target.value.trim() })} />
+                                <SearchBox value={searchParams.get('text') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'text': e.target.value })} />
                                 <Button
                                     className='h-fit font-bold'
                                     onClick={() => {

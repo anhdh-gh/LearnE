@@ -31,7 +31,7 @@ const UserManagement = (props) => {
 
     const { data: responseGetAllUsers, isLoading: isLoadingGetAllUsers, isFetching: isFetchingGetAllUsers, isError: isErrorGetAllUsers, refetch: getAllUsers } = useQuery(
         ["getAllUsers", page],
-        () => _.isEmpty(searchParams.get('userName')) ? UserApi.getAllUsers(page, size) : UserApi.searchUser(page, size, searchParams.get('userName')),
+        () => _.isEmpty(searchParams.get('userName')) ? UserApi.getAllUsers(page, size) : UserApi.searchUser(page, size, searchParams.get('userName').trim()),
         {
             refetchOnWindowFocus: false,
         }
@@ -94,7 +94,7 @@ const UserManagement = (props) => {
                                 <UserInfo limit={30} user={user} />
                             </div>
                             <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                                <SearchBox value={searchParams.get('userName') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'userName': e.target.value.trim() })} />
+                                <SearchBox value={searchParams.get('userName') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'userName': e.target.value })} />
                                 <Button className='h-fit font-bold' onClick={() => History.push(`${ROUTE_PATH.ADMIN_USER_VIEW_ALL}/0`)}>Home</Button>
                             </div>
                         </div>

@@ -28,7 +28,7 @@ const ShowAllStudyset = (props) => {
 
     const { data: responseGetAllStudyset, isLoading, isFetching, isError, refetch: getAllStudyset } = useQuery(
         ["getAllStudyset", page],
-        () => _.isEmpty(searchParams.get('title')) ? StudysetApi.getAll(page, size) : StudysetApi.searchAll(searchParams.get('title'), page, size),
+        () => _.isEmpty(searchParams.get('title')) ? StudysetApi.getAll(page, size) : StudysetApi.searchAll(searchParams.get('title').trim(), page, size),
         {
             refetchOnWindowFocus: false,
         }
@@ -74,7 +74,7 @@ const ShowAllStudyset = (props) => {
                             <UserInfo className="cursor-pointer" limit={30} user={_.isEmpty(user) ? responseGetAllStudyset?.data?.content[0]?.ownerUser : user} onClick={() => History.push(`${ROUTE_PATH.STUDY_SET_VIEW}/${user?.id}/0`)} />
                         </div>}
                         <div className="col-md d-flex align-items-end justify-content-between mt-4 mt-md-0">
-                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value.trim() })} />
+                            <SearchBox value={searchParams.get('title') || ''} placeholder="Search" onChange={e => setSearchParams(_.isEmpty(e.target.value.trim()) ? {} : { 'title': e.target.value })} />
                             <Button onClick={() => History.push(ROUTE_PATH.STUDY_SET_CREATE)} style={{ height: 'fit-content', fontWeight: 'bold' }}>Create</Button>
                         </div>
                     </div>

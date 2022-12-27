@@ -122,7 +122,7 @@ const ShowAllQuestion = (props) => {
                                             </OverlayTrigger>
 
                                             {
-                                                !question?.testResult ?
+                                                _.isEmpty(user) || !question?.testResult ?
                                                     <OverlayTrigger placement="bottom" overlay={<Tooltip>Test</Tooltip>}>
                                                         <Badge bg="warning" className='cursor-pointer' onClick={() => History.push(`${ROUTE_PATH.QUESTION_TEST}/${question?.id}`)}>
                                                             <i className="fas fa-edit fs-6" />

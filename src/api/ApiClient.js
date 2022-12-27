@@ -13,10 +13,10 @@ const createAxios = (contentType, URL) => {
     // axiosInstant.defaults.timeout = 20000
     axiosInstant.defaults.headers = { "Content-Type": contentType }
     axiosInstant.defaults.headers = { "Access-control-allow-origin": "*" }
-    axiosInstant.defaults.headers = localStorage.getItem(KEY.ACCESS_TOKEN) && { Authorization: `${localStorage.getItem(KEY.TOKEN_TYPE)} ${localStorage.getItem(KEY.ACCESS_TOKEN)}` }
+    axiosInstant.defaults.headers = localStorage.getItem(KEY.ACCESS_TOKEN) && localStorage.getItem(KEY.TOKEN_TYPE) && { Authorization: `${localStorage.getItem(KEY.TOKEN_TYPE)} ${localStorage.getItem(KEY.ACCESS_TOKEN)}` }
     axiosInstant.interceptors.request.use(
         (config) => {
-            if(localStorage.getItem(KEY.ACCESS_TOKEN)) {
+            if(localStorage.getItem(KEY.ACCESS_TOKEN) && localStorage.getItem(KEY.TOKEN_TYPE)) {
                 config.headers = {
                     ...config.headers,
                     Authorization: `${localStorage.getItem(KEY.TOKEN_TYPE)} ${localStorage.getItem(KEY.ACCESS_TOKEN)}` 
@@ -100,27 +100,42 @@ const handleResult = (api) => {
         })
 }
 
-const getAxios = createAxios("application/json", API_ENDPOINT.LEARNE_GATEWAY_API)
-const getAxiosForMultipart = createAxios("multipart/form-data", API_ENDPOINT.LEARNE_MULTIMEDIA_API)
+let getAxiosInstance
+const getAxios = () => {
+    if(!getAxiosInstance || ((!localStorage.getItem(KEY.ACCESS_TOKEN) || !localStorage.getItem(KEY.TOKEN_TYPE)) && !Cookie.get(KEY.REFRESH_TOKEN))) {
+        getAxiosInstance = createAxios("application/json", API_ENDPOINT.LEARNE_GATEWAY_API)
+    }
+
+    return getAxiosInstance
+}
+
+let getAxiosForMultipartInstance
+const getAxiosForMultipart = () => {
+    if(!getAxiosForMultipartInstance || ((!localStorage.getItem(KEY.ACCESS_TOKEN) || !localStorage.getItem(KEY.TOKEN_TYPE)) && !Cookie.get(KEY.REFRESH_TOKEN))) {
+        getAxiosForMultipartInstance = createAxios("multipart/form-data", API_ENDPOINT.LEARNE_MULTIMEDIA_API)
+    }
+
+    return getAxiosForMultipartInstance
+}
 
 const handleUrl = (url, query) => {
     return queryString.stringifyUrl({ url: url, query }, { arrayFormat: "comma" })
 }
 
 const ApiClient = {
-    get: (url, payload) => handleResult(getAxios.get(handleUrl(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload))),
+    get: (url, payload) => handleResult(getAxios().get(handleUrl(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload))),
 
-    post: (url, payload) => handleResult(getAxios.post(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
+    post: (url, payload) => handleResult(getAxios().post(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
 
-    postMultimedia: (url, payload) =>  handleResult(getAxios.post(API_ENDPOINT.LEARNE_MULTIMEDIA_API + url, payload)),
+    postMultimedia: (url, payload) =>  handleResult(getAxios().post(API_ENDPOINT.LEARNE_MULTIMEDIA_API + url, payload)),
 
-    postMultipartFormData: (url, payload) =>  handleResult(getAxiosForMultipart.post(API_ENDPOINT.LEARNE_MULTIMEDIA_API + url, payload)),
+    postMultipartFormData: (url, payload) =>  handleResult(getAxiosForMultipart().post(API_ENDPOINT.LEARNE_MULTIMEDIA_API + url, payload)),
 
-    put: (url, payload) => handleResult(getAxios.put(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
+    put: (url, payload) => handleResult(getAxios().put(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
 
-    patch: (url, payload) => handleResult(getAxios.patch(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
+    patch: (url, payload) => handleResult(getAxios().patch(API_ENDPOINT.LEARNE_GATEWAY_API + url, payload)),
 
-    delete: (url, payload) => handleResult(getAxios.delete(API_ENDPOINT.LEARNE_GATEWAY_API + url, { data: payload })),
+    delete: (url, payload) => handleResult(getAxios().delete(API_ENDPOINT.LEARNE_GATEWAY_API + url, { data: payload })),
 }
 
 export default ApiClient

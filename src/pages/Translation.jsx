@@ -23,10 +23,10 @@ const Translation = (props) => {
 
     useLayoutEffect(() => {
         if (termSearch && !_.isEmpty(termSearch.trim())) {
-            GoogleTranslateApi.getDefinition(termSearch.trim(), "auto", to)
+            GoogleTranslateApi.getTranslationOfParagraph(termSearch.trim(), "auto", to)
                 .then(res => {
-                    if (res && !_.isEmpty(res) && res?.[0]) {
-                        setDefinition(CommonUtil.capitalizeFirstLetter(res?.[0]))
+                    if (res && !_.isEmpty(res)) {
+                        setDefinition(CommonUtil.capitalizeFirstLetter(res))
                     } else {
                         setDefinition(termSearch)
                     }

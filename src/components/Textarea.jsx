@@ -3,12 +3,27 @@ import autosize from "autosize"
 import { useRef, useLayoutEffect  } from 'react'
 
 const Textarea = (props) => {
-    const { title, value, placeholder, maxLength, enter, onChange, error, readOnly } = props
+    const { title, value, placeholder, maxLength, enter, onChange, error, readOnly, setHeightDefinition, style } = props
     const texareaRef = useRef(null)
 
     useLayoutEffect (() => {
-        autosize(texareaRef.current)
-    }, [])
+        if(!readOnly) {
+            autosize(texareaRef.current)
+        }
+    }, [ readOnly ])
+
+    useLayoutEffect (() => {
+        if (!texareaRef.current || readOnly) {
+            return
+        }
+        const resizeObserver = new ResizeObserver(() => {
+            // Do what you want to do when the size of the element changes
+            setHeightDefinition(texareaRef.current.clientHeight)
+        })
+
+        resizeObserver.observe(texareaRef.current)
+        return () => resizeObserver.disconnect() // clean up 
+    }, [ readOnly, setHeightDefinition ])
 
     const handleKeyPress = e => {
         if(enter === false && e.key === 'Enter')
@@ -27,6 +42,7 @@ const Textarea = (props) => {
             onKeyPress={handleKeyPress}
             onChange={onChange}
             readOnly={readOnly}
+            style={style}
         />
         <div className={`textarea-underline ${error ? 'underline-textarea-error' : ''}`}/>
         {error && <div className="error">{error}</div>}

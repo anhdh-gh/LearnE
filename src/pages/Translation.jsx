@@ -16,6 +16,7 @@ const Translation = (props) => {
     const [from, setFrom] = useState('en')
     const [to, setTo] = useState('vi')
     const [infoOfTerm, setInfoOfTerm] = useState()
+    const [heightDefinition, setHeightDefinition] = useState(0)
 
     useLayoutEffect (() => {
         window.scrollTo(0, 0)
@@ -90,6 +91,7 @@ const Translation = (props) => {
                                         }
                                     }}
                                     maxLength={1000}
+                                    setHeightDefinition={setHeightDefinition}
                                 />
                             </div>
 
@@ -102,6 +104,7 @@ const Translation = (props) => {
                                     error={''}
                                     onChange={e => { }}
                                     readOnly={true}
+                                    style={heightDefinition && definition ? {"height": `${heightDefinition}px`} : {}}
                                 />
                             </div>
                         </div>

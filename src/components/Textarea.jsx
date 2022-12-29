@@ -3,7 +3,7 @@ import autosize from "autosize"
 import { useRef, useLayoutEffect  } from 'react'
 
 const Textarea = (props) => {
-    const { title, value, placeholder, maxLength, enter, onChange, error, readOnly, setHeightDefinition, style } = props
+    const { title, value, placeholder, maxLength, enter, onChange, error, readOnly, setHeightDefinition, style, className } = props
     const texareaRef = useRef(null)
 
     useLayoutEffect (() => {
@@ -34,7 +34,7 @@ const Textarea = (props) => {
         <label className="textarea-label">{title}</label>
         <textarea 
             ref={texareaRef}
-            className="textarea-input"
+            className={`textarea-input ${className}`}
             value={value}
             placeholder={placeholder}
             rows={1}

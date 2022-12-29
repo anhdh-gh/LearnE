@@ -92,6 +92,8 @@ const Translation = (props) => {
                                     }}
                                     maxLength={1000}
                                     setHeightDefinition={setHeightDefinition}
+                                    style={_.isEmpty(definition) ? {"overflow": `auto`} : {}}
+                                    className={_.isEmpty(term) && _.isEmpty(definition) && _.isEmpty(infoOfTerm) ? 'h-auto' : ''}
                                 />
                             </div>
 

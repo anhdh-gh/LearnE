@@ -23,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
                             "https://learnefrontend.vercel.app",
                             "https://learnefrontend.herokuapp.com",
                             "https://learne-41d47.web.app",
-                            "https://learne-41d47.firebaseapp.com",
+                            "https://learne-41d47.firebaseapp.com"
                             "https://test-1234-4708e.web.app"
                         );
             }

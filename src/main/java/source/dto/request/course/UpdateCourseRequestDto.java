@@ -34,5 +34,5 @@ public class UpdateCourseRequestDto extends BasicRequest {
 
     private List<RequirementDto> requirements;
 
-    private List<TargetDto> requests;
+    private List<TargetDto> targets;
 }

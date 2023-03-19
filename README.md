@@ -1,2 +1,2 @@
-# Learn Everything
+# Learn English
 ### https://learnefrontend.vercel.app
